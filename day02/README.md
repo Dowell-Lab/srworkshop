@@ -1,5 +1,7 @@
 # Day 2! Working in the Unix Environment
 
+## WORKSHEETS
+
 ## Part 1: Copy a bedGraph file to our home directory and inspect it
 Author: Zach Maas
 
@@ -38,3 +40,16 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 	- **cat** (concatenate) prints out the contents of a file directly to your terminal
 	- **head/tail** show you the first and last 10 lines of a file, respectively. These are  useful for quickly making sure a file is in the right format 
 	- **vim** is an advanced text editor that allows you to edit files for writing scripts. **nano** is a simpler text editor for writing scripts on the command line 
+
+-------------------------------------------------------------------------
+## Part 2: Write a script to move a fastq file
+
+*Goal*: Learn how to take a series of steps like you ran before and combine them into a single script that you can run for reproducbility.
+
+### What you get to do:
+1. Make a new file called *download_fastq.sh* in your *workshop-day2/scripts* directory
+2. Add *#!/bin/bash* as the first line so that our system knows this is a shell script
+3. Write a series of commands on separate lines in your script to copy the fastq files from */scratch/Shares/public/sread2022/data_files/day4/fastq* and put them in your *workshop-day2/data* directory.
+4. Modify permissions on your script so that it is executable
+5. Run the script and make sure that your file downloads successfully.
+6. Back up your script and results to your home directory
