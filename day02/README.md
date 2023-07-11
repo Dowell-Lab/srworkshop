@@ -2,9 +2,10 @@
 
 ## Part 1: Copy a bedGraph file to our home directory and inspect it
 Author: Zach Maas
+
 *Goal*: Help you familiarize yourself with the unix computing environment by performing some basic tasks and troubleshooting things on your own.
 
-*Things you need to do:*
+### What you get to do:
 1. Log onto the Short Read Workshop server using SSH
 2. Move to your user directory on */scratch/Users/<username>*
 3. Make a folder called *workshop-day2* and a folder inside of that called *bedfiles*
