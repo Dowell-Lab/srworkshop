@@ -12,7 +12,7 @@ Author: Zach Maas
 2. Move to your user directory on */scratch/Users/<username>*
 3. Make a folder called *workshop-day2* and a folder inside of that called *bedfiles*
 4. Make folders inside *workshop-day2* called *results*, *scripts*, *bin*, and *data*
-5. Copy the folder in */scratch/Shares/public/sread2022/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
+5. Copy the folder in */scratch/Shares/public/sread2023/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
 6. Decompress and extract the *chr1_bedfiles.tar.gz* folder in your *bedfiles* directory
 7. Look at the format of the extracted files. What kind of information do these files give you?
 
@@ -49,7 +49,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 ### What you get to do:
 1. Make a new file called *download_fastq.sh* in your *workshop-day2/scripts* directory
 2. Add *#!/bin/bash* as the first line so that our system knows this is a shell script
-3. Write a series of commands on separate lines in your script to copy the fastq files from */scratch/Shares/public/sread2022/data_files/day4/fastq* and put them in your *workshop-day2/data* directory.
+3. Write a series of commands on separate lines in your script to copy the fastq files from */scratch/Shares/public/sread2023/data_files/day4/fastq* and put them in your *workshop-day2/data* directory.
 4. Modify permissions on your script so that it is executable
 5. Run the script and make sure that your file downloads successfully.
 6. Back up your script and results to your home directory
