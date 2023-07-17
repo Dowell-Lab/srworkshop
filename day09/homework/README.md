@@ -1,4 +1,4 @@
-#Short Read Workshop – ChIP-sequencing
+# Short Read Workshop – ChIP-sequencing 
 Homework Day 9
 - Author: Jessica Huynh-Westfall (jessica.westfall@colorado.edu)
 
