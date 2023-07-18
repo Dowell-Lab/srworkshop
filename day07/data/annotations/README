@@ -1,0 +1,3 @@
+# Annotation (GTF) file created as follows
+
+cat /scratch/Shares/public/genomes/Homo_sapiens/UCSC/hg38/Annotation/Genes/genes.gtf | grep -w 'chr21' > hg38_ucsc_genes_chr21.gtf
