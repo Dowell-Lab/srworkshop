@@ -75,7 +75,7 @@ library("Rsubread")
 #' 
 #' Read in bam file list
 ## ----bamdir, eval=TRUE-------------------------------------------------------------------------------------------
-bamdir <- '/scratch/Shares/public/sread/data_files/day6/bam'
+bamdir <- '/PATH/TO/day07/data/bam'
 
 filelist <- list.files(path=bamdir,
                        pattern="sorted.bam$",
@@ -90,7 +90,7 @@ dir.create(outdir) ###creating the directory
 #' 
 ## ----loadGTF, eval=TRUE------------------------------------------------------------------------------------------
 
-hg38gtf <- "/scratch/Shares/sread/data_files/day7/annotations/hg38_ucsc_genes_chr21.gtf"
+hg38gtf <- "/PATH/TO/day07/data/annotations/hg38_ucsc_genes_chr21.gtf"
 
 #' ## Read counting using `featureCounts`
 #' 
