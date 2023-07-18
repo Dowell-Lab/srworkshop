@@ -1,8 +1,7 @@
 # Short Read Workshop – ChIP-sequencing 
-Homework Day 9
 - Author: Jessica Huynh-Westfall (jessica.westfall@colorado.edu)
 
-The main focus for this modeule is Chromatin immunoprecipitation (ChIP) assays with sequencing (ChIP-Seq) which is used to identify genome-wide DNA binding sites for transcription factors and other proteins. Wr will learn how to write a sbatch script for running MACS2 to identify the regions of binding also known as peak finding.
+The main focus for this module is Chromatin immunoprecipitation (ChIP) assays with sequencing (ChIP-Seq) which is used to identify genome-wide DNA binding sites for transcription factors and other proteins. Wr will learn how to write a sbatch script for running MACS2 to identify the regions of binding also known as peak finding.
 
 Our main objective for this module are:
 1. Learning the different parameters involved in running MACS2
