@@ -23,7 +23,7 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 ## the fastq files will be used as input to fastqc and trimmomatic
 ## trimmed reads will then be passed on to the mapping step
-DATADIR=/scratch/Shares/public/sread2022/homework_data_files/day4
+DATADIR=/scratch/Shares/public/sread2023/homework_data_files/day4
 FASTQ=${DATADIR}
 FASTQC=${DATADIR}/fastqc
 HISAT2=${DATADIR}/hisat2
