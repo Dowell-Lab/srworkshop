@@ -1,0 +1,13 @@
+Status	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Caffeine.1.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Caffeine.2.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Ethanol.1.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Ethanol.2.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Nicotine.1.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Nicotine.2.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Water.1.sorted.bam	X.scratch.Users.dara6367.SR2022.day7.bam.RNA.Human.Water.2.sorted.bam
+1	Assigned	72229622	98700516	66023027	66730254	119083240	101963531	56997325	51156796
+2	Unassigned_Unmapped	735940	1416781	1215842	727483	1333142	1327597	568533	781167
+3	Unassigned_MappingQuality	0	0	0	0	0	0	0	0
+4	Unassigned_Chimera	0	0	0	0	0	0	0	0
+5	Unassigned_FragmentLength	0	0	0	0	0	0	0	0
+6	Unassigned_Duplicate	0	0	0	0	0	0	0	0
+7	Unassigned_MultiMapping	0	0	0	0	0	0	0	0
+8	Unassigned_Secondary	0	0	0	0	0	0	0	0
+9	Unassigned_NonSplit	0	0	0	0	0	0	0	0
+10	Unassigned_NoFeatures	28176586	37969774	24813150	24527505	43961819	37279558	21473280	19350564
+11	Unassigned_Overlapping_Length	0	0	0	0	0	0	0	0
+12	Unassigned_Ambiguity	0	0	0	0	0	0	0	0
