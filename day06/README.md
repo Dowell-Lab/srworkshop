@@ -21,7 +21,7 @@ We will cover running R three ways:
 
 ## Homework
 
-1. Both homeworks can be done in R Studion
+1. Both homeworks can be done in R Studio
 
 - `Learning_R_Additional_Practice.R`
 - `Day6_rscript_homework_2023.R`
