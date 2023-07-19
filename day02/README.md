@@ -5,6 +5,7 @@ The goal of day 2 is to learn some basic Linux/Unix commands for managing files.
 ### Cheat Sheets
 Terminal commands:
 - Common comands found [here](https://cheatography.com/davechild/cheat-sheets/linux-command-line/)
+- Bash specific cheat sheet [here](https://devhints.io/bash) (variables, for loops, etc. that are helpful in bash scripts)
 
 Vim: 
 - Make sure you have done the vim tutorial already by typing vimtutor in command line
