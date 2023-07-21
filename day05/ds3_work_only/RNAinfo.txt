@@ -1,0 +1,13 @@
+filename	tech_rep	biological_rep	Family	Person	ploidy
+Eli_repA_tech1.sorted.bam	0	A	E	Eli	ploidy_typical
+Eli_repB_tech1.2.sorted.bam	0	B	E	Eli	ploidy_typical
+Eli_repC_tech1.sorted.bam	0	C	E	Eli	ploidy_typical
+Elizabeth_repA_tech1.sorted.bam	0	A	E	Elizabeth	ploidy_typical
+Elizabeth_repB_tech1.2.sorted.bam	0	B	E	Elizabeth	ploidy_typical
+Elizabeth_repC_tech1.sorted.bam	0	C	E	Elizabeth	ploidy_typical
+Eric_repA_tech1.sorted.bam	0	A	E	Eric	ploidy_typical
+Eric_repB_tech1.2.sorted.bam	0	B	E	Eric	ploidy_typical
+Eric_repC_tech1.sorted.bam	0	C	E	Eric	ploidy_typical
+Ethan_repA_tech1.sorted.bam	0	A	E	Ethan	ploidy_trisomy21
+Ethan_repB_tech1.2.sorted.bam	0	B	E	Ethan	ploidy_trisomy21
+Ethan_repC_tech1.sorted.bam	0	C	E	Ethan	ploidy_trisomy21
