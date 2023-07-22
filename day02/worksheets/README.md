@@ -21,7 +21,8 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 
 **Some useful commands and tools:**
 - Basic Utilities:
-	- **man** (manual) followed by the name of a command will tell you how to use a  command 
+	- **man** (manual) followed by the name of a command will tell you how to use a  command
+  		- type q or click "esc" to escape from man mode
 	- **ssh** lets you log into a remote server like the one we’re using during the short  read workshop 
 	- **whoami** will print your current active user
 	- **uname-n** This is useful to  make sure you’re actually on the short read server and not your local machine
