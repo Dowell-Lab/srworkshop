@@ -1,9 +1,8 @@
 # Day 2! Working in the Unix Environment
 
 ## WORKSHEETS
-
 ## Part 1: Copy a bedGraph file to your home directory and inspect it
-Author: Zach Maas
+Author: Zach Maas, edited by Hope Townsend
 
 *Goal*: Help you familiarize yourself with the unix computing environment by performing some basic tasks and troubleshooting things on your own.
 
@@ -12,9 +11,11 @@ Author: Zach Maas
 2. Move to your user directory on */scratch/Users/<username>*
 3. Make a folder called *workshop-day2* and a folder inside of that called *bedfiles*
 4. Make folders inside *workshop-day2* called *results*, *scripts*, *bin*, and *data*
-5. Copy the folder in */scratch/Shares/public/sread2023/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
-6. Decompress and extract the *chr1_bedfiles.tar.gz* folder in your *bedfiles* directory
-7. Look at the format of the extracted files. What kind of information do these files give you?
+5. Copy the gzipped (compressed) folder in */scratch/Shares/public/sread2023/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
+   	- Things are gzipped (compressed) if they contain large files or information to save space until you actually need them (think of it as putting stuff in vacuum storage bags)
+7. Decompress and extract the *chr1_bedfiles.tar.gz* folder in your *bedfiles* directory
+   	- *Hint*: check out the common commands for *Working with Files* below and don't forget about the **man** command which can help you learn more about a command
+9. Look at the format of the extracted files. What kind of information do these files give you?
 
 ### Some help/encouragement:
 If you don’t know how to do something, don’t be discouraged! Look at the documentation  we’ve provided below or search the internet for how to do what you’re trying to accomplish. 
@@ -22,6 +23,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 **Some useful commands and tools:**
 - Basic Utilities:
 	- **man** (manual) followed by the name of a command will tell you how to use a  command
+ 		- This might seem overwhelming at first because it includes everything but getting used to learning how to read this is really helpful
   		- type q or click "esc" to escape from man mode
 	- **ssh** lets you log into a remote server like the one we’re using during the short  read workshop 
 	- **whoami** will print your current active user
