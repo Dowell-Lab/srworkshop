@@ -6,7 +6,7 @@
 #SBATCH --ntasks=8                              # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=8gb                               # Memory limit
 #SBATCH --time=01:30:00                        	# Time limit hrs:min:sec
-#SBATCH --partition=short                       # Partition/queue requested on server
+#SBATCH --partition=compute                       # Partition/queue requested on server
 #SBATCH --output=/scratch/Users/<USERNAME>/eofiles/%x.%j.out  
 #SBATCH --error=/scratch/Users/<USERNAME>/eofiles/%x.%j.err
 
