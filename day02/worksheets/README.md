@@ -2,7 +2,7 @@
 
 ## WORKSHEETS
 ## Part 1: Copy a bedGraph file to your home directory and inspect it
-Author: Zach Maas
+Author: Zach Maas, edited by Hope Townsend
 
 *Goal*: Help you familiarize yourself with the unix computing environment by performing some basic tasks and troubleshooting things on your own.
 
