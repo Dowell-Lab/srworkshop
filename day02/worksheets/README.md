@@ -1,7 +1,6 @@
 # Day 2! Working in the Unix Environment
 
 ## WORKSHEETS
-
 ## Part 1: Copy a bedGraph file to your home directory and inspect it
 Author: Zach Maas
 
@@ -22,6 +21,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 **Some useful commands and tools:**
 - Basic Utilities:
 	- **man** (manual) followed by the name of a command will tell you how to use a  command
+ 		- This might seem overwhelming at first because it includes everything but getting used to learning how to read this is really helpful
   		- type q or click "esc" to escape from man mode
 	- **ssh** lets you log into a remote server like the one we’re using during the short  read workshop 
 	- **whoami** will print your current active user
