@@ -14,7 +14,7 @@ Author: Zach Maas, edited by Hope Townsend
 5. Copy the gzipped (compressed) folder in */scratch/Shares/public/sread2023/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
    	- Things are gzipped (compressed) if they contain large files or information to save space until you actually need them (think of it as putting stuff in vacuum storage bags)
 7. Decompress and extract the *chr1_bedfiles.tar.gz* folder in your *bedfiles* directory
-   	- *Hint*: check out the common commands for *Working with Files* and don't forget about the **man** command which can help you learn more about a command
+   	- *Hint*: check out the common commands for *Working with Files* below and don't forget about the **man** command which can help you learn more about a command
 9. Look at the format of the extracted files. What kind of information do these files give you?
 
 ### Some help/encouragement:
