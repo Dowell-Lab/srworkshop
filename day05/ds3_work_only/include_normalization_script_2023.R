@@ -1,23 +1,33 @@
 ### Normalization and correctioon####
 ### Unaltered RNA-seq####
+
 library(DESeq2)
 library(tidyverse)
-RNAmetadata=read.table("/Users/samuelhunter/OneDrive - UCB-O365/sread2022/extra_talk/RNAinfo.txt", 
+
+RNAmetadata=read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/RNAinfo.txt", 
                        sep="\t", header=TRUE)
+
 common_names <-"refseq_to_common_id.txt"
-masterannotationdf=read.table("/Users/samuelhunter/OneDrive - UCB-O365/sread2022/extra_talk/annotation.csv",
+
+masterannotationdf=read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/annotation.csv",
                               sep=",",header = TRUE)
 masterannotationdf_only21 <- masterannotationdf %>% filter(chr=="chr21")
 aneuploidygenes <-masterannotationdf_only21[["name"]] #Only chr21 genes
-common_ids <- read.table(paste0("/Users/samuelhunter/OneDrive - UCB-O365/sread2022/extra_talk/",common_names),
+common_ids <- read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/refseq_to_common_id.txt",
                          sep="\t")
+
 baseploidy <- 2
 alt_ploidy <-3
+
 lesschrs <- c("chr20","chr21")
-RNAcountdat <- read.csv("/Users/samuelhunter/OneDrive - UCB-O365/sread2022/extra_talk/RNAseqcount.txt",
+
+RNAcountdat <- read.csv("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/RNAseqcount.txt",
                         sep=",", skip=0)
 rownames(RNAcountdat) <- RNAcountdat$X
+
 RNAcountdat  <- RNAcountdat[,-c(1)]
+head(RNAcountdat)
+head(RNAmetadata)
 ddsFull <- DESeqDataSetFromMatrix(countData = RNAcountdat, colData = RNAmetadata, 
                                   design = ~ biological_rep + Person)
 
@@ -29,18 +39,24 @@ resdata <- as.data.frame(RNAddsres)
 
 RNAddsresshrunk <- lfcShrink(ddsFull,
                        contrast = c("Person",person1,person2), res=RNAddsres, type = 'normal')
+head(RNAddsresshrunk)
+
+
 fullresdata <- merge(resdata,annotationmerge,by.x=0,by.y=1)
 head(fullresdata)
 common_fullresdata <- merge(fullresdata,common_ids,by.x=1,by.y=1)
 head(common_fullresdata)
 fullresdata <- fullresdata[fullresdata$chr %in% lesschrs,]
 
+View(fullresdata)
+
+
 medresdata <- fullresdata[!(is.na(fullresdata$log2FoldChange)),]
 medians <- plyr::ddply(medresdata, .(chr), summarise, med = 2^(median(log2FoldChange)))
 medians
 
-signif_medresdata <- medresdata[medresdata$padj<.01,]
-notsignif_medresdata <- medresdata[medresdata$padj>=.01,]
+signif_medresdata <- medresdata[medresdata$padj<.1,]
+notsignif_medresdata <- medresdata[medresdata$padj>=.1,]
 ggplot() + 
   geom_violin(data=fullresdata,trim=TRUE,aes(x=chr, y=log2FoldChange)) +
   #  geom_hline(yintercept=log2(0.66667),linetype="dashed",color="red") +
@@ -149,8 +165,10 @@ resdata <- as.data.frame(RNAddsres)
 fullresdata <- merge(resdata,annotationmerge,by.x=0,by.y=1)
 fullresdata <- fullresdata[fullresdata$chr %in% lesschrs,]
 medresdata <- fullresdata[!(is.na(fullresdata$log2FoldChange)),]
+
 nrow(fullresdata)
 nrow(fullresdata[fullresdata$padj<0.01 & fullresdata$chr == "chr21",])
+
 medians <- ddply(medresdata, .(chr), summarise, med = 2^(median(log2FoldChange)))
 medians
 
