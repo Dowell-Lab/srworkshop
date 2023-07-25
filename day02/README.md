@@ -28,5 +28,5 @@ Linux commands:
 
 Vim:
 - Before being able to type, you must click i (insert).
-- To save you must quit with :wq (include colon), to quit without saving, quit with :q!.
-- To search for a pattern, do :/<pattern>
+- To save you must quit with `:wq` (include colon), to quit without saving, quit with `:q!`. Make sure to click escape if you are still in editing mode.
+- To search for a pattern, do `:/<pattern>`
