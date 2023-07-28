@@ -1,5 +1,5 @@
 ####### Learning R
-####### Author: Taylor Jones
+####### Author: Taylor Jones, Georgia Barone (2023)
 ####### Here we will learn a little more about R. R is built as a statistical program,
 ####### so we will play with some dataframes, statistics and plotting to get used to R.
 ####### The top portion IN THIS PANEL is the script. This is a great place to record what functions you used.
@@ -12,11 +12,12 @@
 ##############################################################################################################################
 # Let's begin by setting a working directory, where the magic happens.
 # The command for this is setwd()
-setwd('/Users/tjones210/day6/')
+# **Side note: make sure to edit the path below to match your desired working directory path 
+setwd('/Users/username/day6/')
 getwd()
 
 # We can also do this through a variable. This can be helpful if we want to output something specifically to our working directory
-workdir <- '/Users/tjones210/day6/'
+workdir <- '/Users/username/day6/'
 setwd(workdir)
 getwd()
 
