@@ -1,10 +1,14 @@
-#!/bin/bash                                                                                                                                      
-#SBATCH --job-name=submit_Rscript # Job name
-#SBATCH --nodes=1                                                                                                                                #SBATCH --ntasks=1 # Number of CPU                                                                                                  
-#SBATCH --time=00:02:00 # Time limit                                                                                                             #SBATCH --partition compute                                                                                                                      #SBATCH --mem=3mb # Memory                                                                                                                       #SBATCH --output=/path/to/e_and_o/%x_%j.out                                                                                                      #SBATCH --error=/path/to/e_and_o/%x_%j.err                                                                  
-#SBATCH --mail-type=FAIL                      
-#SBATCH --mail-user=you_name@email.address 
-
+#!/bin/bash
+#SBATCH --job-name=<job_name>
+#SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=<your_email>                        # Where to send mail
+#SBATCH --nodes=1                                       # Numbers of nodes
+#SBATCH --ntasks=1                                      # Number of CPU (tasks)
+#SBATCH --time=00:05:00                                 # Time limit hrs:min:sec
+#SBATCH --partition=compute                             # Partition/queue requested on server    
+#SBATCH --mem=3mb                                       # Memory limit
+#SBATCH --output=/scratch/Users/<your_username>/workshop-day6/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<your_username>/workshop-day6/eofiles/%x_%j.err
 
 ################################################################################                  
 ####################### initialize directories  ################################                                                                                                                                     
