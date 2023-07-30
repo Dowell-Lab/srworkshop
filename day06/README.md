@@ -8,11 +8,11 @@ We will cover running R three ways:
 
 1. In an R console
 
-- `Day6_worksheet_learning_r.pdf` worksheet 
+- `Day6_worksheet_1.pdf` worksheet 
 
 2. In RStudio 
 
-- `Learning_R.R` R script
+- `Day_6_worksheet_2.pdf` and `Learning_R.R` will guide you
 
 3. Submitting and R script as an sbatch job
 
@@ -24,7 +24,6 @@ We will cover running R three ways:
 1. Both homeworks can be done in R Studio
 
 - `Learning_R_Additional_Practice.R`
-- `Day6_rscript_homework_2023.R`
 
 2. Additional homework is to install R packages we will use later in the week. Both packages can be found on bioconductor.
 
