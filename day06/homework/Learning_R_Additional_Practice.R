@@ -49,4 +49,7 @@ data <- read_csv('/path/to/pokemon_data.csv')
 #1. find a pair of stats that are interesting and make a beautiful pokemon plot!
 #note** consider all the possible additions through ggplot that we practiced on iris and mtcars
 
-
+####### 6. Install R packages rsubread and DESeq2 (we will be using these packages tomorrow)
+# Both packages can be found on bioconductor
+# rsubread (https://bioconductor.org/packages/release/bioc/html/Rsubread.html)
+# DESeq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
