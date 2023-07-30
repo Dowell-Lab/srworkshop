@@ -4,59 +4,73 @@
 library(DESeq2)
 library(tidyverse)
 
-RNAmetadata=read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/RNAinfo.txt", 
-                       sep="\t", header=TRUE)
-
-common_names <-"refseq_to_common_id.txt"
-
-masterannotationdf=read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/annotation.csv",
-                              sep=",",header = TRUE)
-masterannotationdf_only21 <- masterannotationdf %>% filter(chr=="chr21")
-aneuploidygenes <-masterannotationdf_only21[["name"]] #Only chr21 genes
-common_ids <- read.table("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/refseq_to_common_id.txt",
-                         sep="\t")
-
-baseploidy <- 2
-alt_ploidy <-3
-
-lesschrs <- c("chr20","chr21")
-
-RNAcountdat <- read.csv("/Users/samuelhunter/sread2023/sr2023/day05/ds3_work_only/RNAseqcount.txt",
-                        sep=",", skip=0)
-rownames(RNAcountdat) <- RNAcountdat$X
-
-RNAcountdat  <- RNAcountdat[,-c(1)]
-head(RNAcountdat)
+RNAmetadata=read.table("/sr2023/day05/ds3_work_only/RNAinfo.txt",
+                       sep="\t",header=TRUE)
 head(RNAmetadata)
-ddsFull <- DESeqDataSetFromMatrix(countData = RNAcountdat, colData = RNAmetadata, 
-                                  design = ~ biological_rep + Person)
 
-person1="Ethan"
-person2="Eric"
+common_names <- "refseq_to_common_id.txt"
+
+masterannotationdf = read.table("/sr2023/day05/ds3_work_only/annotation.csv",
+                                sep=",",header=TRUE)
+
+head(masterannotationdf)
+masterannotationdf_only21 <- masterannotationdf %>% filter(chr=="chr21")
+head(masterannotationdf_only21)
+
+aneuploidygenes <- masterannotationdf_only21[["name"]]
+aneuploidygenes
+
+baseploidy = 2
+alt_ploidy = 3
+
+lesschrs = c("chr20","chr21")
+RNAcountdat <- read.csv("/sr2023/day05/ds3_work_only/RNAseqcount.txt",
+                        sep = ",",skip=0)
+head(RNAcountdat)
+rownames(RNAcountdat) <- RNAcountdat$X
+RNAcountdat <- RNAcountdat[,-c(1)]
+
+controlgenes <- ifelse(rownames(ddsFull) %in% aneuploidygenes,FALSE,TRUE)
+
+ploidy_trisomy21 <- ifelse(rownames(ddsFull) %in% aneuploidygenes, alt_ploidy, baseploidy)
+ploidy_typical <- rep(baseploidy,nrow(ddsFull))
+ploidy_typical
+
+normFactors <- matrix(do.call(cbind,mget(paste0(ddsFull$ploidy))),
+                      ncol = ncol(ddsFull), nrow=nrow(ddsFull),
+                      dimnames=list(1:nrow(ddsFull),
+                                    1:ncol(ddsFull)))
+
+normFactors <- normFactors/baseploidy
+unique(normFactors)
+
+
+ddsFull <- DESeqDataSetFromMatrix(countData = RNAcountdat,
+                                  colData = RNAmetadata,
+                                  design = ~biological_rep + Person)
+
+person1 = "Ethan"
+person2 = "Eric"
+
 ddsFull <- DESeq(ddsFull)
-RNAddsres<-results(ddsFull,contrast=c("Person",person1,person2))
+RNAddsres <- results(ddsFull,contrast=c("Person",person1,person2))
 resdata <- as.data.frame(RNAddsres)
 
-RNAddsresshrunk <- lfcShrink(ddsFull,
-                       contrast = c("Person",person1,person2), res=RNAddsres, type = 'normal')
-head(RNAddsresshrunk)
-
-
-fullresdata <- merge(resdata,annotationmerge,by.x=0,by.y=1)
+fullresdata <- merge(resdata,masterannotationdf,by.x=0,by.y=1)
 head(fullresdata)
-common_fullresdata <- merge(fullresdata,common_ids,by.x=1,by.y=1)
-head(common_fullresdata)
+
 fullresdata <- fullresdata[fullresdata$chr %in% lesschrs,]
 
-View(fullresdata)
-
+dim(fullresdata)
 
 medresdata <- fullresdata[!(is.na(fullresdata$log2FoldChange)),]
-medians <- plyr::ddply(medresdata, .(chr), summarise, med = 2^(median(log2FoldChange)))
+medians <- plyr::ddply(medresdata, .(chr),summarise, med = 2^(median(log2FoldChange)))
 medians
 
-signif_medresdata <- medresdata[medresdata$padj<.1,]
-notsignif_medresdata <- medresdata[medresdata$padj>=.1,]
+signif_medresdata <- medresdata[medresdata$padj <.1,]
+notsignif_medresdata <- medresdata[medresdata$padj >=.1,]
+
+
 ggplot() + 
   geom_violin(data=fullresdata,trim=TRUE,aes(x=chr, y=log2FoldChange)) +
   #  geom_hline(yintercept=log2(0.66667),linetype="dashed",color="red") +
@@ -75,6 +89,10 @@ ggplot() +
   theme(axis.title.x = element_blank())
 
 
+
+RNAddsresshrunk <- lfcShrink(ddsFull,
+                       contrast = c("Person",person1,person2), res=RNAddsres, type = 'normal')
+head(RNAddsresshrunk)
 
 #Volcano Plot
 signif_fullresdata <- fullresdata[fullresdata$padj<.01,]
@@ -117,7 +135,7 @@ ddsFull <- DESeqDataSetFromMatrix(countData = RNAcountdat,
                                   colData = RNAmetadata, design = ~ biological_rep + Person)
 ddsCollapsed_normfactor <-estimateSizeFactors(ddsFull,normMatrix=normFactors, 
                                               controlGenes=controlgenes) 
-DESeq(ddsFull)
+
 ddsCollapsed_normfactor <- estimateDispersionsGeneEst(ddsCollapsed_normfactor) 
 ddsCollapsed_normfactor<-estimateDispersionsFit(ddsCollapsed_normfactor) 
 ddsCollapsed_normfactor <- estimateDispersionsMAP(ddsCollapsed_normfactor)  
@@ -127,7 +145,7 @@ person1 = "Ethan"
 person2 = "Eric"
 RNAddsres<-results(ddsCollapsed_normfactor,  contrast=c("Person", person1, person2))
 resdata <- as.data.frame(RNAddsres)
-fullresdata <- merge(resdata,annotationmerge,by.x=0,by.y=1)
+fullresdata <- merge(resdata,masterannotationdf,by.x=0,by.y=1)
 fullresdata <- fullresdata[fullresdata$chr %in% lesschrs,]
 medresdata <- fullresdata[!(is.na(fullresdata$log2FoldChange)),]
 medians <- ddply(medresdata, .(chr), summarise, med = 2^(median(log2FoldChange)))
@@ -162,7 +180,7 @@ person2 = "Eric"
 RNAddsres<-results(ddsFull,  contrast=c("Person", person1, person2),
                    altHypothesis = "lessAbs", lfcThreshold=log2(1.5))
 resdata <- as.data.frame(RNAddsres)
-fullresdata <- merge(resdata,annotationmerge,by.x=0,by.y=1)
+fullresdata <- merge(resdata,masterannotationdf,by.x=0,by.y=1)
 fullresdata <- fullresdata[fullresdata$chr %in% lesschrs,]
 medresdata <- fullresdata[!(is.na(fullresdata$log2FoldChange)),]
 
