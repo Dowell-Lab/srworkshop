@@ -45,5 +45,5 @@ plot(mtcars$mpg, mtcars$wt,
      pch=19)
 dev.off()
 
-# 4: Create and save a pretty plot for mtcars mpg vs weight below
+# 4: Optional- create and save another pretty plot for mtcars data below
 
