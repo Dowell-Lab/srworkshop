@@ -1,0 +1,37 @@
+#!/bin/bash
+#SBATCH --job-name=cellrangerCount                           # Job name
+#SBATCH --nodes=1                                       # Numbers of nodes
+#SBATCH --ntasks=34                                      # Number of CPU (tasks)
+#SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
+#SBATCH --partition=short                               # Partition/queue requested on server    
+#SBATCH --mem=64gb                                       # Memory limit
+#SBATCH --output=/scratch/Shares/dowell/temp/ChrisO/workshop/e_and_o/cellrangercount.%j.out
+#SBATCH --error=/scratch/Shares/dowell/temp/ChrisO/workshop/e_and_o/cellrangercount.%j.err
+
+
+##########################################################################################
+################## MODULE LOAD ###################################################
+
+module load cellranger/3.0.1
+
+##########################################################################################
+################## DISPLAY JOB CONTEXT ###################################################
+
+echo Job: $SLURM_JOB_NAME with ID $SLURM_JOB_ID
+echo Running on host `hostname`
+echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
+
+##########################################################################################
+################## RUN JOB ###############################################################
+
+
+cellranger count --id=run_count_10kPBMCs \
+ --fastqs=/scratch/Shares/public/sread2023/data_files/day8/10k_PBMC_3p_nextgem_Chromium_X_fastqs \
+ --transcriptome=/scratch/Shares/public/sread2023/data_files/day8/refdata-gex-GRCh38-2020-A \
+ --sample=10k_PBMC_3p_nextgem_Chromium_X \
+ --include-introns=true \
+ --expect-cells=10000 \
+ --localcores=34       ###must match ntasks above
+
+                                                                                
+echo Job finished at `date +"%T %a %d %b %Y"`
