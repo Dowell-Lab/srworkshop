@@ -10,5 +10,7 @@ Day7_differential_expression_worksheet.doc
 
 It is easier to use Deseq2 on your own computer with Rstudio and the counts file you need for input is very small. 
 
+If you get both of these worksheets done you can go to the scripts folder of day 7 and look inside the routin directory. It has another way to count using feature counts. What are the pros and cons of this other way?
+
 
 
