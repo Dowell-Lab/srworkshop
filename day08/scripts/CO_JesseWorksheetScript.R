@@ -1,13 +1,13 @@
-###Jesse Worksheet###
+###Seurat Worksheet###
 
 install.packages("devtools")
 library(devtools)
-devtools::install_github("satijalab/seurat")
+
+devtools::install_github("satijalab/seurat") ###if this throws an error, use the line of code below instead (after the hash)
+#install.packages("https://cran.r-project.org/src/contrib/Archive/devtools/devtools_2.4.3.tar.gz", repos = NULL, type="source") 
 library(Seurat)
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/devtools/devtools_2.4.3.tar.gz", repos = NULL, type="source") 
-
-workdir <- '/Users/christopherozeroff/Desktop/workshop/cellranger_outputs_R_objects/'
+workdir <- '/Users/christopherozeroff/Desktop/workshop/cellranger_outputs_R_objects/' ###Change the directory path to your own
 
 obj.4dpi.10x <- Read10X(paste(workdir, "dpi4_filtered_feature_bc_matrix/", sep = ""))
 obj.4dpi.seurat <- CreateSeuratObject(counts = obj.4dpi.10x,
@@ -33,10 +33,11 @@ obj.7dpi.seurat[["percent.mt"]] <- PercentageFeatureSet(obj.7dpi.seurat, pattern
 VlnPlot(obj.7dpi.seurat, features = c("nFeature_RNA","nCount_RNA","percent.mt"),ncol = 3)
 
 obj.7dpi.seurat <- subset(obj.7dpi.seurat, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+
 #visualize post cleaning
 VlnPlot(obj.7dpi.seurat, features = c("nFeature_RNA","nCount_RNA","percent.mt"),ncol = 3)
 
-#repeat for other data set
+##repeat for 4dpi##
 
 obj.4dpi.seurat[["percent.mt"]] <- PercentageFeatureSet(obj.4dpi.seurat, pattern = "mt-")
 
