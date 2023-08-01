@@ -1,8 +1,11 @@
 ###Jesse Worksheet###
 
+install.packages("devtools")
 library(devtools)
 devtools::install_github("satijalab/seurat")
 library(Seurat)
+
+install.packages("https://cran.r-project.org/src/contrib/Archive/devtools/devtools_2.4.3.tar.gz", repos = NULL, type="source") 
 
 workdir <- '/Users/christopherozeroff/Desktop/workshop/cellranger_outputs_R_objects/'
 
@@ -72,14 +75,19 @@ algorithm = 1
 #Scaling
 DefaultAssay(myogenic.subset.umap.final) <- "integrated"
 myogenic.subset.umap.final <- ScaleData(myogenic.subset.umap.final, verbose = FALSE)
+
+#PCA
+
 myogenic.subset.umap.final <- RunPCA(myogenic.subset.umap.final, npcs = npcs, verbose = FALSE)
+
+#UMAP
 myogenic.subset.umap.final <- RunUMAP(myogenic.subset.umap.final, reduction = "pca",
                                       n.neighbors = n.neighbors,
                                       min.dist = min.dist,
                                       dims = dims)
 
+#identify clusters
 myogenic.subset.umap.final <- FindNeighbors(myogenic.subset.umap.final)
-
 myogenic.subset.umap.final <<- FindClusters(myogenic.subset.umap.final, resolution = resolution,
                                            algorithm = algorithm)
 
