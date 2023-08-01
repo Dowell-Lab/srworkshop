@@ -22,8 +22,6 @@ After you get done with Deseq2 you will have a list of genes that is significanl
 You could use those gene lists for Go anaysis or GSEA analysis. CHeck out these worksheets for how.
 
 The worksheet:
-Deseq2_to_go_or_gsea.pdf
-will get your gene lists in the right format.
 
 Genelist_to_go.pdf shows you how to use go.
 And you can find out how to use GSEA here.

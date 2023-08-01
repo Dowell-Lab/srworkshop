@@ -119,3 +119,20 @@ write.table(results_shrunk_sig,
             row.names = TRUE,
             col.names = TRUE,
             "/PATH/TO/day07/data/Andrysik2017_RNAseq_Nutlin_results.tsv")
+
+res_shrink_expressed <- as.data.frame(results_shrunk)
+res_shrink_expressed <- res_shrink_expressed[!is.na(res_shrink_expressed$padj),]
+
+outdir="/PATH/TO/day07/data/"
+
+write.csv(rownames(res_shrink_expressed), file = paste0(outdir,"backgroundgenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
+write.csv(rownames(results_shrunk_sig), file = paste0(outdir,"siggenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
+
+rnkdf <- tibble(gene = rownames(results_shrunk),
+				rnk = -log(res$pvalue) * sign(res$log2FoldChange)) %>%
+	arrange(desc(rnk)) %>% drop_na()
+
+## Write out the table without any additional information
+write.table(rnkdf, file = paste0(outdir,"deseq_res_for_gsea.rnk"),
+			append = FALSE, col.names = FALSE, row.names = FALSE,
+			quote = FALSE, sep = "\t")
