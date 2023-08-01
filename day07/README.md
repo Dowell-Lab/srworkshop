@@ -11,7 +11,7 @@ BEFORE WE START
 We will do the M and M example. 
 Please count your M and Ms and put them here. 
 
-https://docs.google.com/spreadsheets/d/1xaJAa6lmNU_PdwQs_-4M2thAbBNSiyuwXmRyp6NpP2w/edit#gid=1181236382
+https://tinyurl.com/mandmstat
 
 ## Inclass Worksheets
 
