@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=cellrangerCount                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=34                                      # Number of CPU (tasks)
+#SBATCH --ntasks=                                      # Number of CPU (tasks)
 #SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
 #SBATCH --mem=64gb                                       # Memory limit
-#SBATCH --output=/scratch/Shares/dowell/temp/ChrisO/workshop/e_and_o/cellrangercount.%j.out
-#SBATCH --error=/scratch/Shares/dowell/temp/ChrisO/workshop/e_and_o/cellrangercount.%j.err
+#SBATCH --output=PathToDirectory.../e_and_o/cellrangercount.%j.out
+#SBATCH --error=PathToDirectory.../e_and_o/cellrangercount.%j.err
 
 
 ##########################################################################################
