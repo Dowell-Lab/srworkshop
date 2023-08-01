@@ -1,5 +1,5 @@
 
-First you willl need to log into the AWS andfollow:
+First, you will need to log into the AWS and follow:
  Day7_installing_Rsubread.docx
  Day7_featurecounts_worksheet.docx
 
