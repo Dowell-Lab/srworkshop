@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=cellrangerCount                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=                                      # Number of CPU (tasks)
+#SBATCH --ntasks=SET TASKS                                     # Number of CPU (tasks)
 #SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
 #SBATCH --mem=64gb                                       # Memory limit
@@ -26,12 +26,12 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 
 cellranger count --id=run_count_10kPBMCs \
- --fastqs=/scratch/Shares/public/sread2023/data_files/day8/10k_PBMC_3p_nextgem_Chromium_X_fastqs \
- --transcriptome=/scratch/Shares/public/sread2023/data_files/day8/refdata-gex-GRCh38-2020-A \
+ --fastqs=PathTo...10k_PBMC_3p_nextgem_Chromium_X_fastqs \
+ --transcriptome=PathTo...refdata-gex-GRCh38-2020-A \
  --sample=10k_PBMC_3p_nextgem_Chromium_X \
  --include-introns=true \
  --expect-cells=10000 \
- --localcores=34       ###must match ntasks above
+ --localcores=SET LOCAL CORES       ###must match ntasks above
 
                                                                                 
 echo Job finished at `date +"%T %a %d %b %Y"`
