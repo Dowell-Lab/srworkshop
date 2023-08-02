@@ -13,6 +13,7 @@
 ## the fastq files will be used as input to fastqc. 
 ## output will be a fastqc file used to assess quality
 
+BASEDIR=/scratch/Users/<username>/day9
 INDIR=/scratch/Users/<username>/day9/bam
 OUTDIR=/scratch/Users/<username>/day9/qc/preseq
 
@@ -41,7 +42,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 mkdir -p ${OUTDIR}
 
-for FILENAME in `ls $INDIR | | grep 'BACH1' | grep -v 'bai'`; do
+for FILENAME in `ls $INDIR | grep 'BACH1' | grep -v 'bai'`; do
 
     # generate the complexity curve
     # -s is the step size (for larger samples the default is 1million)
@@ -57,8 +58,8 @@ for FILENAME in `ls $INDIR | | grep 'BACH1' | grep -v 'bai'`; do
 done
                                                                         
 ## Multiqc to summarize all the QC analysis (including fastQC and HISTAT2)
-source /data/software/multiqc-venv/bin/activate
-multiqc $INDIR
+source /data/multiqc-venv/bin/activate
+multiqc $BASEDIR -o ${BASEDIR}/qc/multiqc/
 
 echo Job finished at `date +"%T %a %d %b %Y"`
 

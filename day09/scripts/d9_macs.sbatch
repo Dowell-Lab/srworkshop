@@ -20,7 +20,7 @@ module load bedtools/2.25.0
 
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
 INDIR='/scratch/Shares/public/sread2023/data_files/day9/bams/'
-OUTDIR='/scratch/Users/jessicatwes/day9/macs/'
+OUTDIR='/scratch/Users/<username>/day9/macs/'
 mkdir -p ${OUTDIR}/w_ctrl ${OUTDIR}/no_ctrl
 
 #Blacklist region bed file 
