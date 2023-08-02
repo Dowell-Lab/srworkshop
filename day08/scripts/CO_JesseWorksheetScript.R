@@ -98,3 +98,7 @@ DimPlot(myogenic.subset.umap.final, pt.size = 1, label = T)
 DimPlot(myogenic.subset.umap.final, pt.size = 1, label = T, group.by = 'cell.id')
 DimPlot(myogenic.subset.umap.final, pt.size = 1, label = T, group.by = 'injury.dpi')
 
+# Find differentially expressed genes between cluster 1 and cluster 7
+markers <- FindMarkers(myogenic.subset.umap.final, ident.2 = '1', ident.2 = '7')
+head(markers
+
