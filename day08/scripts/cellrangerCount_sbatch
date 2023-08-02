@@ -15,11 +15,6 @@
 module load cellranger/3.0.1
 
 ##########################################################################################
-################## SET VARIABLES ###################################################
-
-OUTDIR=/path/to/outdir
-
-##########################################################################################
 ################## DISPLAY JOB CONTEXT ###################################################
 
 
@@ -31,7 +26,7 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 ################## RUN JOB ###############################################################
 
 
-cellranger count --id=${OUTDIR}/10k_PBMC_3p_nextgem_Chromium_X \
+cellranger count --id=run_count_10kPBMCs \
  --fastqs=Path/To/10k_PBMC_3p_nextgem_Chromium_X_fastqs \
  --transcriptome=Path/To/refdata-gex-GRCh38-2020-A \
  --sample=10k_PBMC_3p_nextgem_Chromium_X \
