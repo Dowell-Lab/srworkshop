@@ -40,3 +40,7 @@ To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing
 
 2. Copy the d9_macs.sbatch from the git repo and place it into your scripts directory. Edit and run script
 
+## Part 3: Bedtools
+Annotation files are critical for downstream sequencing analysis, and text file manipulation and Bedtools are both very useful ways to work with them.
+
+Follow the Day9_Bedtools worksheet now.
