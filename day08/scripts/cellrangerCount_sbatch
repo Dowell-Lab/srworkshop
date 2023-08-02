@@ -4,13 +4,13 @@
 #SBATCH --ntasks=SET TASKS                                     # Number of CPU (tasks)
 #SBATCH --time=01:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
-#SBATCH --mem=10Gb                                       # Memory limit
+#SBATCH --mem=28Gb                                       # Memory limit
 #SBATCH --output=Path/To/Directory/e_and_o/cellrangercount.%j.out
 #SBATCH --error=Path/To/Directory/e_and_o/cellrangercount.%j.err
 
 
 ##########################################################################################
-################## MODULE LOAD ###################################################
+################## MODULE LOAD ###########################################################
 
 module load cellranger/3.0.1
 
