@@ -61,6 +61,7 @@ list <- SplitObject(merged, split.by = "cellid")
 
 anchors.rpca <- FindIntegrationAnchors(list, dims = 1:20, anchor.features = 2000, reduction = 'rpca')
 
+integrated.data <- IntegrateData(anchors.rpca, dims = 1:20, k.weight = 0.5)
 
 ##Clustering and visualization##
 load(paste0(workdir, 'final_myogenic_subset_seurat.RData'))
