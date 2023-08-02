@@ -2,11 +2,11 @@
 #SBATCH --job-name=cellrangerCount                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
 #SBATCH --ntasks=SET TASKS                                     # Number of CPU (tasks)
-#SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
+#SBATCH --time=01:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
-#SBATCH --mem=64gb                                       # Memory limit
-#SBATCH --output=PathToDirectory.../e_and_o/cellrangercount.%j.out
-#SBATCH --error=PathToDirectory.../e_and_o/cellrangercount.%j.err
+#SBATCH --mem=10Gb                                       # Memory limit
+#SBATCH --output=Path/To/Directory/e_and_o/cellrangercount.%j.out
+#SBATCH --error=Path/To/Directory/e_and_o/cellrangercount.%j.err
 
 
 ##########################################################################################
@@ -26,10 +26,9 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 
 cellranger count --id=run_count_10kPBMCs \
- --fastqs=PathTo...10k_PBMC_3p_nextgem_Chromium_X_fastqs \
- --transcriptome=PathTo...refdata-gex-GRCh38-2020-A \
+ --fastqs=Path/To/10k_PBMC_3p_nextgem_Chromium_X_fastqs \
+ --transcriptome=Path/To/refdata-gex-GRCh38-2020-A \
  --sample=10k_PBMC_3p_nextgem_Chromium_X \
- --include-introns=true \
  --expect-cells=10000 \
  --localcores=SET LOCAL CORES       ###must match ntasks above
 
