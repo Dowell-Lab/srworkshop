@@ -2,7 +2,7 @@
 #SBATCH --job-name=cellrangerCount                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
 #SBATCH --ntasks=SET TASKS                                     # Number of CPU (tasks)
-#SBATCH --time=01:00:00                                 # Time limit hrs:min:sec
+#SBATCH --time=02:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
 #SBATCH --mem=28Gb                                       # Memory limit
 #SBATCH --output=Path/To/Directory/e_and_o/cellrangercount.%j.out
