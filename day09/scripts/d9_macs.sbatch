@@ -21,7 +21,7 @@ module load bedtools/2.25.0
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
 INDIR='/scratch/Shares/public/sread2023/data_files/day9/bams/'
 OUTDIR='/scratch/Users/<username>/day9/macs/'
-mkdir -p ${OUTDIR}/w_ctrl ${OUTDIR}/no_ctrl
+mkdir -p ${OUTDIR} ${OUTDIR}/w_ctrl ${OUTDIR}/no_ctrl
 
 #Blacklist region bed file 
 BLACKLIST='/scratch/Shares/public/sread2023/data_files/day9/blacklist_hg38/problematic_regions_hg38.bed'
@@ -55,7 +55,7 @@ macs2 callpeak \
  -n ${FILENAME} \
  -g hs \
  -B \
- -q 0.01 \
+ -q 0.01
 
 ### Calling peaks without control
 macs2 callpeak \
@@ -64,7 +64,7 @@ macs2 callpeak \
  -n ${FILENAME} \
  -g hs \
  -B \
- -q 0.01 \
+ -q 0.01
 
 echo macs2 done
 date
