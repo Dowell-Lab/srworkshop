@@ -6,8 +6,8 @@
 #SBATCH --ntasks=1                                      # Number of CPU (tasks)
 #SBATCH --time=00:05:00                                 # Time limit hrs:min:sec
 #SBATCH --mem=50mb                                     # Memory limit
-#SBATCH --output=/scratch/Users/<username>/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<YourUsername>/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<YourUsername>/eofiles/%x_%j.err
 
 ################ SET REQUIRED VARIABLES ##################################################
 ## the fastq files will be used as input to fastqc. 
@@ -18,8 +18,8 @@ OUTDIR=/scratch/Users/<YourUsername>/day9/qc
 BAM=/scratch/Users/<YourUsername>/day9/bam
 SAM=/scratch/Users/<YourUsername>/day9/sam
 INDICES=/scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome
-OUTDIR=/scratch/Users/<YourUsername>/day9/qc
 
+mkdir -p ${OUTDIR} ${BAM} ${SAM} 
 ##########################################################################################
 ############### LOAD REQUIRED MODULES ####################################################
 
@@ -48,13 +48,14 @@ mkdir -p ${OUTDIR}
 ## The fastq files will be used as input to fastqc. 
 ## Output will be a fastqc file used to assess quality
 
-mkdir -p ${OUTDIR}/fastqc
+FASTQC=${OUTDIR}/fastqc
+mkdir -p ${FASTQC}
 
 for FILENAME in `ls $INDIR`; do
     
     fastqc \
 	${INDIR}/${FILENAME} \
-	-o ${OUTDIR}/fastqc
+	-o ${FASTQC}
         
 done
 echo fastqc complete
