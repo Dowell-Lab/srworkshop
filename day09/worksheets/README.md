@@ -7,7 +7,7 @@ As we discussed last week, ensuring your data's quality is a pertinent step befo
 
 1. After you Log into the AWS, you will make a directory for day 9 in your scratch directory. Make the subdirectories including one for qc and its subdirectories. Create a working directory for day9 in scratch.
 ```
-[<username>@<hostname> ~]$ cd /scratch/User/<username>
+[<username>@<hostname> ~]$ cd /scratch/Users/<username>
 [<username>@<hostname> ~]$ mkdir day9
 [<username>@<hostname> ~]$ cd day9
 [<username>@<hostname> ~]$ mkdir scripts qc fastq bam sam
