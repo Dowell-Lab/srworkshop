@@ -3,9 +3,9 @@
 #SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<email>                      	# Where to send mail
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=1                                      # Number of CPU (tasks)
+#SBATCH --ntasks=4                                      # Number of CPU (tasks)
 #SBATCH --time=00:05:00                                 # Time limit hrs:min:sec
-#SBATCH --mem=50mb                                     # Memory limit
+#SBATCH --mem=50Mb                                     # Memory limit
 #SBATCH --output=/scratch/Users/<YourUsername>/eofiles/%x_%j.out
 #SBATCH --error=/scratch/Users/<YourUsername>/eofiles/%x_%j.err
 
@@ -74,7 +74,7 @@ for FILENAME in `ls $INDIR | grep 'BACH1' | tr '.' '\t' | cut -f 1`; do
         --very-sensitive \
         --no-spliced-alignment \
         -x ${INDICES} \
-        -U ${INDIR}/${FILENAME}.fastq \
+        -U ${INDIR}/${FILENAME}.fastq.gz \
         --new-summary \
         > ${SAM}/${FILENAME}.sam \
         2> ${HISATQC}/${FILENAME}.hisat2_mapstats.txt
