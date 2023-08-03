@@ -57,6 +57,13 @@ macs2 callpeak \
  -B \
  -q 0.01 \
 
+macs2 callpeak \
+ -t ${INDIR}/${FILENAME}.chr21.sorted.bam \
+ --outdir ${OUTDIR}/no_ctrl \
+ -n ${FILENAME} \
+ -g hs \
+ -B \
+ -q 0.01 \
 echo macs2 done
 date
 
@@ -67,6 +74,13 @@ bedtools intersect \
  -b ${BLACKLIST} \
  -v \
  > ${OUTDIR}/w_ctrl/${FILENAME}_peaks_clean.narrowPeak
+
+bedtools intersect \
+ -a ${OUTDIR}/no_ctrl/${FILENAME}_peaks.narrowPeak \
+ -b ${BLACKLIST} \
+ -v \
+ > ${OUTDIR}/no_ctrl/${FILENAME}_peaks_clean.narrowPeak
+
 
 echo blacklist regions removed
 date
