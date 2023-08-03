@@ -70,13 +70,13 @@ mkdir -p ${HISATQC}
 
 for FILENAME in `ls $INDIR | grep 'BACH1' | tr '.' '\t' | cut -f 1`; do
 
-    hisat2 -p 4 \ 
-        --very-sensitive \ 
-        --no-spliced-alignment \ 
-        -x ${INDICES} \ 
-        -U ${INDIR}/${FILENAME}.fastq \ 
-        --new-summary \ 
-        > ${SAM}/${FILENAME}.sam \ 
+    hisat2 -p 4 \
+        --very-sensitive \
+        --no-spliced-alignment \
+        -x ${INDICES} \
+        -U ${INDIR}/${FILENAME}.fastq \
+        --new-summary \
+        > ${SAM}/${FILENAME}.sam \
         2> ${HISATQC}/${FILENAME}.hisat2_mapstats.txt
 
     ###convert SAM to BAM
