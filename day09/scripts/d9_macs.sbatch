@@ -57,6 +57,7 @@ macs2 callpeak \
  -B \
  -q 0.01 \
 
+### Calling peaks without control
 macs2 callpeak \
  -t ${INDIR}/${FILENAME}.chr21.sorted.bam \
  --outdir ${OUTDIR}/no_ctrl \
@@ -64,23 +65,17 @@ macs2 callpeak \
  -g hs \
  -B \
  -q 0.01 \
+
 echo macs2 done
 date
 
-#### Removing ENCODE Blacklist regions
 
+#### Removing ENCODE Blacklist regions
 bedtools intersect \
  -a ${OUTDIR}/w_ctrl/${FILENAME}_peaks.narrowPeak \
  -b ${BLACKLIST} \
  -v \
  > ${OUTDIR}/w_ctrl/${FILENAME}_peaks_clean.narrowPeak
-
-bedtools intersect \
- -a ${OUTDIR}/no_ctrl/${FILENAME}_peaks.narrowPeak \
- -b ${BLACKLIST} \
- -v \
- > ${OUTDIR}/no_ctrl/${FILENAME}_peaks_clean.narrowPeak
-
 
 echo blacklist regions removed
 date
