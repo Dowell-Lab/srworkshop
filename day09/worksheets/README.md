@@ -26,7 +26,7 @@ As we discussed last week, ensuring your data's quality is a pertinent step befo
 
 4. cd into your scripts directory. Edit and run scripts d9_preprocess_chipseq.sbatch and d9_qc_chipseq.sbatch. The preprocessing will run fastQC and HISAT2 alignment. d9_qc_chipseq.sbatch will run some programs to get QC report and multiQC will compile all the QC files for you to review the quality of the data.
 - Preseq predicting and estimating the complexity of a genomic sequencing library. 
--RSeQC has multiple module for sequencing QC with read distribution being one of the programs.
+- RSeQC has multiple module for sequencing QC with read distribution being one of the programs.
 - MultiQC will summarize the output from numerous bioinformatic tools and compile a report for you to review the QC logs.
 
 ## Part 2: MACS to call peaks
