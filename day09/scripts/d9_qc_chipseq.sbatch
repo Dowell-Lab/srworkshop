@@ -13,7 +13,6 @@
 ## the fastq files will be used as input to fastqc. 
 ## output will be a fastqc file used to assess quality
 
-BASEDIR=/scratch/Users/<username>/day9
 INDIR=/scratch/Users/<username>/day9/bam
 OUTDIR=/scratch/Users/<username>/day9/qc
 
