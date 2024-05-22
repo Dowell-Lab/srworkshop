@@ -1,4 +1,4 @@
-# Day 7 | RNA-seq: Counting Reads and Differential Expression
+# Project B Day 7 | RNA-seq: Counting Reads and Differential Expression
 
 Today we will count RNA-seq reads and used the counts to run DEseq2.
 
@@ -13,7 +13,7 @@ Please count your M and Ms and put them here.
 
 https://tinyurl.com/mandmstat
 
-## Inclass Worksheets
+## In-class Worksheets
 
 1. We will start with counting reads using *featureCounts*. Since counting requires more resources, we will be coutning reads on the AWS server. 
 
