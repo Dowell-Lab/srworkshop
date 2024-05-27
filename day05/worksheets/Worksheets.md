@@ -57,7 +57,7 @@ c. Finally, we need to have a script that will run tell the samples to be run th
 * This is where we actually use the for loop
 4. Now edit the script run_d5-fastq-to-tdf.sh to run. 
 a. Edit the OUTDIR variable to point to wherever you want (I'd recommend your day5).
-b. Read the annotations and make sure you understand what's happening. Ask for help if you don't.
+b. Read the annotations and make sure you understand what's happening. Check out the variables to which you're assigning values in the script to see what you're doing. If you don't understand what's happening, hold up a red sticky note.
 c. Now run the script with `bash run_d5-fastq-to-tdf.sh`
     * You should see output like this:
     ```
