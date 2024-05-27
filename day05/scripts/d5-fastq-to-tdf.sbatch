@@ -142,10 +142,10 @@ echo Finished pulling out the second read with flags
 ##### Make the bedGraphs with genomeCoverageBed for the First and Second Reads #####
 ####################################################################################
 
-# This library is flipped which means that if the bam file says a read is mapped to the positive strand, 
+# This library is "reverse stranded" which means that if the bam file says Read1 is mapped to the positive strand, 
 #     that read is actually mapped to the negative strand. 
-# Biologists: This is the case when scientists transform the RNA into cDNA. This allows a much more stable library, but means we have to flip everything for the first pair in the read.
-# Non-biologists: Don't worry about the biologicial why, but this should remind you why it is imperative to UNDERSTAND the data you are analyzing, otherwise you can analyze it completely incorrectly but still get results.
+# Biologists: This is the case when Read 2 is aligned to the RNA strand. More details on different library preps and how to figure them out can be found here: https://littlebitofdata.com/en/2017/08/strandness_in_rnaseq/ and here: https://www.reneshbedre.com/blog/determine-strandedness-rnaseq.html#google_vignette. 
+# Non-biologists: You don't need to worry about the exact biologicial why although it's helpful, but this should remind you why it is imperative to UNDERSTAND the data you are analyzing, otherwise you can analyze it completely incorrectly but still get results.
 
 # <ANNOTATE WHAT THE ${FILENAME} will provide >
 
@@ -158,6 +158,7 @@ genomeCoverageBed \
 
 echo Finished putting the read1 negative strand reads on the positive strand in the bedgraph file.
 
+# to indicate the read overlaps are on the negative strand, we use awk to change the positive num_overlapping_reads to negative (awk -F '\t' -v OFS='\t' '{ $4 = - $4 ; print $0 }')
 genomeCoverageBed \
         -bg  -split -strand + \
         -ibam ${BEDGRAPHdir}/${BAMroot}.pairfirst.bam \
