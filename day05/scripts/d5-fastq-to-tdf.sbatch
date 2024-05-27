@@ -44,8 +44,9 @@ date
 
 printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
-##########################################################################################
-################## RUN JOB ###############################################################
+####################################################################################
+##### Map the FASTQ files to get a SAM file and its compressed form (BAM file) #####
+####################################################################################
 
 # Mapping paired-end FASTQ files to make a SAM file.
 hisat2 \
@@ -81,6 +82,11 @@ samtools \
                                                                         
 echo BedGraph and TDF
 
+
+####################################################################
+##### Specify variables to make downstream code easier to read #####
+####################################################################
+
 BAMroot=$rootname
 inDir=$BAM
 outDir=$outdir
@@ -93,9 +99,15 @@ TDFdir=${outDir}/tdf
 STATSdir=${outDir}/stats
 mkdir -p ${BEDGRAPHdir} ${TDFdir} ${STATSdir}
 
-##########################################################################################
-################## PRINT JOB INFO ########################################################
 
+
+
+#################################################
+##### Extract Reads 1 & 2 from the Bam file #####
+#################################################
+
+# First, we extract Read1 from the bamfile. 
+# Because SAMtools uses a code to save information about reads, this can seem complicated. First, we need to get the filestats.
 # Obtaining file stats from BAM input file.
 samtools flagstat \
         -@ 8 ${BAM} \
@@ -104,29 +116,40 @@ samtools flagstat \
 
 echo Finished obtaining BAM file stats.
 
-# Obtaining flag from first read pair.
-# http://davetang.org/wiki/tiki-index.php?page=SAMTools#Extracting_only_the_first_read_from_paired_end_BAM_files
-# 0x0040 is hexadecimal for 64 (i.e. 16 * 4), which is binary for 1000000, corresponding to the read in the first read pair.
+
+# We then tell SAMtools that we want the first read of a pair via this code by giving it the code for a "first read in a pair": 40. We say this via the -f parameter. If you'd like to learn more
+#   aboout these codes and how to use them, here's a cheat sheet: https://broadinstitute.github.io/picard/explain-flags.html
+
+
+
 samtools view \
-        -h -b -f 0x0040 \
+        -h -b -f 40 \
         ${BAM} \
         > ${BEDGRAPHdir}/${BAMroot}.pairfirst.bam
 
-echo Finished pulling out the first read with flags.
+echo Finished pulling out the first read with flags 
 
-# Obtaining flag from second read pair.
-# https://broadinstitute.github.io/picard/explain-flags.html
-# 128 means second in pair, 128 in hexadecimal is 0x0080
+# Now, we do the same thing but get the Read2 from the bamfile which has the code 128 (https://broadinstitute.github.io/picard/explain-flags.html).
 samtools view \
-        -h -b -f 0x0080 \
+        -h -b -f 128 \
         ${BAM} \
         > ${BEDGRAPHdir}/${BAMroot}.pairsecond.bam
 
-echo Finished pulling out the second read with flags.
+echo Finished pulling out the second read with flags
 
-# Using genomecoverage and swap the strand info on the second pair.
-# Using genomecoverage on each of them.
 
+####################################################################################
+##### Make the bedGraphs with genomeCoverageBed for the First and Second Reads #####
+####################################################################################
+
+# This library is flipped which means that if the bam file says a read is mapped to the positive strand, 
+#     that read is actually mapped to the negative strand. 
+# Biologists: This is the case when scientists transform the RNA into cDNA. This allows a much more stable library, but means we have to flip everything for the first pair in the read.
+# Non-biologists: Don't worry about the biologicial why, but this should remind you why it is imperative to UNDERSTAND the data you are analyzing, otherwise you can analyze it completely incorrectly but still get results.
+
+# <ANNOTATE WHAT THE ${FILENAME} will provide >
+
+############# First Reads In Pair (POS & NEG Strands) #############
 genomeCoverageBed \
         -bg -split -strand - \
         -ibam ${BEDGRAPHdir}/${BAMroot}.pairfirst.bam \
@@ -143,6 +166,8 @@ genomeCoverageBed \
 
 echo Finished putting the read1 postive strand reads on the negative strand in the bedgraph file.
 
+############# Second Reads In Pair (POS & NEG Strands) #############
+
 genomeCoverageBed \
         -bg -split -strand + \
         -ibam ${BEDGRAPHdir}/${BAMroot}.pairsecond.bam \
@@ -157,67 +182,47 @@ genomeCoverageBed \
         -g ${genomeSizes} | awk -F '\t' -v OFS='\t' '{ $4 = - $4 ; print $0 }' \
         > ${BEDGRAPHdir}/${BAMroot}.pairsecond.neg.bed
 
-echo Finished putting the read2 negative strand reads on the negative strand in the bedgraph file.
 
-# Sorting the Bedgraphs
-sortBed \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairfirst.pos.bed \
-        > ${BEDGRAPHdir}/${BAMroot}.pairfirst.pos.BedGraph.sort
+######################################################################
+##### Combine the separate bedgraph files into ONE bedgraph file #####
+######################################################################
 
-sortBed \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairfirst.neg.bed \
-        > ${BEDGRAPHdir}/${BAMroot}.pairfirst.neg.BedGraph.sort
+##### Joining the read1 and read2 bedgraphs ######
+# 1. unionBedGraphs combines the bedgraphs into chr"\t"start"\t"stop"\t"num_reads_overlapping_file1"\t"num_reads_overlapping_file2
+# 2. The "|" takes this output and feeds into Awk. We tell Awk to print columns 1-3 with tabs in between. Then to add the last two columns together.
+# 3. The ">" saves the file.
 
-sortBed \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairsecond.pos.bed \
-        > ${BEDGRAPHdir}/${BAMroot}.pairsecond.pos.BedGraph.sort
+    unionBedGraphs \
+        -i ${BEDGRAPHdir}/${FILENAME}.pairfirst.pos.bed ${BEDGRAPHdir}/${FILENAME}.pairsecond.pos.bed \
+        | awk -F '\t' {'print $1"\t"$2"\t"$3"\t"($4+$5)'} \
+        > ${BEDGRAPHdir}/${BAMroot}.pos.bedGraph
 
-sortBed \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairsecond.neg.bed \
-        > ${BEDGRAPHdir}/${BAMroot}.pairsecond.neg.BedGraph.sort
+    unionBedGraphs \
+        -i ${BEDGRAPHdir}/${FILENAME}.pairfirst.neg.bed ${BEDGRAPHdir}/${FILENAME}.pairsecond.neg.bed \
+        | awk -F '\t' {'print $1"\t"$2"\t"$3"\t"($4+$5)'} \
+        > ${BEDGRAPHdir}/${BAMroot}.neg.bedGraph
 
-echo Finished sorting the bedgraphs.
-
-# Adding the two Bedgraphs, putting the values in columns 4 and 5.
-unionBedGraphs \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairfirst.pos.BedGraph.sort \
-        ${BEDGRAPHdir}/${BAMroot}.pairsecond.pos.BedGraph.sort \
-        > ${BEDGRAPHdir}/${BAMroot}.pos.Bedgraphcol
-
-unionBedGraphs \
-        -i ${BEDGRAPHdir}/${BAMroot}.pairfirst.neg.BedGraph.sort \
-        ${BEDGRAPHdir}/${BAMroot}.pairsecond.neg.BedGraph.sort \
-        > ${BEDGRAPHdir}/${BAMroot}.neg.Bedgraphcol
-
-# Summing columnss 4 and 5.
-awk -F '\t' '{OFS="\t"; print $1,$2,$3,$4+$5;}' \
-        ${BEDGRAPHdir}/${BAMroot}.pos.Bedgraphcol \
-        > ${BEDGRAPHdir}/${BAMroot}.pos.Bedgraph
-
-awk -F '\t' '{OFS="\t"; print $1,$2,$3,$4+$5;}' \
-        ${BEDGRAPHdir}/${BAMroot}.neg.Bedgraphcol \
-        > ${BEDGRAPHdir}/${BAMroot}.neg.Bedgraph
-
-echo Finished adding the postive and negative reads from both strands back together.
-
-# Concatenating the two Bedgraphs files.
+##### Joining the Positive and negative bedgraphs ######
 cat \
-        ${BEDGRAPHdir}/${BAMroot}.pos.Bedgraph \
-        ${BEDGRAPHdir}/${BAMroot}.neg.Bedgraph \
+        ${BEDGRAPHdir}/${BAMroot}.pos.bedGraph \
+        ${BEDGRAPHdir}/${BAMroot}.neg.bedGraph \
         > ${BEDGRAPHdir}/${BAMroot}.bed
 
-# Sorting the final Bedgraph so it can be divided by millions mapped and converted into TDF.
+##### Sorting the final bedgraph ######
 sortBed \
         -i ${BEDGRAPHdir}/${BAMroot}.bed \
         > ${BEDGRAPHdir}/${BAMroot}.BedGraph
 
 echo Finished making the strand corrected sorted bedgraph.
 
-# Converting millionsmapped corrected Bedgraph into TDF.
+
+##### Converting millionsmapped corrected Bedgraph into TDF. #####
 igvtools toTDF \
         ${BEDGRAPHdir}/${BAMroot}.BedGraph \
         ${TDFdir}/${BAMroot}.tdf \
         ${genomeFasta}
 
 echo Finished making TDF file.
+
+
 echo Job finished at `date +"%T %a %d %b %Y"`
