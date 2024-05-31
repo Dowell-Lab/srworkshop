@@ -4,14 +4,14 @@ Author: Lynn Sanford, 2023
 ## What is Git?
 Git is a version control software. Think of it like a long-standing and well-developed execution of something like the history in Google Docs, where you can see when and where and who changed something in a document. It allows you to keep track of and document your changes to files, keep different versions of files at the same time, and revert changes if necessary.
 
-We won’t go much into the functionality of git until later in the workshop. What we’ll use a lot is…
+We'll go more into the functionality of git later in the workshop. What we’ll focus on today is…
 
 ## GitHub
 GitHub is a web-based implementation of git that provides cloud storage for git projects (called repositories or repos). It also facilitates multiple people working with a git repository at the same time. Again, think of it kind of like a series of files and folders in Google Drive, but much easier to integrate with the command-line and scripting tools that we use in this class and more broadly in bioinformatics.
 
-All of our class materials are on a class website, which isn’t super easily accessed on the back end. It can and will be updated regularly throughout the class, but it’s harder for every one of our teachers and TAs to fix typos or amend data files on the fly.
+Some of our class materials are on a class website, which isn’t super easily accessed on the back end. It could be updated regularly throughout the class to add new material, but it’s harder for every one of our teachers and TAs to fix typos or amend data files on the fly.
 
-Unlike the website, anyone who has edit access (i.e. anyone in the DnA Lab) to the class GitHub repository can change a file in it at any time. For that reason, **the GitHub repository will be the primary source for class materials**. This worksheet will take you through the structure of the GitHub repo and how to interface with it.
+Unlike the website, anyone who has 'edit' access (i.e. anyone in the DnA Lab) to the class GitHub repository can change a file in it at any time. For that reason, **the GitHub repository will be the primary source for class materials**. This worksheet will take you through the structure of the GitHub repo and how to interface with it.
 
 <ol>
 <h3><li>
@@ -58,17 +58,17 @@ Navigate back to your terminal and type `git clone`, then paste the link and hit
 
 >Note: If you’re using the Ubuntu WSL app on a Windows 10 machine, you cannot paste with Ctrl-V. By default pasting is through a right-click.
 
-This command will then clone (create a copy of) the sr2023 repository in your current working directory.
+This command will then clone (create a copy of) the srworkshop repository in your current working directory.
 
 ![Cloning a repo on the command line](md_images/clone_repo.png)
 </li>
 <h3><li>Navigate around the repository</h3>
 
-Use the command `cd` (change directory) to navigate into the repository. If you’re going into subdirectories, type the name of the subdirectory. If you want to go back to the previous parent directory (one higher in the directory structure), use two dots (`cd ..`).
+Use the command `cd` (change directory) to navigate into the repository. If you’re going into subdirectories, type the name of the subdirectory. You can always list directory contents with `ls`. If you want to go back to the previous parent directory (one higher in the directory structure), use two dots (`cd ..`). Just one dot (`.`) indicates your current directory, so `cd .` doesn't move you anywhere.
 
-You’ll notice that directories are shown in color, usually blue, text files are in  white, and other types of files may be other colors. Your color scheme may look different than mine.
+You’ll notice that directories are shown in color, usually blue, text files are in white, and other types of files may be other colors. Your color scheme may look different than mine.
 
-If you get lost and you need to go back to your home directory, type `cd ~`.
+If you get lost and you need to go back to your home directory, type `cd ~`. The tilda can always be used as a shortcut for your home directory.
 
 As you investigate, make use of the `pwd` command. Go back and forth between the paths that you see on the command line and the paths that you see when exploring the same repo in the browser.
 
@@ -82,7 +82,7 @@ This is a beautiful feature of Unix/Linux systems called Tab complete. **Tab com
 
 Tab complete will go to the next unique position in a string. So in your home directory, you only have one directory, `srworkshop`, and Tab complete will automatically fill it in.
 
-Navigate into `srworkshop` again, and type `cd d`, then hit Tab. This completes until it hits a character with multiple options. If you hit Tab twice, a list of all options is displayed that start with what you’ve already typed/complete. Then input which characters you want, and you can hit Tab again.
+Navigate into `srworkshop` again, and type `cd d`, then hit Tab. This completes until it hits a character with multiple options. If you hit Tab twice, a list of all options is displayed that start with what you’ve already typed. Then input which characters you want, and you can hit Tab again.
 
 ![Tab complete example](md_images/tab_complete.png)
 </li>
@@ -95,7 +95,7 @@ But we’re going to make it one step easier.
 
 You may notice that while my command prompt is a brownish color, yours is most likely white. Let’s change that – it’ll make the next few days easier on you.
 
-In the repository, under day01/scripts/, there’s a file called `.bash_profile`. You will not be able to see this file with only the `ls` command, since the `.` at the start indicates it’s a hidden file. You can see it by typing `ls –al` (more on that tomorrow).
+In the repository, under day01/scripts/, there’s a file called `.bash_profile`. You will not be able to see this file with only the `ls` command - the `.` at the beginning of the filename indicates it’s a hidden file. You can see it by typing `ls –al` (more on that tomorrow).
 
 In order to get a colored command prompt, you need to copy this file to your home directory on the AWS. For this you use the `rsync` command, which has the syntax:
 
@@ -129,14 +129,15 @@ Note: these are functionally equivalent, since <code>~</code> is a shortcut for 
 ![Relative path from home directory](md_images/relative_path_home.png)
 </li>
 </ul>
+It's fine if this seems confusing. You will have much more opportunity to practice with navigation and copying/moving files in the next couple of days.
 </li>
 <h3><li>Logout and log back on</h3>
 
-Now you have a copy of the `.bash_profile` file in your AWS home directory, and the next time you log on, your prompt color will automatically change. Let’s do that now.
+Now you have a copy of the `.bash_profile` file in your AWS home directory. The next time you log on, Bash automatically loads configurations from this file, and your prompt color will automatically change. Let’s try that now.
 
 Either `logout` or `exit` will log you out of the AWS. Once you run that command, you will be back on your personal computer. Use the `hostname` command to verify.
 
-Now, log back onto the AWS. The easiest way to do this is by using the 'up' key on your keyboard. 'Up' and 'down' scroll through your command history. Hit 'up' until you find your version of the `ssh <github_username>@<aws_ip>` command and hit enter. You should log back onto the AWS and see a brown prompt, indicating you are now back on the super computer.
+Now, log back onto the AWS. The easiest way to do this is by using the 'up' key on your keyboard. 'Up' and 'down' scroll through your command history. Hit 'up' until you find your version of the `ssh <github_username>@<aws_ip>` command and hit enter. This will log you back onto the AWS, and now you should see a brown prompt, indicating you are now back on the super computer.
 
 ![Logout from and login to AWS](md_images/aws_logout_login.png)
 

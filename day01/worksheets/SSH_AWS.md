@@ -45,7 +45,8 @@ Now you’re back on the command line. Run the following:\
 >Unless you created an rsa key, in which case it’ll be the following:\
 `ssh-add --apple-use-keychain ~/.ssh/id_rsa`
 
-Finally, follow <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=mac">these instructions</a> from GitHub:
+Finally, follow <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=mac">these instructions</a> from GitHub. Skip past the background/prerequisites to Step 1 under 'Adding a new SSH key to your account'. Your key type is 'authentication'.
+
 >**Note:** If the command line copy function isn’t installed, type `cat ~/.ssh/id_ed25519.pub` and manually copy the output line to your clipboard, then continue to follow the instructions.
 
 You may need to wait ~5 minutes for the AWS to sync credentials information before logging on. Then log into the AWS by navigating back to your terminal and typing `ssh <github_username>@<aws_ip>`, where `<github_username>` is replaced by YOUR username and `<aws_ip>` is replaced by the IP address written on the board (i.e. For me it might be `ssh lynn-sanford@192.158.1.38`)
@@ -79,7 +80,7 @@ ssh-add ~/.ssh/id_ed25519
 >Unless you created an rsa key, in which case the second line will be:\
 `ssh-add ~/.ssh/id_rsa`
 
-Finally, follow <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=windows">these instructions</a> from GitHub.
+Finally, follow <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=windows">these instructions</a> from GitHub. Skip past the background/prerequisites to Step 1 under 'Adding a new SSH key to your account'. Your key type is 'authentication'.
 
 >**Note:** If the command line copy function isn’t installed, type `cat ~/.ssh/id_ed25519.pub` and manually copy the output line to your clipboard, then continue to follow the instructions.
 
