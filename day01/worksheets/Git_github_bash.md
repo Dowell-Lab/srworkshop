@@ -15,7 +15,7 @@ Unlike the website, anyone who has 'edit' access (i.e. anyone in the DnA Lab) to
 
 <ol>
 <h3><li>
-In another tab/window, go to the <a href="https://github.com/Dowell-Lab/srworkshop/", target="_blank">GitHub repository</a>
+In another tab/window, go to the <a href="https://github.com/Dowell-Lab/srworkshop/", target="_blank">GitHub repository</a> main page.
 </h3>
 
 ![Github main page](md_images/github_mainpage.png)

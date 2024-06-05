@@ -14,7 +14,7 @@
 ## the fastq files will be used as input to fastqc. 
 ## output will be a fastqc file used to assess quality
 
-INDIR=/scratch/Shares/public/sread2023/data_files/day4/fastq
+INDIR=/scratch/Shares/public/sread2024/data_files/day4/fastq
 OUTDIR=/scratch/Users/<USERNAME>/fastqc
 
 FILENAME=chr21Ethan_repA.RNA.end1
