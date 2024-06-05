@@ -5,7 +5,7 @@
 #SBATCH --nodes=1                               # Number of nodes requested
 #SBATCH --ntasks=8                              # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=8gb                               # Memory limit
-#SBATCH --time=01:30:00                        	# Time limit hrs:min:sec
+#SBATCH --time=01:00:00                        	# Time limit hrs:min:sec
 #SBATCH --partition=compute                       # Partition/queue requested on server
 #SBATCH --output=/scratch/Users/<USERNAME>/eofiles/%x.%j.out  
 #SBATCH --error=/scratch/Users/<USERNAME>/eofiles/%x.%j.err
@@ -23,7 +23,7 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 ## the fastq files will be used as input to fastqc and trimmomatic
 ## trimmed reads will then be passed on to the mapping step
 
-INDIR=/scratch/Shares/public/sread2023/data_files/day4
+INDIR=/scratch/Shares/public/sread2024/data_files/day4
 FASTQ=${INDIR}/fastq
 
 OUTDIR=/scratch/Users/<USERNAME>/day4
