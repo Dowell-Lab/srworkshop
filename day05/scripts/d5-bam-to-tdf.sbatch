@@ -17,7 +17,7 @@
 # user directory. The rest of the script can be kept the same!
 
 FILENAME=chr21Eric_repA.RNA
-INDIR=/scratch/Shares/public/sread2023/cookingShow/day5/bam/
+INDIR=/scratch/Shares/public/sread2024/cookingShow/day5/bam/
 OUTDIR=/scratch/Users/<YOUR_USERNAME>/day5
 
 # We'll also need to give the Genome size and info so that the file can be compressed into a TDF
@@ -91,7 +91,7 @@ echo Saved only second reads of Bam in ${BEDGRAPHdir}/${FILENAME}.pairfirst.bam
 ##### Make the bedGraphs with genomeCoverageBed for the First and Second Reads #####
 
 # This library is "reverse stranded" which means that if the bam file says Read1 is mapped to the positive strand, 
-#     that read is actually mapped to the negative strand. 
+#     that fragment actually matches the negative strand. 
 # Biologists: This is the case when Read 2 is aligned to the RNA strand. More details on different library preps and how to figure them out can be found here: https://littlebitofdata.com/en/2017/08/strandness_in_rnaseq/ and here: https://www.reneshbedre.com/blog/determine-strandedness-rnaseq.html#google_vignette. 
 # Non-biologists: You don't need to worry about the exact biologicial why although it's helpful, but this should remind you why it is imperative to UNDERSTAND the data you are analyzing, otherwise you can analyze it completely incorrectly but still get results.
 
