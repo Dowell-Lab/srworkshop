@@ -10,6 +10,6 @@ You can choose either ONE of the fastq files in /scratch/Shares/public/sread2023
 6.	Generate TDF files from bedGraphs 
 7.	Transfer the TDF to your local computer and visualize using the IGV Web App
 
-**NOTE**: You are ALLOWED and encouraged to use your copy your previous scripts with minor edits of names, etc. When doing pipelines, you will often be given code that you need to adapt rather than have to reinvent the wheel.
+**NOTE**: You are ALLOWED and encouraged to use your copy of your previous scripts with minor edits of names, etc. When doing pipelines, you will often be given code that you need to adapt rather than have to reinvent the wheel.
 
 **BONUS**: Combine the scripts into a single pipeline that takes the FASTQ files all the way to TDFs. 
