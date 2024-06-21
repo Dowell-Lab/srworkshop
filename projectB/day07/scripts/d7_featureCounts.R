@@ -1,6 +1,6 @@
 #' ---
 #' title: "Counting Reads with featureCounts"
-#' author: "Taylor Jones (edited by Rutendo Sigauke)"
+#' author: "Taylor Jones (edited by Rutendo Sigauke, Samuel Hunter)"
 #' date: "`r Sys.Date()`"
 #' output: 
 #'   html_document: 
@@ -75,7 +75,7 @@ library("Rsubread")
 #' 
 #' Read in bam file list
 ## ----bamdir, eval=TRUE-------------------------------------------------------------------------------------------
-bamdir <- '/scratch/Shares/public/sread2023/data_files/day7/bam'
+bamdir <- '/scratch/Shares/public/sread2024/data_files/projectB/day7/bam'
 
 filelist <- list.files(path=bamdir,
                        pattern="sorted.bam$",
@@ -90,7 +90,7 @@ dir.create(outdir) ###creating the directory
 #' 
 ## ----loadGTF, eval=TRUE------------------------------------------------------------------------------------------
 
-hg38gtf <- "/scratch/Shares/public/sread2023/data_files/day7/annotations/hg38_ucsc_genes_chr21.gtf"
+hg38gtf <- "/scratch/Shares/public/sread2024/data_files/projectB/day7/annotations/hg38_ucsc_genes_chr21.gtf"
 
 #' ## Read counting using `featureCounts`
 #' 

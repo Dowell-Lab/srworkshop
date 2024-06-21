@@ -1,5 +1,5 @@
-bamfilename	SRR	p53	celltype	condition
-SRR4098430.trimmed.sorted.bam	SRR4098430	p53_wild	hct	dmso
-SRR4098431.trimmed.sorted.bam	SRR4098431	p53_wild	hct	dmso
-SRR4098432.trimmed.sorted.bam	SRR4098432	p53_wild	hct	nutlin
-SRR4098433.trimmed.sorted.bam	SRR4098433	p53_wild	hct	nutlin
+bamfilename	SRR	celltype	condition	replicate
+SRR4098430.sorted.bam	SRR4098430	hct116	dmso	A
+SRR4098431.sorted.bam	SRR4098431	hct116	dmso	B
+SRR4098432.sorted.bam	SRR4098432	hct116	nutlin	A
+SRR4098433.sorted.bam	SRR4098433	hct116	nutlin	B

@@ -1,34 +1,35 @@
 # Differential Gene Expression Analysis
 
-## Authors: Jacob Stanley (edited by Daniel Ramirez & Rutendo Sigauke)
+## Authors: Jacob Stanley (edited by Daniel Ramirez, Rutendo Sigauke, & Samuel Hunter)
 
 ##########################################
 # Loading libraries.                     #
 ##########################################
 library(DESeq2)
-
-
+library(pheatmap)
+library(ggplot2)
 ##########################################
 # Loading the 2 input files.             #
 ##########################################
 
 # 1. Load the metadata for the analysis
 
-conditionsTableFile <- "/PATH/TO/day07/data/Andrysik2017_samples.tsv"
+conditionsTableFile <- "/PATH/TO/day7/Andrysik2017_samples.tsv"
 conditionsTable <- read.table(conditionsTableFile,
                               sep = "\t",
-                              header = TRUE)
-rownames(conditionsTable) <- conditionsTable$sample
+                              header= TRUE)
+
+conditionsTable
 
 # 2. Load the raw counts
-geneCountsTableFile <- "/PATH/TO/day07/data/Andrysik2017_counts.tsv"
-geneCountsTable <- read.table(geneCountsTableFile, 
-                              header = TRUE, sep = "\t", fill = TRUE, 
-                              stringsAsFactors = FALSE, na.strings = "")
-#colnames(geneCountsTable) <- conditionsTable$sample
 
+geneCountsTableFile <- "/PATH/TO/day7/Andrysik2017_counts.csv"
+geneCountsTable <- read.table(geneCountsTableFile,
+                              header=TRUE,
+                              row.names = "GeneID",
+                              sep = "\t",
+                              stringsAsFactors = FALSE)
 head(geneCountsTable)
-conditionsTable
 
 ##########################################
 # Loading files onto DESeq2              #
@@ -59,6 +60,28 @@ sizeFactors(DEdds)
 colSums(counts(DEdds, normalized = FALSE))
 colSums(counts(DEdds, normalized = TRUE))
 
+
+################### ######################
+# Plots for EDA                          #
+##########################################
+
+normcounts <- log2(as.data.frame(counts(DEdds, normalized = TRUE)) + 1)
+hist(normcounts)
+boxplot(normcounts)
+
+rld <- rlog(DEdds)
+DESeq2::plotPCA(rld, intgroup=c("replicate"))
+
+select <- order(rowMeans(counts(DEdds,normalized=TRUE)),
+                decreasing=TRUE)[1:60]
+
+columns_for_heatmap <- as.data.frame(colData(DEdds)[,c("condition","replicate")])
+pheatmap(normcounts[select,], 
+         cluster_rows=TRUE, 
+         show_rownames=TRUE,
+         cluster_cols=FALSE, 
+         annotation_col=columns_for_heatmap)
+
 ################### ######################
 # Plots dispersion estimates.            #
 ##########################################
@@ -78,7 +101,7 @@ contrast <- c("condition", "nutlin", "dmso")
 ##########################################
 
 results <- results(DEdds, alpha = alphaValue, contrast = contrast)
-results_shrunk <- lfcShrink(DEdds, contrast = contrast, res = results)
+results_shrunk <- lfcShrink(DEdds, contrast = contrast, res = results, type = "normal")
 
 ##########################################
 # Plots MA plot.                         #
@@ -99,6 +122,17 @@ gene <- "CDKN1A"
 plotCounts(DEdds, gene, 
            intgroup = "condition", 
            normalized = TRUE)
+
+##########################################
+# Plots Volcano plot.                    #
+##########################################
+results_shrunk$threshold <- ifelse(results_shrunk$padj < alphaValue, "significant", "not_significant")
+ggplot(results_shrunk) +
+  geom_point(aes(x = log2FoldChange, y = -log10(padj), color = threshold)) +
+  ggtitle("Volcano Plot") +
+  xlab("log2 fold change") + 
+  ylab("-log10 adjusted p-value") +
+  theme_classic()
 
 
 #########################################
