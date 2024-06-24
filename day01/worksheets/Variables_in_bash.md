@@ -4,7 +4,9 @@ Author: Lynn Sanford, 2024
 ## What is a variable?
 A variable is a basic programming concept. It is a symbol that represents a value of some sort, and it's common to use multiple variables in a single block of code.
 
-Taken together, variables allow programmers to do two major things: 1) perform the same operations on different values and 2) make code more concise and readable.
+Taken together, variables allow programmers to do two major things:
+1. Perform the same operations on different values
+2. Make code more concise and readable.
 
 For example, if I need to run a program like the read mapping software HISAT2 on multiple files in a directory, without variables my code could look like this:
 
@@ -34,7 +36,7 @@ hisat2 -p 32 -x $indexpath -U "$fastqs"/S6.fastq.gz > "$sams"/S6.sam
 
 In addition to being a lot less messy and more readable, I can also easily change the directory path variables without changing the rest of the code.
 
-There are other methods to make this code even more concise, which we'll cover later in the week. For now, let's explore how variables are defined in Bash, and how they can be used.
+There are other methods to make this code even more concise, and we'll cover those later in the week. For now, let's explore how variables are defined in Bash, and how they can be used.
 
 ## Bash variables
 General properties of Bash variables:
@@ -63,17 +65,17 @@ Unlike in other programming languages, Bash variables have no type. They are all
 <ol>
 <h3><li>Open a terminal window and log into the AWS.</h3>
 
-You should have already cloned the srworkshop repository. Now, also in your home directory, create a new directory called 'folder': <code>mkdir folder</code>
+You should have already cloned the srworkshop repository. Now, also in your home directory, create a new directory called 'folder' by typing <code>mkdir folder</code> (you'll do this much more tomorrow).
 </li>
 <h3><li>Set a variable</h3>
 
 Say we want to set a variable equal to "folder srworkshop".
 
-Make a new variable called `dirs`: `dirs=folder srworkshop`. Notice that because there is a space in the middle of this variable, Bash parses this as two separate commands.
+Make a new variable: `dirs=folder srworkshop`. Notice that because there is a space in the middle of this variable, Bash parses this as two separate commands.
 
 Did we set `dirs`? You can print the value of `dirs` to the command line with `echo`: `echo $dirs`
 
-Now try setting the variable with quotes around it: `dirs`: `dirs="folder srworkshop"`. The quotes specify to include everything between as a single string. Print this out with `echo`.
+Now try setting the variable with quotes around it: `dirs="folder srworkshop"`. The quotes specify to include everything between as a single string. Print this out with `echo`.
 
 ![Value of dirs variable](md_images/value_dirs.png)
 
@@ -92,7 +94,7 @@ echo "$dirs"
 
 ![Variable call notations](md_images/variable_call_notations.png)
 
-Notice that the first line does not print the value of a variable. It just prints the value `a`, since there is no dollar sign preceding it.
+Notice that the first line does not print the value of a variable. It just prints the value `dirs`, since there is no dollar sign preceding it.
 
 The other three all look the same, right? All of these notations are ways to call a variable, but there's some useful differences.
 </li>
