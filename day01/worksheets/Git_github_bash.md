@@ -1,8 +1,8 @@
 # Git, GitHub, and basic Bash worksheet
-Author: Lynn Sanford, 2023
+Author: Lynn Sanford, 2024
 
 ## What is Git?
-Git is a version control software. Think of it like a long-standing and well-developed execution of something like the history in Google Docs, where you can see when and where and who changed something in a document. It allows you to keep track of and document your changes to files, keep different versions of files at the same time, and revert changes if necessary.
+Git is a version control software. Think of it like a long-standing and well-developed execution of something like the history in Google Docs, in that you can see when and where and who changed something in a document. It allows you to keep track of and document your changes to files, keep different versions of files at the same time, and revert changes if necessary.
 
 We'll go more into the functionality of git later in the workshop. What we’ll focus on today is…
 
@@ -40,7 +40,7 @@ If you’re still troubleshooting getting onto the AWS, it’s fine to do this w
 
 In your terminal, whether on your computer or the AWS, type `hostname` and see what it outputs. The output will be different depending on which system you’re on.
 
-Type `pwd`. This shows you what directory you’re currently in.
+Type `pwd`. This shows you what directory you’re currently in. Right now, this specific directory is known as your 'home directory'. It is automatically where you are placed whenever you log into the server and will be the base of your own personal directory tree.
 
 Type `ls`. This lists the contents of your current directory. Since you’ve created no files or folders, it should be empty, so nothing should display.
 
@@ -51,6 +51,7 @@ Type `ls`. This lists the contents of your current directory. Since you’ve cre
 Navigate back to the top of the repo in your browser, or click the link above again.
 
 Click on the green button that says “<> Code”, make sure the dropdown has “HTTPS” highlighted, and copy the link it gives you. This is the easiest way to clone a repository that you don’t have permissions to edit.
+>Note: In the future, if you do have edit access on a repository and want to clone it, make sure you have an SSH key set up and use the "SSH" option instead.
 
 ![GitHub cloning link](md_images/github_clone.png)
 
@@ -78,9 +79,9 @@ As you investigate, make use of the `pwd` command. Go back and forth between the
 
 Go back to your home directory, then type `cd s` and hit Enter. What do you see? Now type `cd s` and before hitting Enter, hit Tab. What happens?
 
-This is a beautiful feature of Unix/Linux systems called Tab complete. **Tab complete is your friend**. The more you get comfortable with it, the less time it will take you to navigate around filesystems.
+This is a beautiful feature of Unix/Linux systems called Tab complete. **Tab complete is your friend**. The more you get comfortable with it, the less time it will take you to navigate around filesystems. It may seem to you in these first few days that teachers and TAs can navigate incredibly fast and text will magically appear for them. This is primarily due to Tab complete.
 
-Tab complete will go to the next unique position in a string. So in your home directory, you only have one directory, `srworkshop`, and Tab complete will automatically fill it in.
+Tab complete will autofill paths to the next unique position in a string. So in your home directory, you only have one directory, `srworkshop`, and Tab complete will automatically fill it in.
 
 Navigate into `srworkshop` again, and type `cd d`, then hit Tab. This completes until it hits a character with multiple options. If you hit Tab twice, a list of all options is displayed that start with what you’ve already typed. Then input which characters you want, and you can hit Tab again.
 
@@ -92,10 +93,13 @@ When starting out using the command line, you may get confused about what comput
 ![Command prompt](md_images/command_prompt.png)
 
 But we’re going to make it one step easier.
+>Side note: by convention, all command prompts end with `$`. You may see just the `$` symbol as shorthand for a command prompt in code samples or help forums.
 
-You may notice that while my command prompt is a brownish color, yours is most likely white. Let’s change that – it’ll make the next few days easier on you.
+Right now, your command prompt on the AWS server is most likely white. Let’s change that – it’ll make the command line easier to read and let you tell at a glance which machine you're using.
 
-In the repository, under day01/scripts/, there’s a file called `.bash_profile`. You will not be able to see this file with only the `ls` command - the `.` at the beginning of the filename indicates it’s a hidden file. You can see it by typing `ls –al` (more on that tomorrow).
+In the `srworkshop` repository, under `day01/scripts/`, there’s a file called `.bash_profile`. You will not be able to see this file with only the `ls` command - the `.` at the beginning of the filename indicates it’s a hidden file. You can see it by typing `ls –al` (more on that tomorrow).
+
+![Hidden profile file](md_images/hidden_file.png)
 
 In order to get a colored command prompt, you need to copy this file to your home directory on the AWS. For this you use the `rsync` command, which has the syntax:
 
@@ -137,11 +141,12 @@ Now you have a copy of the `.bash_profile` file in your AWS home directory. The 
 
 Either `logout` or `exit` will log you out of the AWS. Once you run that command, you will be back on your personal computer. Use the `hostname` command to verify.
 
-Now, log back onto the AWS. The easiest way to do this is by using the 'up' key on your keyboard. 'Up' and 'down' scroll through your command history. Hit 'up' until you find your version of the `ssh <github_username>@<aws_ip>` command and hit enter. This will log you back onto the AWS, and now you should see a brown prompt, indicating you are now back on the super computer.
+Now, log back onto the AWS. The easiest way to do this is by using the 'up' key on your keyboard. 'Up' and 'down' scroll through your command history. Hit 'up' until you find your version of the `ssh <github_username>@<aws_ip>` command and hit enter. This will log you back onto the AWS, and now you should see an orangeish prompt, indicating you are now back on the super computer.
+>Note: What else did I change about the prompt here?
 
 ![Logout from and login to AWS](md_images/aws_logout_login.png)
 
-Once you’re familiar enough with Vim to edit files (later today), you can come back and edit the `.bash_profile` file if you’d like to change the prompt color from brown to something else. Instructions for doing this are at the end of the worksheet.
+Once you’re familiar enough with Vim to edit files (later today), you can come back and edit the `.bash_profile` file if you’d like to change the prompt color from orange to something else, or anything else about the text of the prompt. Instructions for doing this are at the end of the worksheet.
 </li>
 <h3><li>Pull from the repository</h3>
 
