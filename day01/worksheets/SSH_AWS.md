@@ -53,8 +53,10 @@ You may need to wait ~5 minutes for the AWS to sync credentials information befo
 
 >**Note:** We'll need you to fill in your own information frequently during the course. Common notation for this is to place the description for the thing you'll need to replace within pointed brackets (which also need to be replaced).
 
-The first time you log on, it’ll ask if you want to authenticate. Type yes, hit Enter, and you’re good to go!
+The first time you log on, it’ll ask if you want to authenticate. Type `yes`, hit Enter, and you’re good to go!
 If you get a credentials error AND you’ve waited at least five minutes, more troubleshooting might be required.
+
+![Screenshot of successful login](md_images/AWS_successful_access.png)
 
 
 ## <a id="windows">Windows instructions</a>
@@ -88,5 +90,7 @@ You may need to wait ~5 minutes for the AWS to sync credentials information befo
 
 >**Note:** We'll need you to fill in your own information frequently during the course. Common notation for this is to place the description for the thing you'll need to replace within pointed brackets (which also need to be replaced).
 
-The first time you log on, it’ll ask if you want to authenticate. Type yes, hit Enter, and you’re good to go!
+The first time you log on, it’ll ask if you want to authenticate. Type `yes`, hit Enter, and you’re good to go!
 If you get a credentials error AND you’ve waited at least five minutes, more troubleshooting might be required.
+
+![Screenshot of successful login](md_images/AWS_successful_access.png)
