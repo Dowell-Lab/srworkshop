@@ -7,8 +7,8 @@
 #SBATCH --time=00:30:00                                       # Time limit hrs:min:sec
 #SBATCH --partition=compute                                   # Partition/queue requested on server    
 #SBATCH --mem=2gb                                             # Memory limit
-#SBATCH --output=/scratch/Users/<username>/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err
 
 echo "BEGIN: Preprocessing................."
 ################### LOAD MODULES ###################################
@@ -19,7 +19,7 @@ module load meme/5.1.1
 ################## SET VARIABLES ###################################
 
 #INDIR is where your macs output peak files are stored. OUTDIR is where I want my output from running meme and tomtom
-WD=/scratch/Shares/<YourUsername>/day8
+WD=/scratch/Users/<YourUsername>/day8
 INDIR=${WD}/macs
 OUTDIR=${WD}/meme
 mkdir -p ${OUTDIR}

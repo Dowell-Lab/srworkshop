@@ -1,4 +1,5 @@
 # Short Read Day 8 Worksheet | Preprocessing ChIP-Seq Data
+
 - Authors: Rutendo F. Sigauke 2024, Jessica Huynh-Westfall 2023
 
 ## Introduction
@@ -37,18 +38,27 @@ Create a working directory for day8 in scratch using the *mkdir* command.
 [<username>@<hostname> ~]$ mkdir scripts eofiles fastq 
 ```
 
+![Screenshot of initialization](images/example_day8_initialization.png)
+
 ## Part 2: Copy scripts to scratch
 
 ```
 [<username>@<hostname> ~]$ cp <path/to/srworkshop git repo scripts> /scratch/Users/<YourUsername>/day8/scripts.
 ```
 
-Copy scripts from github repo into your scripts directory
+Copy the following scripts from the github repository folder into your scripts directory
+
    a. 01_fastqc_and_trimming.sbatch
+
    b. 02_map_with_hisat2.sbatch
+
    c. 03_mapqc_and_multiqc.sbatch
+
    d. 04_peak_call_with_macs2.sbatch
+
    e. 05_find_motifs_with_meme.sbatch
+
+![Copying scripts example](images/copy_scripts_to_scratch.png)
 
 ## Part 3: Get raw fastq files to your scratch folder
 
@@ -57,33 +67,42 @@ Copy the fastq files over from the scratch directory to your fastq directory. We
 ```
 [<username>@<hostname> ~]$ cp <path/to/srworkshop git repo fastq files> /scratch/Users/<YourUsername>/day8/fastq.
 ```
+
+![Copying fastq diles example](images/copy_fastq_to_scratch.png)
+
 ## Part 3: Edit and run the preprocessing scripts
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
-Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_trim_fastqc’. Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
+Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_fastqc_and_trimming’. Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
+
+![Editing script header example](images/edit_scripts_example.png)
 
 ### Step 1: QC and preprocess samples
 
-- *cd* into your scripts directory. Edit and run `01_fastqc_and_trimming.sbatch` script. The preprocessing will run *TRIMMOMATIC* and *fastQC* on the fastq file.
+1. *cd* into your scripts directory. 
+
+2. Edit and run `01_fastqc_and_trimming.sbatch` script. 
+
+- The preprocessing will run *TRIMMOMATIC* and *fastQC* on the fastq file.
 
 ### Step 2: Map trimmed reads to reference genome
 
-- Edit and run the `02_map_with_hisat2.sbatch` script.
+1 Edit and run the `02_map_with_hisat2.sbatch` script.
 
 - In this script we will align reads to the reference genome using *HISAT2*. The main difference between mapping ChIP-seq reads to the genome is that we do not have to use the splice alignment. This feature is turned off using *--no-spliced-alignment* flag. The alignment output is bam files and alignment summary (reported if *--new-summary* flag is used). 
 
-  - Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
+- Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
 
 ### Step 3: Map quality and summary of QC
 
-- Edit and run the `03_mapqc_and_multiqc.sbatch` script.
+1. Edit and run the `03_mapqc_and_multiqc.sbatch` script.
 
-- Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
+2. Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
 
-  - Note: The output is going into the QC folder as well (*${QC}/preseq*).
+- Note: The output is going into the QC folder as well (*${QC}/preseq*).
 
-- Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. As shown below, the command for running multiqc only requires the folder that the program will summarize over (i.e. the *${QC}* folder). 
+3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. As shown below, the command for running multiqc only requires the folder that the program will summarize over (i.e. the *${QC}* folder). 
 
 ### Step 4: MACS to call peaks
 
