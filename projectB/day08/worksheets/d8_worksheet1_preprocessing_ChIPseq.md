@@ -22,6 +22,17 @@ We will go over assessing the quality of ChIP-seq data and mapping the reads to 
 ### Mapping reads:
 [HISAT2](https://daehwankimlab.github.io/hisat2/) : Mapping reads to the genome with ChIP-seq friendly commands. 
 
+
+### ChIP-seq tools
+
+[MEME](https://meme-suite.org/meme/index.html) : TF Motif discovery tool. 
+
+[TOMTOM](https://meme-suite.org/meme/tools/tomtom) : Compared TF motif against TF databases. It is part of the MEME Suite
+
+### Other tools
+
+[BEDTools](https://bedtools.readthedocs.io/en/latest/index.html) : Powerful genome arithmetic tool kit (e.g. find region overlaps). You will go more indepth with bedtools on day9.
+
 NB: The directory and username used in the screenshot will be for my working directory and username and will be different than yours. Here we will be working on the server and editing the script in *vim*.
 
 
@@ -76,7 +87,7 @@ Copy the fastq files over from the scratch directory to your fastq directory. We
 
 ![Copying fastq diles example](images/copy_fastq_to_scratch.png)
 
-## Part 3: Edit and run the preprocessing scripts
+## Part 4: Edit and run the preprocessing scripts
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
