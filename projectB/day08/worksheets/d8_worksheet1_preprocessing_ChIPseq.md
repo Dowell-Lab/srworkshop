@@ -63,14 +63,30 @@ Edit the sbatch script by using *vim <script>* to open a text editor on your sba
 
 Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_trim_fastqc’. Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
 
-1. cd into your scripts directory. Edit and run `01_fastqc_and_trimming.sbatch` script. The preprocessing will run TRIMMOMATIC and fastQC on the fastq file.
+### Step 1: QC and preprocess samples
 
- . d9_qc_chipseq.sbatch will run some programs to get QC report and multiQC will compile all the QC files for you to review the quality of the data.
-- Preseq predicting and estimating the complexity of a genomic sequencing library. 
-- RSeQC has multiple module for sequencing QC with read distribution being one of the programs.
-- MultiQC will summarize the output from numerous bioinformatic tools and compile a report for you to review the QC logs.
+- *cd* into your scripts directory. Edit and run `01_fastqc_and_trimming.sbatch` script. The preprocessing will run *TRIMMOMATIC* and *fastQC* on the fastq file.
 
-## Part 2: MACS to call peaks
+### Step 2: Map trimmed reads to reference genome
+
+- Edit and run the `02_map_with_hisat2.sbatch` script.
+
+- In this script we will align reads to the reference genome using *HISAT2*. The main difference between mapping ChIP-seq reads to the genome is that we do not have to use the splice alignment. This feature is turned off using *--no-spliced-alignment* flag. The alignment output is bam files and alignment summary (reported if *--new-summary* flag is used). 
+
+  - Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
+
+### Step 3: Map quality and summary of QC
+
+- Edit and run the `03_mapqc_and_multiqc.sbatch` script.
+
+- Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
+
+  - Note: The output is going into the QC folder as well (*${QC}/preseq*).
+
+- Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. As shown below, the command for running multiqc only requires the folder that the program will summarize over (i.e. the *${QC}* folder). 
+
+### Step 4: MACS to call peaks
+
 To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing the analysis method, Model-based Analysis of ChIP-Seq (MACS). This method enables us to identify transcription factor binding sites and significant DNA read coverage through a combination of gene orientation and sequencing tag position.
 
 1. Edit and run the d9_macs.sbatch. This script has multiple section that is detail out in the worksheet Day8_macs_worksheet.pdf. In addition to calling peaks with and without controls, the script also includes intersecting with blacklist regions. 
