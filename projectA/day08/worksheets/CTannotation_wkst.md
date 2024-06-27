@@ -2,7 +2,8 @@
 Author: Hope Townsend June 24, 2024
 
 ## How do I use this worksheet?
-* This worksheet corresponds to the script in ../scripts/Cell_Type_Annotations.Rmd. The information (not including photos) is both here and in that script so feel free to just open the script in RStudio and not look at this worksheet if that's easier.
+* This worksheet corresponds to the script in ../scripts/Cell_Type_Annotations.Rmd. The information (not including photos in Overview) is both here and in that script so feel free to just open the script in RStudio and not look at this worksheet after the Overview if that's easier.
+* The ../scripts/CT_Answers.ipynb shows you the answers (including graphs) you should be getting if you run everything correctly. It does *NOT* give you the code you're supposed to write.
 
 ## Overview
 We will go over two ways we can annotate cell types automatically:
