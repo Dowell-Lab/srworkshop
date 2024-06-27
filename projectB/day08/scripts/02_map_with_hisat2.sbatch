@@ -12,8 +12,8 @@
 
 #SBATCH --mem=5gb                                              # Memory limit
 
-#SBATCH --output=/scratch/Users/<username>/eofiles/%x_%j.out   # Where to save out files 
-#SBATCH --error=/scratch/Users/<username>/eofiles/%x_%j.err    # Where to save error files
+#SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out   # Where to save out files 
+#SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err    # Where to save error files
 
 echo "BEGIN: Preprocessing................."
 
@@ -27,7 +27,7 @@ module load samtools/1.8
 ################################################################
 ##Initialize folders 
 ################################################################
-wd=/scratch/Shares/<YourUsername>/day8
+wd=/scratch/Users/<YourUsername>/day8
 fastq=${wd}/fastq
 qc=${wd}/qc
 sam=${wd}/sam

@@ -12,8 +12,8 @@
 
 #SBATCH --mem=100mb                                            # Memory limit 
 
-#SBATCH --output=/scratch/Users/<username>/eofiles/%x_%j.out   # Where to save out files
-#SBATCH --error=/scratch/Users/<username>/eofiles/%x_%j.err    # Where to save error files
+#SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out   # Where to save out files
+#SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err    # Where to save error files
 
 echo "BEGIN: Preprocessing................."
 
@@ -26,7 +26,7 @@ module load preseq/2.0.3
 ################################################################
 ##Initialize folders 
 ################################################################
-wd=/scratch/Shares/<YourUsername>/day8
+wd=/scratch/Users/<YourUsername>/day8
 qc=${wd}/qc
 bam=${wd}/bam
 

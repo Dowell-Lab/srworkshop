@@ -7,8 +7,8 @@
 #SBATCH --time=00:30:00                                      # Time limit hrs:min:sec
 #SBATCH --partition=compute                                  # Partition/queue requested on server    
 #SBATCH --mem=2gb                                            # Memory limit
-#SBATCH --output=/scratch/Users/<username>/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err
 
 echo "BEGIN: Preprocessing................."
 
@@ -19,7 +19,7 @@ module load bedtools/2.25.0
 
 ################## SET VARIABLES ###################################
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
-WD=/scratch/Shares/<YourUsername>/day8
+WD=/scratch/Users/<YourUsername>/day8
 INDIR=${WD}/bam
 OUTDIR=${WD}/macs
 mkdir -p ${OUTDIR} 
