@@ -64,6 +64,12 @@ Copy the following scripts from the github repository folder into your scripts d
 
 Copy the fastq files over from the scratch directory to your fastq directory. We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in class. The MCF7 samples (SRR4090092, SRR4090093, SRR4090094) is another dataset you can practice with in the homework.
 
+| Run (SRR)         | Cell line  | Sample Type     |
+| :---------------- | :-------:  | :-------------: |
+| SRR4090089        |  HCT116    | Input           |
+| SRR4090090        |  HCT116    | DMSO treated    |
+| SRR4090091        |  HCT116    | Nutlin treated  |
+
 ```
 [<username>@<hostname> ~]$ cp <path/to/srworkshop git repo fastq files> /scratch/Users/<YourUsername>/day8/fastq.
 ```
