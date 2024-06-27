@@ -80,9 +80,15 @@ Copy the fastq files over from the scratch directory to your fastq directory. We
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
-Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_fastqc_and_trimming’. Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
+Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. 
 
-![Editing script header example](images/edit_scripts_example.png)
+Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_fastqc_and_trimming’. 
+
+Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). 
+
+The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
+
+![Editing script header example](images/header_example.png)
 
 ### Step 1: QC and preprocess samples
 
@@ -92,6 +98,8 @@ Similar to the previous exercises you will need to change the job name, user ema
 
 - The preprocessing will run *TRIMMOMATIC* and *fastQC* on the fastq file.
 
+![Editing script header example](images/trim_fastqc.png)
+
 ### Step 2: Map trimmed reads to reference genome
 
 1 Edit and run the `02_map_with_hisat2.sbatch` script.
@@ -99,6 +107,7 @@ Similar to the previous exercises you will need to change the job name, user ema
 - In this script we will align reads to the reference genome using *HISAT2*. The main difference between mapping ChIP-seq reads to the genome is that we do not have to use the splice alignment. This feature is turned off using *--no-spliced-alignment* flag. The alignment output is bam files and alignment summary (reported if *--new-summary* flag is used). 
 
 - Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
+
 
 ### Step 3: Map quality and summary of QC
 
@@ -108,7 +117,17 @@ Similar to the previous exercises you will need to change the job name, user ema
 
 - Note: The output is going into the QC folder as well (*${QC}/preseq*).
 
-3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. As shown below, the command for running multiqc only requires the folder that the program will summarize over (i.e. the *${QC}* folder). 
+3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. 
+
+- There is a summary table for all the quality control metrics reported, additionally, several tabs for each of the QC metrics can be explored interactively. 
+
+- You can copy an example of the multiqc output to your personal computer. 
+  
+  - You will need to move both the folder *multiqc_data* and the html file *multiqc_report.html* to your local computer. 
+
+  - You can open the html file in a web browser to interact with the page.
+
+![Editing script header example](images/multiqc_example.png)
 
 ### Step 4: MACS to call peaks
 
