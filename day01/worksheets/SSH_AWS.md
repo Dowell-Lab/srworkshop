@@ -1,5 +1,5 @@
 # SSH keys and the AWS supercomputer
-Author: Lynn Sanford, 2023
+Author: Lynn Sanford, 2024
 
 ## What is a supercomputer?
 Super computers have much more memory and processing power than your local computer, which is required for most bioinformatics analysis. For your actual analysis, you’ll either use a super computer run by your campus or a cloud-based computing system like Amazon Web Services (AWS). For this class, our computing is set up through AWS and resembles the BioFrontiers Fiji supercomputer.
