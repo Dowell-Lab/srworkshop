@@ -1,0 +1,326 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Annotating Cell Types
+
+We will go over two ways we can annotate cell types automatically:
+* **Known atlas**: In this case, we will use a cell type atlas with cell types that we expect to be in our dataset to annotate ours. We do this by mapping each of our cells to the cell types identified in the annotated set. 
+The Seurat based Tutorial can be found [here](https://satijalab.org/seurat/articles/integration_mapping.html)
+
+* **(Un)Known marker genes**: SC-Type uses marker genes that are either expected or not expected in certain cell types. You can provide your own set, but it has a database for the following tissues: Immune system, Pancreas, Liver, Eye, Kidney, Brain, Lung, Adrenal, Heart, Intestine, Muscle, Placenta, Spleen Stomach, Thymus.
+
+# Quick reminders on how to use R notebook:
+* The ```{r}``` is used to indicate code. Pressing the green arrow on the right top corner of these allows you to run this code block individually. 
+* Outside these blocks is the "markdown" component (all the pretty writing). The #s and ** are all for formating the writing so it looks nice once knit together. You can see this easier version either by clicking the preview button (top of page) or you can look at the worksheet on github since they'll have identical information, it just might be easier to read via Github.
+
+## Load your libraries.
+THe HGNChelper and openxlsx might need to be installed in which case just say yes to the prompt. This may take a couple minutes.
+
+```{r}
+library(Seurat) # sc objects
+library(ggplot2) # plotting
+library(dplyr) # for sc-type
+library(HGNChelper) # for sc-type
+library(openxlsx) # for sc-type
+```
+
+## **Known Atlas**
+Some great resources to find already defined atlases (good for references) include https://data.humancellatlas.org/, https://www.synapse.org/, and most importantly PubMed/google scholar. Most single-cell papers have a section with the finished data in the "Data Availability" or "Code Availability" section. These atlases will include the celltypes in the metadata. 
+* *Note:* Sometimes, they are provided as AnnData objects rather than Seurat objects (.h5ad). These can be converted to Seurat objects via the function h5ad2seurat() from the package [schard](https://github.com/cellgeni/schard).
+
+For demonstration purposes, we are using an object which contains half of the T21 dataset as the reference atlas to label the cell types for the other half of the T21 cells.
+
+## 0. Get the data
+
+```{r}
+# read in the appropriate Seurat object
+load("./t21_official_umap_clust_06.25.24.Rdata")
+# see what the name of the object loaded is 
+ls()
+```
+
+```{r}
+# for each cell state, splits half cells for query & ref (atlas)
+query_cells = c()
+for (cell_state in unique(t21$cell.labels)) {
+    # get the half the cells to keep
+    filt = t21@meta.data[t21@meta.data$cell.labels == cell_state,]
+    query_cells = c(query_cells, sample(rownames(filt), nrow(filt)/2), seed=42) # randomization seed ensures same results for everyone
+    }
+length(query_cells)
+ref_cells = setdiff(rownames(t21@meta.data), query_cells)
+length(ref_cells)
+```
+
+```{r}
+# now actually subset the data with the appropriate cells
+t21_query <- subset(x = t21, cells = query_cells)
+t21_ref <- subset(x = t21, cells = ref_cells)
+dim(t21_query)
+dim(t21_ref)
+# we can now delete the original object now
+rm(t21)
+```
+
+### 1. Graph the original UMAP to see that the datasets are in fact split
+
+This UMAP will look different from what you did yesterday because we are using only cells belonging to individuals with T21 for the variable genes, clustering and UMAP.
+
+We show a graph with the Seurat clusters identified (when analyzing with all cells together)
+
+```{r}
+# having plootting dimensions make it easier to see
+options(repr.plot.height=5.5, repr.plot.width=9.5)
+# color coded the cell states for easier comparison
+known_color_values = c("B_lineage"='#8DD3C7', 
+                 "DC"='yellow', 
+                 "eo/baso/mast"='purple', "erythroid"='#FB8072', "HSC/MPP and pro"='#80B1D3', 
+                 "MK"='#FDB462', "monocyte"='#B3DE69', "neutrophil"='magenta', 
+                 "stroma"='blue', "T/NK"='#BC80BD')
+
+DimPlot(t21_query, group.by = c("broad_extfig7A_cell.labels"), reduction = 'Xumap_') + scale_color_manual(values=known_color_values)
+DimPlot(t21_ref, group.by = c("broad_extfig7A_cell.labels"), reduction = 'Xumap_') + scale_color_manual(values=known_color_values)
+```
+
+### 2. Follow Seurat to transfer information
+
+We are treating the t21_ref as our "reference" since we expect the same cell types to exist.
+The Seurat based Tutorial can be found [here](https://satijalab.org/seurat/articles/integration_mapping.html)
+
+1. Need to find anchors (FindTransferAnchors): pairs of cells from the reference and query datasets that are mutual nearest neighbors. This means that when you look at the dimension reductions of both, the cells are very similar to one another. Details found [here](https://satijalab.org/seurat/reference/findtransferanchors)
+2. Transfer the reference data labels of interest to the query data (TransferData): This uses the anchors to help compare individual cells between one another annd transfer labels accordingly. Details found [here](https://satijalab.org/seurat/reference/transferdata)
+3. Add the determined labels to the metadata of the query (AddMetaData)
+
+```{r}
+# find anchors that allow transfer from the reference to the query object in Transfer data
+# Details can be found here: https://satijalab.org/seurat/reference/findtransferanchors
+t21_query.anchors <- FindTransferAnchors(reference = t21_ref, query = t21_query)
+```
+
+```{r}
+# Classify the query cells based on the reference data
+# Return = Matrix with predicted IDs and prediction scores
+# Reference should be the cell type labels you want to follow
+ls_predictions <- TransferData(anchorset = t21_query.anchors, 
+                               refdata = t21_ref@meta.data$broad_extfig7A_cell.labels,)
+# look at the predictions
+ls_predictions[1:2,]
+# double check the order of cells is the same (sanity check as they always should be)
+identical(rownames(t21_query@meta.data), rownames(ls_predictions))
+# add this predicted IDs and scores to the metadata of our query
+t21_query@meta.data$ls_predicted_id = ls_predictions$predicted.id
+
+# look at the metadata now
+t21_query@meta.data[1:2, c("ls_predicted_id", "broad_extfig7A_cell.labels", "cell.labels")]
+```
+
+### 3. See how well this did
+Since we have the truth set, we can get an idea of how many of the cell types we predicted were accurate for the individual cells. We would expect almost perfect results given we're using half of the SAME dataset from which our query was derived. But do we get that?
+
+```{r}
+# Count the # times where the predicted cell type matches the true one
+t21_query$ls_prediction.match <- t21_query$ls_predicted_id == t21_query$broad_extfig7A_cell.labels
+# See how many times it was equal (TRUE) vs not (FALSE)
+table(t21_query$ls_prediction.match)
+```
+
+### 4. Repeat this ON YOUR OWN but with the smaller scale cell labels
+* *Hint*, the smaller scale cell types are under "cell.labels" in the t21 ref data
+* Does this do better or worse than when we just try with the large scale cell types?
+
+```{r}
+# TYPE CODE HERE
+# Get the anchors (technically only have to do this once but repeat for learning purposes)
+# Transfer the data for individual cell label scoring
+# add predictions to the meta data
+```
+
+```{r}
+# see how well it did
+t21_query@meta.data[1:2, c("ls_predicted_id", "broad_extfig7A_cell.labels", "ss_predicted_id", "cell.labels")]
+
+# Count the # times where the predicted cell type matches the true one
+t21_query$ss_prediction.match <- t21_query$ss_predicted_id == t21_query$cell.labels
+# See how many times it was equal (TRUE) vs not (FALSE)
+table(t21_query$ls_prediction.match)
+table(t21_query$ss_prediction.match)
+```
+
+### Answer the following Reflection Questions
+* You can answer these directly here or in another file
+
+1. How well did we do with the large scale cell types compared to the small scale cell states?
+2. Therefore, how much does clustering resolution and pattern play a role in cell type annotation?
+3. Which parts of the code would you change to look at the seurat clusters (in this case the query clusters used would be the $seurat_clusters instead of broad_extfig7A_cell.labels -- check that you know how to do this)?
+
+-----------------------------------------------------------------------------------------------
+
+## **(Un)Known Marker Genes**
+SC-Type uses marker genes that are either expected or not expected in certain cell types. The full instructions on how to use it can be found at their [Github README](https://github.com/IanevskiAleksandr/sc-type). They also have an interactive [web implementation](https://sctype.app/) for it, but this can be more difficult to debug or use if you have really large files. Therefore, we will be showing the use here.
+
+### 1. Load Functions and Database for SC-Type
+* SC-Type allows you to load the functions directly which is what we're doing with "source()"
+* We then need a database that has the list of genes that are considered "marker" and "non-marker" genes for cell types of interest. In this case we use the default one they already made for the "Immune system", however you can also use your own by uploading a XLSX file with the following headings (one line is provided as an example):
+
+|tissueType|cellName|geneSymbolmore1|geneSymbolmore2|
+|:---|:---|:---|:---|
+|Immune system|Platelets|CD41,CD42b|SELL,CCR7|
+
+```{r}
+# load gene set preparation function
+source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/gene_sets_prepare.R")
+# load cell type annotation function
+source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/sctype_score_.R")
+```
+
+```{r}
+# Get the DB file
+# name the tissue of interest
+db_ <- "https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx";
+tissue <- "Immune system" 
+
+# prepare gene sets
+gs_list <- gene_sets_prepare(db_, tissue)
+# DON'T WORRY ABOUT WARNINGS HERE
+```
+
+```{r}
+# Look at the cell types considered in this database
+names(gs_list$gs_positive)
+length(names(gs_list$gs_positive))
+```
+
+
+### 2. Have the SC data ready to analyze
+We want to get the scaled gene data matrix. SC-Type provides suggested code for getting this according to which version of Seurat you're using. We use the assay [["RNA"]] since that's where are data of interested is stored in this case. Seurat objects can have multiple assays.
+
+```{r}
+# check Seurat object version (scRNA-seq matrix extracted differently in Seurat v4/v5)
+seurat_package_v5 <- isFALSE('counts' %in% names(attributes(t21_query[["RNA"]])))
+
+# extract scaled scRNA-seq matrix
+scRNAseqData_scaled <- if (seurat_package_v5) as.matrix(t21_query[["RNA"]]$scale.data) else as.matrix(t21_query[["RNA"]]@scale.data)
+```
+
+### 3. Run ScType
+sctype_score() gets the scores for each cell for beinging within all the different possible cell types. This will be used downstream to predict the clusters.
+* scaled=TRUE is used since the data we're using is scaled
+* gs = gs_positive -- the gene sets we expect to be in the cell types considering
+* gs2 = gs_negative -- the gene sets we don't expect to be in teh cell types considering
+
+```{r}
+# run ScType
+es.max <- sctype_score(scRNAseqData = scRNAseqData_scaled, 
+                       scaled = TRUE, gs = gs_list$gs_positive, 
+                       gs2 = gs_list$gs_negative)
+# This gets the scores for each cell regarding all the different possible cell types
+dim(es.max)
+es.max[1:3,1:4]
+```
+
+### 4. Based on single cell scores, assign the clusters with cell type annotations
+* Since we know the cell types, instead of using Seurat based clusters as the clusters to assign cell types too, we can use broad_extfig7A_cell.labels as the cluster annotations we need to assign. Usually, we'd use seurat_clusters to replace broad_extfig7A_cell.labels.
+* We then use the es.max object that has the individual cell scores to predict which of cell type oof the clusters.
+* Any clusters that have low confidence scores regarding the linked cell type are labeled as such
+
+```{r}
+# Create the function to get the cell types according to sctype scoring
+cL_results_known <- do.call("rbind", lapply(unique(t21_query@meta.data$broad_extfig7A_cell.labels), function(cl){
+    # get the highest scoring cell type  for each of the clusters
+    es.max.cl = sort(rowSums(es.max[ ,rownames(t21_query@meta.data[t21_query@meta.data$broad_extfig7A_cell.labels==cl, ])]), decreasing = !0)
+    head(data.frame(cluster = cl, type = names(es.max.cl), scores = es.max.cl, ncells = sum(t21_query@meta.data$broad_extfig7A_cell.labels==cl)), 10)
+}))
+
+# run the function on each of the clusters, keeping the highest scoring one
+sctype_scores_known <- cL_results_known %>% group_by(cluster) %>% top_n(n = 1, wt = scores)  
+
+# optionally label those that are low confidence according to the ScType score and the number of cells (support)
+# # set low-confident (low ScType score) clusters to "unknown"
+sctype_scores_known$confidence <- "High"
+sctype_scores_known$confidence[as.numeric(as.character(sctype_scores_known$scores)) < sctype_scores_known$ncells/4] <- "Low"
+```
+### 5. Look at results
+```{r}
+# let's see how they matched up 
+# cluster = our clusters (numbers if we used seurat clusters)
+# type = SCtype assigned cell type
+# confidence is what we added
+sctype_scores_known
+```
+
+Now graph the UMAP to see how well the cell types compare visually. I made the colors of corresponding cell states in the graphs the same by using scale_color_manual.
+
+```{r}
+# add results to metadata and graph
+known_color_values = c("B_lineage"='#8DD3C7', 
+                 "DC"='yellow', 
+                 "eo/baso/mast"='purple', "erythroid"='#FB8072', "HSC/MPP and pro"='#80B1D3', 
+                 "MK"='#FDB462', "monocyte"='#B3DE69', "neutrophil"='magenta', 
+                 "stroma"='blue', "T/NK"='#BC80BD')
+sctype_color_values = c("Pro-B cells"='#8DD3C7', 
+                 "Plasmacytoid Dendritic cells"='yellow', 
+                 "Basophils"='purple', "Erythroid-like and erythroid precursor cells"='#FB8072', "Progenitor"='#80B1D3', 
+                 "Megakaryocyte"='#FDB462', "Classical Monocytes"='#B3DE69', "Neutrophils"='magenta', 
+                 "Macrophages"='blue', "CD8+ NKT-like cells"='#BC80BD')
+
+# adding the SCtype annotations
+t21_query@meta.data$sctype_classification = ""
+# for each of the ORIGINAL clusters
+for(j in unique(sctype_scores_known$cluster)){
+    # get the predicted cluster
+  cl_type = sctype_scores_known[sctype_scores_known$cluster==j,]; 
+  t21_query@meta.data$sctype_classification[t21_query@meta.data$broad_extfig7A_cell.labels == j] = as.character(cl_type$type[1])
+}
+
+# Graphing
+DimPlot(t21_query, reduction = "Xumap_", label = TRUE, repel = TRUE, group.by = 'sctype_classification') + scale_color_manual(values=sctype_color_values)  
+DimPlot(t21_query, reduction = "Xumap_", label = TRUE, repel = TRUE, group.by = 'broad_extfig7A_cell.labels') + scale_color_manual(values=known_color_values) 
+```
+
+### 6. Your turn with the smaller scale clusters
+Use the code previously shown and the outline provided to repeform similar analysis but using the smaller scale clusters (cell.labels) as the clusters of interest.
+
+```{r}
+colnames(t21_query@meta.data)
+
+# Now you repeat the above with the small scale cell states instead
+# HINT: use the cell.labels instead of broad_extfig7A_cell.labels
+
+cL_results_test <- 
+
+sctype_scores_test <- 
+
+sctype_scores_test 
+```
+
+### Let's visualize our results
+```{r}
+# adding the SCtype annotations to the metadata
+t21_query@meta.data$ss_sctype_classification = ""
+# for each of the ORIGINAL clusters
+for(j in unique(sctype_scores_test$cluster)){
+    # get the predicted cluster
+  cl_type = sctype_scores_test[sctype_scores_test$cluster==j,]; 
+  t21_query@meta.data$ss_sctype_classification[t21_query@meta.data$cell.labels == j] = as.character(cl_type$type[1])
+}
+
+# Graphing
+options(repr.plot.height=6, repr.plot.width=13)
+DimPlot(t21_query, reduction = "Xumap_", label = FALSE, repel = TRUE, group.by = 'cell.labels') 
+options(repr.plot.height=6, repr.plot.width=15)
+DimPlot(t21_query, reduction = "Xumap_", label = FALSE, repel = TRUE, group.by = 'ss_sctype_classification') 
+```
+
+```{r}
+sctype_scores_test[order(sctype_scores_test$type),]
+```
+
+### Answer the following Reflection Questions
+* You can answer these directly here or in another file
+
+1. Was the default database used by this tool sensitive enough to distinguish between the more finely tuned cell states? (*Hint*: do we see a lot of the same cell type for different clusters?)
+2. If yes, how might you be able to still use this tool but have a more sensitive database? (*Hint*: look at step 1 of this section)
+
+

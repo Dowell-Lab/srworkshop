@@ -11,4 +11,4 @@ PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
 
-export PS1="\[\e[0;33m\]\u@\h \[\e[0;34m\]\w \[\e[00m\]\$ "
+export PS1="\[\e[0;33m\]\u@srAWS \[\e[0;36m\]\w \[\e[00m\]\$ "
