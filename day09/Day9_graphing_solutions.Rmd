@@ -1,0 +1,161 @@
+---
+title: "Day9: Making Figures in R"
+subtitle: "Interpretation of ChIP and RNAseq Data" 
+author: "Meaghan Courvan"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: journal
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+
+### Learning objectives: 
+The goal of this section is to become familiar with working with dataframes in R, using R functions to answer questions biological questions, and making figures. 
+
+One common question people have when running multimodal experiments with RNA-seq and ChIP-seq is: \
+*What genes are differentially expressed and have a p53 ChIP peak in their promoter? And do these fall into one functional classification, molecular pathway, or biological funciton.* 
+
+We've gotten almost to answering this question throughout this project, and we'll finish here.
+
+First, let's recap what we've done.
+
+1. We calculated differential gene expression on Day 7. 
+2. We called p53 ChIP peaks on Day 8. 
+3. Earlier today, we used bedtools to get a list of p53 ChIP peaks overlapping genes in control (DSMO) conditions. 
+2. We got an equivalent list of p53 ChIP peaks overlapping genes in experimental (Nutlin) conditions. 
+
+All that's left is to do some basic set manipulation here in R and create some figures.
+
+### First, set up the environment. 
+The home directory for an R markdown document is the location where it's saved. You can't set the working directory (easily) from within the document. Make sure you save this in a place that makes it easy for you to load data and save results. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE) # this line sets the behavior of other R 
+                                   # chunks that we'll run below
+library(tidyverse)
+```
+
+### Read in the data 
+We will be working with bed files we generated earlier today, as well as differential expression data generated on Day 7. We'll load that all in here. 
+
+* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is "read_tsv()". Since we're working with a bed file, it doesn't have column names. In the "read_tsv()" function, make sure to set col_names=FALSE. 
+* Now that you've loaded the bed files, give them usable column names. I've provided those for you in the block of code below, you just need to assign them to the dfs. 
+* Load the differential expression data you generated on Day 7. 
+  * There are a lot of genes in this data frame, so we're going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value < 0.05 and an absolute value log~2~(Fold Change) > 1.25. 
+
+```{r}
+### --- READ IN CHIP DATA 
+  dmso_peaks <- read_tsv('Day9/bedtools_results/demo_output/p53_peaks_in_genes_hct_dmso.bed', 
+                         col_names = FALSE)     
+  nutlin_peaks <- read_tsv('Day9/bedtools_results/demo_output/p53_peaks_in_genes_hct_nutlin.bed', 
+                           col_names = FALSE) 
+  
+  ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
+  set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
+                    'chip_strand', 'signalValue', 'log_pval', 'log_qval', 
+                    'summit', 'promoter_chr', 'promoter_start', 'promoter_end', 
+                    'gene', '.', 'gene_strand', 'overlap') 
+  colnames(dmso_peaks) <- set_colnames
+  colnames(nutlin_peaks) <- set_colnames
+  
+  ### --- READ IN DE DATA 
+  de.import <- read_tsv(paste0('andrysik2017/de_output/hct116_nutlin_dmso.txt'))
+  
+  ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
+  de <- de.import %>% filter(padj < 0.05 & abs(log2FoldChange) > 1.25)
+```
+
+<br>
+
+### Examine lists for overlap
+<br>
+
+#### Working with lists of genes
+These functions will do most of the work when we're comparing lists of genes. 
+
+1. **union()** ~ This function combines two lists and returns the unique elements. 
+3. **intersection()** ~ This returns only elements that are common to both lists 
+<br>
+<br>
+
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we're comparing lists, not dataframes.*
+
+
+```{r all_bound_genes}
+all_peaks <- union(dmso_peaks$gene, nutlin_peaks$gene)
+print(length(all_peaks))
+```
+
+**Second:** Look at the intersection of this list with DE genes 
+
+```{r overlap_de}
+bound_de_genes <- intersect(all_peaks, de$GeneID)
+print(length(bound_de_genes))
+```
+
+Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes. 
+
+```{r}
+print(length(bound_de_genes))
+print(bound_de_genes)
+```
+
+### Creating figures in R. 
+**Next** we'll make a Venn diagram showing the overlap of these categories. 
+
+To make figures in R, we usually call a specific package or function that makes the type of graph we're looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
+* Visit that website and follow the installation instructions. 
+* Load the library at the top of this next code block. 
+* Look at the Quick Start section. Do you see that the function expects a lists of lists? 
+* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks under Nutlin treatment, and differentially expressed genes. 
+
+```{r}
+library(ggvenn)
+
+venn_list <- list(
+    dmso_peaks = dmso_peaks$gene, 
+    nutlin_peaks = nutlin_peaks$gene,
+    de_genes = de$GeneID
+  )
+
+ggvenn(venn_list) 
+```
+
+
+
+**Finally**, report the percentage of ChIP peaks that overlap with a differentially expressed gene. 
+
+```{r perc_peak_in_gene}
+percent <- 192/length(all_peaks) * 100
+
+print(percent)
+```
+
+
+### Export our work for GO analysis
+
+For GO analysis, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. We'll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes. 
+
+* Make each list
+* Now you need to turn each list into a dataframe. This is because the function used to write, write_tsv(), only write dataframes and not lists. Use the function as.data.frame() to convert each list.
+* Now save each list in a place that is descriptive and convenient for you. 
+
+```{r write_output}
+
+background <- union(all_peaks, de.import$GeneID)
+background <- as.data.frame(background)
+
+de_list <- as.data.frame(de$GeneID)
+
+de_list_up <- as.data.frame(de[de$log2FoldChange > 0, 'GeneID'])
+de_list_down <- as.data.frame(de[de$log2FoldChange < 0, 'GeneID'])
+
+write_tsv(background, 'Day9/bedtools_results/demo_output/day9_background.bed')
+write_tsv(de_list, 'Day9/bedtools_results/demo_output/day9_delist.bed')
+write_tsv(de_list_up, 'Day9/bedtools_results/demo_output/day9_delist_up.bed')
+write_tsv(de_list_down, 'Day9/bedtools_results/demo_output/day9_delist_down.bed')
+```
+
+
