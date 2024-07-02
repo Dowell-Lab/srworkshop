@@ -35,8 +35,8 @@ For demonstration purposes, we are using an object which contains half of the T2
 ## 0. Get the data
 
 ```{r}
-# read in the appropriate Seurat object
-load("./t21_official_umap_clust_06.25.24.Rdata")
+# read in the appropriate Seurat object EDIT THIS PATH AS NEEDED
+load("/scratch/Shares/public/sread2024/cookingShow/day8/labeled-seurat-objs/t21_official_umap_clust_06.25.24.Rdata")
 # see what the name of the object loaded is 
 ls()
 ```
