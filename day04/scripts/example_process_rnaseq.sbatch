@@ -4,7 +4,7 @@
 #SBATCH --mail-user=<YOUR_EMAIL_HERE>           # Where to send mail
 #SBATCH --nodes=1                               # Number of nodes requested
 #SBATCH --ntasks=8                              # Number of CPUs (processor cores/tasks)
-#SBATCH --mem=2gb                               # Memory limit
+#SBATCH --mem=4gb                               # Memory limit
 #SBATCH --time=01:30:00                        # Time limit hrs:min:sec
 #SBATCH --partition=                       # Partition/queue requested on server
 #SBATCH --output=       # Standard output:  the %x will be replaced with job_name and the %j by the job id
@@ -23,8 +23,8 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 ## the fastq files will be used as input to fastqc and trimmomatic
 ## trimmed reads will then be passed on to the mapping step
-DATADIR=/scratch/Shares/public/sread2023/homework_data_files/day4
-FASTQ=${DATADIR}
+FASTQ=/scratch/Shares/public/sread2023/homework_data_files/day4
+DATADIR=                 #day4 scratch working directory
 FASTQC=${DATADIR}/fastqc
 HISAT2=${DATADIR}/hisat2
 TRIM=${DATADIR}/trimmomatic
@@ -56,5 +56,7 @@ module load samtools/1.8
 ###5.2 - sort bam file
 
 ###5.3 - index sorted bam file
+
+###5.4 - remove your SAM and unsorted BAM file
  
 echo Job finished at `date +"%T %a %d %b %Y"`

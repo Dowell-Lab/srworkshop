@@ -1,14 +1,14 @@
 #!/bin/bash
-#SBATCH --job-name=d4_mapping			       # Job name
+#SBATCH --job-name=<job_name>			       # Job name
 #SBATCH --mail-type=ALL                        # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL_HERE>          # Where to send mail
-#SBATCH --nodes=1                              # Number of nodes requested
-#SBATCH --ntasks=8                             # Number of CPUs (processor cores/tasks)
-#SBATCH --mem=8gb                              # Memory limit
-#SBATCH --time=01:00:00                        # Time limit hrs:min:sec
+#SBATCH --nodes=<nodes>                              # Number of nodes requested
+#SBATCH --ntasks=<cores>                             # Number of CPUs (processor cores/tasks)
+#SBATCH --mem=<memory>                              # Memory limit
+#SBATCH --time=<walltime>                        # Time limit hrs:min:sec
 #SBATCH --partition=compute                      # Partition/queue requested on server
-#SBATCH --output=/scratch/Users/<USERNAME>/eofiles/%x.%j.out       # Standard output:  the %x will be replaced with job_name and the %j by the job id
-#SBATCH --error=/scratch/Users/<USERNAME>/eofiles/%x.%j.err        # Standard error log
+#SBATCH --output=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.out       # Standard output:  the %x will be replaced with job_name and the %j by the job id
+#SBATCH --error=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.err        # Standard error log
 
 ### Displays the job context
 echo Job: $SLURM_JOB_NAME with ID $SLURM_JOB_ID
@@ -21,9 +21,8 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 ### Assigns path variables ###
 ##############################
 
-## the fastq files will be used as input to fastqc and trimmomatic
-## trimmed reads will then be passed on to the mapping step
-DATADIR=/scratch/Users/<USERNAME>/day4
+## Trimmed reads are passed on to the mapping step, which outputs mapped files
+DATADIR=/scratch/Users/<USERNAME>/workshop-day4
 
 HISAT2=${DATADIR}/hisat2
 TRIM=${DATADIR}/trimmomatic
@@ -38,8 +37,9 @@ mkdir -p ${TRIM}
 ######################
 ### Loads modules   ##
 ######################
-module load hisat2/2.1.0
-module load samtools/1.8
+# Load modules for hisat2 and samtools
+
+
 
 #######################
 ##Run the pipeline   ##

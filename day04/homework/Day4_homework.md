@@ -8,10 +8,10 @@ In a future day of the workshop we will go into more details about RNA-seq libra
 ## Homework
 <ol>
   <h3><li>Open the homework script</h3>
-    Copy the example_process_rnaseq.sbatch script from the GitHub repo day04 <code>scripts</code> folder to your home directory and make the necessary edits to do the following tasks. 
+    Copy the <code>example_process_rnaseq.sbatch</code> script from the GitHub repo day04 <code>scripts</code> folder to your scratch day4 working directory and make the necessary edits to do the following tasks. 
   </li>
   <h3><li>FastQC</h3>
-    Evaluate the remaining fastq files in
+    Evaluate the fastq files in
     <code>/scratch/Shares/public/sread2024/homework_data_files/day4/</code>.
     <br />
     <br />
@@ -63,6 +63,9 @@ In a future day of the workshop we will go into more details about RNA-seq libra
       </li>
       <li>
         Sort and index your BAM files.
+      </li>
+      <li>
+        Remove the unnecessary large files.
       </li>
     </ul>
   </li>
