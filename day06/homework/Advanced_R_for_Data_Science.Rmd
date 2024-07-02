@@ -1,0 +1,552 @@
+---
+title: "R for Data Science"
+author: "Rutendo F. Sigauke"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+---
+
+```{r include = FALSE}
+#Set options for the entire document in the first chunk.
+knitr::opts_chunk$set(message = FALSE, echo=FALSE, eval = FALSE)
+```
+
+# Overview
+
+In this worksheet we will go over essential R tools for Data Science. This document will go over the following topics:
+
+1. We will revisit **R data structures**, and how they can be used for Data Science. 
+2. We will explore useful **R commands**.
+3. We will write **R functions** and execute them.
+4. We will review **R loops**.
+5. We will talk about communicating our data with an **R notebook** (Note: This document was generated in an R Notebook.).
+
+# Resources
+
+- For more details of using R for Data Science, see: https://r4ds.hadley.nz/
+- For more on general R usage: https://intro2r.com/ and http://venus.ifca.unican.es/Rintro/index.html# 
+- For advanced R data structures: http://adv-r.had.co.nz/Data-structures.html
+- Deeper dive into R markdown: https://bookdown.org/yihui/rmarkdown/
+- R markdown and R notebooks cheat sheets: https://rstudio.github.io/cheatsheets/html/rmarkdown.html
+- Tidyverse style guide: https://style.tidyverse.org/index.html
+
+
+# R data structures
+
+There are various data structures in R. This includes *vectors*, *factors*, *matrices*, *arrays*, *data frames*, *lists*, and *functions*. 
+
+- *Vectors*: are one-dimensional arrays used to store collection data of the same mode. 
+- *Factors*: are vectors of categorical variables designed to group the components of another vector with the same size.
+- *Matrices*: are two-dimensional arrays that can store collections of data of the same mode. Values in a matrix are accessed by two integer indices `mat[row,column]`. 
+- *Arrays*: are similar to matrices but they can be multi-dimensional.
+- *Lists*: are ordered collection of objects and the elements can be of different types.
+- *Data Frames*: are a generalization of matrices where different columns can store different mode data (e.g. characters, numeric).
+- *Functions*: are objects created by the to automate specific operations.
+
+More details on each of the data structures can be found here: http://venus.ifca.unican.es/Rintro/dataStruct.html 
+
+```{r}
+################################
+#Installing packages           #
+################################
+#install.packages("FactoMineR")
+#install.packages("factoextra")
+#install.packages("ggplot2")
+#install.packages("plotly")
+#install.packages("ggfortify")
+
+```
+
+
+## Vectors
+
+1. Generate a vector of several numeric values.
+2. Check the type of data class.
+3. Perform a mathematical operation on the vector.
+4. Create a sequence of integers.
+5. Repeat value the value 42 eight times.
+6. Create a random sequence of vectors (**CHALLENGE:** explain the `sample` function)
+
+```{r}
+#Generate a vector with several numeric values 
+a_vector <- c(2, 10, 27, 100, 36)
+a_vector
+
+#checking data class
+class(a_vector)
+
+#perform mathematical operations on the vector 
+a_vector+2
+
+#sequence of vectors
+a_seq_vectors <- c(1:8)
+a_seq_vectors
+
+#repeat the value 42 eigth times
+a_rep_vectors <- rep(42, times=8)
+a_rep_vectors
+
+#random sequence of values
+set.seed(42) #create a seed to ensure reproducibility
+a_sample_vectors <- sample(1:8, 10, replace=TRUE) #CHALLENGE: explain the function
+a_sample_vectors
+
+#?sample
+
+```
+
+## Factors
+
+1. Create a vector of factors.
+
+```{r}
+
+#factor vector
+#Generate b vector with several characters 
+b_vector <- c("A", "B", "A", "C", "A")
+b_vector
+
+b_factor_vector <- factor(b_vector)
+b_factor_vector
+```
+
+## Matrices
+
+1. Create a 3 rows and 4 columns matrix with values 1 to 12.
+2. Create a second matrix with values of your choice.
+3. Apply mathematics operations **between** the two matrices. See more examples here: https://www.geeksforgeeks.org/operations-on-matrices-in-r/
+
+```{r}
+#matrix with values 1 to 12. Matrix has 3 rows and 4 columns.
+a_matrix <- matrix(1:12, nrow=3, ncol=4) 
+a_matrix
+
+#second matrix with 12 separate values
+b_matrix <- matrix(13:24, nrow=3, ncol=4) 
+b_matrix
+
+##multiplying the two matrices (+,-,*,/)
+a_matrix*b_matrix
+
+```
+
+## Arrays
+
+1. Create an array with 3 dimensions.
+
+```{r}
+an_array <- array(1:24, dim=c(2,3,4))
+an_array
+```
+
+## Data frames
+
+1. Create a data frame with three columns with `id` (character), `score` (numeric), and `grade` (character).
+2. Check the structure of the data frame.
+3. Change the grade column to factor and view the factor.
+4. Add column with rank of grades as a factor (e.g. "first","second"...) and view the factors. (**CHALLENGE:** reorder the factor so that the order makes sense (i.e. increasing))
+5. Check the class of each column in the data frame
+
+
+```{r}
+# Create an example data frame
+example_df <- data.frame(id = c("id1", "id2", "id3", "id4", "id5"),
+                         score = c(90, 95, 10, 70, 10),
+                         grade = c("A", "A", "F", "C", "F"))
+
+#checking structure of df
+str(example_df)
+
+#converting grade to factor
+example_df$grade <- as.factor(example_df$grade)
+
+#viewing the factor
+example_df$grade
+
+##adding rank column
+example_df$rank <- factor(c("first","first","fifth","third","fifth"))
+
+#viewing the factor
+example_df$rank ##CHALLENGE: reorder the factor so that the order makes sense (i.e. increasing)
+
+##NOTE: changing the order of factors can come in handy when plotting and you want to change the order of variables.
+example_df$rank <- factor(example_df$rank, levels = c("first","second","third","forth","fifth"))
+example_df$rank
+
+#check the column classes
+sapply(example_df, class) ##what does sapply do? Alternative is to used str() as we did above.
+#?sapply
+
+```
+
+
+## Lists
+
+1. Create a list with three characters.
+
+```{r}
+
+a_list <- list("apple","banana","guava")
+a_list
+
+```
+2. Create a list with a data.frame, list, and matrix. You can select from the data structures created above.
+3. View contents of the new list one item at a time.
+4. Check names of the entries in the list.
+5. Rename each of the names in the list.
+
+```{r}
+#this is a list containing a data.frame, list and matrix
+list_of_datastructures <- list(example_df, a_list, a_matrix)
+list_of_datastructures
+
+#viewing first item in list
+list_of_datastructures[[1]]
+list_of_datastructures[[2]]
+list_of_datastructures[[3]]
+
+##first check what the names are
+names(list_of_datastructures)
+
+#add new names
+names(list_of_datastructures) <- c("example_dataframe","example_list","example_matrix")
+
+#check names again
+names(list_of_datastructures) #this only returns the names
+list_of_datastructures #this will return previews of each list item and the names will be listed.
+```
+
+# Functions
+
+## Simple function
+
+1. Write a simple function that takes in a name and prints "Hello World, my name is **my_name** !"
+
+```{r}
+##function with hello world
+hello_world <- function(my_name){
+  paste("Hello World, my name is", my_name, "!") 
+}
+
+##running function
+hello_world("Rutendo")
+```
+
+## Loops in R
+
+Loops are helpful for performing repetative tasks. There are three types of loops `for`, `while` and `repeat`. Loops are essential for programming across many languages. 
+
+See https://intro2r.com/loops.html and https://www.geeksforgeeks.org/loops-in-r-for-while-repeat/ for more details and examples.
+
+### `for` loops
+
+i. Write code to display numbers from 1 to 10 using `for` loop in R. 
+
+```{r}
+#display 1 to 10 in loop
+for (i in 1:10){
+  print(i)
+}
+```
+
+ii. Write a `for` loop to iterate across a list. (**CHALLENGE:** explain the `seq_along` function)
+
+```{r}
+
+#create a list
+my_list <- list("apples","bananas","pineapples","kiwi")
+
+#loop through my list (Method 1)
+for (i in my_list){
+  print(i)
+}
+
+#loop through my list (Method 2)
+for (i in 1:length(my_list)){
+  print(my_list[[i]])
+}
+
+#loop through my list (Method 3)
+for (i in seq_along(my_list)){ ##what does seq_along do?
+  print(my_list[[i]])
+}
+
+```
+
+iii. Loop across a 3x3 matrix and print each cell value.
+
+```{r}
+# Create a 3x3 matrix of integers
+my_matrix <- matrix(1:9, nrow = 3, ncol=3)
+ 
+# Loop through matrix and print each cell value
+for (i in seq_len(nrow(my_matrix))) {
+  for (j in seq_len(ncol(my_matrix))) {
+    current_cell <- my_matrix[i, j]
+    print(paste("Value in cell :", current_cell))
+
+  }
+}
+
+# Loop through matrix and print each cell value
+#and also print the row and colum of the cell
+for (i in seq_len(nrow(my_matrix))) {
+  for (j in seq_len(ncol(my_matrix))) {
+    current_cell <- my_matrix[i, j]
+    print(paste("Row",i,"and Column",j))
+    print(paste("Value in cell :", current_cell))
+    print("---------------------------")
+  }
+}
+```
+
+### `while` loop
+
+i. Write code to display numbers from 1 to 10 using a `while` loop. 
+
+```{r}
+
+#initialize a variable for the value to display
+val = 1
+
+# using while loop to print 1-10
+while (val <= 10){
+  print(val)
+  val = val + 1
+}
+
+```
+### `repeat` loop
+
+i. Write code to display numbers from 1 to 10 using a `repeat` loop. 
+
+```{r}
+
+#initialize a variable for the value to display
+val = 1
+ 
+#using repeat loop to print 1-10
+repeat {
+  #print the values
+  print(val)
+  val = val + 1
+ 
+  #checking stop condition
+  if(val > 10){
+    #using break statement
+    #to terminate the loop
+    break
+  }
+}
+
+```
+
+
+### Alternatives to loops
+
+There are other options other than loops that fall in the `apply` family (`apply()`, `lapply()`, `tapply()`, `sapply()`, `vapply()`, and `mapply()`). See this chapter in *An Introduction to R* https://intro2r.com/loops.html#if-not-loops-then-what for more details.
+
+## Complex functions with loops
+
+2. Create a function `hello_friend` that says "Hello **example_name**!".
+
+
+```{r}
+
+#function saying "Hello" to a friend.
+hello_friend <- function(friend){
+  paste("Hello ", friend,"!") 
+}
+
+#Creating a vector to a list of friends
+my_friends <- c("Mary","Robin","Esteban","Meg",
+                "Sam","Lynn","Zach","Chris")
+
+#Running function on the whole vector
+hello_friend_out <- hello_friend(my_friends)
+print(hello_friend_out)
+
+
+```
+3. Create a vector with 4 names and loop through to run the function `hello_friend`.
+
+```{r}
+#looping through names and running the 'hello_friend' function
+for (a_friend in my_friends){
+
+  hello_friend_out <- hello_friend(a_friend)
+  
+	print(hello_friend_out)
+  
+}
+```
+
+
+4. Write and run a function for the clustering algorithm (from Apr 8th). (**HINT:** We can use a `for` loop across all the k values.)
+
+
+```{r}
+
+#load libraries
+#I usually load my libraries at the top of the notebook and specify why they are needed.
+library(ggplot2) ## package for plotting that is used in factoextra
+library(factoextra) ## visualize cluster analyses
+
+
+#load the data
+data(USArrests)
+
+#remove NAs from dataframe
+USArrests_df <- na.omit(USArrests)
+
+#scale the data
+USArrests_df <- scale(USArrests_df)
+
+#function that clusters and plots the different ks
+f1 <- function(inputdf, c, numstarts){
+	k <- kmeans(inputdf, centers = c, nstart = numstarts)
+	
+	p <- fviz_cluster(k, geom = "point", data = inputdf) + 
+	     ggtitle(paste("k = ",c))
+
+  print(p) #what do you see?
+}
+
+#set up a list of values from 2 to 5
+num_centers <- seq(2,5,1)
+num_start <- 25
+
+#parse through the different centers and run the clustering algorithm
+for (i in num_centers){
+  
+  f1(USArrests_df, i, num_start)
+  
+}
+
+```
+
+
+4. Clean up the code for clustering, and run the updated code!
+
+```{r, results='hide'}
+# 1: Running K-means
+run_kmeans <- function(inputdf, numcenter, numstarts){
+	# run kmeans() function with variable starts and centers
+	k_starts <- kmeans(inputdf, centers = numcenter, nstart = numstarts)
+	# return the results from the clustering
+	return(k_starts)
+}
+
+# 2: Plotting the clusters
+plot_kmeans_clusters <- function(kout, inputdf, numcenter){
+	# plot the clusters 
+	cluster_plot <- fviz_cluster(kout, geom = "point", data = inputdf) + 
+ ggtitle(paste("k = ",numcenter))
+	# return the plot
+	print(cluster_plot)
+}
+
+# 3: Running the K-means clustering and plotting functions
+#set up a list of values from 2 to 5
+num_centers <- seq(2,5,1)
+num_start <- 25
+
+#parse through the different centers and run the clustering algorithm
+for (center in num_centers){
+  
+  example_k <- run_kmeans(inputdf = USArrests_df,
+                          numcenter = center,
+                          numstarts = num_start)
+
+  plot_kmeans_clusters(kout=example_k, 
+                       inputdf = USArrests_df,
+                       numcenter = center
+                       )  
+  
+}
+
+```
+
+5. Write functions to save analysis files (table with clusters and figures as png).
+
+**HINT 1:** To save tables we can use `write.table()`, and you can specify output formats (e.g. csv or tsv). 
+**HINT 2:** The `ggplot2` package has a function to save the figures called `ggsave()`.
+
+```{r, results='hide'}
+
+#1: Create a function that saves the original table including the clusters
+save_kcluster_table <- function(inputdf, kout, output_dir, output_file){
+  
+  #make sure the table is a dataframe
+  inputdf <- as.data.frame(inputdf) 
+  
+  #add column with cluster informations
+  inputdf$Cluster <- kout$cluster 
+  
+  #save file to specific folder
+  write.table(inputdf,
+              file = paste0(output_dir,"/",output_file),
+              sep = "\t")
+
+}
+
+#2: Create function for saving plot as png
+save_kcluster_figure <- function(kplot, output_dir, output_file){
+  
+  #save plot with ggplots' `ggsave` 
+  ggsave(filename = paste0(output_dir,"/",output_file),
+         plot = kplot,
+         device = "png")
+
+}
+
+# 3: Running the K-means clustering and plotting functions
+#set up a list of values from 2 to 5
+num_centers <- seq(2,5,1)
+num_start <- 25
+outdir <- "/Users/rutendo/Desktop/MCDB_3450_6440/Worksheets/RforDataScience"
+
+#parse through the different centers and run the clustering algorithm
+for (center in num_centers){
+  
+  outtab <- paste0("USArrests_k",center,".tsv")
+  outfig <- paste0("USArrests_figure",center,".png")
+  
+  example_k <- run_kmeans(inputdf = USArrests_df,
+                          numcenter = center,
+                          numstarts = num_start)
+
+  example_plot <- plot_kmeans_clusters(kout = example_k, 
+                                       inputdf = USArrests_df,
+                                       numcenter = center) 
+  
+  save_kcluster_table(inputdf = USArrests_df, 
+                      kout = example_k, 
+                      output_dir = outdir,
+                      output_file = outtab)
+  
+  save_kcluster_figure(kplot = example_plot, 
+                       output_dir = outdir, 
+                       output_file = outfig)
+  
+}
+
+
+```
+
+
+# Miscellaneous
+
+1. The package `cowplot` allows for easy plotting along with `ggplot2`. Examples : https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html and https://wilkelab.org/cowplot/articles/index.html
+2. We can create interactive plots with `plotly` and `ggfortify`. The `plotly` website https://plotly.com/r/basic-charts/ has a few examples.
+3. `shiny` offers more versatile interactive applications for communicating data in R. The `shiny` website https://www.rstudio.com/products/shiny/ has a number of example apps and details on hosting an app locally through RStudio.
+
+
+
