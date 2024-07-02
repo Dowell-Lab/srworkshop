@@ -159,3 +159,138 @@ write_tsv(de_list_down, 'Day9/bedtools_results/demo_output/day9_delist_down.bed'
 ```
 
 
+
+### Comparing DE genes between cell lines. 
+This study looked at p53 responses across 4 cell lines: SJSA, MCF7, HCT116, and HCT116 with p53 KO. Let's see how consistent the p53 response is across these cells lines. We'll do this by making two types of graphs. 
+
+1. A venn diagram, as we did above. 
+2. A heatmap of differential expression. 
+
+**First**, load in the data from ___________. 
+
+```{r load_all_de_data}
+
+hct.de <- read_tsv('andrysik2017/de_output/hct116_deres.txt')
+hctko.de <- read_tsv('andrysik2017/de_output/hct116p53ko_deres.txt')
+sjsa.de <- read_tsv('andrysik2017/de_output/sjsa_deres.txt')
+mcf7.de <- read_tsv('andrysik2017/de_output/mcf7_deres.txt')
+
+```
+
+**Second**, make a venn digram like we did above. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram? 
+
+```{r de_4celllines_venndiagram}
+de_venn <- list(
+                HCT116 = hct.de$GeneID, 
+                #`HCT116 p53-KO` = hctko.de$GeneID, 
+                SJSA = sjsa.de$GeneID, 
+                MCF7 = mcf7.de$GeneID
+                )
+
+ggvenn(de_venn)
+```
+```{r}
+# more helpful version of the venn diagram 
+hct.filt <- hct.de[(hct.de$padj <= 0.05), ] #abs(hct.de$log2FoldChange) > 3 & 
+hctko.filt <- hctko.de[(hctko.de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
+sjsa.filt <- sjsa.de[(sjsa.de$padj <= 0.05), ] #abs(sjsa.de$log2FoldChange) > 3 & 
+mcf7.filt <- mcf7.de[(mcf7.de$padj <= 0.05), ] #abs(mcf7.de$log2FoldChange) > 3 & 
+
+de_venn <- list(
+                HCT116 = hct.filt$GeneID, 
+                #`HCT116 p53-KO` = hctko.de$GeneID, 
+                SJSA = sjsa.filt$GeneID, 
+                MCF7 = mcf7.filt$GeneID
+                )
+
+ggvenn(de_venn)
+
+```
+
+**Third**, we'll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We'll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap). 
+
+Click on the link above, and skim the tutorial. The first lines tell you how to install pheatmap. Install it below. Then comment out the install line and load the package on the line below. 
+
+```{r install_pheatmap}
+#install.packages('pheatmap')
+library(pheatmap)
+```
+
+**What do we want the heatmap to display?** 
+
+* There are two quantitative variables you get out of DESeq2, the log~2~(Fold Change) and the adjusted p-value. Which do you want to plot? 
+* If we were to plot the data frames we imported, we'd be plotting tens of thousands of genes. That's far too many to look at! Especially since large majority of them aren't significantly changing and therefore aren't interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list? 
+
+1. Filter your lists of differentially expressed genes below. Print out the dimensions of each filtered data frame at the end. Are all the data frames the same size? Does anything surprise you? 
+2. If you're happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria. 
+3. For the next step, you df's will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named "GeneID". We'll leave that, but tag all the other column names with their cell type. I've provided that code, you just have to run it. 
+
+```{r filter_de_lists}
+hct.filt <- hct.de[(abs(hct.de$log2FoldChange) > 3 & hct.de$padj <= 0.05), ]
+hctko.filt <- hctko.de[(abs(hctko.de$log2FoldChange) > 3 & hctko.de$padj <= 0.05), ]
+sjsa.filt <- sjsa.de[(abs(sjsa.de$log2FoldChange) > 3 & sjsa.de$padj <= 0.05), ]
+mcf7.filt <- mcf7.de[(abs(mcf7.de$log2FoldChange) > 3 & mcf7.de$padj <= 0.05), ]
+
+print('hct116')
+dim(hct.filt)
+print('hct116 p53ko')
+dim(hctko.filt)
+print('sjsa')
+dim(sjsa.filt)
+print('mcf7')
+dim(mcf7.filt)
+
+colnames(hct.filt)[-1] <- paste('hct', colnames(hct.filt)[-1], sep = '_')
+colnames(hctko.filt)[-1] <- paste('hctko', colnames(hctko.filt)[-1], sep = '_')
+colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
+colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
+```
+
+Now I need to teach you how to combine these into a common data frame that can be used to create a heatmap. We'll be doing this today using the functions **full_join()**, **left_join()**, and **right_join()**. 
+
+```{r}
+df <- full_join(hct.filt[, c(1,3)], hctko.filt[, c(1,3)])
+df <- full_join(df, sjsa.filt[, c(1,3)])
+df <- full_join(df, mcf7.filt[, c(1,3)])
+
+# df <- full_join(hct.filt[, c(1,3)], sjsa.filt[, c(1,3)])
+# df <- full_join(df, mcf7.filt[, c(1,3)])
+df <- df %>% column_to_rownames('GeneID')
+```
+
+We want to graph genes that are differentially expressed in at least two out of three cell lines. We'll filter the data frame for these genes, then replace NAs with 0. 
+
+Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This helpful for us because it's easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function. 
+
+* Count the number of NA's per row and save it as a new column titled "zero_count".
+* Filter the data frame so that you only keep genes with values in at least 2 cell lines.
+* Print out the dimensions of this data frame. 
+
+```{r}
+df$zero_count <- rowSums(is.na(df))
+df <- df[df$zero_count < 3, ]
+dim(df)
+```
+
+
+There are two last things to adjust the data before we can make a heatmap. 
+* We've added an extra column that is unrelated to our data, the "zero_count" column. Remove this column
+* Pheatmap() will only take in numerical values, so change all your NA values to 0. *Hint* use the **is.na()** function. 
+
+Lastly, graph your data using **pheatmap()**! 
+```{r}
+df <- df[1:4]
+df[is.na(df)] <- 0
+pheatmap(df)
+```
+
+I dislike the default pheatmap esthetics. I think a log~2~(Fold Change) = 0 should be white. I also don't like that each box is outlined in gray, I find it distracting. In the Console, type "?pheatmap" and look at the documentation. Find how to specify color scale and outline of the box. Rewrite the pheatmap line of code below making the esthetic changes. Add any other changes you'd like to see. For example, text color, row labels, or font sizes.  
+
+```{r}
+breaks = seq(min(df), max(df), length.out = 52)
+pheatmap(df, 
+         color = colorRampPalette(c("navy", "white", "firebrick3"))(52), 
+         breaks = breaks,
+         border_color = NA
+         )
+```
