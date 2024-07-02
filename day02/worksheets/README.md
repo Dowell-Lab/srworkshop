@@ -2,7 +2,7 @@
 
 ## WORKSHEETS
 ## Part 1: Copy a bedGraph file to your home directory and inspect it
-Author: Zach Maas, edited by Hope Townsend
+Author: Zach Maas (2023), Hope Townsend (2023), Malia Fredrickson (2024), Georgia Barone (2024)
 
 *Goal*: Help you familiarize yourself with the unix computing environment by performing some basic tasks and troubleshooting things on your own.
 
@@ -38,7 +38,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 	- **cp** (copy) copies a file from a source path to a destination path 
 	- **rm** (remove) removes a file or directory. **WARNING** there is no recycle bin on a  unix system. If you remove a file it is gone forever, with no chance of recovery. **DOUBLE CHECK YOUR COMMANDS**
 	- **zip/unzip** allows you to create and extract .zip archive files 
-	- **tar** (tape archive) allows you to create and extract archive files that have the  extension of .tar, .tar.xz, .tar.gz, and more.  
+	- **tar** (tape archive) allows you to create and extract archive files that have the  extension of .tar, .tar.xz, .tar.gz, and more. (see here for more information: https://phoenixnap.com/kb/extract-tar-gz-files-linux-command-line)  
 	- **less** allows you to view files on the command line without editing them
 	- **cat** (concatenate) prints out the contents of a file directly to your terminal
 	- **head/tail** show you the first and last 10 lines of a file, respectively. These are  useful for quickly making sure a file is in the right format 
