@@ -4,55 +4,47 @@ Edited: Lynn Sanford, 2024
 
 ## Introduction
 Now that we have evaluated our sequence library initially to determine if the libraries are worth analyzing, we will do some “cleaning up” by trimming unwanted sequences such as adapter sequences. This step is necessary for improved alignment and mapping to the reference genome downstream. Once trimming is completed, we will reevaluate our trimmed files with FastQC for quality to decide if we will move forward with mapping.
->Note: The directory and username used in the screenshot will be for my working directory and username and will be different than yours.
 
 ## Make working directories and copy script
-Yesterday, we made working directories for running fastQC. Repeat the same process, but this time we will make a directory for trimmomatic.
-
-- Use command `pwd` to determine what directory you are in and if necessary, `cd` to the directory that you want to place your new trimmomatic directory in. 
-- Make several new directories and confirm the folders are present.
+- In your home directory, make a `workshop-day4` directory. Within that, make `scripts`,`eofiles`, `fastqc`, and `trimmomatic` subdirectories.
+- Navigate to your scratch directory and create the same directory/subdirectories.
 
   ![Make trimming directories](md_images/make_trimming_dirs.png)
 
-- Navigate to the srworkshop repo and `git pull`. Then `rsync` the `d4_trim_qc.sbatch` script from `day04/scripts/` into your script directory. Confirm the file is present in the directory with `ls`.
-  - Remember, to copy the script, the command syntax is `rsync <input> <output>`
+
+- Navigate to the srworkshop repo and `git pull`. Then `rsync` the `d4_trim_qc.sbatch` script from `day04/scripts/` into your scratch day4 scripts directory.
 
   ![Rsync trimming script](md_images/rsync_trimming_script.png)
 
 ## Trimmomatic
 
-Edit the sbatch script by using `vim <scriptname>` to open your sbatch script in Vim.
+In your scratch day4 scripts directory, edit the trimming script in Vim.
 
-Similar to the previous exercise you will need to change the job name, user email, and the standard output and error log directories.
-- Change the `job-name=<JOB_NAME>` to a name related to the job you will be running, for example `trim_qc`. Additionally you will want to change the `–mail user=<YOUR_EMAIL>` to your email, as well as the path to your output/error directory for the standard output (`--output`) and error log (`--error`). If you include the terms `%x` and `%j` in your filepaths, `%x` will be replace by your job-name and the `%j` will be replace by the job id that will be assigned by Slurm when you run your sbatch script.
-
-    ![Trimming sbatch header](md_images/trimming_sbatch_header.png)
-
-- Note also that we have changed the numbers of processors (`--ntasks`) for the job, as Trimmomatic can use multiple processors per input file. We'll request 1 node, 8 ntasks, 8gb of memory and 1 hr of wall time. 
+You will need to change the job name, user email, and the standard output and error log directories. Use a useful name for the job name, such as `trim_qc`.
+- Note also that we have changed the numbers of processors (`--ntasks`) for the job, as Trimmomatic can use multiple processors per input file. We'll request 1 node, 8 ntasks, 4gb of memory and 30 minutes of wall time.
+- You'll also see just under the header is a section that specifies certain information about the job that might help in troubleshooting or in documenting your work. Since we're just printing this to standard output, this information will be stored in the `.out` file.
 
 Assigning path variables will make your scripts easier to read. In addition, this makes it easier to reference a given path and utilize it in your scripts.
-- Here we define six variables.
-- For the `INDIR=` (input directory), change the path to the directory where the fastq data files are located.
+- Here we define five variables.
+- The `FASTQ=` (input directory) variable specifies the path to the directory where the fastq data files are located. This has been filled in for you.
 - For the `OUTDIR=` (output directory), point to the appropriate output file directories for our fastQC and trimmed fastq files.
-- Note we make sure that the output directories exist by calling `mkdir` within the sbatch script. Look up what the `-p` parameter does.
+- Note that although in this case you already manually made these directories, it's useful to make sure that the output directories exist by calling `mkdir` within the sbatch script. Look up what the `-p` parameter does.
 
   ![Trimmomatic variables](md_images/trimmomatic_variables.png)
  
 
-Load the require modules for running this pipeline. We will be using FastQC and the trimming program trimmomatic. If you are not sure which version of a program is available on the cluster you can save and quit out of Vim, then use the command `module spider <program>` to find the available versions.
-- Note again, though, that the version of fastqc that is actually available to us is _____.
-
-  ![Trimmomatic modules](md_images/trimmomatic_modules.png)
+Add commands to load the required modules for running this pipeline. We will be using FastQC and the trimming program Trimmomatic. If you are not sure which version of a program is available on the cluster you can save and quit out of Vim, then use the command `module spider <program>` to find the available versions.
+- Note again, though, that the version of fastqc that is actually available to us is 0.11.5.
  
 For the meat of the script, we will be running 3 analysis steps. Several analysis steps run together is called a pipeline. Our pipeline allows us to:
 1. Run FastQC on raw sample fastq files
-2. Trim the fastq files to remove adapters and other sequence elements
+2. Trim the fastq files to remove adapters and other problematic sequence elements
 3. Reevaluate the quality of the trimmed fastq files with FastQC.
 
   ![Trimmomatic pipeline](md_images/trimmomatic_pipeline.png)
 
-The FastQC steps should look familiar to you. Now let's look closer at the trimming step.
-- In this script we are running paired end reads. Trimmomatic can be used on both single end or paired-end reads. When setting your parameters use the appropriate adapters. 
+The FastQC steps should look familiar to you from yesterday. Now let's look closer at the trimming step.
+- In this script we are running paired end reads. Trimmomatic can be used on both single end or paired-end reads. When setting your parameters use the appropriate adapters.
 - Below are the syntaxes needed to run trimmomatic:
   - For single-end reads\
     ```
@@ -75,9 +67,6 @@ Each of the trimming behaviors is described in much more detail in the Trimmomat
 
 After saving all of your changes to the script, run it!
 
-- Submit the job to the job manager SLURM (`sbatch <scriptname>`). The job manager will assign a job id to your run.
-  - This pipeline has more tasks than the previous worksheet, so you will want to check the status of your job (`squeue -u <username>`) to see if the job is running (`R`) or completed (`C`).
-  - If there are any errors (often times these are just typos in your scripts), you will want to access your error file to make necessary corrections. This is the path/filename specified in the header of the sbatch script. You can view this file using `more`, `less`, `cat`, or open it in Vim.
-
-Check that you have your expected outputs and that they are not empty.
-- `ls -lh` displays the long-form list, which includes the size of your files. The sizes should be larger than 0.
+- Submit the job (`sbatch <scriptname>`). The job manager will assign a job id to your run.
+  - This pipeline has more tasks than yesterday's worksheet, so you will want to check the status of your job (`squeue -u <username>`) to see if the job is running (`R`) or completed (`C`).
+  - If you don't get your expected outputs, or if the files are empty, troubleshoot using your error file (located at the path in your SBATCH header). Again, you can view this file by using `more`, `less`, `cat`, or opening it in Vim.
