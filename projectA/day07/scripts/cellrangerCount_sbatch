@@ -1,22 +1,21 @@
 #!/bin/bash
-#SBATCH --job-name=cellrangerCount                           # Job name
+#SBATCH --job-name=cellrangerCount_female07                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=SET TASKS                                     # Number of CPU (tasks)
-#SBATCH --time=02:00:00                                 # Time limit hrs:min:sec
+#SBATCH --ntasks=8                                      # Number of CPU (tasks)
+#SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
-#SBATCH --mem=28Gb                                       # Memory limit
-#SBATCH --output=Path/To/Directory/e_and_o/cellrangercount.%j.out
-#SBATCH --error=Path/To/Directory/e_and_o/cellrangercount.%j.err
+#SBATCH --mem=64gb                                       # Memory limit
+#SBATCH --output=/scratch/Shares/dowell/temp/ChrisO/SR2024/eando/cellrangercount.%j.out
+#SBATCH --error=/scratch/Shares/dowell/temp/ChrisO/SR2024/eando/cellrangercount.%j.err
 
 
 ##########################################################################################
-################## MODULE LOAD ###########################################################
+################## MODULE LOAD ###################################################
 
-module load cellranger/3.0.1
+module load cellranger/7.2.0
 
 ##########################################################################################
 ################## DISPLAY JOB CONTEXT ###################################################
-
 
 echo Job: $SLURM_JOB_NAME with ID $SLURM_JOB_ID
 echo Running on host `hostname`
@@ -26,12 +25,12 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 ################## RUN JOB ###############################################################
 
 
-cellranger count --id=run_count_10kPBMCs \
- --fastqs=Path/To/10k_PBMC_3p_nextgem_Chromium_X_fastqs \
- --transcriptome=Path/To/refdata-gex-GRCh38-2020-A \
- --sample=10k_PBMC_3p_nextgem_Chromium_X \
- --expect-cells=10000 \
- --localcores=SET LOCAL CORES       ###must match ntasks above
+cellranger count --id=T21BM_male19 \
+ --fastqs=/scratch/Shares/dowell/temp/ChrisO/SR2024/fastq/sampled \
+ --transcriptome=/scratch/Shares/dowell/temp/ChrisO/SR2024/refdata-gex-GRCh38-2020-A \
+ --sample=DSOX19_1 \
+ --include-introns=true \
+ --localcores=8    ###must match ntasks above
 
                                                                                 
 echo Job finished at `date +"%T %a %d %b %Y"`
