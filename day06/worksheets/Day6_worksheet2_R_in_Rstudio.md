@@ -16,7 +16,7 @@ This section can be done on your personal computer or on the AWS vizualization i
 
 4. Download and open Learning_R.R in RStudio
 
-![load in RStudio](ws2_open_file_in_Rstudio.png)
+![load in RStudio](images/ws2_open_file_in_Rstudio.png)
 
 5. Complete Learning_R.R
 
@@ -26,13 +26,13 @@ This section can be done on your personal computer or on the AWS vizualization i
 
 2. Move into the `srworkshop` repository and update from repository by running `git pull`
 
-![Git pull](ws2_git_pull.png)
+![Git pull](images/ws2_git_pull.png)
 
 3. Go into /scratch/Users/<your_username>/ and use the mkdir command to make a folder called `day6`
 
 - Inside your `day6` folder, make the folders `scripts`, `eofiles`, and `results`
 
-![Initialize project](ws2_initialize_folders.png)
+![Initialize project](images/ws2_initialize_folders.png)
 
 4. Use the rsync or scp command to copy Learning_R_submit_aws.R and Submit_Rscript.sbatch
 from `/Users/<your_username>/srworkshop/day06/scripts`, into the scripts directory in
@@ -42,7 +42,7 @@ from `/Users/<your_username>/srworkshop/day06/scripts`, into the scripts directo
 `Learning_R_submit_aws.R` file. Add your own working directory path (it should be something
 along the lines of: `/scratch/Users/<your_username>/day6/results`).
 
-![Edit R Script](ws2_edit_Rscript_vim.png)
+![Edit R Script](images/ws2_edit_Rscript_vim.png)
 
 6. Look through the rest of the script before saving and exiting vim, to make sure you know what
 the code is doing and where your output will be saving to.
@@ -53,7 +53,7 @@ eofiles path, and path to Learning_R_submit_aws.R.
 
 - Note: the command Rscript runs R scripts or R commands directly from the bash shell
 
-![Sbatch R Script](ws2_sbatch_to_submit_R_script.png)
+![Sbatch R Script](images/ws2_sbatch_to_submit_R_script.png)
 
 8. Once you are happy with your `Learning_R_submit_aws.R` and `Submit_Rscript.sbatch` scripts,
 submit the `Submit_Rscript.sbatch` script.
