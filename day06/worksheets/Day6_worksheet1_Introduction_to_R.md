@@ -28,8 +28,21 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024)
 
 ## Section A: Getting familiar with R
 
-1. You can access R through the command line or through RStudio. We will start on the command line. We use this on a big cluster when a viz instance isn’t available. You can write an R script and submit it with a sbatch script. Let’s look at some basic R syntax. Go ahead and launch R in the command line. Do this by typing R and Entering. Notice when you do this your username will be replaced by `>` indicating you are in R.
+You can access R through the command line or through RStudio. We will start on the command line. 
 
+We use this on a big cluster when a viz instance isn’t available. You can write an R script and submit it with a sbatch script. 
+
+1. Go ahead and launch R in the command line on the AWS server. Different versions of R are already installed. We can check which R is installed by running `module spider R`
+
+Load the newest version of R listed using `module load R/3.6.1`
+
+![Module load](images/module_load_R.png)
+
+Lauch R in the terminal! Do this by typing R and Entering. Notice when you do this your username will be replaced by `>` indicating you are in R.
+
+![Launch R](images/launch_r.png)
+
+Now we can look at some basic R syntax.
 
 2. Now that you are in R do a basic calculation of your choosing to test it out!
 
@@ -37,12 +50,18 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024)
 19 + 22
 ```
 
+![Add in R](images/adding_in_R.png)
+
 Here I typed 19+22(Enter) and it returned the answer to the summation which is 41.
 
 3.  Set some variables. In R you can set variables that represent numbers, lists, dataframes etc. Let’s start
 with numbers. To create a variable, you use the following syntax: `VARIABLE_NAME <- CONTENT` For example:
 
+![Set variable](images/set_variables_R.png)
+
 4. We can perform arithmetic on these variables now that they are set. We get the same answer, 41.
+
+![Add variable](images/add_numeric_variables_R.png)
 
 5. Now let’s set a slightly more complex variable. Let’s make a vector. To create a vector, we used the `c()` function for combine or concatenate. 
 
@@ -50,11 +69,15 @@ with numbers. To create a variable, you use the following syntax: `VARIABLE_NAME
 a_vector <- c(2, 10, 27, 100, 36)
 ```
 
+![A vector](images/create_cvector.png)
+
 You can see it returns the vector we just created.
 
 Here I made a vector. Let’s call the vector to check its contents.
 
-6. Checking data class
+![call a vector](images/call_a_vector.png)
+
+6. We can check data classes with `class()`. This can be applied to vectors, lists, data.frames etc.
 
 ```
 class(a_vector)
@@ -62,9 +85,13 @@ class(a_vector)
 
 6. Let’s test some basic functions on this list such as sum, mean, and standard deviation.
 
+![operations on vector](images/operations_on_vector.png)
+
 You invoke R functions by calling the function name (such as `sum`) followed by your variable in parentheses (such as `a_vector`). Some functions require more than one input, with the inputs separated by comma. Let’s exit command line R and switch to RStudio to try it out!
 
 7. Exit R in the command line by typing `q()`, saving the workplace image saves the work we did.
+
+![Save workspace](images/save_workspace.png)
 
 ## Section B: Exploring R in RStudio
 
