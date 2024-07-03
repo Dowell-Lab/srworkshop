@@ -6,7 +6,7 @@
 #SBATCH --ntasks=<cores>                             # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=<memory>                              # Memory limit
 #SBATCH --time=<walltime>                        # Time limit hrs:min:sec
-#SBATCH --partition=compute                      # Partition/queue requested on server
+#SBATCH --partition=short                      # Partition/queue requested on server
 #SBATCH --output=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.out       # Standard output:  the %x will be replaced with job_name and the %j by the job id
 #SBATCH --error=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.err        # Standard error log
 

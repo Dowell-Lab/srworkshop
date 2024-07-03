@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=<JOB_NAME>		       	# Job name
-#SBATCH --mail-type=ALL                   i # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-type=ALL                   # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL>           	# Where to send mail
 #SBATCH --nodes=1                           # Number of nodes requested
 #SBATCH --ntasks=8                          # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=4gb                           # Memory limit
 #SBATCH --time=00:30:00                     # Time limit hrs:min:sec
-#SBATCH --partition=compute                 # Partition/queue requested on server
+#SBATCH --partition=short                 # Partition/queue requested on server
 #SBATCH --output=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.out  
 #SBATCH --error=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.err
 
