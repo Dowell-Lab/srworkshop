@@ -7,8 +7,8 @@
 #SBATCH --time=00:05:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=compute                             # Partition/queue requested on server    
 #SBATCH --mem=3mb                                       # Memory limit
-#SBATCH --output=/scratch/Users/<your_username>/workshop-day6/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<your_username>/workshop-day6/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<your_username>/day6/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<your_username>/day6/eofiles/%x_%j.err
 
 ################################################################################                  
 ####################### initialize directories  ################################                                                                                                                                     

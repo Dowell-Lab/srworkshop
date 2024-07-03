@@ -33,7 +33,7 @@ qc=${wd}/qc
 sam=${wd}/sam
 bam=${wd}/bam
 trim=${wd}/trim
-genome=/scratch/Shares/dowell/genomes/hg38/HISAT2/genome
+genome=/scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome #HISAT2 index for mapping
 
 #make folders that do not exist
 mkdir -p ${qc} ${trim} ${sam} ${bam}

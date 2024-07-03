@@ -24,7 +24,7 @@ INDIR=${WD}/macs
 OUTDIR=${WD}/meme
 mkdir -p ${OUTDIR}
 
-HG38_FASTA=/scratch/Shares/dowell/rutendo/projects/sread/sread2024/genomes/chr21.fa
+HG38_FASTA=/scratch/Shares/public/genomes/chr21/chr21.fa
 
 FILENAME=HCT116_NUTLIN
 
