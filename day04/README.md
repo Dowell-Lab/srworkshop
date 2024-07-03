@@ -7,7 +7,7 @@ Today, we will explore two ways to analyze processed scRNA-seq data. The first w
 
 1. Make a working directory in `/scratch/Users/<user name>/` to perform today's analysis in.
 
-<img src="./day9-screenshots/project-day-9.png" alt="project-day-9" width="400"/>
+<img src="./day9-screenshots/project-day-9.png" alt="project-day-9" width="350"/>
 
 2. Enter the working directory you just made and make folders for `data` (using the `mkdir` command).
 
