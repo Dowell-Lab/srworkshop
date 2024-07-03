@@ -1,4 +1,4 @@
-# Day 9, Analyzing scRNA-seq Data
+# Day 9, Analyzing scRNA-seq 
 ### Authors: Georgia Barone (2024), Mary Allen (2024)
 
 ## CellChat
@@ -22,7 +22,7 @@ Today, we will explore two ways to analyze processed scRNA-seq data. The first w
 4. Start on the `Get-Started-With-CellChat.R` on the AWS-viz. Initially, run CellChat on the trisomy 21 samples (T21). If you finish early, repeat the analysis on the disomy 21 data (D21) and look for any interesting differences between the two samples. 
 
 For more information about the package see below: 
-GitHub: https://github.com/jinworks/CellChat
-Paper: https://www.nature.com/articles/s41467-021-21246-9
+- GitHub: https://github.com/jinworks/CellChat
+- Paper: https://www.nature.com/articles/s41467-021-21246-9
 
 ## Psuedotime
