@@ -179,7 +179,15 @@ For today’s worksheet, we will be showing an example where we utilized an inpu
 
 Note that there are many other options than the ones that we are implementing here. 
 
-If you wanted to run to get Broad peaks you will want to use the flag `–broad`
+If you wanted to run to get Broad peaks you will want to use the flag `--broad`
+
+MACS parameters depending on the data types:
+
+| Data Type         | q-value   | `--broad` and `--control` flags |  Reasoning          |
+| :-------------------------------- | :-------:  | :-------------: | :----------------- |
+| ChIP-seq for Transcription Factor (TF)  |  <0.01     | `--control`, `<INPUT>`            | TF ChIP-seq often has very abrupt, small peaks that are well defines, so narrow peaks is necessary, and a less stringent adjusted p-value is likely need than for other data types. |
+| ChIP-seq for histone marks (and Pol II) |  <0.0001   | `--broad`, `--control`, `<INPUT>` | Histonw marks are often broadly dispersed without very well defined edges so a broad peak tag is useful but a very low p-value helps differentiate between background and data. |
+| ATAC-seq                                |  <0.0001   | `--control`, `<INPUT>`            | ATAC-seq should show peaks at open chromatin across the genome similarly to histone ChIP-seq data, but with more abrupt peaks, so no broad peak tag is needed. |
 
 4. Removing Blacklist regions via *bedtools intersect*. After we call our peaks, to clean up the data we will remove the BLACKLIST regions that can be problematic. These regions contain repetitive regions across the genome and almost always are enriched in ChIP-seq data.
 
