@@ -31,7 +31,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 - Navigating Around:
 	- **pwd**  (print working directory) will tell you which directory you’re in 
 	- **cd** (change directory) lets you move to a different directory. You can move folders using absolute or relative paths. For example, if  you’re starting in /scratch/ and you want to be in the Workshop directory inside of it, typing cd /scratch/Workshop will move you using  the absolute path and typing cd Workshop will move you using the *relative path* 
-		- Reelative paths have some shortcuts .. (two dots) means "the directory immediately above the one that I'm in" and . (one dot) means "the directory that I'm in"
+		- Relative paths have some shortcuts .. (two dots) means "the directory immediately above the one that I'm in" and . (one dot) means "the directory that I'm in"
 	- **ls** (list) prints out information about the directory that you’re in 
 - Working with Files:
 	- **mv** (move) moves a file from a source path to a destination path 
