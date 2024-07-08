@@ -93,11 +93,17 @@ You invoke R functions by calling the function name (such as `sum`) followed by 
 
 ![Save workspace](images/save_workspace.png)
 
-8. Note, all teh variables in your environment have been saved to a hidden folder in your home or working directory. The hidden folder is called `.RData` and has to be loaded in R to access the variables `load("/Users/<YourUsername>/.RData")`.
+8. Note, all the variables in your environment have been saved to a hidden folder in your home or working directory. The hidden folder is called `.RData` and can to be loaded in R to access the variables `load("/Users/<YourUsername>/.RData")`. 
 
 ![Load R data](images/load_Rdata.png)
 
+You can copy the `.RData` file to your personal computer and load in your local R. This will allow you to access the variables established on the AWS.
+
+![Load R data local](images/load_RData_local.png)
+
 > **NOTE:** This is not a script! It is an environment with variables stored. If you want a human readable file, you write an *R script* (See Section B).
+>
+> Scripts are a great way to ensure reproducibility!
 
 ## Section B: Exploring R in RStudio
 
