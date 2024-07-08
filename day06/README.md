@@ -8,11 +8,11 @@ We will cover running R three ways:
 
 1. In an R console
 
-- `Day6_worksheet_1.pdf` worksheet 
+- `Day6_worksheet1_Introduction_to_R.md`  
 
 2. In RStudio 
 
-- `Day_6_worksheet_2.pdf` and `Learning_R.R` will guide you
+- `Day6_worksheet2_R_in_Rstudio.md` and `Learning_R.R` will guide you
 
 3. Submitting and R script as an sbatch job
 
