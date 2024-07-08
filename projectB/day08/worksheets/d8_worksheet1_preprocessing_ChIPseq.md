@@ -151,7 +151,11 @@ To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing
 
 1. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
 
+![MACS header](images/script4_edit_header.png)
+
 - To run MACS, we will need to load *python* since *MACS* is dependent on it. In addition we will want to load *bedtools* which we will use later to remove *Blacklist regions*. The *Blacklist regions* are peak calls that show up in many ENCODE ChIP-seq experiments regardless of treatment.
+
+![Load python](images/script4_load_modules.png)
 
 2. Set variable. Assigning variables will make your scripts easier to read. In addition, this makes it easier to reference to a given path and utilize it in your scripts.
 
@@ -161,9 +165,13 @@ To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing
 
 - Lastly, we are using the variables *CELL*, *FILENAME_DMSO*, *FILENAME_NUTLIN*, *INPUT*, *DMSO*, and *NUTLIN* so that I can quickly interchange different files for analysis and only have to change the variable rather than go through the script to change instances of the file.
 
+![Set variables for MACS](images/script4_set_variables.png)
+
 3. To run the MACS program, we have many different subcommand options. Depending on your experiment, you will want to change the subcommands to fit your requirements. 
 
 For today’s worksheet, we will be showing an example where we utilized an input control with your experiment.
+
+![MACS peak calling](images/script4_peak_call.png)
 
 `-t / --treatment <filename>` is your experimental file. The file can be in any supported format (see –format for options). If you have more than one alignment file, you can specify them and MACS will pool all the files together.
 
@@ -176,6 +184,7 @@ For today’s worksheet, we will be showing an example where we utilized an inpu
 `-g / --gsize <GENOME>` is the parameter to assign the mappable genome size. We will be using hs which is the recommended human genome size of 2.7e9.
 
 `-q / --qvalue <VALUE>` is the cutoff to call significant regions. The default is 0.05. If you want to use a p-value cutoff, you can specify -p instead of -q.
+
 
 Note that there are many other options than the ones that we are implementing here. 
 
@@ -191,21 +200,30 @@ MACS parameters depending on the data types:
 
 4. Removing Blacklist regions via *bedtools intersect*. After we call our peaks, to clean up the data we will remove the BLACKLIST regions that can be problematic. These regions contain repetitive regions across the genome and almost always are enriched in ChIP-seq data.
 
+![Remove blacklist](images/script4_remove_blacklist.png)
+
 5. To run *bedtools intersect*, specify *-a* as the file to be filtered which is your broadpeak output file. The *-a* file will be compared against *-b* file which are the blacklist regions. The *-v* parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in *-b*. *>* is to specify the output directory and output file name.
 
 #### Step 2: Move peak call files to your computer
 
 1. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed file (*.narrowPeak*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
-#### Step 3: Motif discovery and comparing motifs to database of TF motifs
+
+### Part 2: Motif discovery and comparing motifs to database of TF motifs
 
 1. Edit and run the `05_find_motifs_with_meme.sbatch` script.
+
+![Load modules MEME](images/script5_load_modules.png)
 
 2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use bedtool getfasta and a reference genome .fa file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
 
 3. Set your in and out directory as we have in the previous exercise. Here your INDIR is the path to your MACS peak output files. The OUTDIR will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as hg38.fa 
 
+![Variables MEME](images/script5_set_variables.png)
+
 4. We will use bedtools getfasta to convert the peaks to a fasta file to feed into MEME. The command is *bedtools getfasta [OPTIONS] -fi <input FASTA> -bed <BED/GFF/VCF>*   
+
+![Get fasta](images/script5_get_fasta_file.png)
 
 5. Move the *fasta* file to your computer
 
