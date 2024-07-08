@@ -28,13 +28,13 @@ This section can be done on your personal computer or on the AWS vizualization i
 
 ![Git pull](images/ws2_git_pull.png)
 
-3. Go into /scratch/Users/<your_username>/ and use the mkdir command to make a folder called `day6`
+3. Go into `/scratch/Users/<your_username>/` and use the mkdir command to make a folder called `day6`
 
 - Inside your `day6` folder, make the folders `scripts`, `eofiles`, and `results`
 
 ![Initialize project](images/ws2_initialize_folders.png)
 
-4. Use the rsync or scp command to copy Learning_R_submit_aws.R and Submit_Rscript.sbatch
+4. Use the `rsync` or `scp` command to copy `Learning_R_submit_aws.R` and `Submit_Rscript.sbatch`
 from `/Users/<your_username>/srworkshop/day06/scripts`, into the scripts directory in
 `/scratch/Users/<your_username>/day6` you just made.
 
@@ -49,9 +49,9 @@ the code is doing and where your output will be saving to.
 
 7. Now use vim to open/edit the `Submit_Rscript.sbatch` file. This is the sbatch script we will be
 using to submit our code to the supercomputer. Edit the script by adding your job name, email,
-eofiles path, and path to Learning_R_submit_aws.R.
+eofiles path, and path to `Learning_R_submit_aws.R`.
 
-- Note: the command Rscript runs R scripts or R commands directly from the bash shell
+> **NOTE:** the command Rscript runs R scripts or R commands directly from the bash shell
 
 ![Sbatch R Script](images/ws2_sbatch_to_submit_R_script.png)
 

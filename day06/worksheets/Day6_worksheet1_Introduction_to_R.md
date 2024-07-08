@@ -34,7 +34,7 @@ We use this on a big cluster when a viz instance isn’t available. You can writ
 
 1. Go ahead and launch R in the command line on the AWS server. Different versions of R are already installed. We can check which R is installed by running `module spider R`
 
-Load the newest version of R listed using `module load R/3.6.1`
+Load the newest version of R listed on the AWS server using `module load R/4.3.1`
 
 ![Module load](images/module_load_R.png)
 
@@ -93,13 +93,19 @@ You invoke R functions by calling the function name (such as `sum`) followed by 
 
 ![Save workspace](images/save_workspace.png)
 
+8. Note, all teh variables in your environment have been saved to a hidden folder in your home or working directory. The hidden folder is called `.RData` and has to be loaded in R to access the variables `load("/Users/<YourUsername>/.RData")`.
+
+![Load R data](images/load_Rdata.png)
+
+> **NOTE:** This is not a script! It is an environment with variables stored. If you want a human readable file, you write an *R script* (See Section B).
+
 ## Section B: Exploring R in RStudio
 
-Section B will be in RStudio. I have provided 2 different scripts that we will investigate. We will start with Learning_R.R in RStudio.
-Open up RStudio on the viz instance. Once it is open go to Fil -> Open File -> Select Learning_R.R 
+Section B will be in RStudio. I have provided 2 different scripts that we will investigate. We will start with `Learning_R.R` in RStudio.
+Open up RStudio on the viz instance. Once it is open go to Fil -> Open File -> Select `Learning_R.R` 
 
 Further instructions are in this script!
 
 ## Section C: Submitting an R script as an sbatch job
 
-The other script is Learning_R_submit_aws.R! This is an example R script where we submit R code as an sbatch job. Therefore, we save all outputs in order to view them after the process is complete. Submitting R scripts as an sbatch job is very useful when you have compute intensive processes (examples are counting reads).
+The other script is `Learning_R_submit_aws.R`! This is an example R script where we submit R code as an sbatch job. Therefore, we save all outputs in order to view them after the process is complete. Submitting R scripts as an sbatch job is very useful when you have compute intensive processes (examples are counting reads).
