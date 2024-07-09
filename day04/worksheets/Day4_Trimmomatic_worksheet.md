@@ -27,7 +27,7 @@ You will need to change the job name, user email, and the standard output and er
 Assigning path variables will make your scripts easier to read. In addition, this makes it easier to reference a given path and utilize it in your scripts.
 - Here we define five variables.
 - The `FASTQ=` (input directory) variable specifies the path to the directory where the fastq data files are located. This has been filled in for you.
-- For the `OUTDIR=` (output directory), point to the appropriate output file directories for our fastQC and trimmed fastq files.
+- Modify the `OUTDIR=` (output directory) to point to the appropriate output file directories for our fastQC and trimmed fastq files.
 - Note that although in this case you already manually made these directories, it's useful to make sure that the output directories exist by calling `mkdir` within the sbatch script. Look up what the `-p` parameter does.
 
   ![Trimmomatic variables](md_images/trimmomatic_variables.png)
@@ -68,5 +68,5 @@ Each of the trimming behaviors is described in much more detail in the Trimmomat
 After saving all of your changes to the script, run it!
 
 - Submit the job (`sbatch <scriptname>`). The job manager will assign a job id to your run.
-  - This pipeline has more tasks than yesterday's worksheet, so you will want to check the status of your job (`squeue -u <username>`) to see if the job is running (`R`) or completed (`C`).
+  - This pipeline has more tasks than yesterday's worksheet, so you will want to check the status of your job (`squeue -u <username>`) to see if the job is configuring (`CF`), pending (`PD`), running (`R`), or complete (not present on queue anymore).
   - If you don't get your expected outputs, or if the files are empty, troubleshoot using your error file (located at the path in your SBATCH header). Again, you can view this file by using `more`, `less`, `cat`, or opening it in Vim.

@@ -8,8 +8,7 @@ In the videos for today, you saw the functionality of the IGV Desktop Applicatio
 
 ## Make sure you have BAM and BAI files
 You should have transferred these files to you computer at the end of the last worksheet. If you were not able to generate these files, do Step 9 of the Day4_Mapping_worksheet with the `.bam` and `.bam.bai` files at the following location on the AWS:\
-`/scratch/Shares/public/sread2024/data_files/day4/cookingshow/`
-
+`/scratch/Shares/public/sread2024/cookingShow/day4/`
 
 ## Using the IGV Web App (on your local machine)
 
@@ -28,12 +27,12 @@ You should have transferred these files to you computer at the end of the last w
   ![IGV Chr21](md_images/IGV_chr21.png)
   </li>
   <li>
-    We are now zoomed in on chromosome 21 (to zoom back out to the whole genome, select “all” on the chromosome drop-down menu). Use the zoom slider in the top-right to zoom in further, or simply click-and-drag the bar right below the chromosome diagram.
+    We are now zoomed in on chromosome 21 (to zoom back out to the whole genome, select “all” on the chromosome drop-down menu). Use the zoom slider in the top-right to zoom in further, or simply click-and-drag the base scale bar right below the chromosome diagram.
 
   ![IGV chromosomal coordinates](md_images/IGV_chrom_coord.png)
   </li>
   <li>
-    We can also navigate to a specific region by using the search bar in the top-left. Enter chromosomal coordinates in the format `<chromosome>:<start_position>-<end_position>`, or enter a gene name to localize to a specific gene in the annotation.
+    We can also navigate to a specific region by using the search bar in the top-left. Enter chromosomal coordinates in the format <code><chromosome>:<start_position>-<end_position></code>, or enter a gene name to localize to a specific gene in the annotation.
   </li>
   <li>
     As an example, navigate to this region by typing either the exact coordinates, or the gene name (MX1):
@@ -44,17 +43,17 @@ You should have transferred these files to you computer at the end of the last w
     You’ll notice that the MX1 annotation tracks have a couple different elements. The small tick arrows indicate the directionality of this gene (in this case, we have a + strand gene). Exons are shown as thick, tall bars, while introns are the thin lines in between. 
   </li>
   <li>
-    Let’s load in our mapped read files. Select the “Tracks” tab from the top left. Select “Local File” and navigate to wherever you stored your `.bam` and `.bam.bai` files. You **MUST** select both files.
+    Let’s load in our mapped read files. Select the “Tracks” tab from the top left. Select “Local File” and navigate to wherever you stored your <code>.bam</code> and <code>.bam.bai</code> files. You <strong>MUST</strong> select both files.
 
   ![IGV open local files](md_images/IGV_local_files.png)
   </li>
   <li>
-    You’ll see nothing at first except for a prompt to zoom in. This is due to the fact that `.bam` files are large, so the browser will not show all of the read information if the region is too wide. Zoom in over any two neighboring exons (I picked the following region):
+    You’ll see nothing at first except for a prompt to zoom in. This is due to the fact that <code>.bam</code> files are large, so the browser will not show all of the read information if the region is too wide. Zoom in over any two neighboring exons (I picked the following region):
 
   ![IGV Zoomed out bam](md_images/IGV_zoomed_out_bam.png)
   </li>
   <li>
-    When you zoom in, two tracks pop up. The top one shows a histogram of read numbers over genomic locations. Right away, you can see the reads pile up over the exons, which is expected for RNA-seq. Below the histogram is a panel that show all of the individual reads. You can hover over reads for specific read and mapping information. Scroll around explore this visualization.
+    When you zoom in, two tracks pop up. The top one shows a histogram of read numbers over genomic locations. Right away, you can see the reads pile up over the exons, which is expected for RNA-seq. Below the histogram is a panel that show all of the individual reads. You can hover over reads for specific read and mapping information. Scroll around to explore this visualization.
 
   ![IGV Zoomed in bam](md_images/IGV_zoomed_in_bam.png)
   </li>
