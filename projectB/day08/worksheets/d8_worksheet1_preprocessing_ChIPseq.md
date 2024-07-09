@@ -1,6 +1,6 @@
 # Short Read Day 8 Worksheet | Preprocessing ChIP-Seq Data
 
-- Authors: Rutendo F. Sigauke 2024, Jessica Huynh-Westfall 2023
+- Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024)
 
 ## Introduction
 
@@ -35,9 +35,9 @@ We will go over assessing the quality of ChIP-seq data and mapping the reads to 
 
 NB: The directory and username used in the screenshot will be for my working directory and username and will be different than yours. Here we will be working on the server and editing the script in *vim*.
 
-## Preprocessing of ChIP-seq data
+## Section 1: Preprocessing of ChIP-seq data
 
-### Part 1: Make working directories
+1. Make working directories
 
 After you Log into the AWS, you will make a directory for day 8 in your scratch directory. Make the subdirectories including one for day8, stdout and stderr, scripts, and fastq (which will be our input data). 
 
@@ -52,10 +52,10 @@ Create a working directory for day8 in scratch using the *mkdir* command.
 
 ![Screenshot of initialization](images/example_day8_initialization.png)
 
-### Part 2: Copy scripts to scratch
+2. Copy scripts to your scratch folder
 
 ```
-[<username>@<hostname> ~]$ cp <path/to/srworkshop git repo scripts> /scratch/Users/<YourUsername>/day8/scripts.
+[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/ /scratch/Users/<YourUsername>/day8/scripts
 ```
 
 Copy the following scripts from the github repository folder into your scripts directory
@@ -72,9 +72,9 @@ Copy the following scripts from the github repository folder into your scripts d
 
 ![Copying scripts example](images/copy_scripts_to_scratch.png)
 
-### Part 3: Get raw fastq files to your scratch folder
+3. Get raw fastq files to your scratch folder
 
-Copy the fastq files over from the scratch directory to your fastq directory. We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in class. The MCF7 samples (SRR4090092, SRR4090093, SRR4090094) is another dataset you can practice with in the homework.
+Copy the fastq files over from the scratch directory to your fastq directory. We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in class. The MCF7 samples (SRR4090092, SRR4090093, SRR4090094) are samples you can practice with as part of your homework. 
 
 | Run (SRR)         | Cell line  | Sample Type     |
 | :---------------- | :-------:  | :-------------: |
@@ -83,12 +83,10 @@ Copy the fastq files over from the scratch directory to your fastq directory. We
 | SRR4090091        |  HCT116    | Nutlin treated  |
 
 ```
-[<username>@<hostname> ~]$ cp <path/to/srworkshop git repo fastq files> /scratch/Users/<YourUsername>/day8/fastq.
+[<username>@<hostname> ~]$ rsync /scratch/Shares/public/sread2024/data_files/day8b/fastq/ /scratch/Users/<YourUsername>/day8/fastq.
 ```
 
-![Copying fastq diles example](images/copy_fastq_to_scratch.png)
-
-### Part 4: Edit and run the preprocessing scripts
+4. Edit and run the preprocessing scripts
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
@@ -102,7 +100,7 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 ![Editing script header example](images/header_example.png)
 
-#### Step 1: QC and preprocess samples
+### Step 1: QC and preprocess samples
 
 1. *cd* into your scripts directory. 
 
@@ -121,7 +119,7 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 - Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
 
 
-#### Step 3: Map quality and summary of QC
+### Step 3: Map quality and summary of QC
 
 1. Edit and run the `03_mapqc_and_multiqc.sbatch` script.
 
@@ -141,15 +139,12 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 ![Editing script header example](images/multiqc_example.png)
 
-## Peak calling 
+## Section B: Peak calling 
 
 To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing the analysis method, *M*odel-based *A*nalysis of *C*hIP-*S*eq (MACS). This method enables us to identify transcription factor binding sites and significant DNA read coverage through a combination of gene orientation and sequencing tag position.
 
-### Part 1: Run MACS2 to identify peaks
 
-#### Step 1: Edit and run the MACS2 script.
-
-1. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
+1. Edit and run the MACS2 script. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
 
 ![MACS header](images/script4_edit_header.png)
 
@@ -204,12 +199,10 @@ MACS parameters depending on the data types:
 
 5. To run *bedtools intersect*, specify *-a* as the file to be filtered which is your broadpeak output file. The *-a* file will be compared against *-b* file which are the blacklist regions. The *-v* parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in *-b*. *>* is to specify the output directory and output file name.
 
-#### Step 2: Move peak call files to your computer
-
-1. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed file (*.narrowPeak*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
+6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed file (*.narrowPeak*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
 
-### Part 2: Motif discovery and comparing motifs to database of TF motifs
+## Section C: Motif discovery and comparing motifs to database of TF motifs
 
 1. Edit and run the `05_find_motifs_with_meme.sbatch` script.
 
