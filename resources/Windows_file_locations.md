@@ -11,9 +11,9 @@ The full path for your home directory is “> Linux > Ubuntu > home > username�
 
 ![Home directory location](md_images/home_directory_location.png)
 
-If there is no Linux penguin in your File Explorer (likely on Windows 10), accessing files gets a bit more complicated. The best way is to use the command line to move files to your desktop (or anywhere else you’d like on your C: drive), then look at them from there.
+If there is no Linux penguin in your File Explorer (likely on Windows 10), accessing files gets a bit more complicated. The most straightforward approach is to use the command line to move files to your desktop (or anywhere else you’d like on your C: drive), then look at them from there.
 
-From your home directory on the command line, you can access your desktop by one of the following paths, depending on your version of Windows:
+From your home directory on the command line, you can access your desktop by one of the following paths, depending on your version of Windows and accounts on your computer:
 
 - `/mnt/c/Users/<computerusername>/Desktop`
 - `/mnt/c/Users/<computerusername>/OneDrive/Desktop`

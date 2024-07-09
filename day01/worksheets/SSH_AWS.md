@@ -63,6 +63,8 @@ If you get a credentials error AND you’ve waited at least five minutes, more t
 
 **IMPORTANT:** Copying in the WSL Ubuntu app is done as normal with Ctrl-C, but if you have Windows 10, you cannot paste with Ctrl-V. Pasting is done with a right-click instead. Windows 11 versions of Ubuntu paste as normal.
 
+**Also highly recommended:** If you have Windows 11, you should configure your Terminal application to default to Ubuntu rather than the Windows command prompt. Do that by following the instructions <a href="https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Windows_11_terminal.md">here</a>.
+
 In your terminal, paste the following command, using the email address associated with your github account (keep the double quotes):\
 `ssh-keygen -t ed25519 -C "your_email@example.com"`
 >**Note:** If you get an error that ed25519 is not supported, use:\
