@@ -8,7 +8,7 @@ Author: Zach Maas (2023), Hope Townsend (2023), Malia Fredrickson (2024), Georgi
 
 ### What you get to do:
 1. Log onto the Short Read Workshop server using SSH
-2. Move to your user directory on */scratch/Users/<username>*
+2. Move to your user directory on `/scratch/Users/<username>`
 3. Make a folder called *workshop-day2* and a folder inside of that called *bedfiles*
 4. Make folders inside *workshop-day2* called *results*, *scripts*, *bin*, and *data*
 5. Copy the gzipped (compressed) folder in */scratch/Shares/public/sread2024/data_files/day2/bedfiles/chr1_bedfiles.tar.gz* to your *bedfiles* directory
