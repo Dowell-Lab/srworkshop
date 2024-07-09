@@ -95,6 +95,12 @@ You invoke R functions by calling the function name (such as `sum`) followed by 
 
 8. Note, all the variables in your environment have been saved to a hidden folder in your home or working directory. The hidden folder is called `.RData` and can to be loaded in R to access the variables `load("/Users/<YourUsername>/.RData")`. 
 
+![Home files](images/user_home.png)
+
+You can load in the `.Rdata` in R (shown below).
+
+> **Note:** This environment you saved will be automatically loaded when you reopen R on AWS.
+
 ![Load R data](images/load_Rdata.png)
 
 You can copy the `.RData` file to your personal computer and load in your local R. This will allow you to access the variables established on the AWS.
