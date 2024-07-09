@@ -199,7 +199,17 @@ MACS parameters depending on the data types:
 
 5. To run *bedtools intersect*, specify *-a* as the file to be filtered which is your broadpeak output file. The *-a* file will be compared against *-b* file which are the blacklist regions. The *-v* parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in *-b*. *>* is to specify the output directory and output file name.
 
-6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed file (*.narrowPeak*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
+6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed files (*clean.narrowPeak* and *summit.bed*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
+
+![IGV example](images/peak13_igv_snapshot.png)
+
+> What do you oberserve?
+>
+> Where are most of the p53 peaks found?
+>
+> Is there consistancy between the *DMSO* and the *Nutlin* samples?
+> 
+> Check out a few genes (e.g. RUNX1)! How many peaks are near start of the gene and in the gene annotations? 
 
 
 ## Section C: Motif discovery and comparing motifs to database of TF motifs
@@ -210,7 +220,7 @@ MACS parameters depending on the data types:
 
 2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use bedtool getfasta and a reference genome .fa file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
 
-3. Set your in and out directory as we have in the previous exercise. Here your INDIR is the path to your MACS peak output files. The OUTDIR will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as hg38.fa 
+3. Set your in and out directory as we have in the previous exercise. Here your INDIR is the path to your MACS peak output files. The OUTDIR will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as hg38.fa (Note, for this workshop, we are working with a smaller chromosome 21 fasta file). 
 
 ![Variables MEME](images/script5_set_variables.png)
 
@@ -218,7 +228,7 @@ MACS parameters depending on the data types:
 
 ![Get fasta](images/script5_get_fasta_file.png)
 
-5. Move the *fasta* file to your computer
+5. Copy the *fasta* file to your computer
 
 6. Upload your fasta file to MEME (https://meme-suite.org/meme/tools/meme) and submit. 
 
