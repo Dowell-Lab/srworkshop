@@ -1,7 +1,6 @@
 Day9: Using bedtools to identify overlaps
 ================
-Meaghan Courvan edited Lynn Sanford’s Worksheet
-2024-07-09
+Meaghan Courvan (2024) from Lynn Sanford (2023)
 
 ### Annotation
 
