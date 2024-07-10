@@ -45,7 +45,7 @@ mkdir -p ${TRIM}
 ##Run the pipeline   ##
 #######################
 ##4: Map trimmed reads to reference genome                                                                                                                                                     
-hisat2 --very-fast -x /scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome \
+hisat2 -p 8 --very-fast -x /scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome \
 -1 ${TRIM}/${FILENAME}.RNA.end1.trimmed.fastq \
 -2 ${TRIM}/${FILENAME}.RNA.end2.trimmed.fastq \
 > ${HISAT2}/${FILENAME}.RNA.sam \

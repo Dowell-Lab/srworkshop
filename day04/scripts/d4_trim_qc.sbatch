@@ -44,8 +44,8 @@ module load trimmomatic/0.36
 ##########################################################################################
 ################## RUN PIPELINE ##########################################################
 ##1: Run fastqc on the samples (here run on example file ${FILENAME}.RNA.end1.fastq)
-fastqc ${FASTQ}/${FILENAME}.RNA.end1.fastq -o ${FASTQC}
-fastqc ${FASTQ}/${FILENAME}.RNA.end2.fastq -o ${FASTQC}
+fastqc -o ${FASTQC} ${FASTQ}/${FILENAME}.RNA.end1.fastq
+fastqc -o ${FASTQC} ${FASTQ}/${FILENAME}.RNA.end2.fastq
 
 ##2: Trim FASTQ Files                                                                                                                                                                                                                                                
 java -jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar PE \
@@ -59,6 +59,6 @@ java -jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar PE \
  LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 ##3: Check Post-Trimming QC stats
-fastqc ${TRIM}/*.trimmed.fastq -o ${FASTQC}
+fastqc -o ${FASTQC} ${TRIM}/*.trimmed.fastq
 
 echo Job finished at `date +"%T %a %d %b %Y"`

@@ -65,13 +65,16 @@ In a future day of the workshop we will go into more details about RNA-seq libra
         Sort and index your BAM files.
       </li>
       <li>
-        Remove the unnecessary large files.
+        Remove the unnecessary/redundant files to save space.
+      </li>
+      <li>
+        Back up scripts and final output files to your home directory.
       </li>
     </ul>
   </li>
   <h3><li>IGV</h3>
     <ul>
-      <li>Transfer your BAM files to your local computer.</li>
+      <li>Transfer your <code>.bam</code>/<code>.bam.bai</code> files to your local computer.</li>
       <li>
         Open IGV and visualize the sorted BAM files.
         <ul>

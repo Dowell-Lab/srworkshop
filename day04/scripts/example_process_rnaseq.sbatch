@@ -23,13 +23,13 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 ## the fastq files will be used as input to fastqc and trimmomatic
 ## trimmed reads will then be passed on to the mapping step
-FASTQ=/scratch/Shares/public/sread2023/homework_data_files/day4
+FASTQ=/scratch/Shares/public/sread2024/homework_data_files/day4
 DATADIR=                 #day4 scratch working directory
 FASTQC=${DATADIR}/fastqc
 HISAT2=${DATADIR}/hisat2
 TRIM=${DATADIR}/trimmomatic
 
-FILENAME=
+FILENAME=chr21Ethan_repA    # Prefix of the files to analyze
 ######################
 ### Loads modules   ##
 ######################
@@ -43,20 +43,29 @@ module load samtools/1.8
 #######################
 ##1: Run fastqc on the samples (here run on example file ${FILENAME}.RNA.end1.fastq)
 
-##2: Trim FASTQ Files                                                                                                                                                                                                                                                
+##2: Trim FASTQ Files
 
 ##3: Check Post-Trimming QC stats
 
-##4: Map trimmed reads to reference genome                                                                                                                                                     
+##4: Map trimmed reads to reference genome
+
 ##5: Convert SAM file to BAM file and index the BAM files
 ##The BAM file is a compressed binary version of a SAM file, so takes up less space
 ##The sorted bam also takes up less space
-###5.1 - convert SAM to BAM 
+###5.1 - convert SAM to BAM
 
 ###5.2 - sort bam file
 
 ###5.3 - index sorted bam file
 
-###5.4 - remove your SAM and unsorted BAM file
- 
+##6: Backup and clean up
+###6.1 - remove your SAM and unsorted BAM file
+
+###6.2 - back up your scripts and results
+
+
+## An alternate way to do step 6 is to backup everything that you need and then delete your
+## entire scratch working directory. As long as the inputs are still present, you can
+## regenerate the outputs from the rest of the pipeline
+
 echo Job finished at `date +"%T %a %d %b %Y"`
