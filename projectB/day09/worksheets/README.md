@@ -195,7 +195,7 @@ twice, since we’re filtering (+)-strand genes in the first instance and
 full TSS bedfile.
 
 If you want to learn more about awk, look up an awk tutorial, but below
-I’ve given a basic breakdown of the command: ![using awk](awk.png)
+I’ve given a basic breakdown of the command: ![using awk](images/awk.png)
 
 Once you’ve manipulated an annotation file like this, you always want to
 check that you did what you think you did.
