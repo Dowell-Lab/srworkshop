@@ -1,8 +1,9 @@
 # Day 4 Worksheet - Read mapping and visualization
-Author: Qing Yang, 2021
+Author: Qing Yang, 2021\
 Edited: Lynn Sanford, 2024
 
-1. Make sure that you have two trimmed fastq files from the Trimmomatic step, one for read 1 and one for read 2. If you're still struggling to get Trimmomatic to work, copy the two files from `/scratch/Shares/public/sread2024/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
+1. Make sure that you have two trimmed fastq files from the Trimmomatic step, one for read 1 and one for read 2. **If you're still struggling to get Trimmomatic to work**, copy the two files from `/scratch/Shares/public/sread2024/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
+\
 ![Trimmed fastq file locations](md_images/trimmed_fastq_file_locations.png)
 
 2. Copy the `d4_mapping.sbatch` script from the GitHub repo to your scratch `workshop-day4/scripts/` directory, then open it in Vim.
@@ -15,7 +16,7 @@ Edited: Lynn Sanford, 2024
 4. Assign path variables. In this case, `DATADIR` is set to your working directory on scratch, and the `TRIM` path variable is the default trimmomatic directory within that. The `HISAT` variable points to the output directory for this script. Make sure all of these paths are accurate for you.
     - Note that in this case, we didn't manually make a `hisat2` directory on the command line. The `mkdir` command in the script should do it for us.
 
-5. Load modules. HISAT2 is our read mapping software and we'll use SAMtools for file conversion afterward.
+5. Load modules for hisat2 and samtools. HISAT2 is our read mapping software and we'll use SAMtools for file conversion afterward.
     - `samtools/1.8` is the version actually on the AWS.
 
 6. Finally, look at the read mapping and file conversion commands.
@@ -25,18 +26,23 @@ Edited: Lynn Sanford, 2024
 
 7. Save your edits and exit Vim, then run the job with the `sbatch` command.
 
-8. You should have 5 non-empty output files in your scratch `workshop-day4/hisat2/` directory when your job is complete. If you don't, check your error file to troubleshoot.
+8. You should have 5 non-empty output files in your scratch `workshop-day4/hisat2/` directory when your job is complete. If you don't, check your error file to troubleshoot.\
+\
+![mapping output files](md_images/mapping_output_files.png)
 
-9. To visualize the mapped reads using IGV, you will need to transfer the `chr21Eric_repA.RNA.sorted.bam` AND `chr21Eric_repA.RNA.sorted.bam.bai` files to your local machine.
+9. Of your 5 output files, you'll see that they vary in size. Take a look at the top 200 lines of the large `.sam` file with `head` (look up parameters for how to change the default number of lines shown). Most of these lines are an extensive header, but at the bottom of these 200 lines you'll see a copy of the hisat2 command you ran, and then a few actual read alignments. You can look up more about the SAM file format in the SAMtools documentation.
+
+10. Most importantly, human-readable SAM files are almost never used in downstream analysis, as they are too large. Downstream analysis is instead uses the binary BAM files derived from SAM files. So in general, it's best to save your final BAM file (in this case the `.sorted.bam` file) and delete the rest to save space and money.
+    - Remove the `.sam` and non-sorted `.bam` files in your scratch working directory.
+        - By default read alignments in a SAM/BAM file are in order of the reads in the fastq file (i.e. random). In order for many downstream programs to run efficiently, the BAM file needs to be sorted by (usually) chromosomal coordinate or by (sometimes) read name. Other than the read order, the unsorted and sorted BAM files are equivalent, so keeping both is redundant.\
+        \
+![removing_mapped files](md_images/removing_mapped_files.png)
+
+11. Back up your mapping script, FastQC results, and final mapped files to your home directory.
+
+12. To visualize the mapped reads using IGV, you will need to transfer the `chr21Eric_repA.RNA.sorted.bam` AND `chr21Eric_repA.RNA.sorted.bam.bai` files to your local machine.
     - Copy the full path to your `chr21Eric_repA.RNA.sorted.bam` file. One way to display this full path is using the command `realpath <file>`. Then copy it to your clipboard.
     - Open a terminal on your local machine (NOT connected to the AWS).
     - Navigate to the local directory where you want your mapped files.
       - Note again that on a Windows machine, it may be easiest to navigate to your Desktop, which is either located at `/mnt/c/Users/<username>/Desktop/` OR `/mnt/c/Users/<username>/OneDrive/Desktop/`
     - Use `rsync` to transfer the bamfile to your current directory on your local machine (`rsync <username>@<AWS_ip_address>:<path to file> ./`). Do the same with the `chr21Eric_repA.RNA.sorted.bam.bai` file.
-
-10. Of your 5 output files, you'll see that they vary in size. Take a look at the top 200 lines of the large `.sam` file with `head` (look up parameters for how to change the default number of lines shown). Most of these lines are an extensive header, but at the bottom you'll see a copy of the hisat2 command you ran, and then a few actual read alignments. You can look up more about the SAM file format in the SAMtools documentation.
-
-11. Most importantly, human-readable SAM files are almost never used in downstream analysis, as they are too large. All downstream analysis is on the binary BAM files derived from SAM files. So in general, it's best to save your final BAM file (in this case the `.sorted.bam` file) and delete the rest to save space and money.
-    - Remove the `.sam` and non-sorted `.bam` files in your scratch working directory.
-        - By default read alignments in a SAM/BAM file are in order of the reads in the fastq file (i.e. random). In order for many downstream programs to run efficiently, the BAM file needs to be sorted by (usually) chromosomal coordinate or by (sometimes) read name. Other than the read order, the unsorted and sorted BAM files are equivalent, so keeping both is redundant.
-    - Back up your mapping script and final mapped files to your home directory.

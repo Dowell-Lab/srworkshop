@@ -50,7 +50,7 @@ In a future day of the workshop we will go into more details about RNA-seq libra
   <h3><li>HISAT2</h3>
     Edit the sbatch script to map the two corresponding paired-end fastq files. For example, <code>chr21Ethan_repA.RNA.end1.fastq</code> and <code>chr21Ethan_repA.RNA.end2.fastq</code>
     <br /><br />
-    Mapping has different parameters to change the mapping efficiency. What would happen if you alter the script which currently has <code>--very-fast</code> to <code>--very-sensitive</code>?  
+    Mapping has different parameters to change the mapping efficiency. What would happen if you alter the script which currently has <code>--very-fast</code> to <code>--very-sensitive</code> (again, these parameters are best explained in the Bowtie2 documentation)?  
   </li>
   <h3><li>SAMTOOLS</h3>
     Now we have a huge SAM file.  
