@@ -1,7 +1,7 @@
 # Part 3: Assessment!
 This is NOT an actual test, but a way for you to *assess* what you've learned and if practicing over the weekend would be wise given we'll be moving forward next week. Keep track of how long it takes you to complete the full pipeline for processing FASTQ files. 
 
-You can choose either ONE of the fastq files in /scratch/Shares/public/sread2023/day5/assessment_fastq OR do ALL of them with a loop. Either way, adapt the scripts you made in your first week and run the following steps on your dataset:
+You can choose either ONE of the fastq files in `/scratch/Shares/public/sread2024/data_files/day5/fastq/assessment_fastq/` OR do ALL of them with a loop. Either way, adapt the scripts you made in your first week and run the following steps on your dataset:
 1.	Run a QC check on the raw FASTQ files
 2.	Trim the FASTQ files and run a QC check again
 3.	Map the FASTQ files to hg38
