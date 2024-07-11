@@ -1,13 +1,13 @@
 #!/bin/bash
 
 INDIR=/scratch/Shares/public/sread2024/data_files/day5/fastq/for_loops_fastq/ 
-OUTDIR=/scratch/Users/lynn-sanford/workshop-day5/results
+OUTDIR=/scratch/Users/<username>/workshop-day5/results
 
 # makes a new directory if it does not already exist
 mkdir -p ${OUTDIR}
 
 # loops through each file that end in .end1.fastq in the in directory
-for path_and_filename in ${INDIR}/*.end1.fastq
+for pathandfilename in ${INDIR}/*.end1.fastq
 do 
 # CODE TO OPERATE ON PATH_AND_FILENAME
 # first get JUST the filename prefix (not including path or .end1.fastq)
