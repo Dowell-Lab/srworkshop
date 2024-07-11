@@ -1,8 +1,5 @@
 # Homework Day 5
-Authors: \
-Daniel Ramírez, 2022\
-Samuel Hunter, 2023\
-Hope Townsend, 2024
+Authors: Daniel Ramírez (2022), Samuel Hunter (2023), Hope Townsend (2024)
 
 ## Everyone
 1.	Watch Day 6 videos

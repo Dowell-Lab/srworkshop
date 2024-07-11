@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INDIR=/scratch/Shares/public/srworkshop/data_files/day5/fastq/for_loops_fastq/ 
-OUTDIR=/Users/your_username/srworkshop/day5/output
+INDIR=/scratch/Shares/public/sread2024/data_files/day5/fastq/for_loops_fastq/ 
+OUTDIR=/scratch/Users/lynn-sanford/workshop-day5/results
 
 # makes a new directory if it does not already exist
 mkdir -p ${OUTDIR}
@@ -11,7 +11,7 @@ for path_and_filename in ${INDIR}/*.end1.fastq
 do 
 # CODE TO OPERATE ON PATH_AND_FILENAME
 # first get JUST the filename prefix (not including path or .end1.fastq)
-FILENAME=`basename $pathandfilename .end1.fastq`
+FILENAME=$(basename $pathandfilename .end1.fastq)
 echo $FILENAME
 
 # now run the sbatch with the script d5-fastq-to-bam.sbatch.

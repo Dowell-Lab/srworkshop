@@ -5,10 +5,10 @@
 #SBATCH --nodes=1                                       # Numbers of nodes
 #SBATCH --ntasks=4                                      # Number of CPU (tasks)
 #SBATCH --time=00:30:00                                 # Time limit hrs:min:sec
-#SBATCH --partition=compute                            # Partition/queue requested on server    
+#SBATCH --partition=short                            # Partition/queue requested on server    
 #SBATCH --mem=10gb                                      # Memory limit
-#SBATCH --output=/scratch/Users/<YOUR_USERNAME>/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<YOUR_USERNAME>/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.err
 
 ################ SET REQUIRED VARIABLES #################################################
 
@@ -18,7 +18,7 @@
 
 FILENAME=chr21Eric_repA.RNA
 INDIR=/scratch/Shares/public/sread2024/cookingShow/day5/bam/
-OUTDIR=/scratch/Users/<YOUR_USERNAME>/day5
+OUTDIR=/scratch/Users/<YOUR_USERNAME>/workshop-day5
 
 # We'll also need to give the Genome size and info so that the file can be compressed into a TDF
 genomeFasta=/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.fa
@@ -56,7 +56,7 @@ mkdir -p ${BEDGRAPHdir} ${TDFdir}
 ####################################################################################
 ################## JOB INFO ########################################################
 # A bedgraph condenses a BAM file into a simple histogram of reads for each region in the genome.
-# Each line is in the format of chromosome"\t"start"\t"stop"\t"num_reads_overlapping_region
+# Each line is in the format of chromosome"\t"start"\t"stop"\t"num_reads_overlapping_region, where \t means Tab
 # Since our data is paired, that means that there are 2 reads per fragment of RNA captured (one starting from each end of the fragment). Therefore, we need to consider both reads in our analysis.
 
 ################################################
@@ -67,11 +67,11 @@ mkdir -p ${BEDGRAPHdir} ${TDFdir}
 #    via this code by giving it the code for a "first read in a pair": 40. We say this via the -f parameter. If you'd like to learn more
 #   aboout these codes and how to use them, here's a cheat sheet: https://broadinstitute.github.io/picard/explain-flags.html
 
-# <ANNOTATE WHAT THE -h AND -b STAND FOR HERE> *Hint* do samtools view -help
+# <ANNOTATE WHAT THE -h AND -b STAND FOR HERE> *Hint* module load samtools and run samtools view -help
 # <ANNOTATE WHAT THE {INDIR}/${FILENAME}.sorted.bam and ${BEDGRAPHdir}/${FILENAME}.pairfirst.bam NAMES WILL BE>
 
 samtools view \
-        -h -b -f 40 \
+        -h -b -f 64 \
         ${INDIR}/${FILENAME}.sorted.bam \
         > ${BEDGRAPHdir}/${FILENAME}.pairfirst.bam
 

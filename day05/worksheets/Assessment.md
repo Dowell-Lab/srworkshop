@@ -9,6 +9,7 @@ You can choose either ONE of the fastq files in `/scratch/Shares/public/sread202
 5.	Generate bedGraph files from BAM files
 6.	Generate TDF files from bedGraphs 
 7.	Transfer the TDF to your local computer and visualize using the IGV Web App
+8.  Clean up and back up your results
 
 **NOTE**: You are ALLOWED and encouraged to use your copy of your previous scripts with minor edits of names, etc. When doing pipelines, you will often be given code that you need to adapt rather than have to reinvent the wheel.
 
