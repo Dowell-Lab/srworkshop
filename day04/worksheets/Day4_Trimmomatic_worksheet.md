@@ -6,11 +6,10 @@ Edited: Lynn Sanford, 2024
 Now that we have evaluated our sequence library initially to determine if the libraries are worth analyzing, we will do some “cleaning up” by trimming unwanted sequences such as adapter sequences. This step is necessary for improved alignment and mapping to the reference genome downstream. Once trimming is completed, we will reevaluate our trimmed files with FastQC for quality to decide if we will move forward with mapping.
 
 ## Make working directories and copy script
-- In your home directory, make a `workshop-day4` directory. Within that, make `scripts`,`eofiles`, `fastqc`, and `trimmomatic` subdirectories.
-- Navigate to your scratch directory and create the same directory/subdirectories.
+- In your home directory, make a `workshop-day4` directory. Within that, make `scripts`, `fastqc`, and `hisat2` subdirectories.
+- Navigate to your scratch directory and create the same directory with `scripts`, `eofiles`, `fastqc`, and `trimmomatic` subdirectories.
 
   ![Make trimming directories](md_images/make_trimming_dirs.png)
-
 
 - Navigate to the srworkshop repo and `git pull`. Then `rsync` the `d4_trim_qc.sbatch` script from `day04/scripts/` into your scratch day4 scripts directory.
 
@@ -45,7 +44,7 @@ For the meat of the script, we will be running 3 analysis steps. Several analysi
 
 The FastQC steps should look familiar to you from yesterday. Now let's look closer at the trimming step.
 - In this script we are running paired end reads. Trimmomatic can be used on both single end or paired-end reads. When setting your parameters use the appropriate adapters.
-- Below are the syntaxes needed to run trimmomatic:
+- Below is the syntax needed to run trimmomatic:
   - For single-end reads\
     ```
     java jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar SE [ -threads <n> ]  [ -phred33 | -phred64 ] [ -trimlog <output_trimlog> ] <input_file> <output_file> ILLUMINACLIP
@@ -54,7 +53,7 @@ The FastQC steps should look familiar to you from yesterday. Now let's look clos
     ```
     java jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar PE [ -threads <n> ]  [ -phred33 | -phred64 ] [ -trimlog <output_trimlog> ] <input_file1> <input_file2> <output_fileP1> <output_fileU1> <output_fileP2> <output_fileU2> ILLUMINACLIP
     ```
-  - In the script, you'll see this command is split into multiple lines. Recall that the `\` at the end is used to break the code up for ease of reading. If `\` does not change color as you see above (it may not be the same color as here, but it should change from the normal text color), you may have an extra space after the `\`. Remove that space or your code will not run properly.
+  - In the script, you'll see this command is split into multiple lines. Recall that the `\` at the end is used to break the code up for ease of reading. Depending on your Vim color settings, if `\` does not change color as you see above, you may have an extra space after the `\`. Remove that space or your code will not run properly.
 
 - The final parameter shown in the Trimmomatic commands above is the `ILLUMINACLIP` parameter, which should be replaced by a series of strings that define the trimming behavior you need. Below are several possible trimming strategies that can be implemented, singly or in combination:
   - `ILLUMINACLIP:<path_adapters_fasta>:<seed_mismatches>:<palindrome_clip_threshold>:<simple_clip_threshold>`
