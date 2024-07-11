@@ -5,20 +5,15 @@ Meaghan Courvan
 
 ### Learning objectives:
 
-The goal of this section is to become familiar with working with
-dataframes in R, using R functions to answer questions biological
-questions, and making figures.
+The goal of this section is to become familiar with working with dataframes in R, using R functions to answer biological questions, and making figures.
 
-One common question people have when running multimodal experiments with
-RNA-seq and ChIP-seq is:  
-*What genes are differentially expressed and have a p53 ChIP peak in
-their promoter? And do these fall into one functional classification,
-molecular pathway, or biological funciton.*
+One common question people have when running multimodal experiments, for example with RNA-seq and ChIP-seq is:  
 
-We’ve gotten almost to answering this question throughout this project,
-and we’ll finish here.
+* What genes are differentially expressed and have a p53 ChIP peak in
+their promoter? 
+* Do these fall into one functional classification, molecular pathway, or biological funciton.
 
-First, let’s recap what we’ve done.
+We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
 
 1.  We calculated differential gene expression on Day 7.
 2.  We called p53 ChIP peaks on Day 8.
@@ -27,42 +22,28 @@ First, let’s recap what we’ve done.
 4.  We got an equivalent list of p53 ChIP peaks overlapping genes in
     experimental (Nutlin) conditions.
 
-All that’s left is to do some basic set manipulation here in R and
-create some figures.
+All that’s left is to do some basic set manipulation here in R and create some figures.
 
 ### First, set up the environment.
 
-The home directory for an R markdown document is the location where it’s
-saved. You can’t set the working directory (easily) from within the
-document. Make sure you save this in a place that makes it easy for you
-to load data and save results.
+At the top of your script, load any R libraries you want to use. 
 
 ### Read in the data
 
-We will be working with bed files we generated earlier today, as well as
-differential expression data generated on Day 7. We’ll load that all in
-here.
+We will be working with bed files we generated earlier today, as well as differential expression data generated on Day 7. We’ll load that all in here.
 
-- Load in bed files you created that contain p53 peaks that overlap
-  genes, in both DMSO and Nutlin treated conditions. In case you’ve
-  forgotten, the function you need is “read_tsv()”. Since we’re working
-  with a bed file, it doesn’t have column names. In the “read_tsv()”
-  function, make sure to set col_names=FALSE.
-- Now that you’ve loaded the bed files, give them usable column names.
-  I’ve provided those for you in the block of code below, you just need
-  to assign them to the dfs.
-- Load the differential expression data you generated on Day 7.
-  - There are a lot of genes in this data frame, so we’re going to
-    filter down to a smaller number to create the venn diagram. Make
-    another list that has only genes with an adjusted p-value \< 0.05
-    and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
+* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. 
+* Since we’re working with a bed file, it doesn’t have column names. In the “read_tsv()” function, make sure to set col_names=FALSE.
+* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
+* Load the differential expression data you generated on Day 7.
+* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
 
 ``` r
 ### --- READ IN CHIP DATA 
   dmso_peaks # read in data here     
   nutlin_peaks # read in data here 
   
-  ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
+### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
                     'chip_strand', 'signalValue', 'log_pval', 'log_qval', 
                     'summit', 'promoter_chr', 'promoter_start', 'promoter_end', 
@@ -70,10 +51,10 @@ here.
   colnames(dmso_peaks) <- set_colnames
   colnames(nutlin_peaks) <- set_colnames
   
-  ### --- READ IN DE DATA 
+### --- READ IN DE DATA 
   de.import # read in data here 
   
-  ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
+### --- EXTRACT SIGNIFICANTLY CHANGING GENES
 ```
 
 <br>
@@ -84,48 +65,36 @@ here.
 
 #### Working with lists of genes
 
-These functions will do most of the work when we’re comparing lists of
-genes.
+These functions will do most of the work when we’re comparing lists of genes.
 
 1.  **union()** ~ This function combines two lists and returns the
     unique elements.
 2.  **intersection()** ~ This returns only elements that are common to
     both lists <br> <br>
 
-**First:** What is the set of genes bound by p53 in either DMSO or
-Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
 
 **Second:** Look at the intersection of this list with DE genes
 
-Print out the number of genes that are differentially expressed and have
-a p53 ChIP peak in any condition. Also, print out the list of genes.
+Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of these
-categories.
+**Next** we’ll make a Venn diagram showing the overlap of these categories.
 
-To make figures in R, we usually call a specific package or function
-that makes the type of graph we’re looking for. In this case, we will
-install a package to make venn diagrams,
-[ggvenn](https://github.com/yanlinlin82/ggvenn). \* Visit that website
-and follow the installation instructions. \* Load the library at the top
-of this next code block. \* Look at the Quick Start section. Do you see
-that the function expects a lists of lists? \* Make a list of lists that
-contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks
-under Nutlin treatment, and differentially expressed genes.
+To make figures in R, we usually call a specific package or function that makes the type of graph we’re looking for. In this case, we will
+install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
-**Finally**, report the percentage of ChIP peaks that overlap with a
-differentially expressed gene.
+* Visit that website and follow the installation instructions. 
+* Load the library at the top of this next code block. 
+* Look at the Quick Start section. Do you see that the function expects a lists of lists? 
+* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks under Nutlin treatment, and differentially expressed genes.
+
+**Finally**, report the percentage of ChIP peaks that overlap with a differentially expressed gene.
 
 ### Export our work for GO analysis
 
-For GO analysis, we want to have a list of our genes of interest and a
-list of background. **Background** means the set of genes we actually
-measured in this experiments. We’ll create the background list, and then
-export *(1)* this background list, along with *(2)* all differential
-expressed and bound genes, *(3)* overexpresed and bound genes, *(4)*
-underexpressed and bound genes.
+For GO analysis, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. We’ll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes.
 
 - Make each list
 - Now you need to turn each list into a dataframe. This is because the
