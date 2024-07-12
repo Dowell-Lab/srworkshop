@@ -8,7 +8,7 @@ Authors: Daniel Ramírez (2022), Samuel Hunter (2023), Hope Townsend (2024)
 	git pull
 	```
 
-2. In your scratch directory, make the directory `workshop-day5` and inside that make a directory for error and output files (usually we call the directory `e_and_o` OR `eofiles`), if you don't already have one.
+2. In your scratch directory, make the directory `workshop-day5` and inside that make a directory for error and output files called `eofiles` (usually we call the directory `eofiles` or `e_and_o`), and a directory for `scripts`.
 
 ## 1. Making Bedgraphs and TDFs
 BAM files that we made yesterday are an intermediate file (mapped reads to the genome). We want to extrapolate more info from them; in this case, the number of reads that are at each region. This will allow downstream analysis like determining how transcribed a region is or for easier visualization. We do this by using the BAM files to create bedgraph and TDF files.
@@ -20,7 +20,7 @@ BAM files that we made yesterday are an intermediate file (mapped reads to the g
 	    - `chr21Eric_repA.RNA.sorted.bam.bai`
 
 1. First, we need to make a script that will run the code to get the bedGraphs and TDFs from the bam files.
-	- Copy ALL of the scripts from the srworkshop repository `day05/scripts` directory to the `workshop-day5` directory you made on scratch. 
+	- Copy ALL of the scripts from the srworkshop repository `day05/scripts` directory to the `workshop-day5/scripts` directory you made on scratch. 
 	- Edit the `d5-bam-to-tdf.sbatch` script to match YOUR information (Remember to delete the `<>` brackets!):
         - `<JOB_NAME>` to the name `bam_to_tdf`
 	    - output and error files (`--output` and `--error`) should use your directory made in Step 0. **Important**: keep the `%x_%j.out` and `%x_%j.err` parts as those are the file names where the `%` symbol means that the job name (`%x`) job id (`%j`) will populate automatically. This makes it really easy to know which error/output files connect to which jobs you ran.
@@ -33,6 +33,7 @@ BAM files that we made yesterday are an intermediate file (mapped reads to the g
 5. Check that everything ran smoothly!
     - Look at the error and output files you generated and see if everything ran correctly.
     - Download the TDF to your local computer and open it up inthe IGV web app (or Desktop version if you have it installed). How does it look different than a BAM file?
+		- If successful, put a green sticky note up!
 
     
 # Part 2 BONUS: For Loops and Pipelines
@@ -42,7 +43,7 @@ In the past couple days, we've run samples one-by-one using individual scripts f
 
 1. Open the script `loop_example.sh` and read it. What do you expect to be printed out?
 
-2. Now exit vim and run the script with `sh example_for_loop.sh`
+2. Now exit vim and run the script with `sh loop_example.sh`
 	- How many times did we go through the loop?
 	- How many times did `DONE!` get printed out? Why?
 	- What would happen if you changed the 3 to 5?
@@ -64,7 +65,7 @@ In the past couple days, we've run samples one-by-one using individual scripts f
 4. Now edit the script `run_d5-fastq-to-tdf.sh` to run. 
     - Edit the `OUTDIR` variable to point to wherever you want (I'd recommend your workshop-day5).
     - Read the annotations and make sure you understand what's happening. Check out the variables to which you're assigning values in the script to see what you're doing. If you don't understand what's happening, hold up a red sticky note.
-    - Now run the script with `bash run_d5-fastq-to-tdf.sh`
+    - Now run the script with `sh run_d5-fastq-to-tdf.sh`
         - You should see output like this:
 	    ```
 	    sample1_day5_igv.RNA
@@ -72,8 +73,63 @@ In the past couple days, we've run samples one-by-one using individual scripts f
 	    sample2_day5_igv.RNA
 	    Submitted batch job (number here starting with 9)
 	    ```
-	- Once you have all your results and none of them are empty, delete the output `sams` directory to save space.
-	- Back up whatever output files you want to keep to your home directory.
+	- Double check that you got everything by going to the `results` directory and typing `ls -lh *`. You should see something like the image below (make sure that everyhing is similar in size). If successful, you would now copy anything you'd want to back up to your home directory BUT since this is just practice, you can download the tdfs to look on IGV (use `rsync`) and delete everything in the results folder with the command `rm /scratch/Users/<username>/workshop-day5/results/*`
 
-Now you were able to get the TDF files with a single script!
+	```
+		[hope2925@ip-172-31-29-230 results]$ ls -lh *
+	bams:
+	total 127M
+	-rw-rw-r-- 1 hope2925 hope2925  47M Jul 12 06:41 sample1_day5_igv.RNA.sorted.bam
+	-rw-rw-r-- 1 hope2925 hope2925 1.5M Jul 12 06:41 sample1_day5_igv.RNA.sorted.bam.bai
+	-rw-rw-r-- 1 hope2925 hope2925  78M Jul 12 06:42 sample2_day5_igv.RNA.sorted.bam
+	-rw-rw-r-- 1 hope2925 hope2925 1.5M Jul 12 06:42 sample2_day5_igv.RNA.sorted.bam.bai
+
+	bedgraphForTdf:
+	total 248M
+	-rw-rw-r-- 1 hope2925 hope2925 8.4M Jul 12 06:43 sample1_day5_igv.RNA.bed
+	-rw-rw-r-- 1 hope2925 hope2925 8.4M Jul 12 06:43 sample1_day5_igv.RNA.BedGraph
+	-rw-rw-r-- 1 hope2925 hope2925 3.9M Jul 12 06:43 sample1_day5_igv.RNA.neg.bedGraph
+	-rw-rw-r-- 1 hope2925 hope2925  27M Jul 12 06:41 sample1_day5_igv.RNA.pairfirst.bam
+	-rw-rw-r-- 1 hope2925 hope2925 1.9M Jul 12 06:42 sample1_day5_igv.RNA.pairfirst.neg.bed
+	-rw-rw-r-- 1 hope2925 hope2925 2.3M Jul 12 06:42 sample1_day5_igv.RNA.pairfirst.pos.bed
+	-rw-rw-r-- 1 hope2925 hope2925  23M Jul 12 06:42 sample1_day5_igv.RNA.pairsecond.bam
+	-rw-rw-r-- 1 hope2925 hope2925 1.9M Jul 12 06:42 sample1_day5_igv.RNA.pairsecond.neg.bed
+	-rw-rw-r-- 1 hope2925 hope2925 2.3M Jul 12 06:42 sample1_day5_igv.RNA.pairsecond.pos.bed
+	-rw-rw-r-- 1 hope2925 hope2925 4.5M Jul 12 06:43 sample1_day5_igv.RNA.pos.bedGraph
+	-rw-rw-r-- 1 hope2925 hope2925  21M Jul 12 06:43 sample2_day5_igv.RNA.bed
+	-rw-rw-r-- 1 hope2925 hope2925  21M Jul 12 06:43 sample2_day5_igv.RNA.BedGraph
+	-rw-rw-r-- 1 hope2925 hope2925 9.9M Jul 12 06:43 sample2_day5_igv.RNA.neg.bedGraph
+	-rw-rw-r-- 1 hope2925 hope2925  44M Jul 12 06:42 sample2_day5_igv.RNA.pairfirst.bam
+	-rw-rw-r-- 1 hope2925 hope2925 5.1M Jul 12 06:42 sample2_day5_igv.RNA.pairfirst.neg.bed
+	-rw-rw-r-- 1 hope2925 hope2925 5.7M Jul 12 06:42 sample2_day5_igv.RNA.pairfirst.pos.bed
+	-rw-rw-r-- 1 hope2925 hope2925  38M Jul 12 06:42 sample2_day5_igv.RNA.pairsecond.bam
+	-rw-rw-r-- 1 hope2925 hope2925 5.2M Jul 12 06:43 sample2_day5_igv.RNA.pairsecond.neg.bed
+	-rw-rw-r-- 1 hope2925 hope2925 5.9M Jul 12 06:43 sample2_day5_igv.RNA.pairsecond.pos.bed
+	-rw-rw-r-- 1 hope2925 hope2925  11M Jul 12 06:43 sample2_day5_igv.RNA.pos.bedGraph
+
+	qc:
+	total 8.0K
+	-rw-rw-r-- 1 hope2925 hope2925 400 Jul 12 06:41 sample1_day5_igv.RNA.hisat2_mapstats.txt
+	-rw-rw-r-- 1 hope2925 hope2925 400 Jul 12 06:41 sample2_day5_igv.RNA.hisat2_mapstats.txt
+
+	sams:
+	total 585M
+	-rw-rw-r-- 1 hope2925 hope2925 228M Jul 12 06:41 sample1_day5_igv.RNA.sam
+	-rw-rw-r-- 1 hope2925 hope2925 358M Jul 12 06:41 sample2_day5_igv.RNA.sam
+
+	stats:
+	total 16K
+	-rw-rw-r-- 1 hope2925 hope2925 423 Jul 12 06:41 sample1_day5_igv.RNA.bam.flagstat
+	-rw-rw-r-- 1 hope2925 hope2925   0 Jul 12 06:41 sample1_day5_igv.RNA.bam.flagstat.err
+	-rw-rw-r-- 1 hope2925 hope2925 427 Jul 12 06:42 sample2_day5_igv.RNA.bam.flagstat
+	-rw-rw-r-- 1 hope2925 hope2925   0 Jul 12 06:42 sample2_day5_igv.RNA.bam.flagstat.err
+
+	tdf:
+	total 6.4M
+	-rw-rw-r-- 1 hope2925 hope2925 2.4M Jul 12 06:43 sample1_day5_igv.RNA.tdf
+	-rw-rw-r-- 1 hope2925 hope2925 4.1M Jul 12 06:43 sample2_day5_igv.RNA.tdf	
+  ```
+
+
+	Now you were able to get the TDF files with a single script!
 
