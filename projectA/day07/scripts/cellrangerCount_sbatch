@@ -1,13 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=cellrangerCount_female07                           # Job name
+#SBATCH --job-name=cellrangerCount_male19                           # Job name
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=8                                      # Number of CPU (tasks)
+#SBATCH --ntasks=EDIT_THIS                                      # Number of CPU (tasks)
 #SBATCH --time=18:00:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                               # Partition/queue requested on server    
-#SBATCH --mem=64gb                                       # Memory limit
-#SBATCH --output=/scratch/Shares/dowell/temp/ChrisO/SR2024/eando/cellrangercount.%j.out
-#SBATCH --error=/scratch/Shares/dowell/temp/ChrisO/SR2024/eando/cellrangercount.%j.err
-
+#SBATCH --mem=10gb                                       # Memory limit
+#SBATCH --output=EDIT_THIS/srworkshop/projectA/day07/cellranger_count/eando/cellrangercount.%j.out
+#SBATCH --error=EDIT_THIS/srworkshop/projectA/day07/cellranger_count/eando/cellrangercount.%j.err
 
 ##########################################################################################
 ################## MODULE LOAD ###################################################
@@ -25,12 +24,15 @@ echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 ################## RUN JOB ###############################################################
 
 
+#makes an eando directory unless one already exists
+mkdir -p ~/srworkshop/projectA/day07/cellranger_count/eando
+
 cellranger count --id=T21BM_male19 \
- --fastqs=/scratch/Shares/dowell/temp/ChrisO/SR2024/fastq/sampled \
- --transcriptome=/scratch/Shares/dowell/temp/ChrisO/SR2024/refdata-gex-GRCh38-2020-A \
+ --fastqs=EDIT_THIS \
+ --transcriptome=EDIT_THIS \
  --sample=DSOX19_1 \
  --include-introns=true \
- --localcores=8    ###must match ntasks above
+ --localcores=EDIT_THIS    ###must match ntasks above
 
                                                                                 
 echo Job finished at `date +"%T %a %d %b %Y"`
