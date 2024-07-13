@@ -22,16 +22,18 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024)
 
 - [Beautiful Plotting Tips](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/): Cheat sheet for making beautiful, publication worthy plots in ggplot2!
 
--[Base R Cheat Sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf): A cheat sheet for Base R 
+- [Base R Cheat Sheet](https://iqss.github.io/dss-workshops/R/Rintro/base-r-cheat-sheet.pdf): A cheat sheet for Base R 
 
 > **Note:** A good number of packages also  have cheat sheets. If you find a package you like, check if a cheat sheet already exist.
 
 
 ### Useful packages
 
-- Data isn’t always beautiful. To tidy data up there is a very useful package called tidyvrse with instructions in R for Data Science. Info can be found here: https://www.tidyverse.org/
+- Data isn’t always beautiful. To tidy data up there is a very useful package called `tidyvrse` with instructions in R for Data Science. Info can be found here: https://www.tidyverse.org/
 
-- To plot data beautifully (ggplot2 is also a part of tidyverse): https://ggplot2.tidyverse.org/
+- To plot data beautifully with `ggplot2` (`ggplot2` is also a part of `tidyverse`): https://ggplot2.tidyverse.org/
+
+- Arranging multiple plots with `cowplot` (this package also works well with `ggplot2`): https://wilkelab.org/cowplot/index.html
 
 ## Getting familiar with R
 
