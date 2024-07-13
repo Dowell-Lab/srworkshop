@@ -13,9 +13,9 @@ library(dplyr)
 # For today you can use the object provided below
 
 # Load in the pre-made trisomic CellChat object
-load("/scratch/Shares/public/sread2024/cookingShow/day9/cellchat/cellchat_object-t21.RData")
+load("/scratch/Shares/public/sread2024/cookingShow/day9a/cellchat/cellchat_object-t21.RData")
 
-# If you have completed the worksheet and are running the disomic object pull in this file instead: /scratch/Shares/public/sread2024/cookingShow/day9/cellchat/cellchat_object-d21.RData
+# If you have completed the worksheet and are running the disomic object pull in this file instead: /scratch/Shares/public/sread2024/cookingShow/day9a/cellchat/cellchat_object-d21.RData
 
 ## 2. Set the minimum number of cells required to assess cell-cell communication on a per-network basis
 # We will set the min number of cells required in each cell group to be 10

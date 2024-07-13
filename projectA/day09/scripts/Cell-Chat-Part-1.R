@@ -12,9 +12,9 @@ library(dplyr)
 # Note** When performing your own analysis you will need to make your own Seurat object, but for today you can use the object provided below
 
 # Load in the Seurat object - let's start with the Trisomic sample (t21_official_umap_clust_06.25.24.Rdata)
-# Note** There is also a Disomic sample in this directory you are welcome to run CellChat on for comparison after completing both worksheets (d21_subset_official_umap_clust_06.25.24.Rdata))
+# Note** There is also a Disomic sample in this directory you are welcome to run CellChat on for comparison after completing both worksheets (/scratch/Shares/public/sread2024/cookingShow/day8a/labeled-seurat-objs/d21_subset_official_umap_clust_06.25.24.Rdata))
 
-load("/scratch/Shares/public/sread2024/cookingShow/day8/labeled-seurat-objs/t21_official_umap_clust_06.25.24.Rdata")
+load("/scratch/Shares/public/sread2024/cookingShow/day8a/labeled-seurat-objs/t21_official_umap_clust_06.25.24.Rdata")
 
 ## 2. Create CellChat object (from Seurat object)
 # Note: a warning here about the 'samples' column is okay, proceed
