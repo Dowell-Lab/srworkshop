@@ -43,7 +43,7 @@ along the lines of: `/scratch/Users/<your_username>/day6/results`).
 ![Edit R Script](images/ws2_edit_Rscript_vim.png)
 
 5. Look through the rest of the script before saving and exiting vim, to make sure you know what
-the code is doing and where your output will be saving to.
+the code is doing and where your output will be saving to (set your path to the `/scratch/Users/<your_username>/day6/results`).
 
 6. Now use vim to open/edit the `Submit_Rscript.sbatch` file. This is the sbatch script we will be
 using to submit our code to the supercomputer. Edit the script by adding your job name, email,
@@ -56,8 +56,12 @@ eofiles path, and path to `Learning_R_submit_aws.R`.
 7. Once you are happy with your `Learning_R_submit_aws.R` and `Submit_Rscript.sbatch` scripts,
 submit the `Submit_Rscript.sbatch` script.
 
-8. If the script worked, back up your results to your home directory
+8. Check the output from the script. Where did the figure, table and standard output from the script go?
+
+> **Hint:** Check the error/output files and the `results` folder.
+
+9. If the script worked, back up your results to your home directory
 (`/Users/<your_username>/srworkshop/day06`).
 
-9. Use `rsync` to copy `mtcars.csv` & `mtcars_mpg_wt_scatterplot.png` from AWS to your local
+10. Use `rsync` to copy `mtcars.csv` & `mtcars_mpg_wt_scatterplot.png` from AWS to your local
 computer to view.
