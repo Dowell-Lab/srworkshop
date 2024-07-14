@@ -6,6 +6,8 @@ Authors: Georgia Barone (2023), Rutendo Sigauke (2024)
 
 - Before beginning this worksheet, make sure RStudio is downloaded on your local computer.
 
+- As a resource, here is an [RStudio Cheat Sheet](https://rstudio.github.io/cheatsheets/rstudio-ide.pdf). Feel free to use it as a resource as you navigate RStudio.
+
 1. Make sure you have updated changes from the GitHub repository in you AWS home directory
 
 Move into the `srworkshop` repository and update from repository by running `git pull`
@@ -19,6 +21,12 @@ Move into the `srworkshop` repository and update from repository by running `git
 ![load in RStudio](images/ws2_open_file_in_Rstudio.png)
 
 4. Complete the	`Learning_R.R` script!
+
+- To run each line in an R script (R notebook), use the `Run` button in R studio. 
+
+![Run code RStudio](images/run_each_line_rstudion.png)
+
+- Alternatively, you can use the the `Ctl` + `Enter` keys at each line. More [keyboard shortcuts](https://support.posit.co/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE) can also be found under the _Tools_ -> _Show Command Palette_  in RStudio.
 
 ## Section B : Writing an R script to submit on a supercomputer
 
