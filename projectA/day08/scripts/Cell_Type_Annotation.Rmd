@@ -36,7 +36,9 @@ For demonstration purposes, we are using an object which contains half of the T2
 
 ```{r}
 # read in the appropriate Seurat object EDIT THIS PATH AS NEEDED
+# you can download these files from https://zenodo.org/records/12725642
 load("/scratch/Shares/public/sread2024/cookingShow/day8/labeled-seurat-objs/t21_official_umap_clust_06.25.24.Rdata")
+
 # see what the name of the object loaded is 
 ls()
 ```
