@@ -1,5 +1,11 @@
 # Project A | Single-cell RNA-seq
 
+## 0. We have gotten data from fetuses that are either Trisomy 21 or Eupliod. 
+
+Jardine, L., Webb, S., Goh, I., Quiroga Londoño, M., Reynolds, G., Mather, M., ... & Haniffa, M. (2021). Blood and immune development in human fetal bone marrow and Down syndrome. Nature, 598(7880), 327-331.
+
+
+
 ## 1. Installing packages
 If you haven't already, download the following packages locally onto R by following the steps below:
 
