@@ -6,7 +6,7 @@
 #SBATCH --nodes=1					 # Number of cores job will run on
 #SBATCH --ntasks=4					 # Number of CPU (processers, tasks)
 #SBATCH --time=00:10:00					 # Time limit hrs:min:sec
-#SBATCH --partition compute				 # Job queue
+#SBATCH --partition short				 # Job queue
 #SBATCH --mem=4mb					 # Memory limit
 #SBATCH --output=/YOUR/EOFILES/PATH/%x_%j.out
 #SBATCH --error=/YOUR/EOFILES/PATH/%x_%j.err
@@ -28,5 +28,7 @@ date
 printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 #######################################################################
+################## LOAD MODULES #######################################
+module load R/4.3.1
 
 Rscript $FEATURECOUNTS
