@@ -1,0 +1,5 @@
+bamfilename	SRR	celltype	condition	replicate
+SRR4098434.sorted.bam	SRR4098434	mcf7	dmso	A
+SRR4098435.sorted.bam	SRR4098435	mcf7	dmso	B
+SRR4098436.sorted.bam	SRR4098436	mcf7	nutlin	A
+SRR4098437.sorted.bam	SRR4098437	mcf7	nutlin	B
