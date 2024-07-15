@@ -1,9 +1,8 @@
 # Project B Day 7 | RNA-seq: Counting Reads and Differential Expression
 
-Today we will count RNA-seq reads and used the counts to run DEseq2.
+Today we will count RNA-seq reads and use the counts to run *DESeq2*.
 
-DESeq2 the most commonly used program for differential expression assessment. We'll talk about how to interpret results and build quality designs.
-
+First, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
 
 ###
 
@@ -17,13 +16,13 @@ https://tinyurl.com/mandmstat
 
 1. We will start with counting reads using *featureCounts*. Since counting requires more resources, we will be coutning reads on the AWS server. 
 
-- `Day7_featurecounts_worksheet.docx` worksheet with details on running *featureCounts*
+- `Day7_featurecounts_worksheet.pdf` worksheet with details on running *featureCounts*
 - `d7_featureCounts.R` R script with code to count reads using *featureCounts* from *Rsubread*
 - `d7_featureCounts.sbatch` sbatch script that calls the aboive R scripts allowing us to count reads on the server
 
 2. Second, we will perform differential gene expression analysis with *DESeq2*. This process will take in as input read counts from featureCounts.
 
-- `Day7_differential_expression_worksheet.docx` A worksheet with R code we will run in Rstudio to perform differential gene experession analysis
+- `Day7_differential_expression_worksheet.pdf` A worksheet with R code we will run in Rstudio to perform differential gene experession analysis
 
 ## Homework
 
