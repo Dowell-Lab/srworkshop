@@ -1,4 +1,40 @@
 # Project A | Single-cell RNA-seq
 
+If you haven't already, download the following packages locally onto R by following the steps below:
+
+1. Open R (type R on the terminal and you should see something like the output below):
+```
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+```
+
+2. Install Seurat according to instructions [here](https://satijalab.org/seurat/articles/install.html). TLDR version is below
+*  Type this in R: `remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE)`. You don't need to install the optional packages. 
+* If it says somehting like remotes can't be found, do `install.packages('remotes')` and try again. 
+* If it says that a dependency package isn't installing, try installing from source. For example, if I wanted to install the paackage "Rcpp" from source, I'd google cran Rcpp where the first link would get me to [here](https://cran.r-project.org/web/packages/Rcpp/index.html). I'd find a link to the latest release under the section Downloads, copy the link address of the appropriate version (in my case r-release(x86_64): Rcpp_1.0.12.tgz). Then in R I'd type `install.packages("link_I_copied", repo=NULL, type="source")` so in my case this would be `install.packages("https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/Rcpp_1.0.12.tgz", repo=NULL, type="source")`
+* If that doesn't work, install using `install.packages('Seurat').
+
+2. Install CellChat according to ...
+* For troubleshooting dependencies, use the install from source tip from above
+
+## Getting the data
+If you were successfully able to install Seurat (don't worry if not Cellchat), download the objects from the zenodo link [here]()
+
 The goal for day 9 is to 
 
