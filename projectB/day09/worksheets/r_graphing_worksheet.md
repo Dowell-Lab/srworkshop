@@ -73,7 +73,20 @@ These functions will do most of the work when we’re comparing lists of genes.
 
 **First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
 
+``` r
+### --- Use either of the function above to get the set of genes.
+    # Hint: we’re comparing lists, not dataframes.
+
+all_p53_bound <- 
+```
+
 **Second:** Look at the intersection of this list with DE genes
+
+``` r
+### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
+
+all_p53_bound <- 
+```
 
 Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
 
@@ -81,8 +94,7 @@ Print out the number of genes that are differentially expressed and have a p53 C
 
 **Next** we’ll make a Venn diagram showing the overlap of these categories.
 
-To make figures in R, we usually call a specific package or function that makes the type of graph we’re looking for. In this case, we will
-install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
+To make figures in R, we usually call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
