@@ -1,8 +1,8 @@
 # Short Read Project B, Day 9
-- Author: Meaghan Courvan
+- Author: Meaghan Courvan, 2024
 
 **Goals for Day 9**
-1. Become familiar with how to draw comparisons between ChIP-seq and RNA-seq data using the bioinformatics tool bedtools. T
+1. Become familiar with how to draw comparisons between ChIP-seq and RNA-seq data using the bioinformatics tool bedtools.
 2. Expand your abilities to plot data in R. We'll talk about other plotting packages. In addition, we'll get you ready for making publication-quality figures by diving more into plotting options that let you control the aesthetics. 
 3. GO analysis to look for functional enrichment in our results. 
 
