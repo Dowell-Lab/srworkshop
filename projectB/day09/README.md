@@ -1,4 +1,4 @@
-# Short Read Project B, Day 9: 
+# Short Read Project B, Day 9
 - Author: Meaghan Courvan
 
 **Goals for Day 9**
