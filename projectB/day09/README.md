@@ -23,8 +23,8 @@ PantherGO: https://www.pantherdb.org
 
 ### ~ Just for fun ~ Meg's resources for better figures
 Choose a color scheme that makes sense: https://coolors.co \
-Explore different types of plots you can make in R: https://r-graph-gallery.com\
-10 rules for scientific figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833\
+Explore different types of plots you can make in R: https://r-graph-gallery.com \
+10 rules for scientific figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833 \
 Inkscape (basically free Illustrator): https://inkscape.org 
 
 ### Advanced topics ~ just useful for you to know they exist, explore on your own
