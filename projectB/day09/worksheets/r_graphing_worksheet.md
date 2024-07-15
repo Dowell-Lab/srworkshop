@@ -9,8 +9,7 @@ The goal of this section is to become familiar with working with dataframes in R
 
 One common question people have when running multimodal experiments, for example with RNA-seq and ChIP-seq is:  
 
-* What genes are differentially expressed and have a p53 ChIP peak in
-their promoter? 
+* What genes are differentially expressed and have a p53 ChIP peak in their promoter? 
 * Do these fall into one functional classification, molecular pathway, or biological funciton.
 
 We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
@@ -70,7 +69,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 1.  **union()** ~ This function combines two lists and returns the
     unique elements.
 2.  **intersection()** ~ This returns only elements that are common to
-    both lists <br> <br>
+    both lists. <br> <br>
 
 **First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
 
