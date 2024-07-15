@@ -1,5 +1,5 @@
 ####### Learning R
-####### Author: Taylor Jones (2022), Georgia Barone (2023)
+####### Author: Taylor Jones (2022), Georgia Barone (2023), Rutendo Sigauke (2024)
 ####### Here we will learn a little more about R. R is built as a statistical program,
 ####### so we will play with some dataframes, statistics and plotting to get used to R.
 ####### The top portion IN THIS PANEL is the script. This is a great place to record what functions you used.
@@ -290,7 +290,7 @@ group_split(ir)
 
 #filter for all Toyta and Mazdas
 
-#group mtcars by cylinder and make a boxplot for gears
+#make a boxplot of mtcars gears where they are grouped by cylinder (hint: you will need to use the Tilde (~) Operator if using base R boxplot function)
 
 ##############################################################################################################################
 # "Advanced" Plotting
