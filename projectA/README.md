@@ -4,6 +4,8 @@
 
 Jardine, L., Webb, S., Goh, I., Quiroga Londoño, M., Reynolds, G., Mather, M., ... & Haniffa, M. (2021). Blood and immune development in human fetal bone marrow and Down syndrome. Nature, 598(7880), 327-331.
 
+Supplemental table 1
+https://docs.google.com/spreadsheets/d/17JnPENn9CDxJa6igqSnC1O5RCjmZPxQ3bepf7jaS-MM/edit?gid=0#gid=0
 
 
 ## 1. Installing packages
