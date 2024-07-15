@@ -5,15 +5,16 @@ library(Seurat)
 library(tidyr)
 library(dplyr)
 ```
-```{r}
-install.packages("devtools")
 
-devtools::install_github("satijalab/seurat")
+```{r}
+#install.packages("devtools")
+
+#devtools::install_github("satijalab/seurat")
 # install.packages("SoupX")
 library(SoupX)
-install.packages("tidyr")
+#install.packages("tidyr")
 library(tidyr)
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
 
