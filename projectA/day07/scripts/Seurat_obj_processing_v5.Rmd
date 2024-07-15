@@ -34,27 +34,27 @@ sessionInfo()
 ### Reading in filtered_feature_bc_matrix from the cellranger outs/ directory and making seurat objects
 ```{r}
 # files in "../outs/filtered_feature_bc_matrix/"
-workdir <- "~/Desktop/ShortRead2024/total_data/"
+workdir <- "/scratch/Shares/public/sread2024/cookingShow/day7a/total_data/"
 
-T21BM_female07_1 <- Read10X(data.dir = paste0(workdir, "T21BM_female07_1_filtered_feature_bc_matrix"))
+T21BM_female07_1 <- Read10X(data.dir = paste0(workdir, "T21BM_female07_1/outs/filtered_feature_bc_matrix"))
 T21BM_female07_1.seuratobj <- CreateSeuratObject(counts = T21BM_female07_1, project = "T21BM_female07_1")
 
-T21BM_male04 <- Read10X(data.dir = paste0(workdir, "T21BM_male04_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+T21BM_male04 <- Read10X(data.dir = paste0(workdir, "T21BM_male04/outs/filtered_feature_bc_matrix/"))
 T21BM_male04.seuratobj <- CreateSeuratObject(counts = T21BM_male04, project = "T21BM_male04")
 
-T21BM_male08 <- Read10X(data.dir = paste0(workdir, "T21BM_male08_filtered_feature_bc_matrix"))
+T21BM_male08 <- Read10X(data.dir = paste0(workdir, "T21BM_male08/outs/filtered_feature_bc_matrix"))
 T21BM_male08.seuratobj <- CreateSeuratObject(counts = T21BM_male08, project = "T21BM_male08")
 
-T21BM_male19_1 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_1_filtered_feature_bc_matrix"))
+T21BM_male19_1 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_1/outs/filtered_feature_bc_matrix"))
 T21BM_male19_1.seuratobj <- CreateSeuratObject(counts = T21BM_male19_1, project = "T21BM_male19_1")
 
-T21BM_male19_2 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_2_filtered_feature_bc_matrix"))
+T21BM_male19_2 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_2/outs/filtered_feature_bc_matrix"))
 T21BM_male19_2.seuratobj <- CreateSeuratObject(counts = T21BM_male19_2, project = "T21BM_male19_2")
 
-D21_female31 <- Read10X(data.dir = paste0(workdir, "D21_female31_filtered_feature_bc_matrix"))
+D21_female31 <- Read10X(data.dir = paste0(workdir, "D21_female31/outs/filtered_feature_bc_matrix"))
 D21_female31.seuratobj <- CreateSeuratObject(counts = D21_female31, project = "D21_female31")
 
-D21_male35 <- Read10X(data.dir = paste0(workdir, "D21_male35_filtered_feature_bc_matrix"))
+D21_male35 <- Read10X(data.dir = paste0(workdir, "D21_male35/outs/filtered_feature_bc_matrix"))
 D21_male35.seuratobj <- CreateSeuratObject(counts = D21_male35, project = "D21_male35")
 ```
 
