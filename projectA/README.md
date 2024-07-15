@@ -1,5 +1,6 @@
 # Project A | Single-cell RNA-seq
 
+## 1. Installing packages
 If you haven't already, download the following packages locally onto R by following the steps below:
 
 1. Open R (type R on the terminal and you should see something like the output below):
@@ -34,7 +35,7 @@ Type 'q()' to quit R.
 * For troubleshooting dependencies, use the install from source tip from above
 **Note** Make sure you install all of the specified dependencies before trying to install CellChat. 
 
-## Getting the data
-If you were successfully able to install Seurat (don't worry if not Cellchat), download the Seurat objects from the zenodo link [here]()
+## 2. Getting the data
+If you were successfully able to install Seurat (don't worry if not Cellchat), download the Seurat objects from the zenodo link [here](https://zenodo.org/records/12725642).
 
 If you were successfully able to install Seurat **and** CellChat, download the the CellChat objects from the zenodo link above. 
