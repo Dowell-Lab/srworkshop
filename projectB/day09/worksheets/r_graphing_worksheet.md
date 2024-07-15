@@ -127,6 +127,19 @@ For GO analysis, we want to have a list of our genes of interest and a list of b
 - Now save each list in a place that is descriptive and convenient for
   you.
 
+```r
+background <- # code here
+all_de <- # code here
+up_de <- # code here
+down_de <- # code here
+
+write_tsv(background, )
+write_tsv(all_de, )
+write_tsv(up_de, )
+write_tsv(down_de, )
+
+```
+
 ### Comparing DE genes between cell lines.
 
 This study looked at p53 responses across 4 cell lines: SJSA, MCF7,
@@ -137,72 +150,49 @@ of graphs.
 1.  A venn diagram, as we did above.
 2.  A heatmap of differential expression.
 
-**First**, load in the data from \_\_\_\_\_\_\_\_\_\_\_.
+**First**, load in the data from */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/*.
 
-**Second**, make a venn digram like we did above. Is this a helpful
-visualization? What do you like about it? What are the limitations of
-the venn diagram? Can you change the input data to create a more helpful
-version of this same venn diagram?
+**Second**, make a venn digram like we did above. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram?
 
 ``` r
-# more helpful version of the venn diagram 
+# ---- READ IN DATA
+de_hct116 <- #
+de_hct116_p53ko <- #
+de_mcf7 <- #
+de_sjsa <- #
+
+# First venn 
+venn_list_de <- list()
+ggvenn()
+
+# Do you think you can make a more helpful version of this?
+# If so, put your code below 
 ```
 
-**Third**, we’ll experiment with heatmaps as an alternative to venn
-diagrams. I like heatmaps for a couple reasons. They make it easier to
-visualize many samples, and also they show more of the quantitative
-data. We’ll use the package
-[pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/)
-(aka pretty heatmap).
+**Third**, we’ll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We’ll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
 
-Click on the link above, and skim the tutorial. The first lines tell you
-how to install pheatmap. Install it below. Then comment out the install
-line and load the package on the line below.
+Click on the link above, and skim the tutorial. The first lines tell you how to install pheatmap. Install it below. Then comment out the install line and load the package on the line below.
 
 **What do we want the heatmap to display?**
 
-- There are two quantitative variables you get out of DESeq2, the
-  log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you
-  want to plot?
-- If we were to plot the data frames we imported, we’d be plotting tens
-  of thousands of genes. That’s far too many to look at! Especially
-  since large majority of them aren’t significantly changing and
-  therefore aren’t interesting. You need to pick a subset of genes to
-  plot. What criteria do you use to select a smaller list of genes? How
-  many genes do you want in your final list?
+- There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
+- If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
 
-1.  Filter your lists of differentially expressed genes below. Print out
-    the dimensions of each filtered data frame at the end. Are all the
-    data frames the same size? Does anything surprise you?
-2.  If you’re happy with your filtering results, great! If you think you
-    need more or fewer genes, adjust your filtering criteria.
-3.  For the next step, you df’s will need unique column names for values
-    calculated by DESeq2, and they all need to have their gene column
-    named the same. Right now they have the gene column named “GeneID”.
-    We’ll leave that, but tag all the other column names with their cell
-    type. I’ve provided that code, you just have to run it.
+1.  Filter your lists of differentially expressed genes below. Print out the dimensions of each filtered data frame at the end. Are all the data frames the same size? Does anything surprise you?
+2.  If you’re happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria.
+3.  For the next step, you df’s will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
 
-Now I need to teach you how to combine these into a common data frame
-that can be used to create a heatmap. We’ll be doing this today using
-the functions **full_join()**, **left_join()**, and **right_join()**.
+Now I need to teach you how to combine these into a common data frame that can be used to create a heatmap. We’ll be doing this today using the functions **full_join()**, **left_join()**, and **right_join()**.
 
-We want to graph genes that are differentially expressed in at least two
-out of three cell lines. We’ll filter the data frame for these genes,
-then replace NAs with 0.
+We want to graph genes that are differentially expressed in at least two out of three cell lines. We’ll filter the data frame for these genes, then replace NAs with 0.
 
-Right now, if a gene was measured in one sample but not the others, when
-it was combined during full_join, NA was filled in for that gene. This
-helpful for us because it’s easy to count the number of NAs per row
-using the **rowSums()** function and the **is.na()** function.
+Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This helpful for us because it’s easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function.
 
-- Count the number of NA’s per row and save it as a new column titled
-  “zero_count”.
-- Filter the data frame so that you only keep genes with values in at
-  least 2 cell lines.
+- Count the number of NA’s per row and save it as a new column titled “zero_count”.
+- Filter the data frame so that you only keep genes with values in at least 2 cell lines.
 - Print out the dimensions of this data frame.
 
-There are two last things to adjust the data before we can make a
-heatmap. \* We’ve added an extra column that is unrelated to our data,
+There are two last things to adjust the data before we can make a heatmap. \* We’ve added an extra column that is unrelated to our data,
 the “zero_count” column. Remove this column \* Pheatmap() will only take
 in numerical values, so change all your NA values to 0. *Hint* use the
 **is.na()** function.
