@@ -1,17 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=<JOB ID>                                    # Job name
-                      
 #SBATCH --mail-type=ALL                                        # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<E-MAIL>                                   # Where to send mail 
-
 #SBATCH --nodes=1                                              # Numbers of nodes
 #SBATCH --ntasks=1 # Num of CPU                                # Number of CPU (tasks) 
-
 #SBATCH --time=00:20:00 # Time limit                           # Time limit hrs:min:sec
-#SBATCH --partition=compute                                    # Partition/queue requested on server
-
+#SBATCH --partition=short                                    # Partition/queue requested on server
 #SBATCH --mem=100mb                                            # Memory limit 
-
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out   # Where to save out files
 #SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err    # Where to save error files
 
@@ -29,6 +24,7 @@ module load preseq/2.0.3
 wd=/scratch/Users/<YourUsername>/day8
 qc=${wd}/qc
 bam=${wd}/bam
+trim=${wd}/trim
 
 #make folders that do not exist
 mkdir -p ${qc} ${bam}
@@ -53,7 +49,7 @@ printf "\nYou have requested $SLURM_CPUS_ON_NODE core(s).\n"
 ##this program takes as input all your mapped bam files   
 mkdir -p ${qc}/preseq
 
-for sample in `ls ${fastq} | tr '.' '\t' | cut -f 1`;
+for sample in `ls ${trim} | tr '.' '\t' | cut -f 1`;
 do
     ##i: generate the complexity curve
     # -s is the step size (for larger samples the default is 1million) 

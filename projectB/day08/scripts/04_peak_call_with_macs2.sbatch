@@ -5,7 +5,7 @@
 #SBATCH --nodes=1                                            # Numbers of nodes
 #SBATCH --ntasks=1                                           # Number of CPU (tasks)
 #SBATCH --time=00:30:00                                      # Time limit hrs:min:sec
-#SBATCH --partition=compute                                  # Partition/queue requested on server    
+#SBATCH --partition=short                                  # Partition/queue requested on server    
 #SBATCH --mem=2gb                                            # Memory limit
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out
 #SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err

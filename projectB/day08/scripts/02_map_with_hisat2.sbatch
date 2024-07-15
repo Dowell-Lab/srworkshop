@@ -1,17 +1,12 @@
 #!/bin/bash                              
 #SBATCH --job-name=<JOB ID>                                    # Job name
-
 #SBATCH --mail-type=ALL                                        # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<E-MAIL>                                   # Where to send mail 
-
 #SBATCH --nodes=1                                              # Numbers of nodes
 #SBATCH --ntasks=4 # Num of CPU                                # Number of CPU (tasks)
-
 #SBATCH --time=00:20:00 # Time limit                           # Time limit hrs:min:sec 
-#SBATCH --partition=compute                                    # Partition/queue requested on server
-
+#SBATCH --partition=short                                    # Partition/queue requested on server
 #SBATCH --mem=5gb                                              # Memory limit
-
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out   # Where to save out files 
 #SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err    # Where to save error files
 
@@ -28,7 +23,6 @@ module load samtools/1.8
 ##Initialize folders 
 ################################################################
 wd=/scratch/Users/<YourUsername>/day8
-fastq=${wd}/fastq
 qc=${wd}/qc
 sam=${wd}/sam
 bam=${wd}/bam
@@ -57,7 +51,7 @@ printf "\nYou have requested $SLURM_CPUS_ON_NODE core(s).\n"
 #3: map the trimmed files to reference genome 
 mkdir -p ${qc}/hisat_mapstats
 
-for sample in `ls ${fastq} | tr '.' '\t' | cut -f 1`;
+for sample in `ls ${trim} | tr '.' '\t' | cut -f 1`;
 do 
 
     ##i: based on chip appropriate commands       

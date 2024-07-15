@@ -1,17 +1,12 @@
 #!/bin/bash                              
 #SBATCH --job-name=<JOB ID>                                  # Job name
-                      
 #SBATCH --mail-type=ALL                                      # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<E-MAIL>                                 # Where to send mail 
-
 #SBATCH --nodes=1                                            # Numbers of nodes
 #SBATCH --ntasks=4 # Num of CPU                              # Number of CPU (tasks) 
-
 #SBATCH --time=00:30:00 # Time limit                         # Time limit hrs:min:sec 
-#SBATCH --partition=compute                                  # Partition/queue requested on server
-
+#SBATCH --partition=short                                  # Partition/queue requested on server
 #SBATCH --mem=500mb                                          # Memory limit
-
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out # Where to save out files             
 #SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err  # Where to save error files
 
@@ -29,9 +24,9 @@ module load java/1.8.0_101
 ##Initialize folders 
 ################################################################
 wd=/scratch/Users/<YourUsername>/day8
-fastq=${wd}/fastq
 qc=${wd}/qc
 trim=${wd}/trim
+fastq=/scratch/Shares/public/sread2024/data_files/day8b/fastq
 
 #make folders that do not exist
 mkdir -p ${qc} ${trim} 
