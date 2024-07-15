@@ -1,4 +1,27 @@
 # Project B | Multi-omics: RNA-seq/ChIP-seq/ATAC-seq
 
-The goal for day 9 is to discuss more peak-centric sequencing methods. To this end we will cover the basic analysis of ChIP-seq and ATAC-seq. For this we will learn to use MACS2 and the different settings required in peak calling depending on the type of data. We also will discuss index files, post-sequencing QC, bedtools, and a few other key concepts.
+The goal for this project is that you will get experience working with RNA-seq data and ChIP-seq data. I'm sure you've read papers that used both, and it's a powerful approach because combining information from multiple modalities allows you to make more specific and supported claims from the data.
+
+## Project outline
+### Day 1
+Learn how to count reads and perform differential expression. \
+Key R packages: 
+
+* Rsubread
+* DESeq2
+
+### Day 2
+Learn how to work with ChIPseq data \
+Key programs: 
+
+* MACS
+
+### Day 3
+Learn how to easily perform comparisons between genomic datasets, make figures, and look for functional enrichment. \
+Key programs: 
+
+* bedtools
+* ggvenn
+* pheatmap
+* PantherGO
 
