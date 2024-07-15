@@ -72,21 +72,7 @@ Copy the following scripts from the github repository folder into your scripts d
 
 ![Copying scripts example](images/copy_scripts_to_scratch.png)
 
-3. Get raw fastq files to your scratch folder
-
-Copy the fastq files over from the scratch directory to your fastq directory. We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in class. The MCF7 samples (SRR4090092, SRR4090093, SRR4090094) are samples you can practice with as part of your homework. 
-
-| Run (SRR)         | Cell line  | Sample Type     |
-| :---------------- | :-------:  | :-------------: |
-| SRR4090089        |  HCT116    | Input           |
-| SRR4090090        |  HCT116    | DMSO treated    |
-| SRR4090091        |  HCT116    | Nutlin treated  |
-
-```
-[<username>@<hostname> ~]$ rsync /scratch/Shares/public/sread2024/data_files/day8b/fastq/ /scratch/Users/<YourUsername>/day8/fastq.
-```
-
-4. Edit and run the preprocessing scripts
+3. Edit and run the preprocessing scripts
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
@@ -143,6 +129,13 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 To study DNA enrichment assays such as ChIP-seq and ATAC-seq, we are introducing the analysis method, *M*odel-based *A*nalysis of *C*hIP-*S*eq (MACS). This method enables us to identify transcription factor binding sites and significant DNA read coverage through a combination of gene orientation and sequencing tag position.
 
+We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in class, where we compare each _treated_ sample to the _input_ sample. 
+
+| Run (SRR)         | Cell line  | Sample Type     |
+| :---------------- | :-------:  | :-------------: |
+| SRR4090089        |  HCT116    | Input           |
+| SRR4090090        |  HCT116    | DMSO treated    |
+| SRR4090091        |  HCT116    | Nutlin treated  |
 
 1. Edit and run the MACS2 script. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
 
