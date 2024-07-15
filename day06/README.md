@@ -27,6 +27,15 @@ We will cover running R three ways:
 
 2. Additional homework is to install R packages we will use later in the week. Both packages can be found on bioconductor.
 
-- rsubread (https://bioconductor.org/packages/release/bioc/html/Rsubread.html)
-- DESeq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+a. Project A
+
+More details in Project A folder
+
+- Seurat : Install on personal computer R
+- CellChat : Install on	personal computer R
+
+b. Project B
+
+- rsubread (https://bioconductor.org/packages/release/bioc/html/Rsubread.html) : Install on AWS R
+- DESeq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html) : Install on personal computer R
 
