@@ -10,12 +10,12 @@ pheatmap documentation: https://www.rdocumentation.org/packages/pheatmap/version
 helpful blog on pheatmap: https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/ \
 another helpful pheatmap tutorial: https://biostatsquid.com/step-by-step-heatmap-tutorial-with-pheatmap/
 
-### ~ Just for fun ~ Meg's resources on making figures
-Choose a color scheme that makes sense: https://coolors.co
-Explore different types of plots you can make in R: https://r-graph-gallery.com
-10 rules for scientific figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833
+### ~ Just for fun ~ Meg's resources for better figures
+Choose a color scheme that makes sense: https://coolors.co \
+Explore different types of plots you can make in R: https://r-graph-gallery.com\
+10 rules for scientific figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833\
 Inkscape (basically free Illustrator): https://inkscape.org 
 
-### Advanced topics ~ just useful for you to know they exist
-Creating interactive graphs: https://plotly.com/r/
+### Advanced topics ~ just useful for you to know they exist, explore on your own
+Creating interactive graphs: https://plotly.com/r/ \
 Creating interactive dashboards: https://shiny.posit.co/r/gallery/
