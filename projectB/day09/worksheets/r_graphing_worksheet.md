@@ -101,7 +101,20 @@ To make figures in R, we usually call a specific package or function that makes 
 * Look at the Quick Start section. Do you see that the function expects a lists of lists? 
 * Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks under Nutlin treatment, and differentially expressed genes.
 
+```r
+
+#install on this line. Once you install, comment this line out 
+library() # don't forget to load your new library on this line 
+venn_list <- list() # add everything that you want to compare into this list of lists 
+#create venn diagram on this line!
+
+```
 **Finally**, report the percentage of ChIP peaks that overlap with a differentially expressed gene.
+
+```r
+# Just use R to do basic math!
+# You can get the numbers you need from the venn diagram you made. 
+```
 
 ### Export our work for GO analysis
 
