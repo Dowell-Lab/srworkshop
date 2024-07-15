@@ -44,7 +44,7 @@ different columns.
 - Take a moment to look at the information for these two file types from
   the UCSC link above, then use head to look at the gene annotation
   bedfile located at
-  */scratch/Shares/dowell/meco9877/andrysik2017/rnaseq/bedtools_demo/hg38_refseq_cleaned.sorted.bed*.
+  */scratch/Shares/public/sread2024/cookingShow/day9b/annotations/hg38_refseq_cleaned.sorted.bed*.
   Can you identify all the columns?
 - Now look at the .narrowPeak file that you generated with MACS for p53
   binding in HCT116 cells treated with DMSO. Does this file follow the
@@ -82,14 +82,14 @@ Bedtools is also fairly easy to install on your personal computer, and
 usually annotation files are tractable to work with there (though not
 always).
 
-- Transfer the d9_bedtools.sbatch script from the github repo to your
+- Transfer the day9_bedtools.sbatch script from the github repo to your
   /scratch/Users/\<username\>/day9/scripts/ directory.
 - Input the paths to the gene annotation file and your MACS peak file
 - We will now fill the script section with bedtools commands.
 
 **NOTE:** *Please try to write the commands by yourself.* But if you
 need help there is an example of a final script at
-*\<github_repo\>/day09/scripts/.d9_bedtools_answers.sbatch*
+*\<github_repo\>/day09/scripts/.bedtools_answers.sbatch*
 
 We have a list of genes, and we have a list of peaks called from a p53
 ChIP experiment, identifying putative p53 binding locations in control
