@@ -78,18 +78,13 @@ is incredibly useful at manipulating bedfiles, and as a bonus it has
 amazing documentation that very clearly articulates what each of its
 tools does: <https://bedtools.readthedocs.io/en/latest/>  
 
-Bedtools is also fairly easy to install on your personal computer, and
-usually annotation files are tractable to work with there (though not
-always).
+Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
-- Transfer the day9_bedtools.sbatch script from the github repo to your
-  /scratch/Users/\<username\>/day9/scripts/ directory.
+- Transfer the day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 - Input the paths to the gene annotation file and your MACS peak file
 - We will now fill the script section with bedtools commands.
 
-**NOTE:** *Please try to write the commands by yourself.* But if you
-need help there is an example of a final script at
-*\<github_repo\>/day09/scripts/.bedtools_answers.sbatch*
+**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day09/scripts/.bedtools_answers.sbatch*
 
 We have a list of genes, and we have a list of peaks called from a p53
 ChIP experiment, identifying putative p53 binding locations in control
@@ -103,10 +98,10 @@ intergenic regions?
 - There are many flags that can define exactly how you want to define
   “overlap.” What makes the most sense for overlapping ChIP peaks with
   genes?
-- Write a command in the d9_bedtools.sbatch script for doing a basic
+- Write a command in the day9_bedtools.sbatch script for doing a basic
   intersection to figure out which peaks have any overlap with genes,
   then run your script. It should run basically instantaneously.
-- HINT: By default bedtools results go to stdout, which within a slurm
+- **HINT:** By default bedtools results go to stdout, which within a slurm
   job will go to your .out file. Pipe the results into a different file
   that is better labeled and give it the .bed extension
 - Write a command for finding the peaks that are *completely* within a
