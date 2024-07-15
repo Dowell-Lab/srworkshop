@@ -13,13 +13,12 @@
 ################## USER INPUT ######################################
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
-ANNOT='/scratch/Shares/dowell/meco9877/andrysik2017/rnaseq/bedtools_demo/hg38_refseq_cleaned.sorted.bed'
-HCT116_DE='/scratch/Shares/dowell/meco9877/andrysik2017/rnaseq/output/counts/de_output/andrysik2017_hct116_nutlin_dmso.bed'
-CHIP_DIR='/scratch/Shares/dowell/rutendo/projects/sread/sread2024/day8/cooking_show/macs/w_ctrl'
-HCT116_DMSO_PEAKS=${CHIP_DIR}'/HCT116_DMSO_peaks_clean.narrowPeak'
-HCT116_NUTLIN_PEAKS=${CHIP_DIR}'/HCT116_NUTLIN_peaks_clean.narrowPeak'
-results='/your/results/directory'
-TSS_ANNOT=${results}/
+ANNOT='</path/to/annotation/file.bed'
+CHIP_DIR='/scratch/Shares/dowell/rutendo/projects/sread/sread2024/day8/cooking_show/macs/w_ctrl/'
+HCT116_DMSO_PEAKS=${CHIP_DIR}'HCT116_DMSO_peaks_clean.narrowPeak'
+HCT116_NUTLIN_PEAKS=${CHIP_DIR}'HCT116_NUTLIN_peaks_clean.narrowPeak'
+results='/scratch/Users/<username>/day9/results/'
+TSS_ANNOT=${results}/hg38_refseq_tss.bed
 
 mkdir -p "$results"
 ################## JOB INFO ########################################
