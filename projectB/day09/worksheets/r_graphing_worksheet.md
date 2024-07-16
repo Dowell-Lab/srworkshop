@@ -34,7 +34,7 @@ We will be working with bed files we generated earlier today, as well as differe
 * Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. 
 * Since we’re working with a bed file, it doesn’t have column names. In the “read_tsv()” function, make sure to set col_names=FALSE.
 * Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
-* Load the differential expression data you generated on Day 7.
+* Load the differential expression data for HCT116 cells, which you can find at */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/hct116_deres.txt*.
 * There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
 
 ``` r
