@@ -4,16 +4,16 @@
 # Set environment ---------------------------------------------------------
 
   library() # load tidyverse 
-  setwd('/Users/meco9877/Documents/Projects/ShortRead/2024_shortread/Day9/') # set your local working directory 
+  setwd('your/path/to/2024_shortread/day9/') # set your local working directory 
   
   
 
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks <- read_tsv('bedtools_results/demo_output/p53_peaks_in_genes_hct_dmso.bed', 
+  dmso_peaks <- read_tsv('data/bedtools_results/p53_peaks_in_genes_hct_dmso.bed', 
                          col_names = FALSE) 
-  nutlin_peaks <- read_tsv('bedtools_results/demo_output/p53_peaks_in_genes_hct_nutlin.bed', 
+  nutlin_peaks <- read_tsv('data/bedtools_results/p53_peaks_in_genes_hct_nutlin.bed', 
                            col_names = FALSE)
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
@@ -25,7 +25,7 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de.import <- read_tsv('../andrysik2017/de_output/hct116_deres.txt')# read in data here 
+  de.import <- read_tsv('data/deseq_output/hct116_deres.txt')# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
   de <- de.import[abs(de.import$log2FoldChange) > 2 & de.import$padj < 0.05, ]
@@ -83,10 +83,10 @@
   de_list_up <- as.data.frame(de[de$log2FoldChange > 0, 'GeneID'])
   de_list_down <- as.data.frame(de[de$log2FoldChange < 0, 'GeneID'])
   
-  write_tsv(background, 'bedtools_results/demo_output/day9_background.txt', col_names = FALSE)
-  write_tsv(de_list, 'bedtools_results/demo_output/day9_delist.txt', col_names = FALSE)
-  write_tsv(de_list_up, 'bedtools_results/demo_output/day9_delist_up.txt', col_names = FALSE)
-  write_tsv(de_list_down, 'bedtools_results/demo_output/day9_delist_down.txt', col_names = FALSE)
+  write_tsv(background, 'results/day9_background.txt', col_names = FALSE)
+  write_tsv(de_list, 'results/demo_output/day9_delist.txt', col_names = FALSE)
+  write_tsv(de_list_up, 'results/demo_output/day9_delist_up.txt', col_names = FALSE)
+  write_tsv(de_list_down, 'results/demo_output/day9_delist_down.txt', col_names = FALSE)
     
 
   
@@ -94,7 +94,7 @@
 
 # Load differential expression analysis results  --------------------------
 
-  hct.de <- read_tsv('../andrysik2017/de_output/hct116_deres.txt')
+  hct.de <- read_tsv('data/de_output/hct116_deres.txt')
   hct_p53ko.de <- read_tsv('../andrysik2017/de_output/hct116p53ko_deres.txt')
   sjsa.de <- read_tsv('../andrysik2017/de_output/sjsa_deres.txt')
   mcf7.de <- read_tsv('../andrysik2017/de_output/mcf7_deres.txt')
