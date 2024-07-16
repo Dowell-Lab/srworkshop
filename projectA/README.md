@@ -31,6 +31,8 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+
+
 ```
 
 2. Install Seurat according to instructions [here](https://satijalab.org/seurat/articles/install.html). TLDR version is below
@@ -47,3 +49,6 @@ Type 'q()' to quit R.
 If you were successfully able to install Seurat (don't worry if not Cellchat), download the Seurat objects from the zenodo link [here](https://zenodo.org/records/12725642).
 
 If you were successfully able to install Seurat **and** CellChat, download the the CellChat objects from the zenodo link above. 
+
+3. Open this cheat sheet.
+   https://satijalab.org/seurat/articles/essential_commands.html
