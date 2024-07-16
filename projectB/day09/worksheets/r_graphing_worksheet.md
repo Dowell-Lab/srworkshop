@@ -211,7 +211,7 @@ These need to be combined into a common data frame that can be used to create a 
   # Use one of the following functions 
   #     ~ full_join, inner_join, left_join, right_join   
   
-  df_combined < -
+  df <- # name the combined data frame just df
 
 ```
 
