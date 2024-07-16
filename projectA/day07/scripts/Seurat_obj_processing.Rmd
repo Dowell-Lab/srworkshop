@@ -1,12 +1,28 @@
 #scp jeku7901@fiji.colorado.edu:/scratch/Shares/dowell/sread/cookingShow/day7a/T21BM_female07/outs/raw_feature_bc_matrix/
-
+# Loading Seurat
 ```{r}
 library(Seurat)
-library(SoupX)
 library(tidyr)
 library(dplyr)
-library(DoubletFinder)
-library(cowplot)
+
+library(tidyverse)
+```
+```{r}
+install.packages("devtools")
+
+devtools::install_github("satijalab/seurat")
+# install.packages("SoupX")
+library(SoupX)
+install.packages("tidyr")
+library(tidyr)
+install.packages("dplyr")
+library(dplyr)
+
+
+# library(DoubletFinder)
+# library(cowplot)
+
+packageVersion("Seurat")
 ```
 
 ```{r}
@@ -18,37 +34,30 @@ sessionInfo()
 ```
 ### Reading in filtered_feature_bc_matrix from the cellranger outs/ directory and making seurat objects
 ```{r}
-# scp -r jeku7901@fiji.colorado.edu:/scratch/Shares/dowell/sread/cookingShow/day7a/total_data/T21BM_female07_1
-workdir <- "~/Desktop/ShortRead2024/total_data/"
+# AWS directory 
+workdir <- "/scratch/Shares/public/sread2024/cookingShow/day7a/total_data"
 
-T21BM_female07_1 <- Read10X(data.dir = paste0(workdir, "T21BM_female07_1_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+
+T21BM_female07_1 <- Read10X(data.dir = paste0(workdir, "T21BM_female07_1", "/outs/filtered_feature_bc_matrix"))
 T21BM_female07_1.seuratobj <- CreateSeuratObject(counts = T21BM_female07_1, project = "T21BM_female07_1")
 
-T21BM_male04 <- Read10X(data.dir = paste0(workdir, "T21BM_male04_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+T21BM_male04 <- Read10X(data.dir = paste0(workdir, "T21BM_male04", "/outs/filtered_feature_bc_matrix"))
 T21BM_male04.seuratobj <- CreateSeuratObject(counts = T21BM_male04, project = "T21BM_male04")
 
-T21BM_male08 <- Read10X(data.dir = paste0(workdir, "T21BM_male08_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+T21BM_male08 <- Read10X(data.dir = paste0(workdir, "T21BM_male08", "/outs/filtered_feature_bc_matrix"))
 T21BM_male08.seuratobj <- CreateSeuratObject(counts = T21BM_male08, project = "T21BM_male08")
 
-T21BM_male19_1 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_1_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+T21BM_male19_1 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_1", "/outs/filtered_feature_bc_matrix"))
 T21BM_male19_1.seuratobj <- CreateSeuratObject(counts = T21BM_male19_1, project = "T21BM_male19_1")
 
-T21BM_male19_2 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_2_filtered_feature_bc_matrix/outs/filtered_feature_bc_matrix/"))
+T21BM_male19_2 <- Read10X(data.dir = paste0(workdir, "T21BM_male19_2", "/outs/filtered_feature_bc_matrix"))
 T21BM_male19_2.seuratobj <- CreateSeuratObject(counts = T21BM_male19_2, project = "T21BM_male19_2")
 
-D21_female31 <- Read10X(data.dir = paste0(workdir, "D21_female31_filtered_feature_bc_matrix"))
+D21_female31 <- Read10X(data.dir = paste0(workdir, "D21_female31", "/outs/filtered_feature_bc_matrix"))
 D21_female31.seuratobj <- CreateSeuratObject(counts = D21_female31, project = "D21_female31")
 
-D21_male35 <- Read10X(data.dir = paste0(workdir, "D21_male35_filtered_feature_bc_matrix"))
+D21_male35 <- Read10X(data.dir = paste0(workdir, "D21_male35", "/outs/filtered_feature_bc_matrix"))
 D21_male35.seuratobj <- CreateSeuratObject(counts = D21_male35, project = "D21_male35")
-
-save(T21BM_female07_1.seuratobj, 
-     T21BM_male04.seuratobj, 
-     T21BM_male08.seuratobj,
-     T21BM_male19_1.seuratobj,
-     T21BM_male19_2.seuratobj,
-     file = "~/Desktop/ShortRead2024/R_objs/raw_seurat_objs.RData")
-
 ```
 
 ### Adding metadata to seurat objects
@@ -61,7 +70,6 @@ T21BM_male08.seuratobj@meta.data$gender <- 'male'
 T21BM_male19_1.seuratobj@meta.data$gender <- 'male'
 T21BM_male19_2.seuratobj@meta.data$gender <- 'male'
 D21_male35.seuratobj@meta.data$gender <- 'male'
-
 
 # T21.status
 T21BM_female07_1.seuratobj@meta.data$T21.status <- 'T21'
@@ -122,74 +130,192 @@ VlnPlot(D21_male35.seuratobj, features = c("nFeature_RNA", "nCount_RNA", "percen
 ### Merging and integrating seurat objects 
 ```{r}
 merged <- merge(T21BM_female07_1.seuratobj, T21BM_male04.seuratobj)
-merged <- merge(merged, T21BM_male04.seuratobj)
 merged <- merge(merged, T21BM_male08.seuratobj)
-merged <- merge(merged, T21BM_male19_1.seuratobj)
+merged <- merge(merged, T21BM_male19_1.seuratobj) 
 merged <- merge(merged, T21BM_male19_2.seuratobj)
 merged <- merge(merged, D21_female31.seuratobj)
 merged <- merge(merged, D21_male35.seuratobj)
 
-### Integration anchors
+merged <- NormalizeData(merged)
+merged <- FindVariableFeatures(merged)
+merged <- ScaleData(merged)
+merged <- RunPCA(merged)
 
-list <- SplitObject(merged, split.by = "T21.status")
-
-anchors <- FindIntegrationAnchors(list, dims = 1:20, anchor.features = 20000)
-
-seuratobj.integrated <- IntegrateData(anchors, dims = 1:20)
-
-save(seuratobj.integrated,
-     file = "~/Desktop/ShortRead2024/R_objs/seurat_objs_integrated.RData")
+# Integrating data using RPCA
+obj <- IntegrateLayers(
+  object = merged, method = RPCAIntegration,
+  orig.reduction = "pca", new.reduction = "integrated.rpca",
+  verbose = FALSE
+)
 ```
 
-### Conducting UMAP 
+
+
+### Clustering data and generating UMAP 
 ```{r}
-umap.function.integrated <- function(x, dims, n.neighbors, min.dist, resolution) 
-    {
-    DefaultAssay(x) <- "integrated"
-    x <- ScaleData(x, verbose = FALSE)
-    x <- RunPCA(x, npcs = 30, verbose = FALSE)
-    x <- RunUMAP(x, reduction = "pca",  
-                 n.neighbors = n.neighbors, 
-                 min.dist = min.dist, 
-                 dims = dims) 
-    x <- FindNeighbors(x, reduction = 'umap', dims = 1:2)
-    x <- FindClusters(x, resolution = resolution)
-    # DefaultAssay(x) <- "RNA"
-}
+obj <- FindNeighbors(obj, reduction = "integrated.rpca", dims = 1:30)
+obj <- RunUMAP(obj, reduction = "integrated.rpca", dims = 1:30, reduction.name = "umap.rpca", n.neighbors = 100, min.dist = 0.5)
+obj <- FindClusters(obj, resolution = 0.2, cluster.name = "rpca_clusters")
+
+DimPlot(obj, pt.size = 2, group.by = 'seurat_clusters')
+DimPlot(obj, pt.size = 2, group.by = 'gender')
+DimPlot(obj, pt.size = 2, group.by = 'T21.status')
+```
+# Differentially expressed genes
+```{r}
+# Identifying differentially expressed genes across all clusters
+joint.layers.obj <- JoinLayers(obj)
+all.clusters.diff.genes <- FindAllMarkers(joint.layers.obj, assay = "RNA")
+
+# Identifying differentially expressed genes between cluster 1 and cluster 2
+cluster1.cluster2.diff.genes <- FindMarkers(joint.layers.obj, ident.1 = '1', ident.2 = '2')
+```
+
+# differentially expressed genes by metadata
+```{r}
+joint.layers.obj <- SetIdent(joint.layers.obj, value =  'T21.status')
+diff.genes.tmp1 <- FindAllMarkers(joint.layers.obj)
+
+joint.layers.obj <- SetIdent(joint.layers.obj, value =  'seurat_clusters')
+joint.layers.obj.subset <- subset(joint.layers.obj, idents = '1')
+joint.layers.obj.subset <- SetIdent(joint.layers.obj.subset, value =  'T21.status')
+diff.genes.tmp1 <- FindAllMarkers(joint.layers.obj.subset)
+
+```
+
+```{r}
+save(all.clusters.diff.genes, 
+     file = "~/Desktop/ShortRead2024/all_clusters_diff_genes.RData")
+```
+
+
+```{r}
+all.clusters.diff.genes %>%
+  group_by(cluster) %>%
+  top_n(wt = avg_log2FC, n = 10)
+```
+
+
+
+```{r}
+all.clusters.diff.genes %>%
+  group_by(cluster) %>%
+  top_n(wt = pct.1, n = 10)
+```
+
+
+```{r}
+cluster1.cluster2.diff.genes <- FindMarkers(joint.layers.obj, ident.1 = '1', ident.2 = '2')
+
+cluster9.cluster0.diff.genes <- FindMarkers(joint.layers.obj, ident.1 = '9', ident.2 = '0')
+
+head(cluster9.cluster0.diff.genes)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+DefaultAssay(joint.layers.obj) <- "RNA"
+
+FeaturePlot(joint.layers.obj, features = 'SLC4A1')
+FeaturePlot(joint.layers.obj, features = 'FCGR3B')
+```
+
+
+
+
+
+
+
+
+### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### 
+```{r}
+# merged <- NormalizeData(merged)
+# merged <- FindVariableFeatures(merged)
+# merged <- ScaleData(merged)
+# merged <- RunPCA(merged)
+
+
+# joint.layers.obj <- JoinLayers(merged)
+
+# merged[["RNA"]] <- split(merged[["RNA"]], f = merged$gender)
+
+# split.obj <- split(joint.layers.obj, f = 'gender')
+```
+
+# Integrating data
+```{r}
+# list <- SplitObject(merged, split.by = "gender")
+
+
+# anchors <- FindIntegrationAnchors(merged, dims = 1:20, anchor.features = 20000)
+
+# obj <- IntegrateLayers(
+#   object = merged, method = RPCAIntegration,
+#   orig.reduction = "pca", new.reduction = "integrated.rpca",
+#   verbose = FALSE
+# )
+```
+
+
+```{r}
+
+
+# merged@meta.data$gender
+
+# merged[["RNA"]] <- split(merged[["RNA"]], f = merged@meta.data$gender)
+
+### Integration anchors
+# seuratobj.integrated <- IntegrateData(anchors, dims = 1:20)
+
+# save(seuratobj.integrated,
+#      file = "~/Desktop/ShortRead2024/R_objs/seurat_objs_integrated.RData")
+
+# save(seuratobj.integrated,
+#      file = "~/Desktop/ShortRead2024/R_objs/seurat_objs_integrated_T21only.RData")
+```
+```{r}
+
+save(obj, 
+     file = '~/Desktop/ShortRead2024/R_objs/seuratobj_umap_v5_T21only.RData')
 ```
 
 # Running UMAP function
 ```{r}
-seuratobj.integrated.umap <- umap.function.integrated(seuratobj.integrated, 
-                                                      n.neighbors = 100, 
-                                                      min.dist = .5,
-                                                      dims = 1:30, 
-                                                      resolution = 0.05) # 20 screws everything up 
-DimPlot(seuratobj.integrated.umap, pt.size = 2, group.by = 'gender')
-DimPlot(seuratobj.integrated.umap, pt.size = 2, group.by = 'T21.status')
-DimPlot(seuratobj.integrated.umap, pt.size = 2, label = T)
+# seuratobj.integrated.umap <- umap.function.integrated(seuratobj.integrated,
+#                                                       n.neighbors = 100,
+#                                                       min.dist = .5,
+#                                                       dims = 1:30,
+#                                                       resolution = 0.05) # 20 screws everything up
+# DimPlot(seuratobj.integrated.umap, pt.size = 2, group.by = 'gender')
+# DimPlot(seuratobj.integrated.umap, pt.size = 2, group.by = 'T21.status')
+# DimPlot(seuratobj.integrated.umap, pt.size = 2, label = T)
 
-save(seuratobj.integrated.umap, 
-     file = '~/Desktop/ShortRead2024/R_objs/seuratobj_umap.RData')
+save(obj, 
+     file = '~/Desktop/ShortRead2024/R_objs/seuratobj_umap_v5.RData')
 ```
 
 ### Plotting gene expression
 ```{r}
 DefaultAssay(seuratobj.integrated.umap) <- "RNA"
 FeaturePlot(seuratobj.integrated.umap, features = "CD36")
-```
-
-# FindMarkers
-```{r}
-seurat.cluster.markers <- FindAllMarkers(seuratobj.integrated.umap)
-
 save(seuratobj.integrated.umap, 
      file = '~/Desktop/ShortRead2024/seuratobj_integrated_umap.RData')
-
-seurat.cluster.markers %>%
-  group_by(cluster) %>%
-  top_n(wt = avg_log2FC, n = 10)
 ```
+
+
+
+
+
 ### Assessing doublet contaimination using DoubletFinder
 ```{r}
 # Github page: https://github.com/chris-mcginnis-ucsf/DoubletFinder

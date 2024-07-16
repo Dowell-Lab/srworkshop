@@ -6,7 +6,6 @@
 # Loading libraries.                     #
 ##########################################
 library(DESeq2)
-library(pheatmap)
 library(ggplot2)
 ##########################################
 # Loading the 2 input files.             #
@@ -23,7 +22,7 @@ conditionsTable
 
 # 2. Load the raw counts
 
-geneCountsTableFile <- "/PATH/TO/day7/Andrysik2017_counts.csv"
+geneCountsTableFile <- "/PATH/TO/day7/Andrysik2017_counts.tsv"
 geneCountsTable <- read.table(geneCountsTableFile,
                               header=TRUE,
                               row.names = "GeneID",
@@ -66,21 +65,17 @@ colSums(counts(DEdds, normalized = TRUE))
 ##########################################
 
 normcounts <- log2(as.data.frame(counts(DEdds, normalized = TRUE)) + 1)
-hist(normcounts)
+
+hist(normcounts$SRR4098430.sorted.bam)
+hist(normcounts$SRR4098431.sorted.bam)
+hist(normcounts$SRR4098432.sorted.bam)
+hist(normcounts$SRR4098433.sorted.bam)
+
 boxplot(normcounts)
 
 rld <- rlog(DEdds)
 DESeq2::plotPCA(rld, intgroup=c("replicate"))
 
-select <- order(rowMeans(counts(DEdds,normalized=TRUE)),
-                decreasing=TRUE)[1:60]
-
-columns_for_heatmap <- as.data.frame(colData(DEdds)[,c("condition","replicate")])
-pheatmap(normcounts[select,], 
-         cluster_rows=TRUE, 
-         show_rownames=TRUE,
-         cluster_cols=FALSE, 
-         annotation_col=columns_for_heatmap)
 
 ################### ######################
 # Plots dispersion estimates.            #
@@ -170,3 +165,26 @@ rnkdf <- tibble(gene = rownames(results_shrunk),
 write.table(rnkdf, file = paste0(outdir,"deseq_res_for_gsea.rnk"),
 			append = FALSE, col.names = FALSE, row.names = FALSE,
 			quote = FALSE, sep = "\t")
+
+
+#########################################
+# EXTRA: Creating Heatmaps              #
+#########################################
+library(pheatmap)
+
+select <- order(rowMeans(counts(DEdds, normalized = TRUE)),
+                decreasing=TRUE)[1:60]
+
+columns_for_heatmap <- as.data.frame(colData(DEdds)[,c("condition", "replicate")])
+
+pheatmap(normcounts[select,],
+         cluster_rows = FALSE,
+         show_rownames = FALSE,
+         cluster_cols = FALSE,
+         annotation_col = columns_for_heatmap)
+
+pheatmap(normcounts[select,],
+         cluster_rows = TRUE,
+         show_rownames = TRUE,
+         cluster_cols = FALSE,
+         annotation_col = columns_for_heatmap)
