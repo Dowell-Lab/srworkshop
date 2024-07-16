@@ -124,9 +124,9 @@ venn_list <- list() # add everything that you want to compare into this list of 
 
 ### Export our work for GO analysis
 
-For GO analysis, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. We’ll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes.
+We will do GO analysis on genes with a p53 ChIP peak that are also differentially expressed. For this, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. We’ll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes.
 
-- Make each list
+- Make each list by filtering for each subset of genes. 
 - Now you need to turn each list into a dataframe. This is because the
   function used to write, write_tsv(), only write dataframes and not
   lists. Use the function as.data.frame() to convert each list.
