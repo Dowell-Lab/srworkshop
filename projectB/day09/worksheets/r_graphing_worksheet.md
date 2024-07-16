@@ -86,7 +86,15 @@ These functions will do most of the work when we’re comparing lists of genes.
 all_p53_bound <- 
 ```
 
-**Second:** Look at the intersection of this list with DE genes
+**Second:** Look at the intersection of this list with all genes.
+
+``` r
+### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
+
+bound_genes <- 
+```
+
+**Third:** Look at the intersection of this list with <u>differentially expressed</u> genes.
 
 ``` r
 ### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
@@ -98,14 +106,14 @@ Print out the number of genes that are differentially expressed and have a p53 C
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of these categories.
+**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes wtih a ChIP peak that are differentially expressed.
 
-To make figures in R, we usually call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
+To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
 * Look at the Quick Start section. Do you see that the function expects a lists of lists? 
-* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks under Nutlin treatment, and differentially expressed genes.
+* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes with p53 peaks under Nutlin treatment, and genes with a p53 ChIP peak that are differentially expressed.
 
 ```r
 
@@ -124,25 +132,28 @@ venn_list <- list() # add everything that you want to compare into this list of 
 
 ### Export our work for GO analysis
 
-We will do GO analysis on genes with a p53 ChIP peak that are also differentially expressed. For this, we want to have a list of our *genes of interest* and a list of background. **Background** means the set of genes we actually measured in this experiments. We’ll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes.
+We will do GO analysis on genes with a p53 ChIP peak that are also differentially expressed. For this, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. For us, this is the list of genes that are measured and in our DESeq data that have a ChIP peak. Out **genes of interest** are those genes with a ChIP peak that are differentially expressed in the DESeq data. 
 
 - Make each list by filtering for each subset of genes. 
 - Now you need to turn each list into a dataframe. This is because the
-  function used to write, write_tsv(), only write dataframes and not
+  function used to write, write.table(), only write dataframes and not
   lists. Use the function as.data.frame() to convert each list.
 - Now save each list in a place that is descriptive and convenient for
   you.
 
-```r
-background <- # code here
-all_de <- # code here
-up_de <- # code here
-down_de <- # code here
+*How to use write.table()* 
+write.table() has a lot of options. These are the ones you need to set: 
 
-write_tsv(background, )
-write_tsv(all_de, )
-write_tsv(up_de, )
-write_tsv(down_de, )
+* col.names=FALSE
+* row.names=FALSE
+* quote = FALSE
+
+```r
+background_genes <- # code here
+changing_genes <- # code here 
+
+write.table(background_genes, file =  paste0(outdir, 'genes_p53peak.txt') )
+write.table(changing_genes, paste0(outdir, 'genes_sig_p53peak.txt'))
 
 ```
 
