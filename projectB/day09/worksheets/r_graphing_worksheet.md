@@ -33,12 +33,12 @@ All that’s left is to do some basic set manipulation here in R and create some
 ## Now work in the *day9_graphing.R* script
 ### First, set up the environment.
 
-At the top of your script, load any R libraries you want to use. I suggest loading tidyverse, but if you want to do this script without it you can. 
+At the top of your script, set your working directory. 
 
 ### Read in the data
 
-* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
-* Since we’re working with a bed file, it doesn’t have column names. In the “read_tsv()” function, make sure to set col_names=FALSE.
+* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read.table()”. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
+* Since we’re working with a bed file, it doesn’t have column names. In the “read.table()” function, make sure to set header=FALSE.
 * Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
 * Load the differential expression data for HCT116 cells, which you downloaded above into something like "*your/path*/day9/data/deseq_output".
 * There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
