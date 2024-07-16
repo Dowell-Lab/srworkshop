@@ -179,7 +179,7 @@ Click on the link above, and skim the tutorial. The first lines tell you how to 
 **What do we want the heatmap to display?**
 
 - There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
-- If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
+- If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since the large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
 
 1.  Filter your lists of differentially expressed genes below. Print out the dimensions of each filtered data frame at the end. 
 2.  If you’re happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria.
