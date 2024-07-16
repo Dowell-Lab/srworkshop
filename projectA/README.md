@@ -50,5 +50,5 @@ If you were successfully able to install Seurat (don't worry if not Cellchat), d
 
 If you were successfully able to install Seurat **and** CellChat, download the the CellChat objects from the zenodo link above. 
 
-3. Open this cheat sheet.
+## 3. Open this cheat sheet.
    https://satijalab.org/seurat/articles/essential_commands.html
