@@ -85,7 +85,7 @@ all_p53_bound <-
 ``` r
 ### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
 
-all_p53_bound <- 
+bound_de_genes <- 
 ```
 
 Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
