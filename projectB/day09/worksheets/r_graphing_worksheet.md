@@ -152,8 +152,6 @@ of graphs.
 
 **First**, load in the data from */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/*.
 
-**Second**, make a venn digram like we did above. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram?
-
 ``` r
 # ---- READ IN DATA
 de_hct116 <- #
@@ -161,6 +159,11 @@ de_hct116_p53ko <- #
 de_mcf7 <- #
 de_sjsa <- #
 
+```
+
+**Second**, make a venn digram like we did above. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram?
+
+``` r
 # First venn 
 venn_list_de <- list()
 ggvenn()
@@ -178,15 +181,33 @@ Click on the link above, and skim the tutorial. The first lines tell you how to 
 - There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
 - If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
 
-1.  Filter your lists of differentially expressed genes below. Print out the dimensions of each filtered data frame at the end. Are all the data frames the same size? Does anything surprise you?
+1.  Filter your lists of differentially expressed genes below. Print out the dimensions of each filtered data frame at the end. 
 2.  If you’re happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria.
 3.  For the next step, you df’s will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
 
-Now I need to teach you how to combine these into a common data frame that can be used to create a heatmap. We’ll be doing this today using the functions **full_join()**, **left_join()**, and **right_join()**.
+```r
 
-We want to graph genes that are differentially expressed in at least two out of three cell lines. We’ll filter the data frame for these genes, then replace NAs with 0.
+### --- FILTER 
+hct.filt <- 
+hct_p53ko.filt <- 
+sjsa.filt <- 
+mcf7.filt <- 
 
-Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This helpful for us because it’s easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function.
+### --- Print dimensions below
+
+
+### --- Rename 
+
+colnames(hct.filt)[-1] <- paste('hct', colnames(hct.filt)[-1], sep = '_')
+colnames(hct_p53ko.filt)[-1] <- paste('hct_p53ko', colnames(hct_p53ko.filt)[-1], sep = '_')
+colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
+colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
+
+```
+
+These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Today, we want to keep all of the entries in all of the dataframes. Choose which of the four functions to use. 
+
+We want to graph genes that are differentially expressed in at least two out of three cell lines. Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This is helpful for us because it’s easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function.
 
 - Count the number of NA’s per row and save it as a new column titled “zero_count”.
 - Filter the data frame so that you only keep genes with values in at least 2 cell lines.
