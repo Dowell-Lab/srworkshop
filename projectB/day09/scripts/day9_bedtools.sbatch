@@ -1,26 +1,26 @@
 #!/bin/bash
 #SBATCH --job-name=d9_bedtools                          # Job name
 #SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=meaghan.courvan@colorado.edu        # Where to send mail
+#SBATCH --mail-user=<EMAIL>        # Where to send mail
 #SBATCH --nodes=1                                       # Numbers of nodes
 #SBATCH --ntasks=1                                      # Number of CPU (tasks)
 #SBATCH --time=00:10:00                                 # Time limit hrs:min:sec
 #SBATCH --mem=2gb                                       # Memory limit
-#SBATCH --output=/scratch/Users/<username>/day9/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/day9/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<username>/day9/bedtools/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<username>/day9/bedtools/eofiles/%x_%j.err
 
 
 ################## USER INPUT ######################################
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
-ANNOT='</path/to/annotation/file.bed'
-CHIP_DIR='/scratch/Shares/dowell/rutendo/projects/sread/sread2024/day8/cooking_show/macs/w_ctrl/'
+ANNOT='</path/to/annotation/file.bed>'
+CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/whole_genome/macs/'
 HCT116_DMSO_PEAKS=${CHIP_DIR}'HCT116_DMSO_peaks_clean.narrowPeak'
 HCT116_NUTLIN_PEAKS=${CHIP_DIR}'HCT116_NUTLIN_peaks_clean.narrowPeak'
-results='/scratch/Users/<username>/day9/results/'
-TSS_ANNOT=${results}/hg38_refseq_tss.bed
+results='/scratch/Users/<username>/day9/bedtools/results/'
+TSS_ANNOT=${results}/hg38_refseq_tssregion.bed
 
-mkdir -p "$results"
+mkdir -p ${results}
 ################## JOB INFO ########################################
 
 printf "\nRun on: $(hostname)"
