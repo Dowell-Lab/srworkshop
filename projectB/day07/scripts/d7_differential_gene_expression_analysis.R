@@ -22,7 +22,7 @@ conditionsTable
 
 # 2. Load the raw counts
 
-geneCountsTableFile <- "/PATH/TO/day7/Andrysik2017_counts.csv"
+geneCountsTableFile <- "/PATH/TO/day7/Andrysik2017_counts.tsv"
 geneCountsTable <- read.table(geneCountsTableFile,
                               header=TRUE,
                               row.names = "GeneID",
