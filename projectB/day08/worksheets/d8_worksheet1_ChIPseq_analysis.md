@@ -35,7 +35,7 @@ We will go over assessing the quality of ChIP-seq data and mapping the reads to 
 
 NB: The directory and username used in the screenshot will be for my working directory and username and will be different than yours. Here we will be working on the server and editing the script in *vim*.
 
-## Section 1: Preprocessing of ChIP-seq data
+## Section A: Preprocessing of ChIP-seq data
 
 1. Make working directories
 
