@@ -192,6 +192,8 @@ MACS parameters depending on the data types:
 
 5. To run *bedtools intersect*, specify *-a* as the file to be filtered which is your broadpeak output file. The *-a* file will be compared against *-b* file which are the blacklist regions. The *-v* parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in *-b*. *>* is to specify the output directory and output file name.
 
+![Bedtools Remove blacklist](images/bedtools_intersect_v.png)
+
 6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed files (*clean.narrowPeak* and *summit.bed*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
 ![IGV example](images/peak13_igv_snapshot.png)
@@ -219,15 +221,26 @@ MACS parameters depending on the data types:
 
 4. We will use bedtools getfasta to convert the peaks to a fasta file to feed into MEME. The command is *bedtools getfasta [OPTIONS] -fi <input FASTA> -bed <BED/GFF/VCF>*   
 
+![Bedtools getfasta](images/bedtools_getfasta.png)
+
 ![Get fasta](images/script5_get_fasta_file.png)
 
 5. Copy the *fasta* file to your computer
 
 6. Upload your fasta file to MEME (https://meme-suite.org/meme/tools/meme) and submit. 
 
+![Run MEME](images/running_meme.png)
+
 7. MEME will return an output file for you. Click on MEME HTML output. The output will give you information on the motifs that were discovered along with other information such as the E-value.
+
+![MEME HTML](images/meme_html_output.png)
 
 8. Push your MEME output to TOMTOM by clicking on the button  under Submit/Download which will open up a new window with available programs. You just have to “Start Search” button to run TOMTOM. 
 
+![Tomtom submission](images/tomtom_submission.png)
+
 - TOMTOM will return an HTML summary of predicted TFs.
 
+![Tomtom results1](images/tomtom_html_1.png)
+
+![Tomtom results2](images/tomtom_html_2.png)
