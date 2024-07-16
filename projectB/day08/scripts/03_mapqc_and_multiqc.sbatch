@@ -68,7 +68,7 @@ done
 multiqcdir=${wd}/multiqc
 mkdir -p ${multiqcdir}
 
-source /data/multiqc-venv/bin/activate
+source /data/multiqc-1.14-venv/bin/activate
 multiqc ${qc} -o ${multiqcdir}
 
 echo "DONE: Preprocessing................."

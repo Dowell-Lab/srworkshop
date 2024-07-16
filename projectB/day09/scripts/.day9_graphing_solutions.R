@@ -4,17 +4,17 @@
 # Set environment ---------------------------------------------------------
 
   library() # load tidyverse 
-  setwd('/Users/meco9877/Documents/Projects/ShortRead/2024_shortread/Day9/') # set your local working directory 
-  
+  setwd('your/path/to/2024_shortread/day9/') # set your local working directory 
+  outdir <- 'results/'
   
 
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks <- read_tsv('bedtools_results/demo_output/p53_peaks_in_genes_hct_dmso.bed', 
-                         col_names = FALSE) 
-  nutlin_peaks <- read_tsv('bedtools_results/demo_output/p53_peaks_in_genes_hct_nutlin.bed', 
-                           col_names = FALSE)
+  dmso_peaks <- read.table('bedtools_results/p53_peaks_in_genes_hct_dmso.bed', 
+                           header = FALSE) 
+  nutlin_peaks <- read.table('bedtools_results/p53_peaks_in_genes_hct_nutlin.bed', 
+                             header = FALSE)
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
@@ -25,7 +25,7 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de.import <- read_tsv('../andrysik2017/de_output/hct116_deres.txt')# read in data here 
+  de.import <- read.table('data/deseq_output/hct116_deres.txt')# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
   de <- de.import[abs(de.import$log2FoldChange) > 2 & de.import$padj < 0.05, ]
@@ -33,20 +33,26 @@
   
   
     
-# Examining ChIP Peaks ----------------------------------------------------
+  # Examining ChIP Peaks ----------------------------------------------------
   
   ### --- Peaks in EITHER DMSO or Nutlin
   all_peaks <- union(dmso_peaks$gene, nutlin_peaks$gene)# get a list of gene names 
   print(length(all_peaks)) # print the number of genes in all_peaks
-
+  
+  ### --- Peaks that are in genes that were measured
+  bound_genes <- intersect(all_peaks, de.import$GeneID) # get a list of gene names 
+  print(length(bound_genes)) # print the number of genes in bound_de_genes
+  print(bound_genes)
+  
   ### --- Peaks that are in DE genes 
   bound_de_genes <- intersect(all_peaks, de$GeneID) # get a list of gene names 
   print(length(bound_de_genes)) # print the number of genes in bound_de_genes
   print(bound_de_genes)
+  
 
-# Create a venn diagram  --------------------------------------------------
+  ### --- Create a venn diagram
 
-  install.packages("ggvenn") #install on this line. Once you install, comment this line out 
+  #install.packages("ggvenn") #install on this line. Once you install, comment this line out 
   library(ggvenn) # don't forget to load your new library on this line 
   venn_list <- list(
     dmso_peaks = dmso_peaks$gene, 
@@ -57,52 +63,35 @@
   ggvenn(venn_list) #create venn diagram on this line!
 
 
-# Calculate percentage  ---------------------------------------------------
-
+  ### --- Calculate Percentage
   percent <- (19 + 64)/length(all_peaks) * 100
   print(percent)
   
   
-# Export results for GO analysis  -----------------------------------------
-
-  # background <- # code here
-  # all_de <- # code here
-  # up_de <- # code here
-  # down_de <- # code here
-  # 
-  # write_tsv(background, )
-  # write_tsv(all_de, )
-  # write_tsv(up_de, )
-  # write_tsv(down_de, )
-  
-  background <- union(all_peaks, de.import$GeneID)
-  background <- as.data.frame(background)
-  
-  de_list <- as.data.frame(de$GeneID)
-  
-  de_list_up <- as.data.frame(de[de$log2FoldChange > 0, 'GeneID'])
-  de_list_down <- as.data.frame(de[de$log2FoldChange < 0, 'GeneID'])
-  
-  write_tsv(background, 'bedtools_results/demo_output/day9_background.txt', col_names = FALSE)
-  write_tsv(de_list, 'bedtools_results/demo_output/day9_delist.txt', col_names = FALSE)
-  write_tsv(de_list_up, 'bedtools_results/demo_output/day9_delist_up.txt', col_names = FALSE)
-  write_tsv(de_list_down, 'bedtools_results/demo_output/day9_delist_down.txt', col_names = FALSE)
-    
-
-  
+  ### --- Export results for GO analysis   
+  write.table(bound_de_genes, 
+              paste0(outdir, 'genes_sig_p53peak.txt'), 
+              col.names=FALSE, row.names=FALSE, 
+              quote = FALSE)
+  write.table(bound_genes, 
+              paste0(outdir, 'genes_p53peak.txt'), 
+              col.names=FALSE, row.names=FALSE, 
+              quote = FALSE)
   
 
-# Load differential expression analysis results  --------------------------
-
-  hct.de <- read_tsv('../andrysik2017/de_output/hct116_deres.txt')
-  hct_p53ko.de <- read_tsv('../andrysik2017/de_output/hct116p53ko_deres.txt')
-  sjsa.de <- read_tsv('../andrysik2017/de_output/sjsa_deres.txt')
-  mcf7.de <- read_tsv('../andrysik2017/de_output/mcf7_deres.txt')
+  
+# Working with differential expression data -------------------------------
+  
+  ### --- Load differential expression analysis results
+  
+  hct.de <- read.table('data/deseq_output/hct116_deres.txt')
+  hct_p53ko.de <- read.table('data/deseq_output/hct116p53ko_deres.txt')
+  sjsa.de <- read.table('data/deseq_output/sjsa_deres.txt')
+  mcf7.de <- read.table('data/deseq_output/mcf7_deres.txt')
   
   
-
-# Create a venn diagram ---------------------------------------------------
-
+  ### --- Create a venn diagram of the cell lines 
+  
   de_venn <- list(
     HCT116 = hct.de$GeneID, 
     `HCT116 p53-KO` = hct_p53ko.de$GeneID, 
@@ -115,7 +104,7 @@
   # consider modifying the venn diagram below 
   # more helpful version of the venn diagram 
   hct.filt <- hct.de[(hct.de$padj <= 0.05), ] #abs(hct.de$log2FoldChange) > 3 & 
-  hctko.filt <- hctko.de[(hctko.de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
+  hct_p53ko.de.filt <- hct_p53ko.de[(hct_p53ko.de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
   sjsa.filt <- sjsa.de[(sjsa.de$padj <= 0.05), ] #abs(sjsa.de$log2FoldChange) > 3 & 
   mcf7.filt <- mcf7.de[(mcf7.de$padj <= 0.05), ] #abs(mcf7.de$log2FoldChange) > 3 & 
   
@@ -134,7 +123,7 @@
   #install.packages('pheatmap') # install heatmap on this line
   library(pheatmap) # load pheatmap on this line 
   
-  ### --- FILTER 
+  ### --- FILTER datasets so that they are a reasonable size for a heatmap
   hct.filt <- hct.de[(abs(hct.de$log2FoldChange) > 3 & hct.de$padj <= 0.05), ]
   hct_p53ko.filt <- hct_p53ko.de[(abs(hct_p53ko.de$log2FoldChange) > 3 & hct_p53ko.de$padj <= 0.05), ]
   sjsa.filt <- sjsa.de[(abs(sjsa.de$log2FoldChange) > 3 & sjsa.de$padj <= 0.05), ]
@@ -150,7 +139,7 @@
   print('mcf7')
   dim(mcf7.filt)
     
-  ### --- Rename 
+  ### --- Rename columns so that the dataframes can be combined.
   colnames(hct.filt)[-1] <- paste('hct', colnames(hct.filt)[-1], sep = '_')
   colnames(hct_p53ko.filt)[-1] <- paste('hct_p53ko', colnames(hct_p53ko.filt)[-1], sep = '_')
   colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')

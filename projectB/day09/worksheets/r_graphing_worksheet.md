@@ -23,18 +23,24 @@ We’ve gotten almost to answering this question throughout this project, and we
 
 All that’s left is to do some basic set manipulation here in R and create some figures.
 
+## Download the necessary data from the AWS
+1. On your local computer, pick a location that's convenient for you and make a "day9" folder.
+2. Inside your "day9" folder, make a "data" folder and a "results" folder.
+3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
+4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+
+
+## Now work in the *day9_graphing.R* script
 ### First, set up the environment.
 
-At the top of your script, load any R libraries you want to use. I suggest loading tidyverse. 
+At the top of your script, set your working directory and the results directory. 
 
 ### Read in the data
 
-We will be working with bed files we generated earlier today, as well as differential expression data generated on Day 7. We’ll load that all in here.
-
-* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. 
-* Since we’re working with a bed file, it doesn’t have column names. In the “read_tsv()” function, make sure to set col_names=FALSE.
+* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read.table()”. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
+* Since we’re working with a bed file, it doesn’t have column names. In the “read.table()” function, make sure to set header=FALSE.
 * Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
-* Load the differential expression data for HCT116 cells, which you can find at */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/hct116_deres.txt*.
+* Load the differential expression data for HCT116 cells, which you downloaded above into something like "*your/path*/day9/data/deseq_output".
 * There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
 
 ``` r
@@ -80,7 +86,15 @@ These functions will do most of the work when we’re comparing lists of genes.
 all_p53_bound <- 
 ```
 
-**Second:** Look at the intersection of this list with DE genes
+**Second:** Look at the intersection of this list with all genes.
+
+``` r
+### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
+
+bound_genes <- 
+```
+
+**Third:** Look at the intersection of this list with <u>differentially expressed</u> genes.
 
 ``` r
 ### --- Use either of the function above to genes with p53 bound that are differentially expressed. 
@@ -92,14 +106,14 @@ Print out the number of genes that are differentially expressed and have a p53 C
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of these categories.
+**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes wtih a ChIP peak that are differentially expressed.
 
-To make figures in R, we usually call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
+To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
 * Look at the Quick Start section. Do you see that the function expects a lists of lists? 
-* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes wtih p53 peaks under Nutlin treatment, and differentially expressed genes.
+* Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes with p53 peaks under Nutlin treatment, and genes with a p53 ChIP peak that are differentially expressed.
 
 ```r
 
@@ -118,25 +132,28 @@ venn_list <- list() # add everything that you want to compare into this list of 
 
 ### Export our work for GO analysis
 
-For GO analysis, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. We’ll create the background list, and then export *(1)* this background list, along with *(2)* all differential expressed and bound genes, *(3)* overexpresed and bound genes, *(4)* underexpressed and bound genes.
+We will do GO analysis on genes with a p53 ChIP peak that are also differentially expressed. For this, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiments. For us, this is the list of genes that are measured and in our DESeq data that have a ChIP peak. Out **genes of interest** are those genes with a ChIP peak that are differentially expressed in the DESeq data. 
 
-- Make each list
+- Make each list by filtering for each subset of genes. 
 - Now you need to turn each list into a dataframe. This is because the
-  function used to write, write_tsv(), only write dataframes and not
+  function used to write, write.table(), only write dataframes and not
   lists. Use the function as.data.frame() to convert each list.
 - Now save each list in a place that is descriptive and convenient for
   you.
 
-```r
-background <- # code here
-all_de <- # code here
-up_de <- # code here
-down_de <- # code here
+*How to use write.table()* 
+write.table() has a lot of options. These are the ones you need to set: 
 
-write_tsv(background, )
-write_tsv(all_de, )
-write_tsv(up_de, )
-write_tsv(down_de, )
+* col.names=FALSE
+* row.names=FALSE
+* quote = FALSE
+
+```r
+background_genes <- # code here
+changing_genes <- # code here 
+
+write.table(background_genes, file =  paste0(outdir, 'genes_p53peak.txt') )
+write.table(changing_genes, paste0(outdir, 'genes_sig_p53peak.txt'))
 
 ```
 
@@ -150,7 +167,7 @@ of graphs.
 1.  A venn diagram, as we did above.
 2.  A heatmap of differential expression.
 
-**First**, load in the data from */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/*.
+**First**, load in the data from *"day9/data/deseq_output/"* folder.
 
 ``` r
 # ---- READ IN DATA
@@ -221,9 +238,10 @@ We want to graph genes that are differentially expressed in at least two out of 
 - Filter the data frame so that you only keep genes with values in at least 2 cell lines.
 - Print out the dimensions of this data frame.
 
-There are two last things to adjust the data before we can make a heatmap. \* We’ve added an extra column that is unrelated to our data,
-the “zero_count” column. Remove this column \* Pheatmap() will only take
-in numerical values, so change all your NA values to 0. *Hint* use the
+There are two last things to adjust the data before we can make a heatmap.
+
+* We’ve added an extra column that is unrelated to our data, the “zero_count” column. Remove this column.
+* Pheatmap() will only take in numerical values, so change all your NA values to 0. *Hint* use the
 **is.na()** function.
 
 Lastly, graph your data using **pheatmap()**!
