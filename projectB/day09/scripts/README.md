@@ -12,7 +12,7 @@ Bedtools functions: https://bedtools.readthedocs.io/en/latest/content/bedtools-s
 ggvenn documentation: https://github.com/yanlinlin82/ggvenn \
 pheatmap documentation: https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap \
 helpful blog on pheatmap: https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/ \
-another helpful pheatmap tutorial: https://biostatsquid.com/step-by-step-heatmap-tutorial-with-pheatmap/
+another helpful pheatmap tutorial: https://biostatsquid.com/step-by-step-heatmap-tutorial-with-pheatmap/ \
 <br>
 GSEA: https://www.gsea-msigdb.org/gsea/index.jsp \
 PantherGO: https://www.pantherdb.org
