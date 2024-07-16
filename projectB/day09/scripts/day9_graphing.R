@@ -33,15 +33,25 @@
   
 # Examining ChIP Peaks ----------------------------------------------------
 
-  ### --- Which peaks are in EITHER DMSO or Nutlin?
+  ### --- Peaks in EITHER DMSO or Nutlin
   all_peaks <- # get a list of gene names 
   print() # print the number of genes in all_peaks
   
-  ### --- Which peaks are in DE genes?
-  bound_de_genes <- # get a list of gene names 
+  
+  ### --- Peaks that are in genes that were measured
+  bound_genes <- intersect() # get a list of gene names 
   print() # print the number of genes in bound_de_genes
   
+  
+  ### --- Peaks that are in DE genes 
+  bound_de_genes <- intersect() # get a list of gene names 
+  print(length(bound_de_genes)) # print the number of genes in bound_de_genes
+  
+  
+  ### --- Calculate Percentage
 
+  
+  
   ### --- Create a venn diagram
   #install on this line. Once you install, comment this line out 
   library() # don't forget to load your new library on this line 
@@ -50,27 +60,25 @@
 
 
   ### --- Export results for GO analysis  
-  background <- # code here
-  all_de <- # code here
-  up_de <- # code here
-  down_de <- # code here
-    
-  write_tsv(background, )
-  write_tsv(all_de, )
-  write_tsv(up_de, )
-  write_tsv(down_de, )
+  write.table(bound_de_genes, 
+              paste0(outdir, 'genes_sig_p53peak.txt'), 
+              )
+  write.table(bound_genes, 
+              paste0(outdir, 'genes_p53peak.txt'), 
+              )
   
-
   
 
 # Working with differential expression data -------------------------------
 
   ### --- Load differential expression analysis results
 
-  hct.de <- read_tsv('')
-  hctko.de <- read_tsv('')
-  sjsa.de <- read_tsv('')
-  mcf7.de <- read_tsv('')
+  hct.de <- read.table('')
+  hct_p53ko.de <- read.table('')
+  sjsa.de <- read.table('')
+  mcf7.de <- read.table('')
+  
+  
   
   ### --- Create a venn diagram of the cell lines 
 
@@ -111,6 +119,7 @@
 
 # Filter to keep only rows with data in at least 2 cell lines -------------
   # Hint, use rowsums() and is.na() 
+  # look up how to replace "NA" with 0 with Google 
   
 
 # Graph using pheatmap ----------------------------------------------------
