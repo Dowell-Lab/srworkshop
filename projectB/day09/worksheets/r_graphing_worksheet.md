@@ -156,7 +156,7 @@ of graphs.
 1.  A venn diagram, as we did above.
 2.  A heatmap of differential expression.
 
-**First**, load in the data from */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/*.
+**First**, load in the data from *"day9/data/deseq_output/"* folder.
 
 ``` r
 # ---- READ IN DATA
