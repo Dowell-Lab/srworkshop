@@ -45,7 +45,7 @@ You can do annotation file manipulations with text editors (not recommended – 
 
 - Make a directory for this worksheet at
   **/scratch/Users/\<username\>/day9/bedtools/**
-- Within this directory, make folders named "scripts", "eofiles", and "results".
+- Within this directory, make folders named "scripts", "eofiles", and "bedtools_results".
 - How many genes are in the annotation file?
 - How many peaks are in your MACS peak file?
 
