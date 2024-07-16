@@ -227,9 +227,10 @@ We want to graph genes that are differentially expressed in at least two out of 
 - Filter the data frame so that you only keep genes with values in at least 2 cell lines.
 - Print out the dimensions of this data frame.
 
-There are two last things to adjust the data before we can make a heatmap. \* We’ve added an extra column that is unrelated to our data,
-the “zero_count” column. Remove this column \* Pheatmap() will only take
-in numerical values, so change all your NA values to 0. *Hint* use the
+There are two last things to adjust the data before we can make a heatmap.
+
+* We’ve added an extra column that is unrelated to our data, the “zero_count” column. Remove this column.
+* Pheatmap() will only take in numerical values, so change all your NA values to 0. *Hint* use the
 **is.na()** function.
 
 Lastly, graph your data using **pheatmap()**!
