@@ -25,7 +25,7 @@ All that’s left is to do some basic set manipulation here in R and create some
 
 ### First, set up the environment.
 
-At the top of your script, load any R libraries you want to use. 
+At the top of your script, load any R libraries you want to use. I suggest loading tidyverse. 
 
 ### Read in the data
 
