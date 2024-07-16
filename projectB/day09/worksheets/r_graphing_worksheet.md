@@ -23,18 +23,24 @@ We’ve gotten almost to answering this question throughout this project, and we
 
 All that’s left is to do some basic set manipulation here in R and create some figures.
 
+## Download the necessary data from the AWS
+1. On your local computer, pick a location that's convenient for you and make a "day9" folder.
+2. Inside your "day9" folder, make a "data" folder and a "results" folder.
+3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/<username>/day9/bedtools/bedtools_results>* to the "day9/data" folder on your local computer
+4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+
+
+## Now work in the *day9_graphing.R* script
 ### First, set up the environment.
 
-At the top of your script, load any R libraries you want to use. I suggest loading tidyverse. 
+At the top of your script, load any R libraries you want to use. I suggest loading tidyverse, but if you want to do this script without it you can. 
 
 ### Read in the data
 
-We will be working with bed files we generated earlier today, as well as differential expression data generated on Day 7. We’ll load that all in here.
-
-* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. 
+* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is “read_tsv()”. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
 * Since we’re working with a bed file, it doesn’t have column names. In the “read_tsv()” function, make sure to set col_names=FALSE.
 * Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
-* Load the differential expression data for HCT116 cells, which you can find at */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output/hct116_deres.txt*.
+* Load the differential expression data for HCT116 cells, which you downloaded above into something like "*your/path*/day9/data/deseq_output".
 * There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
 
 ``` r
