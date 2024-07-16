@@ -207,6 +207,14 @@ colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 
 These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Today, we want to keep all of the entries in all of the dataframes. Choose which of the four functions to use. 
 
+```r
+  # Use one of the following functions 
+  #     ~ full_join, inner_join, left_join, right_join   
+  
+  df_combined < -
+
+```
+
 We want to graph genes that are differentially expressed in at least two out of three cell lines. Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This is helpful for us because it’s easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function.
 
 - Count the number of NA’s per row and save it as a new column titled “zero_count”.
