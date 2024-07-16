@@ -244,3 +244,7 @@ MACS parameters depending on the data types:
 ![Tomtom results1](images/tomtom_html_1.png)
 
 ![Tomtom results2](images/tomtom_html_2.png)
+
+# Example files for chromosome 21 runs
+
+You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2024/cookingShow/day8b/chr21`.

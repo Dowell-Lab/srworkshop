@@ -13,8 +13,13 @@
 ################## USER INPUT ######################################
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
+<<<<<<< HEAD
 ANNOT='</path/to/annotation/file.bed>'
 CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/whole_genome/macs/'
+=======
+ANNOT='</path/to/annotation/file.bed'
+CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/macs/'
+>>>>>>> b9c1ffb86a09daed7470bc4539186e64173fc062
 HCT116_DMSO_PEAKS=${CHIP_DIR}'HCT116_DMSO_peaks_clean.narrowPeak'
 HCT116_NUTLIN_PEAKS=${CHIP_DIR}'HCT116_NUTLIN_peaks_clean.narrowPeak'
 results='/scratch/Users/<username>/day9/bedtools/results/'
