@@ -44,7 +44,7 @@ recognize this as a bed file based on those six columns and ignore the rest.
 You can do annotation file manipulations with text editors (not recommended – most are quite large), command line commands, or other software such as Bedtools.  
 
 - Make a directory for this worksheet at
-  **/scratch/Users/\<username\>/day9/bedtools/**
+  **/scratch/Users/\<username\>/day9/**
 - Within this directory, make folders named "scripts", "eofiles", and "bedtools_results".
 - How many genes are in the annotation file?
 - How many peaks are in your MACS peak file?
@@ -98,7 +98,7 @@ coordinates are with respect to the (+)-strand of the genome, so for (-)-strand 
 
 There’s a few ways that you can do this. You can read the annotation file into R or python and do column manipulation there, with conditionals. You can also do a looping strategy in bash that reads in a line, defines a few variables based on the contents of the line and prints out a new version of that line. If you want to try those, feel free! In this example, I’ll show you a powerful bash command line program called [awk](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/). awk has a moderate learning curve and seems pretty obtuse when you first start with it, but it is an incredibly fast and powerful tool for manipulating files.
 
-- Open your d9ay_bedtools.sbatch script again. Paste the following lines
+- Open your day9_bedtools.sbatch script again. Paste the following lines
   below everything else in the script area.
 
 <!-- -->
