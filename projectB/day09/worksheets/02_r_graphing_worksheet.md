@@ -238,9 +238,9 @@ In the Console, type “?pheatmap” and look at the documentation.
 
 ## Optional Challenge Exercises (if you finish early)
 
-**Question 1.** There are more ChIP peaks in the Nutlin samples than the DMSO. Are there other differences between the samples? Let's look at the width of the ChIP peak calls in both samples. This is an opportunity for you to practice doing some more dataframe manipulation and try new types of graphs. Follow these directions: 
+**Question 1.** There are more ChIP peaks in the Nutlin samples than the DMSO. Are there other differences between the samples? Let's look at the width of the ChIP peak calls in both samples. This is an opportunity for you to practice doing some more dataframe manipulation and try new types of graphs. I will walk you through how to do compare the distributions of ChIP peak sizes.
 
-These directions you need to do twice, once for the Nutlin dataframe, and once for the DMSO dataframe. 
+These following 3 directions you need to do twice, once for the Nutlin dataframe, and once for the DMSO dataframe. 
 * Make a new data frame that has only the columns you need for plotting. From the peaks dataframes, select the columns where the peak starts, peak stops, the peak ID, and the gene.
 * Look at the dataframe. We can't use it as is. Why is that? Fix that problem using the function duplicated(), which identifies duplicated rows.
 * Create a new column in this dataframe that contains the width of the ChIP peak. 
