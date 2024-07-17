@@ -10,7 +10,7 @@ https://docs.google.com/spreadsheets/d/17JnPENn9CDxJa6igqSnC1O5RCjmZPxQ3bepf7jaS
 Premade HD5 objects
 https://developmental.cellatlas.io/fetal-bone-marrow
 
-
+Link to tutorial for batch correction with Harmony: https://portals.broadinstitute.org/harmony/articles/quickstart.html. We don't go over it in these scripts due to time constraints.
 
 ## 1. Installing packages
 If you haven't already, download the following packages locally onto R by following the steps below:
