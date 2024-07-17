@@ -204,7 +204,7 @@ You can run IGV on either the web server or locally on your machine.
 
 ![IGV example](images/peak13_igv_snapshot.png)
 
-> What do you observe?
+> **Challenge:** 
 >
 > How many p53 peaks did you find in the DMSO vs NUTLIN samples? (hint: you can count the lines using `wc`)
 >
