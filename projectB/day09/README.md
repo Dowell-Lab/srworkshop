@@ -7,8 +7,9 @@
 3. GO analysis to look for functional enrichment in our results. 
 
 ## In-class worksheets
-1. Use the bedtools_worksheet.md to look at different intersections of your data.
-2. Use the r_graphing_worksheet.md to graph the results from step 1. 
+1. Use the 01_bedtools_worksheet.md to look at different intersections of your data.
+2. Use the 02_r_graphing_worksheet.md to graph the results from step 1.
+3. *Optional challenge if you finish the above*: Use 03_go_analysis
 
 ## Homework
 For homework, repeat these exercises with the **SJSA cell line**. What are the differences in response of SJSA cell to nutlin compared to the HCT116 line? How many ChIP peaks are different? What genes have ChIP peaks in both HCT116 and SJSA? Which genes are unique to SJSA? 
