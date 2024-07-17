@@ -206,7 +206,7 @@ You can run IGV on either the web server or locally on your machine.
 
 > **Challenge:** 
 >
-> How many p53 peaks did you find in the DMSO vs NUTLIN samples? (hint: you can count the lines using `wc`)
+> How many p53 peaks did you find in the DMSO vs NUTLIN samples? (Hint: you can count the lines using `wc`)
 >
 > Is there consistancy between the *DMSO* and the *Nutlin* samples?
 > 
@@ -217,7 +217,9 @@ You can run IGV on either the web server or locally on your machine.
 
 1. Edit and run the `05_find_motifs_with_meme.sbatch` script.
 
-> **Challenge:** You will notice that this script is running one sample at a time (i.e. _HCT116_NUTLIN_). Edit the script to run as a loop so that both _HCT116_NUTLIN_ and _HCT116_DMSO_ are processed!
+> **Challenge:** 
+> 
+> You will notice that this script is running one sample at a time (i.e. _HCT116_NUTLIN_). Edit the script to run as a loop so that both _HCT116_NUTLIN_ and _HCT116_DMSO_ are processed!
 
 ![Load modules MEME](images/script5_load_modules.png)
 
@@ -252,6 +254,10 @@ You can run IGV on either the web server or locally on your machine.
 ![Tomtom results1](images/tomtom_html_1.png)
 
 ![Tomtom results2](images/tomtom_html_2.png)
+
+> **Challenge:** 
+>
+> This data is a ChIP-seq experiment for TP53, why are we also seeing the TP73 motif in the TOMTOM output? (Hint: Check the motif logos sequence on the right of the output)
 
 # Example files for chromosome 21 runs
 
