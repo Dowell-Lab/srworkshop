@@ -11,10 +11,9 @@
 2. Use the r_graphing_worksheet.md to graph the results from step 1. 
 
 ## Homework
+For homework, repeat these exercises with the **SJSA cell line**. What are the differences in response of SJSA cell to nutlin compared to the HCT116 line? How many ChIP peaks are different? What genes have ChIP peaks in both HCT116 and SJSA? Which genes are unique to SJSA? 
 
-
-
-### Resources for today
+## Resources for today
 Bedtools functions: https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html \
 <br>
 ggvenn documentation: https://github.com/yanlinlin82/ggvenn \
@@ -25,12 +24,12 @@ another helpful pheatmap tutorial: https://biostatsquid.com/step-by-step-heatmap
 GSEA: https://www.gsea-msigdb.org/gsea/index.jsp \
 PantherGO: https://www.pantherdb.org
 
-### ~ Just for fun ~ Meg's resources for better figures
+## ~ Just for fun ~ Meg's resources for better figures
 Choose a color scheme that makes sense: https://coolors.co \
 Explore different types of plots you can make in R: https://r-graph-gallery.com \
 10 rules for scientific figures: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833 \
 Inkscape (basically free Illustrator): https://inkscape.org 
 
-### Advanced topics ~ just useful for you to know they exist, explore on your own
+## Advanced topics ~ just useful for you to know they exist, explore on your own
 Creating interactive graphs: https://plotly.com/r/ \
 Creating interactive dashboards: https://shiny.posit.co/r/gallery/
