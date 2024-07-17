@@ -37,9 +37,16 @@ NB: The directory and username used in the screenshot will be for my working dir
 
 ## Section A: Preprocessing of ChIP-seq data
 
-1. Make working directories
+1. Navigate to your github repo clone and git pull to _"pull"_ any updates that someone had _"pushed"_ to the repository to your own work environment on the AWS.
 
-After you Log into the AWS, you will make a directory for day 8 in your scratch directory. Make the subdirectories including one for day8, stdout and stderr, scripts, and fastq (which will be our input data). 
+```
+cd /Users/<username>/srworkshop
+git pull
+```
+
+2. Make working directories
+
+After you Log into the AWS, you will make a directory for day 8 in your scratch directory. Make the subdirectories including one stdout/stderr and scripts. 
 
 Create a working directory for day8 in scratch using the *mkdir* command.
 
@@ -47,12 +54,10 @@ Create a working directory for day8 in scratch using the *mkdir* command.
 [<username>@<hostname> ~]$ cd /scratch/Users/<YourUsername>
 [<username>@<hostname> ~]$ mkdir day8
 [<username>@<hostname> ~]$ cd day8
-[<username>@<hostname> ~]$ mkdir scripts eofiles fastq 
+[<username>@<hostname> ~]$ mkdir scripts eofiles 
 ```
 
-![Screenshot of initialization](images/example_day8_initialization.png)
-
-2. Copy scripts to your scratch folder
+3. Copy scripts to your scratch folder
 
 ```
 [<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/ /scratch/Users/<YourUsername>/day8/scripts
@@ -72,7 +77,7 @@ Copy the following scripts from the github repository folder into your scripts d
 
 ![Copying scripts example](images/copy_scripts_to_scratch.png)
 
-3. Edit and run the preprocessing scripts
+4. Edit and run the preprocessing scripts
 
 Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
 
