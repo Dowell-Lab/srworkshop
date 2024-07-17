@@ -217,6 +217,8 @@ You can run IGV on either the web server or locally on your machine.
 
 1. Edit and run the `05_find_motifs_with_meme.sbatch` script.
 
+> **Challenge:** You will notice that this script is running one sample at a time (i.e. _HCT116_NUTLIN_). Edit the script to run as a loop so that both _HCT116_NUTLIN_ and _HCT116_DMSO_ are processed!
+
 ![Load modules MEME](images/script5_load_modules.png)
 
 2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use bedtool getfasta and a reference genome .fa file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
