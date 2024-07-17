@@ -249,7 +249,23 @@ In the Console, type “?pheatmap” and look at the documentation.
 * I've made plenty of asthetic demands, so I'll just leave a question/hint here for you to ignore if you want to. Is everything in this graph useful? Are there aspects of it that don't add to our understanding of the data?
 
 
-### Challenge Questions
-**1.** We have differential expression information for 4 cell lines. You'd like to see the distribution of those values for each sample <u>on the same graph</u>. Go to the [R Graph Gallery](https://r-graph-gallery.com) and scroll down to the graphs in yellow. These are different ways to graph distributions. Choose one and plot the differential expression values of each sample on the same plot. 
+### OPTIONAL Challenge Questions
 
-**2.** 
+**1.** There are more ChIP peaks in the Nutlin samples than the DMSO. Are there other differences between the samples? Let's look at the width of the ChIP peak calls in both samples. This is an opportunity for you to practice doing some more dataframe manipulation and try new types of graphs. Follow these directions: 
+
+These directions you need to do twice, once for the Nutlin dataframe, and once for the DMSO dataframe. 
+* Make a new data frame that has only the columns you need for plotting. From the peaks dataframes, select the columns where the peak starts, peak stops, the peak ID, and the gene.
+* Look at the dataframe. We can't use it as is. Why is that? Fix that problem using the function duplicated(), which identifies duplicated rows.
+* Create a new column in this dataframe that contains the width of the ChIP peak. 
+
+Now that you have these two new dataframes, we can create 1 dataframe and get it into a format that's good for plotting. 
+* Combine the nutlin and dmso dataframes you just made into one dataframe using the rbind() function. This function literally pastes one dataframe on top of the other. It requires that the columns have the same names. This should already be the case (unless you changed anything).
+* This dataframe is in LONG format. Read this webpage on the [difference between long and wide formats](https://www.statology.org/long-vs-wide-data/). *Make sure to read the sections on <u>when</u> to use wide or long format.
+* Since this is long format, we need a column that specifies which row is "Nutlin" and which is "DMSO". This is a bit of an odd command to write, so I've written it for you. You can just run it. If you want to understand it, ask me or ChatGPT to explain it to you.
+
+Let's plot!!! \
+Now you're ready to compare the distributions of ChIP widths. What sorts of graphs compare distributions? Well, there are [boxplots](https://ggplot2.tidyverse.org/reference/geom_boxplot.html), [violin plots](https://ggplot2.tidyverse.org/reference/geom_violin.html), and [ridgeplots](https://r-graph-gallery.com/294-basic-ridgeline-plot.html). I've listed them in order of complexity. The first two are built into ggplot. Ridgeplot requires installation of another package. Decide how much work you want to do and make one of these plots. 
+
+**2.** We have differential expression information for 4 cell lines. You'd like to visualize the differential expression values <u>on the same graph</u>. Go to the [R Graph Gallery](https://r-graph-gallery.com) and scroll down to the graphs in yellow. These are different ways to graph distributions, some of which you've seen in question 1. Choose one and plot the differential expression values of each sample on the same plot. 
+
+**3.** Have you heard of *GO analysis*? GO stands for gene ontology. I bet many of you have read this is papers! It's a way to see if your statistically significant results all belong to the same biological pathway, molecular process, or compartment of the cell. Move on to the next worksheet to learn more about this. 
