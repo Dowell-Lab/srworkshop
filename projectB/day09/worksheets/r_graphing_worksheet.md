@@ -247,3 +247,7 @@ In the Console, type “?pheatmap” and look at the documentation.
 * Rewrite the pheatmap line of code below making the esthetic changes.
 * Add any other changes you’d like to see (i.e. text color, row labels, or font sizes).
 * I've made plenty of asthetic demands, so I'll just leave a question/hint here for you to ignore if you want to. Is everything in this graph useful? Are there aspects of it that don't add to our understanding of the data?
+
+
+### Challenge Question
+We have differential expression information for 4 cell lines. You'd like to see the distribution of those values for each sample on the same graph. Go to the [R Graph Gallery](https://r-graph-gallery.com) and scroll down to the graphs in yellow. These are different ways to graph distributions. Choose one and plot the differential expression values of each sample **on the same plot**. 
