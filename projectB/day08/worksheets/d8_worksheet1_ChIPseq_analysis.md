@@ -196,11 +196,17 @@ MACS parameters depending on the data types:
 
 6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed files (*clean.narrowPeak* and *summit.bed*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
+You can run IGV on either the web server or locally on your machine. 
+
+- If you want to install IGV on you local machine, follow instructions on the IGV worksheet here: [Instructions to install IGV locally](https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Downloading_starting_IGV.pdf). Also, is you are running IGV on your local computer, you can use the hotkeys `f` to move forward or `b` for backwards on a selected track. 
+
+- If you load the files on the web server change the bedgraph file extension from *.bdg* to *.bedgraph*. The web server IGV is more picky about the file extension.
+
 ![IGV example](images/peak13_igv_snapshot.png)
 
-> What do you oberserve?
+> What do you observe?
 >
-> Where are most of the p53 peaks found?
+> How many p53 peaks did you find in the DMSO vs NUTLIN samples? (hint: you can count the lines using `wc`)
 >
 > Is there consistancy between the *DMSO* and the *Nutlin* samples?
 > 
