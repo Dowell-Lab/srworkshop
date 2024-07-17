@@ -3,14 +3,15 @@
 
 # Set environment ---------------------------------------------------------
 
-  library() # load tidyverse 
-  setwd() # set your local working directory 
+  library() # load ggplot2
+  setwd() # set your local working directory
+  outdir <- # define an output directory
 
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks # read in data here, remember that bed files don't have column names     
-  nutlin_peaks # read in data here 
+  dmso_peaks <- # read in data here, remember that bed files don't have column names     
+  nutlin_peaks <- # read in data here 
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   
@@ -23,7 +24,7 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DIFFERENTIAL EXPRESSION DATA 
-  de.import # read in data here 
+  de.import <- # read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
   de <- # code to filter for significant genes 
@@ -34,29 +35,27 @@
 # Examining ChIP Peaks ----------------------------------------------------
 
   ### --- Peaks in EITHER DMSO or Nutlin
-  all_peaks <- # get a list of gene names 
-  print() # print the number of genes in all_peaks
+  all_p53_bound <- # get a list of gene names 
+  print() # print the number of genes in all_p53_bound
   
   
-  ### --- Peaks that are in genes that were measured
+  ### --- Peaks that are in genes that were measured by DESeq2 at all
   bound_genes <- intersect() # get a list of gene names 
-  print() # print the number of genes in bound_de_genes
+  print() # print the number of genes in bound_genes
   
   
   ### --- Peaks that are in DE genes 
   bound_de_genes <- intersect() # get a list of gene names 
-  print(length(bound_de_genes)) # print the number of genes in bound_de_genes
-  
-  
-  ### --- Calculate Percentage
-
-  
-  
+  print() # print the number of genes in bound_de_genes
+  print() # print the list of gene IDs
+    
   ### --- Create a venn diagram
   #install on this line. Once you install, comment this line out 
   library() # don't forget to load your new library on this line 
   venn_list <- list() # add everything that you want to compare into this list of lists 
   #create venn diagram on this line!
+
+  ### --- Calculate Percentage
 
 
   ### --- Export results for GO analysis  
@@ -116,6 +115,7 @@
   #     ~ full_join, inner_join, left_join, right_join   
   
   df < - # name the combined data frame just df
+  # Move GeneID to be the row names of the df and remove the GeneID column
 
 # Filter to keep only rows with data in at least 2 cell lines -------------
   # Hint, use rowsums() and is.na() 

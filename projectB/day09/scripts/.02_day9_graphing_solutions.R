@@ -25,10 +25,10 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de.import <- read.table('data/deseq_output/hct116_deres.txt')# read in data here 
+  de.import <- read.table('data/deseq_output/hct116_deres.txt', header=TRUE)# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
-  de <- de.import[abs(de.import$log2FoldChange) > 2 & de.import$padj < 0.05, ]
+  de <- de.import[abs(de.import$log2FoldChange) > 1.25 & de.import$padj < 0.05, ]
 
   
   
@@ -36,22 +36,20 @@
   # Examining ChIP Peaks ----------------------------------------------------
   
   ### --- Peaks in EITHER DMSO or Nutlin
-  all_peaks <- union(dmso_peaks$gene, nutlin_peaks$gene)# get a list of gene names 
-  print(length(all_peaks)) # print the number of genes in all_peaks
+  all_p53_bound <- union(dmso_peaks$gene, nutlin_peaks$gene)# get a list of gene names 
+  print(length(all_p53_bound)) # print the number of genes in all_peaks
   
   ### --- Peaks that are in genes that were measured
-  bound_genes <- intersect(all_peaks, de.import$GeneID) # get a list of gene names 
+  bound_genes <- intersect(all_p53_bound, de.import$GeneID) # get a list of gene names 
   print(length(bound_genes)) # print the number of genes in bound_de_genes
   print(bound_genes)
   
   ### --- Peaks that are in DE genes 
-  bound_de_genes <- intersect(all_peaks, de$GeneID) # get a list of gene names 
+  bound_de_genes <- intersect(all_p53_bound, de$GeneID) # get a list of gene names 
   print(length(bound_de_genes)) # print the number of genes in bound_de_genes
   print(bound_de_genes)
-  
 
   ### --- Create a venn diagram
-
   #install.packages("ggvenn") #install on this line. Once you install, comment this line out 
   library(ggvenn) # don't forget to load your new library on this line 
   venn_list <- list(
@@ -64,7 +62,7 @@
 
 
   ### --- Calculate Percentage
-  percent <- (19 + 64)/length(all_peaks) * 100
+  percent <- (31 + 166)/length(all_p53_bound) * 100
   print(percent)
   
   
@@ -84,11 +82,10 @@
   
   ### --- Load differential expression analysis results
   
-  hct.de <- read.table('data/deseq_output/hct116_deres.txt')
-  hct_p53ko.de <- read.table('data/deseq_output/hct116p53ko_deres.txt')
-  sjsa.de <- read.table('data/deseq_output/sjsa_deres.txt')
-  mcf7.de <- read.table('data/deseq_output/mcf7_deres.txt')
-  
+  hct.de <- read.table('data/deseq_output/hct116_deres.txt', header = TRUE)
+  hct_p53ko.de <- read.table('data/deseq_output/hct116p53ko_deres.txt', header = TRUE)
+  sjsa.de <- read.table('data/deseq_output/sjsa_deres.txt', header = TRUE)
+  mcf7.de <- read.table('data/deseq_output/mcf7_deres.txt', header = TRUE)
   
   ### --- Create a venn diagram of the cell lines 
   
@@ -156,7 +153,9 @@
   df <- full_join(df, sjsa.filt[, c(1,3)])
   df <- full_join(df, mcf7.filt[, c(1,3)])
 
-  df <- df %>% column_to_rownames('GeneID')
+  # Move GeneID to be the row names of the df and remove the GeneID column
+  rownames(df) <- df$GeneID
+  df <- df[,-c(1)]
   
 
 # Filter to keep only rows with data in at least 2 cell lines -------------
