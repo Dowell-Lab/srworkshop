@@ -239,10 +239,11 @@ There are two last things to adjust the data before we can make a heatmap.
 
 Lastly, graph your data using **pheatmap()**!
 
-I dislike the default pheatmap esthetics. I think a log<sub>2</sub>(Fold
-Change) = 0 should be white. I also don’t like that each box is outlined
-in gray, I find it distracting. In the Console, type “?pheatmap” and
-look at the documentation. Find how to specify color scale and outline
-of the box. Rewrite the pheatmap line of code below making the esthetic
-changes. Add any other changes you’d like to see. For example, text
-color, row labels, or font sizes.
+I am a picky and opinionated person. I dislike the default pheatmap esthetics. I think the middle of the range should be white, and that the highest values should be red and the lowest values be blue. I also don’t like that each box is outlined in gray, I find it distracting. 
+
+In the Console, type “?pheatmap” and look at the documentation. 
+
+* Find how to specify color scale and outline of the box.
+* Rewrite the pheatmap line of code below making the esthetic changes.
+* Add any other changes you’d like to see (i.e. text color, row labels, or font sizes).
+* I've made plenty of asthetic demands, so I'll just leave a question/hint here for you to ignore if you want to. Is everything in this graph useful? Are there aspects of it that don't add to our understanding of the data?
