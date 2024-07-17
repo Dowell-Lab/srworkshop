@@ -126,4 +126,27 @@
 
   pheatmap()
   
+
+######### --------------------------------------------------------#########
+######### --------------------------OPTIONAL----------------------#########
+######### --------------------------------------------------------#########
+
+
+# Challenge question 1. ---------------------------------------------------
+
+  nutlin_peaks_unique <- # select columns mentioned in instructions
+  nutlin_peaks_unique <- # remove duplicated rows 
+  nutlin_peaks_unique$width <- # calculate width of the ChIP peak 
+  
+  dmso_peaks_unique <- # select columns mentioned in instructions
+  dmso_peaks_unique <- # remove duplicated rows 
+  dmso_peaks_unique$width <- # calculate width of the ChIP peak 
+  
+  peaks_widths <- # combine the two dataframes you made above
+  # BELOW is the code to create a new column with just the sample ID in it 
+  # You NEED this column to plot (that's a hint ;) ) 
+  peaks_widths$sample <- sapply(strsplit(peaks_widths$peak_id, '_'), `[`, 2)
+  
+  
+  # Use ggplot to create a boxplot, violin plot, or ridge plot
   
