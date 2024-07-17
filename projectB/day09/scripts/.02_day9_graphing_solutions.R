@@ -3,7 +3,7 @@
 
 # Set environment ---------------------------------------------------------
 
-  library() # load tidyverse 
+  library(ggplot2) # load ggplot2 
   setwd('your/path/to/2024_shortread/day9/') # set your local working directory 
   outdir <- 'results/'
   
@@ -180,4 +180,27 @@
            border_color = NA
   )
   
-  
+
+######### --------------------------------------------------------#########
+######### --------------------------OPTIONAL----------------------#########
+######### --------------------------------------------------------#########
+
+
+# Challenge question 1. ---------------------------------------------------
+nutlin_peaks_unique <- nutlin_peaks[, c('chip_start', 'chip_end', 'peak_id', 'gene')]
+nutlin_peaks_unique <- nutlin_peaks_unique[!duplicated(nutlin_peaks_unique), ]
+nutlin_peaks_unique$width <- nutlin_peaks_unique$chip_end - nutlin_peaks_unique$chip_start
+
+dmso_peaks_unique <- dmso_peaks[, c('chip_start', 'chip_end', 'peak_id', 'gene')]
+dmso_peaks_unique <- dmso_peaks_unique[!duplicated(dmso_peaks_unique), ]
+dmso_peaks_unique$width <- dmso_peaks_unique$chip_end - dmso_peaks_unique$chip_start
+
+peaks_widths <- rbind(nutlin_peaks_unique, dmso_peaks_unique)
+peaks_widths$sample <- sapply(strsplit(peaks_widths$peak_id, '_'), `[`, 2)
+
+#library(ggridges)
+ggplot(peaks_widths, aes(y = sample, x = width, fill = sample)) + 
+  #geom_violin()
+  #geom_density_ridges(alpha = 0.5)
+  geom_boxplot()
+
