@@ -6,8 +6,9 @@
 #SBATCH --ntasks=1                                      # Number of CPU (tasks)
 #SBATCH --time=00:10:00                                 # Time limit hrs:min:sec
 #SBATCH --mem=2gb                                       # Memory limit
-#SBATCH --output=/scratch/Users/<username>/day9/bedtools/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/day9/bedtools/eofiles/%x_%j.err
+#SBATCH -p short
+#SBATCH --output=/scratch/Users/<username>/day9/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<username>/day9/eofiles/%x_%j.err
 
 
 ################## USER INPUT ######################################
@@ -17,7 +18,7 @@ ANNOT='/scratch/Shares/public/sread2024/cookingShow/day9b/annotation/hg38_refseq
 CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/whole_genome/macs/'
 HCT116_DMSO_PEAKS=${CHIP_DIR}'/HCT116_DMSO_peaks_clean.narrowPeak'
 HCT116_NUTLIN_PEAKS=${CHIP_DIR}'/HCT116_NUTLIN_peaks_clean.narrowPeak'
-results='/scratch/Users/<username>/day9/bedtools/results/'
+results='/scratch/Users/<username>/day9/results/'
 TSS_ANNOT=${results}/hg38_refseq_tssregion.bed
 
 mkdir -p ${results}

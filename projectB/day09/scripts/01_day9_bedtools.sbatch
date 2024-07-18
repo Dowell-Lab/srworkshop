@@ -6,6 +6,7 @@
 #SBATCH --ntasks=1                                      # Number of CPU (tasks)
 #SBATCH --time=00:10:00                                 # Time limit hrs:min:sec
 #SBATCH --mem=2gb                                       # Memory limit
+#SBATCH -p short
 #SBATCH --output=/scratch/Users/<username>/day9/eofiles/%x_%j.out
 #SBATCH --error=/scratch/Users/<username>/day9/eofiles/%x_%j.err
 
