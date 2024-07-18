@@ -18,7 +18,7 @@ ANNOT='/scratch/Shares/public/sread2024/cookingShow/day9b/annotation/hg38_refseq
 CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/whole_genome/macs/'
 HCT116_DMSO_PEAKS=${CHIP_DIR}'/HCT116_DMSO_peaks_clean.narrowPeak'
 HCT116_NUTLIN_PEAKS=${CHIP_DIR}'/HCT116_NUTLIN_peaks_clean.narrowPeak'
-results='/scratch/Users/<username>/day9/results/'
+results='/scratch/Users/<username>/day9/bedtools_results/'
 TSS_ANNOT=${results}/hg38_refseq_tssregion.bed
 
 mkdir -p ${results}
@@ -132,8 +132,8 @@ bedtools jaccard -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/jaccard_p53_
 
 # --- Shuffle p53 locations in the nutlin samples, then sort 
 bedtools shuffle -chrom -i ${HCT116_NUTLIN_PEAKS} -g ${chrom_sizes} > ${results}/p53_nutlin_peaks_shuffled.bed
-sort -k1,1 -k2,2n ${results}/p53_nutlin_peaks_shuffled.bed > ${results}/p53_nutlin_peaks_shuffled.bed
+sort -k1,1 -k2,2n ${results}/p53_nutlin_peaks_shuffled.bed > ${results}/p53_nutlin_peaks_shuffled_sorted.bed
 
 # --- Similarity between shuffled p53 peaks in Nutlin and genes
-bedtools jaccard -a ${results}/p53_nutlin_peaks_shuffled.bed -b ${ANNOT} > ${results}/p53_nutlin_shuff_genes_jaccard.txt
+bedtools jaccard -a ${results}/p53_nutlin_peaks_shuffled_sorted.bed -b ${ANNOT} > ${results}/p53_nutlin_shuff_genes_jaccard.txt
 
