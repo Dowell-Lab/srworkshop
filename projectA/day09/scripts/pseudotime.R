@@ -14,21 +14,37 @@ load("/tmp/t21_official_umap_clust_06.25.24.Rdata")
 
 #"fig1b_fbm_scaled_gex_updated_dr_20210104"       "fig5a_downs_fbm_scaled_gex_updated_dr_20210119"
 
-
+# We have added a object, what is its name?
 ls()
 
+
+#what are my options for a seurat object?
+https://rdrr.io/github/satijalab/seurat/man/Seurat-class.html
+
+#How do I look at what in the object?
 t21@meta.data
 t21@meta.data$broad_extfig7A_cell.labels
 unique(t21@meta.data$broad_extfig7A_cell.labels)
 unique(t21@meta.data$orig.ident)
 
+#pick a cell.labels column  in the meta dat and tell me how many unique items are in it?
 
-table(t21@meta.data$cell.labels)
+
 
 # pull only the red blood cells
-Idents(object = t21) <- "broad_extfig7A_cell.labels"
-cell_values <- c("erythroid")
+#I want to use the command subset to pick only the red blood cells "erythroid" in the column broad_extfig7A_cell.labels. How do I do that? Hint, you will use Idents and subset
+
+
+#Use Idents to set the Idents of the column you want to select from 
+Idents(object = <what is out objects name>) <- "whatisthecolumnname"
+
+#set cell.values to the cell type you wnat
+cell_values <- c("whatisthethinginthecolumn")
+
+#now set the object red_T21 to the erythroid cells in the  column broad_extfig7A_cell.labels
 red_T21 <- subset(t21, idents = cell_values, invert = FALSE)
+
+
 
 table(red_T21@meta.data$cell.labels)
 
