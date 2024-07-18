@@ -55,11 +55,11 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
-- Transfer the day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
+- Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 - Input the paths to the gene annotation file and your MACS peak file
 - We will now fill the script section with bedtools commands.
 
-**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day09/scripts/.bedtools_answers.sbatch*
+**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day09/scripts/.01_bedtools_answers.sbatch*
 
 We have a list of genes, and we have a list of peaks called from a p53 ChIP experiment, identifying putative p53 binding locations in control (DMSO treated) HCT116 cells. What if we want to find out how many of those p53 binding sites overlap with genes, rather than being in intergenic regions?
 
