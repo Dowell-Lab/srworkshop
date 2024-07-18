@@ -128,7 +128,7 @@ Now we’ll pad the TSS file to make a gene promoter file.
 - Write the bedtools slop command in your sbatch script and pipe the results into a new promoter bedfile.
   - HINT: the –g <genome> file that bedtools slop takes in is actually just a list of chromosome sizes. There’s a variable in your script that already defines the path to this file on the AWS.
 - Once you’ve run your sbatch script and obtained your promoter bedfile, sync it back to your machine and look at it in IGV.
-- If it looks good, go back to your d9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
+- If it looks good, go back to your 01_day9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
 - How many peaks are located in gene promoter regions? How does this compare to the number of peaks overlapping any part of a gene?
 
 NOTE: Instead of using both bedtools slop and bedtools intersect, you could instead use bedtools window.
