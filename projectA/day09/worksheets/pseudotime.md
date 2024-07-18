@@ -13,7 +13,11 @@ If you are on the AWS server, please select R version 4.4.0
 ## 2. Complete R scripts for today
 Complete the scripts in the `/Users/<your-username>/srworkshop/projectA/day09/scripts/` directory.
 
-Use the script with: `pseudotime.R`
+Use the script : `pseudotime.R`
+
+If you get throught that use the script:
+
+Use the script : pseudotime_advanced.R
 
 **NOTE: If you are running monocle3 locally, you will need to transfer the Seurat objects to your local computer to complete the worksheets and analysis for today**
 
