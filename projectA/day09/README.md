@@ -4,7 +4,7 @@
 Today, we will explore two ways to analyze processed scRNA-seq data. The first will be with the package CellChat. This software helps us infer which cell types are communicating in scRNA-seq data.**[Mary insert psuedo time information here]**
 
 1. Start with `CellChat-Worksheeet.md` in the `worksheets/` directory
-2. After completing the CellChat worksheet move on to **[Mary insert here]**
+2. After completing the CellChat worksheet move on pseudotime.md
 
 
 
