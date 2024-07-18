@@ -1,11 +1,11 @@
 #########INSTALLS############
 
-install.packages("R.utils")
-library(R.utils)
-devtools::install_github('satijalab/seurat-wrappers')
+#install.packages("R.utils")
+#devtools::install_github('satijalab/seurat-wrappers')
 
 ########Library loads############
 library(monocle3)
+library(R.utils)
 library(Seurat)
 library(SeuratWrappers)
 
