@@ -29,9 +29,10 @@ table(t21@meta.data$cell.labels)
 #how many uniuqe broad cell types are there?
 
 # How does the cell cycle look in these cells?
+#t21_sctransform <- SCTransform(t21, verbose = FALSE)
 #s.genes <- cc.genes$s.genes
 #g2m.genes <- cc.genes$g2m.genes
-#cds <- CellCycleScoring(t21, s.features = s.genes, g2m.features = g2m.genes)
+#t21 <- CellCycleScoring(t21_sctransform, s.features = s.genes, g2m.features = g2m.genes)
 
 # We have too many cells for this to go quick. Lets pull only the red blood cells.
 Idents(object = t21) <- "broad_extfig7A_cell.labels"
