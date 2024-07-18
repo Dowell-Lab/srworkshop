@@ -28,6 +28,10 @@ table(t21@meta.data$cell.labels)
 
 #how many uniuqe broad cell types are there?
 
+# How does the cell cycle look in these cells?
+#s.genes <- cc.genes$s.genes
+#g2m.genes <- cc.genes$g2m.genes
+#cds <- CellCycleScoring(t21, s.features = s.genes, g2m.features = g2m.genes)
 
 # We have too many cells for this to go quick. Lets pull only the red blood cells.
 Idents(object = t21) <- "broad_extfig7A_cell.labels"
@@ -97,7 +101,7 @@ monocle3::plot_cells(cds, color_cells_by="age", label_cell_groups=FALSE)
 rownames(cds)[grepl(pattern = "RUNX", x = rownames(cds))]
 
 #This is a list of genes I want to see where they are in this plot
-my_favorite_genes <- c("RUNX3", "RUNX2", "RUNX1", "HBB")
+my_favorite_genes <- c("RUNX3", "RUNX2", "RUNX1", "HBB", "PCNA")
 
 
 
@@ -213,6 +217,13 @@ table(agepersondf)
 agepersonlanedf <- as.data.frame(monocle3::pData(cds)[c("lanes", "age",'orig.ident')])
 
 table(agepersonlanedf)
+
+#How does cell cycle look in these cells
+s.genes <- cc.genes$s.genes
+g2m.genes <- cc.genes$g2m.genes
+
+cds <- CellCycleScoring(cds, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+
 
 
 #This is another way too look at genes acorss the clusters
