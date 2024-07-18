@@ -2,7 +2,7 @@
 
 Author: Mary Allen
 
-## Start planning a project
+## Starting with planning a project
 
 You will need
 Paper (or a napkin)
@@ -24,15 +24,21 @@ Repeat steps 4-5 until you get back to a fastq file. If you don’t know what to
 > **Side note:**
 >
 > To find tools you might want consider
+>
 >    Reading a paper that does something similar to what you want to do
+>
 >    Reading a paper that compares tools
+>
 >    **Remember,** there is no such thing as the right tool for every job. Only the best tool for your job.	
 
 7. You probably need genome files. Where are you going to get them? (don’t get them yet!)
 
 a. [https://support.illumina.com/sequencing/sequencing_software/igenome.html](https://support.illumina.com/sequencing/sequencing_software/igenome.html)
+
 b. [https://www.ncbi.nlm.nih.gov/genome/](https://www.ncbi.nlm.nih.gov/genome/)
+
 c. [https://genome.ucsc.edu/cgi-bin/hgTables](https://genome.ucsc.edu/cgi-bin/hgTables)
+
 d. [https://zoonomiaproject.org/the-mammal-tree-list-view/](https://zoonomiaproject.org/the-mammal-tree-list-view/)
 
 - make sure the fasta file and the gtf/bed match each other!!!
@@ -46,6 +52,7 @@ e. When picking a genome file think about
 9. Figure out the file structure you are going to use for your project. 
 
 a. Back up raw data and lock the files!!! (`chmod`)
+
 b. Back up scripts to GitHub
 
 
@@ -62,14 +69,20 @@ b. Back up scripts to GitHub
 ## Starting analysis
 
 Now, and only now start analysis. 
+
      When you download the data, md5 check it!
+
      When you download the data back it up!
-     	  If you don’t have money for backups
+
+     	  If you don’t have money for backups check the following websites
+
 	     	[https://www.synapse.org/](https://www.synapse.org/)
+
 		[https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)
 
 ![](md_images/planning_project_image1.png)
-Virtual environments
+
+> **Remember** to backup your analyses on GitHub
 
 ## Additional resources
 
