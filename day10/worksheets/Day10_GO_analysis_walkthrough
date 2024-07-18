@@ -1,0 +1,67 @@
+# GO analysis walkthrough
+Authors: Mary Allen, Jesse Kurland
+
+## How does GO term enrichment work?
+Example: aged vs adult scRNA-seq from mouse muscle
+- Do differentially expressed genes preferentially fall in specific categories?
+    - 1000 differentially expressed genes found in aged mice vs. adult mice
+    - In background gene set (all genes and putative genes):
+        - 20,000 total genes in mm10
+        - 100 genes involved in 'innervation of skeletal muscle'
+    - In differentially expressed gene set:
+        - 10 genes involved in innervation - not significant!
+        - 100 genes involved in innervation - **significant!**
+
+## Gathering your gene lists
+
+### Before you run DESeq2 
+- Decide on which annotation GTF you will use because some annotations have more genes than others
+    - Pro for NCBI/Ensable GTFs: they have way more non-coding RNAs
+    - Con for NCBI/Ensable GTFs: they have way more non-coding RNAs, which means more multiple hypothesis correction and therefore fewer significant differentially expressed genes.  
+
+### After running DESeq2 with counts using that annotation file
+- How do I pick my DESeq2 cut-off?
+    - Draw a histogram of the p-values in your results
+    ![hist command](md_images/hist_command.png)\
+    ![histograms of pvalues](md_images/histograms_of_pvalues.png)
+    - Imagine a blue line at your cut-off and a green line that goes flat across the bins. 
+        - These two lines help you to think about your True Positives, False Positives, True Negatives, and False negatives. If you reduce your cut-off you get less genes as significant, but more of them are true positives and less of them are false positives. 
+
+- How do get my gene lists out of R from Deseq2?
+    - To run GO you will need a significantly different genes list and a background gene list. 
+        - Background gene lists? Which one?
+            - If you could not have called it as differentially expressed it should not be in your background gene list. 
+    - The last few lines of this script gather your background gene list and your significant gene list. 
+        - Genes that are too low or variable to test for differential expression display `NA` in the `padj` column.
+
+![Creating gene lists](md_images/R_script_creating_gene_lists.png)
+
+## Enrichr (maayanlab.cloud/Enrichr/)
+- Pros and cons of Enrichr
+    - Conducts multiple comparisons
+    - Doesn’t permit using background gene set
+    - Great for first pass checks of what you should explore more
+    - Not the most statically accurate due to the lack of background lists
+
+![Enrichr homepage](md_images/enrichr_homepage.png)
+
+- Using Enrichr
+    - Paste enriched gene list into box and “submit”  
+    ![Enrichr gene list entry](md_images/enrichr_genelist_entry.png)
+    ![Enrichr results 1](md_images/enrichr_results_1.png)
+    ![Enrichr results 2](md_images/enrichr_results_2.png)
+ 
+## Panther (http://geneontology.org)
+- Pros and cons of Panther
+    - Allows using background gene sets
+    - Provides “Molecular Pathways”
+
+- Using Panther
+    - Paste enriched gene list into box and “Launch” 
+    ![Panther gene list entry](md_images/panther_genelist_entry.png)
+    ![Panther change background set](md_images/panther_change_bg_set.png)
+    - Make sure background gene set is in a text file
+    ![Panther upload background set](md_images/panther_upload_bg_set.png)
+    ![Panther launch with new background set](md_images/panther_launch_with_new_bgset.png)
+    ![Panther results](md_images/panther_results.png)
+
