@@ -9,3 +9,5 @@ Project A - Single Cell RNA-seq\
 Project B - Multi-omics: RNA-seq/ChIP-seq/ATAC-seq
 
 We hope you enjoy learning with us!
+
+Please let us know what you thought of the workshop: [https://forms.gle/ZcCgC6yFT54YVvBG9](https://forms.gle/ZcCgC6yFT54YVvBG9)
