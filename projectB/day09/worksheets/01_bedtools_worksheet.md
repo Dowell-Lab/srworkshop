@@ -55,11 +55,11 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
-- Transfer the day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
+- Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 - Input the paths to the gene annotation file and your MACS peak file
 - We will now fill the script section with bedtools commands.
 
-**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day09/scripts/.bedtools_answers.sbatch*
+**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day09/scripts/.01_day9_bedtools_answers.sbatch*
 
 We have a list of genes, and we have a list of peaks called from a p53 ChIP experiment, identifying putative p53 binding locations in control (DMSO treated) HCT116 cells. What if we want to find out how many of those p53 binding sites overlap with genes, rather than being in intergenic regions?
 
@@ -67,7 +67,7 @@ We have a list of genes, and we have a list of peaks called from a p53 ChIP expe
   bedtools commands is here:
   <https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html>.
 - There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes?
-- Write a command in the day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
+- Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
 - **HINT:** By default bedtools results go to stdout, which within a slurm job will go to your .out file. Pipe the results into a different file that is better labeled and give it the .bed extension
 - Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. Every command should pipe results into a different new file with a descriptive filename. Run the script again.
 - Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
@@ -98,7 +98,7 @@ coordinates are with respect to the (+)-strand of the genome, so for (-)-strand 
 
 There’s a few ways that you can do this. You can read the annotation file into R or python and do column manipulation there, with conditionals. You can also do a looping strategy in bash that reads in a line, defines a few variables based on the contents of the line and prints out a new version of that line. If you want to try those, feel free! In this example, I’ll show you a powerful bash command line program called [awk](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/). awk has a moderate learning curve and seems pretty obtuse when you first start with it, but it is an incredibly fast and powerful tool for manipulating files.
 
-- Open your day9_bedtools.sbatch script again. Paste the following lines
+- Open your 01_day9_bedtools.sbatch script again. Paste the following lines
   below everything else in the script area.
 
 <!-- -->
@@ -128,7 +128,7 @@ Now we’ll pad the TSS file to make a gene promoter file.
 - Write the bedtools slop command in your sbatch script and pipe the results into a new promoter bedfile.
   - HINT: the –g <genome> file that bedtools slop takes in is actually just a list of chromosome sizes. There’s a variable in your script that already defines the path to this file on the AWS.
 - Once you’ve run your sbatch script and obtained your promoter bedfile, sync it back to your machine and look at it in IGV.
-- If it looks good, go back to your d9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
+- If it looks good, go back to your 01_day9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
 - How many peaks are located in gene promoter regions? How does this compare to the number of peaks overlapping any part of a gene?
 
 NOTE: Instead of using both bedtools slop and bedtools intersect, you could instead use bedtools window.
