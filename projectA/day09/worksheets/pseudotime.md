@@ -17,7 +17,7 @@ Use the script : `pseudotime.R`
 
 If you get throught that use the script:
 
-Use the script : pseudotime_advanced.R
+Use the script : `pseudotime_advanced.R`
 
 **NOTE: If you are running monocle3 locally, you will need to transfer the Seurat objects to your local computer to complete the worksheets and analysis for today**
 
