@@ -70,15 +70,15 @@ b. Back up scripts to GitHub
 
 Now, and only now start analysis. 
 
-     When you download the data, md5 check it!
+- When you download the data, md5 check it!
 
-     When you download the data back it up!
+- When you download the data back it up!
 
-     	  If you don’t have money for backups check the following websites
+  - If you don’t have money for backups check the following websites
 
-	     	[https://www.synapse.org/](https://www.synapse.org/)
+  [https://www.synapse.org/](https://www.synapse.org/)
 
-		[https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)
+  [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)
 
 ![](md_images/planning_project_image1.png)
 
