@@ -5,28 +5,24 @@ Authors: Jacob Stanley (2023), Mary Allen (2023)
 
 **Version control** is a system designed to manage changes to files for a project. The basic functionality of a version control system includes:
 
-	- keeping track of changes
-
-	- synchronizing code between developers and users
-
-	- allowing developers to test changes without losing the original
-
-	- reverting back to an old version
-
-	- tagging specific versions
+- keeping track of changes
+- synchronizing code between developers and users
+- allowing developers to test changes without losing the original
+- reverting back to an old version
+- tagging specific versions
 
 
 ## Creating a repository
 
-On your GitHub page if you select the “Repositories” tab, it will bring you to the list of your repos. At the top right you’ll see a green button “New”, which will bring up the “Create a new repository” page.
+On your GitHub page if you select the "Repositories" tab, it will bring you to the list of your repos. At the top right you’ll see a green button "New", which will bring up the "Create a new repository" page.
  
 To create your new repository, specify a name, whether or not it’s public or private, and whether or not to include a README and a license.
  
 It is recommended that you include a README. This file is a markdown file that will be displayed on your repo’s page, below all the files. These README are useful for providing information about the contents of your software and how it can be run.
  
-The license is also important because it is required for a piece of software to be truly “open source.” For an explainer on the choice of licence, see [here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+The license is also important because it is required for a piece of software to be truly "open source". For an explainer on the choice of license, see [here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
 
-Once you have specified all the above information, click the green button “Create repository”.
+Once you have specified all the above information, click the green button "Create repository".
 
 ![](md_images/github_image1.png)
 
@@ -34,7 +30,7 @@ Once you have specified all the above information, click the green button “Cre
 
 ![](md_images/github_image2.png)
 
-Check add readme and chose a license. Then click create a repository.
+Check _Add readme_ and choose a license. Then click _create a repository_.
 
 ![](md_images/github_image5.png)
 
@@ -49,7 +45,7 @@ Clone the git repository
 
 ## Clone the repository
 
-Now that you’ve created a remote repository on GitHub, you will have to run the “clone” command to create a copy of it *locally* on your computer. On the repo page click the green “Code” button which will bring up the clone menu. Copy the appropriate link.
+Now that you’ve created a remote repository on GitHub, you will have to run the "clone" command to create a copy of it *locally* on your computer. On the repo page click the green "Code" button which will bring up the clone menu. Copy the appropriate link.
  
 Run `git clone` with the copied link. This will download the contents of the repo and create the local repo in the current directory in a folder with the name of the repo.
 
@@ -66,11 +62,11 @@ But it's empty. Let's add a file.
 
 Now that we have added a file… we need to update the github repository. To do that we do
 
-`git add <filename>` #tell the code which files to add
+`git add <filename>` to tell the code which files to add
 
-`git commit` #tell the code why you changed it
+`git commit` to tell the code why you changed it
 
-`git push` #push it up to the internet
+`git push` to push it up to the internet
 
 I’m going to add all files in the directory so I use \*.
 
@@ -86,7 +82,7 @@ The first time you push you will get an error… But we are going to fix that la
 
 ![](md_images/github_image14.png)
 
-The first time you push you need to enter a GitHub “password”. The weird thing is that when they say the password. **They don’t mean your GitHub password.** Github wants a “Personal Access token. So you should go get one of those.
+The first time you push you need to enter a GitHub "password". The weird thing is that when they say the password. **They don’t mean your GitHub password.** Github wants a "Personal Access Token". So you should go get one of those.
 
 ![](md_images/github_image15.png)
 
