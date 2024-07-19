@@ -5,7 +5,7 @@
 ################################################################################                                                                                                                        
  
 indir=/Users/<username>/workshopday10/scripts/
-wholefileoflines=ena-file-download-read_run-PRJNA785930-fastq_ftp-20240719-1321.sh
+wholefileoflines=${indir}<fileyoudownloaded>
 outdir=/Users/<username>/day10/fastqs/
 
 mkdir -p outdir
