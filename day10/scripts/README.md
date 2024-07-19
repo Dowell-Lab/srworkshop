@@ -14,15 +14,48 @@ The following script `00_download_Andrysik2017ChIPseq.sbatch` uses `wget` to dow
 
 ```
 https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090097/SRR4090097
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090096/SRR4090096
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090095/SRR4090095
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090094/SRR4090094
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090093/SRR4090093
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090092/SRR4090092
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090091/SRR4090091
-https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090090/SRR4090090
 https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090089/SRR4090089
 ```
+**Note:** these are just a subset of the samples in this project.
+
+1. Update the from the GitHub repository
+
+```
+cd /Users/your_username/srworkshop
+
+git pull
+```
+
+2. Now go to your `scratch` folder and create a `day10` folder, and in that folder create subdirectories `e_and_o`, `scripts` and `sra`
+
+```
+cd /scratch/Users/your_username
+
+mkdir day10
+
+cd day10
+
+mkdir e_and_o scripts sra
+
+```
+
+3. Go into the scripts folder and copy the following files ( `00_download_Andrysik2017ChIPseq.sbatch`, `run_download.sh` and `andrysik2017_chip.srr`) to your scratch scripts folder.
+
+4. Edit the `00_download_Andrysik2017ChIPseq.sbatch` and  `run_download.sh` scripts so they point to your `/scratch/Users/your_username/day10` files.
+
+5. After you have edited the files, you will run the `run_download.sh` script.
+
+```
+./run_download.sh 
+```
+
+This script will submit the `wget` output to you working directory. Once the script is done, you will need to move the files to a dedicated **sra** folder.
+
+```
+mv SRR* /scratch/Users/your_username/day10/sra/
+```
+
+## Converting the SRA files to FASTQ files
 
 The downloaded files are in *sra* format and we need to use the [`fastq-dump`](https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump) tool from the [sra-tools](https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit) to extract the raw `fastq` files. 
 

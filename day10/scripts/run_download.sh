@@ -4,7 +4,7 @@
 ####################### initialize directories  ################################
 ################################################################################                                                                                                                        
  
-wd=/scratch/Shares/dowell/rutendo/projects/sread/sread2024/day8
+wd=/scratch/Users/your_user_name/day10
 scripts=${wd}/scripts
 
 srrs=${scripts}/andrysik2017_chip.srr
