@@ -67,3 +67,9 @@ Hint:\
 ![Hint calculation](md_images/hint_calc.png)
 
 For running on all of your files, a good rule of thumb is to request 20% more memory than it took to run on the largest file.
+
+## Other useful tips for testing/running jobs
+- Some supercomputers have a 'test' or 'testing' partition. This is useful if you really have NO idea what parameters you need. You won't affect anyone who is running real jobs.
+- If you want to run an interactive session on a child node, run the following:\
+`srun --partition=<partition> --job-name=<job_name> --ntasks=<cores> --mem=<mem> --time=<walltime> --pty bash`
+    - This will go to the slurm scheduler as an sbatch script would, and you may be queued, but when it starts running, an interactive session will open. `hostname` will tell you what node you're on.
