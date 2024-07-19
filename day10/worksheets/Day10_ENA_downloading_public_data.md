@@ -43,14 +43,17 @@ http://dbtoolkit.cistrome.org/
 
 
 5. Download the script to download the files
+   
+![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
+![ENA screen shot](download_data_images/ifyouwantonefile.png)
 
+This is what that file looks like
 
-5. Download  the metat data text file too.
+![ENA screen shot](download_data_images/thisiswhathatfilelookslie.png)
+
+6. Download  the meta data text file too.
 ![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
 ![ENA screen shot](download_data_images/clickondownloadalltogetscriptforall.png)
-
-
-3. 
 
 ## Arrange an out directory and put the script ENA made on the server
 
