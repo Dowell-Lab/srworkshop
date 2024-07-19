@@ -21,19 +21,6 @@ Authors: Mary Allen (2023)
    e. They also have a site you can search a gene to see what TFs bind it
 http://dbtoolkit.cistrome.org/
 
-
-## From AWS
-
-See scripts under the scripts page. 
-
-## From NIH GEO via the tool fastq-dump
-
-Downloading one fastq
-
-![NCBI download](md_images/downloading_data_image1.png)
-
-The -split-3 flag is essential and should be default. That flag will do nothing if you have single end data. If you have paired end data you NEED it. Paired end data will come down as one file instead of two files (the R1, which means read1, and R2 files) 
-
 ## Getting a SRR# for the fastq you want
 
 1. Get the SRP# number 
@@ -71,6 +58,19 @@ The -split-3 flag is essential and should be default. That flag will do nothing 
 ## Upload your SRR_ACC_List.txt to the super computer
 
 ![SRP Acc List](md_images/downloading_data_image7.png)
+
+
+### Get the files from AWS
+
+See scripts under the scripts page. 
+
+## From NIH GEO via the tool fastq-dump
+
+Downloading one fastq
+
+![NCBI download](md_images/downloading_data_image1.png)
+
+The -split-3 flag is essential and should be default. That flag will do nothing if you have single end data. If you have paired end data you NEED it. Paired end data will come down as one file instead of two files (the R1, which means read1, and R2 files) 
 
 Run the sbatch script 
 1. Make a directory for the fastq files to go into
