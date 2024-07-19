@@ -34,7 +34,11 @@ http://dbtoolkit.cistrome.org/
 
 
 
-3. make sure to add the md5sum for all the files you are downloading
+3. THis is what you will see
+
+![ENA screen shot](download_data_images/whatyouseeonadataset.png)
+
+4. Click on "Show column selection" make sure to add the md5sum for all the files you are downloading is selected
 
 ![ENA screen shot](download_data_images/makesureyoutur_on_fastq_md5.png)
 ![ENA screen shot](download_data_images/fastq_md5_is_on.png)
