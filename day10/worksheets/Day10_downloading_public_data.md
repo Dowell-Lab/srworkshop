@@ -2,7 +2,11 @@
 
 Authors: Mary Allen (2023)
 
-## From NIH GEO
+## From AWS
+
+See scripts under scripts page. 
+
+## From NIH GEO via the tool fastq-dump
 
 Downloading one fastq
 
