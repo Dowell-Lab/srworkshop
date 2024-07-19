@@ -44,7 +44,7 @@ http://dbtoolkit.cistrome.org/
 ![ENA screen shot](download_data_images/fastq_md5_is_on.png)
 
 
-5. Download  the metadata text file
+5. Download  the metadata text file by clicking "tsv"
 ![ENA screen shot](download_data_images/downloadtsvofsamplesmetadata.png)
 
 6. Download the script to download the files
