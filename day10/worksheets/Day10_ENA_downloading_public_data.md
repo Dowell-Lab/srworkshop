@@ -27,8 +27,9 @@ http://dbtoolkit.cistrome.org/
 ![ENA screen shot](download_data_images/gotoENA.png)
 
 
-2. Search for something you want data for
+2. Search for something you want data for and click on the PNRJA
 
+![ENA screen shot](download_data_images/clikconthepnrjalink.png)
 
 
 
