@@ -18,7 +18,7 @@ On your GitHub page if you select the "Repositories" tab, it will bring you to t
  
 To create your new repository, specify a name, whether or not it’s public or private, and whether or not to include a README and a license.
  
-It is recommended that you include a README. This file is a markdown file that will be displayed on your repo’s page, below all the files. These README are useful for providing information about the contents of your software and how it can be run.
+It is recommended that you include a README. This file is a markdown file that will be displayed on your repo’s page, below all the files. These READMEs are useful for providing information about the contents of your software and how it can be run.
  
 The license is also important because it is required for a piece of software to be truly "open source". For an explainer on the choice of license, see [here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
 
@@ -34,74 +34,59 @@ Check _Add readme_ and choose a license. Then click _create a repository_.
 
 ![](md_images/github_image5.png)
 
-You will get this page. Copy the address that ends in .git.
-
-![](md_images/github_image4.png)
-
-Clone the git repository
-
-![](md_images/github_image7.png)
-
+You will then get a homepage for the repository.
 
 ## Clone the repository
 
-Now that you’ve created a remote repository on GitHub, you will have to run the "clone" command to create a copy of it *locally* on your computer. On the repo page click the green "Code" button which will bring up the clone menu. Copy the appropriate link.
+Now that you’ve created a remote repository on GitHub, you will have to run the "clone" command to create a copy of it *locally* on your computer. On the repo page click the green "Code" button which will bring up the clone menu. Copy the 'SSH' link.
  
-Run `git clone` with the copied link. This will download the contents of the repo and create the local repo in the current directory in a folder with the name of the repo.
+Run `git clone <repository link>` in your local terminal. This will download the contents of the repo and create the local repo in the current directory in a folder with the name of the repo.
 
 ![](md_images/github_image6.png)
 
 ![](md_images/github_image10.png)
 
-
-But it's empty. Let's add a file.
+But it's currently empty. Let's add a file.
 
 ![](md_images/github_image8.png)
 
 ## Git pull and push
 
-Now that we have added a file… we need to update the github repository. To do that we do
+Now that we have added a file… we need to update the github repository. We need to tell git what file changes we'd like to save. To do that we use the `git add` or `git rm` commands.
 
-`git add <filename>` to tell the code which files to add
+`git add <filename>` to tell the code which files to add/save changes (in this case our new file).
 
-`git commit` to tell the code why you changed it
+`git commit` to document what item(s) you changed and why. This then creates a save point for the repository. This save point is only local until...
 
-`git push` to push it up to the internet
+`git push` to push your changes up to the remote repository on github.
 
 I’m going to add all files in the directory so I use \*.
 
 ![](md_images/github_image13.png)
 
-When you commit you will go to a new screen. This screen is running vim and wants you to write down what you did. What you put here will be forever on the internet. Check out [https://twitter.com/gitlost?lang=en](https://www.google.com/url?q=https://twitter.com/gitlost?lang%3Den&sa=D&source=editors&ust=1721333013905913&usg=AOvVaw3U5pv0E4ZUGK7rYqGbMzdf).
+When you commit you will go to a new screen. This screen is running vim and wants you to create a 'commit message' to document the changes you made. Keep in mind, what you put here will be forever on the internet. Check out [https://twitter.com/gitlost?lang=en](https://www.google.com/url?q=https://twitter.com/gitlost?lang%3Den&sa=D&source=editors&ust=1721333013905913&usg=AOvVaw3U5pv0E4ZUGK7rYqGbMzdf).
 
 ![](md_images/github_image11.png)
 
+The first time you push you will need to configure your settings. Try to push, and you will get a warning message. Use the config statements provided in that message to set your username and email address.
+
 ![](md_images/github_image13.png)
 
-The first time you push you will get an error… But we are going to fix that later.
+You may also get an warning that requires you to configure your push settings. If so, do that as well.
 
 ![](md_images/github_image14.png)
-
-The first time you push you need to enter a GitHub "password". The weird thing is that when they say the password. **They don’t mean your GitHub password.** Github wants a "Personal Access Token". So you should go get one of those.
-
-![](md_images/github_image15.png)
-
-![](md_images/github_image16.png)
-
-![](md_images/github_image17.png)
-
-![](md_images/github_image18.png)
-
-![](md_images/github_image19.png)
-
-![](md_images/github_image20.png)
-
-![](md_images/github_image21.png)
 
 ![](md_images/github_image9.png)
 
 ![](md_images/github_image12.png)
 
+## Github repositories on a supercomputer
+If you only want to *use* a repository on the supercomputer, you can do as we did in this class and clone the repository with the 'HTTPS' link. After doing so, you can pull from the repository anytime you'd like.
+
+If you want an interactive repository on the supercomputer, you'll need to clone the repository with the 'SSH' link, but before you do you must make a new key to link your account on the supercomputer to GitHub. Use the [key generation worksheet](https://github.com/Dowell-Lab/srworkshop/blob/main/day01/worksheets/SSH_AWS.md) from Day1, to create keys on the supercomputer. Then you'll be able to use your github account there.
+
 ## More information
 
-[https://docs.google.com/document/d/1ziARSvSyzSjTQXvMus5AstEBKsQa3t86/edit](https://www.google.com/url?q=https://docs.google.com/document/d/1ziARSvSyzSjTQXvMus5AstEBKsQa3t86/edit&sa=D&source=editors&ust=1721333013907605&usg=AOvVaw0ZZzwoVUHIEBUb5dsPpxFU)
+[Git commands](https://education.github.com/git-cheat-sheet-education.pdf)\
+[Git repository overview](https://www.geeksforgeeks.org/what-is-a-git-repository/)
+
