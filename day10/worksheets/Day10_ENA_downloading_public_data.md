@@ -70,5 +70,8 @@ This is what that file looks like
 
 3. Upload the ENA shell script
 
+4. Edit  `run_wholeline.sh` to point to that script
+5. Edit `acommandsbatch.sbatch`
+
 
    
