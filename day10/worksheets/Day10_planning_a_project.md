@@ -42,7 +42,7 @@ c. [https://genome.ucsc.edu/cgi-bin/hgTables](https://genome.ucsc.edu/cgi-bin/hg
 d. [https://zoonomiaproject.org/the-mammal-tree-list-view/](https://zoonomiaproject.org/the-mammal-tree-list-view/)
 
 - make sure the fasta file and the gtf/bed match each other!!!
-- same number of chromosomes, same chromosome names!!!
+- match== The gtf/fasta are on the same genome version, have the same number of chromosomes, have the same chromosome names!!!
 
 e. When picking a genome file think about
 - Would I chase every gene on this list if it matters? If you don’t follow up on a non-coding RNA, don’t pick a list with a non-coding RNA. You have to perform multiple hypothesis corrections for it. 
