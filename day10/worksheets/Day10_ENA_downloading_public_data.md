@@ -44,9 +44,11 @@ http://dbtoolkit.cistrome.org/
 ![ENA screen shot](download_data_images/fastq_md5_is_on.png)
 ![ENA screen shot](download_data_images/downloadtsvofsamplesmetadata.png)
 
+5. Download  the metadata text file
+![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
+![ENA screen shot](download_data_images/clickondownloadalltogetscriptforall.png)
 
-
-5. Download the script to download the files
+6. Download the script to download the files
    
 ![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
 ![ENA screen shot](download_data_images/ifyouwantonefile.png)
@@ -55,9 +57,6 @@ This is what that file looks like
 
 ![ENA screen shot](download_data_images/thisiswhathatfilelookslie.png)
 
-6. Download  the meta data text file too.
-![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
-![ENA screen shot](download_data_images/clickondownloadalltogetscriptforall.png)
 
 ## Arrange an out directory and put the script ENA made on the server
 
