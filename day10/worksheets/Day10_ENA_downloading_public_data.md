@@ -42,11 +42,10 @@ http://dbtoolkit.cistrome.org/
 
 ![ENA screen shot](download_data_images/makesureyoutur_on_fastq_md5.png)
 ![ENA screen shot](download_data_images/fastq_md5_is_on.png)
-![ENA screen shot](download_data_images/downloadtsvofsamplesmetadata.png)
+
 
 5. Download  the metadata text file
-![ENA screen shot](download_data_images/ifyouclickdownloadscriptonall.png)
-![ENA screen shot](download_data_images/clickondownloadalltogetscriptforall.png)
+![ENA screen shot](download_data_images/downloadtsvofsamplesmetadata.png)
 
 6. Download the script to download the files
    
