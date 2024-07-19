@@ -27,3 +27,15 @@ https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090089/SRR4090089
 The downloaded files are in *sra* format and we need to use the [`fastq-dump`](https://github.com/ncbi/sra-tools/wiki/HowTo:-fasterq-dump) tool from the [sra-tools](https://github.com/ncbi/sra-tools/wiki/01.-Downloading-SRA-Toolkit) to extract the raw `fastq` files. 
 
 > **Note:** There is also `fasterq-dump`, **BUT** it is memory hungry. If you do decide to use the `fasterq-dump` instead of `fastq-dump`, request more/adequate memory in your script.
+
+To download the *fastq* files we can now use the command below:
+
+```
+fastq-dump ${SRR} --gzip
+```
+
+or download in parallel using a wrapper for `fastq-dump` called [`parallel-fastq-dump`](https://github.com/rvalieris/parallel-fastq-dump):
+
+```
+parallel-fastq-dump --threads <NumCores> --gzip --sra-id ${SRR}
+```
