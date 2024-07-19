@@ -43,7 +43,7 @@ http://dbtoolkit.cistrome.org/
 
 3. Metadata will download a tab delimited text file of all SRR in that SRP
 
-   a. This is a start for your metadata table you will need for Deseq2
+   a. This is a start for your metadata table you will need for to know which files are which (names of files are not very helpful)
 
 4. Accessions are just the SRRs and this is the file you will need to download stuff
 
