@@ -2,9 +2,29 @@
 
 Authors: Mary Allen (2023)
 
+## Pre-processed ChIP-seq from CistromeDB 
+
+1. Go to http://cistrome.org/db/#/
+
+2. Pick an organism, cell line and TF
+
+3. You can do a lot on this site
+
+   a. download the bed file
+
+   b. look at the quality of each chip
+
+   c. See what motif was most enriched in this chip
+
+   d. Find genes that may be regulated by this TF
+
+   e. They also have a site you can search a gene to see what TFs bind it
+http://dbtoolkit.cistrome.org/
+
+
 ## From AWS
 
-See scripts under scripts page. 
+See scripts under the scripts page. 
 
 ## From NIH GEO via the tool fastq-dump
 
@@ -83,21 +103,4 @@ Run the sbatch script
 
 `SRR#_1.fastq` and `SRR#_2.fastq` represents read 1 and read 2 of a pair. Therefore `SRR#_1.fastq` and `SRR#_2.fastq` should have the same line numbers. 
 
-## From CistromeDB (processed ChIP-seq) hg19 or hg38?
 
-1. Go to http://cistrome.org/db/#/
-
-2. Pick an organism, cell line and TF
-
-3. You can do a lot on this site
-
-   a. download the bed file
-
-   b. look at the quality of each chip
-
-   c. See what motif was most enriched in this chip
-
-   d. Find genes that may be regulated by this TF
-
-   e. They also have a site you can search a gene to see what TFs bind it
-http://dbtoolkit.cistrome.org/
