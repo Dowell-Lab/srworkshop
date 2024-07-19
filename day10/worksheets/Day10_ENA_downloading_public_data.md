@@ -21,48 +21,26 @@ Authors: Mary Allen (2023)
    e. They also have a site you can search a gene to see what TFs bind it
 http://dbtoolkit.cistrome.org/
 
-## Getting a SRR# for the fastq you want
+## FASTQ downloads
+1. Go to the European website with raw data
 
-1. Get the SRP# number 
-
-2. Go to geo and find the SRP# for the data you care about
-
-![SRP download B](md_images/downloading_data_image3.png)
-
-![SRP download A](md_images/downloading_data_image2.png)
-
-![SRP download B](md_images/downloading_data_image5.png)
+![ENA screen shot](download_data_images/gotoENA.png)
 
 
 
-## Getting a list of all SRRs for this identifier.
-
-1. Paste the SRP into this website and search for here https://trace.ncbi.nlm.nih.gov/Traces/study/
-
-2. Download both accession and metadata
-
-3. Metadata will download a tab delimited text file of all SRR in that SRP
-
-   a. This is a start for your metadata table you will need for to know which files are which (names of files are not very helpful)
-
-4. Accessions are just the SRRs and this is the file you will need to download stuff
-
-## Arrange a out directory
+## Arrange an out directory
 
 1. Make a new outdirectory on the supercomputer
 
-2. Copy the scripts I made for downloading a fastq from GEO
+2. Copy the scripts in the day 10 scripts I made for downloading a fastq from GEO
 
-![SRP download C](md_images/downloading_data_image4.png)
-
-## Upload your SRR_ACC_List.txt to the super computer
-
-![SRP Acc List](md_images/downloading_data_image7.png)
+`run_wholeline.sh`
+`acommandsbatch.sbatch`
 
 
-### Get the files from AWS
+## Upload your downloadscript to the super computer
 
-See scripts under the scripts page. 
+
 
 ## From NIH GEO via the tool fastq-dump
 
