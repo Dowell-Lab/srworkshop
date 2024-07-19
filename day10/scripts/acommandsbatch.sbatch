@@ -27,6 +27,6 @@ date
 printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 # use wget to download the files
-wget ${SRRPATH}
+${wholeline}
 
 echo "DONE!"

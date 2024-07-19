@@ -1,8 +1,16 @@
 # Downloading raw data from NCBI
 
-Sequenced data in a paper can be downloaded from NCBI's [SRA Run Selector](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP083188&o=acc_s%3Aa). The raw samples are also hosted on the AWS, so to download the files, we can use `wget <url_to_raw_file>`. 
+## Summary about the data
 
-The following script `00_download_Andrysik2017ChIPseq.sbatch` loops through the paths (below) listed in the file `andrysik2017_chip.srr` and downloads them locally.
+The data downloaded in this example is from Andrysik et al. 2017 [doi:10.1101/gr.220533.117](https://genome.cshlp.org/content/27/10/1645). The study looks at the function of TP53 in three cancer cell lines. Authors use different genomic datasets to understand the function of the transcription factor. 
+
+The data was deposited at the NCBI Gene Expression Omnibus (GEO) database [GSE86222](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE86222). This GEO accession number is usually reported in the research article.
+
+## Getting the data
+
+Raw sequenced data for the paper can be downloaded from NCBI's [SRA Run Selector](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP083188&o=acc_s%3Aa). Since the raw samples are also hosted on the AWS, we can use `wget <url_to_raw_file>` to download the files. 
+
+The following script `00_download_Andrysik2017ChIPseq.sbatch` uses `wget` to download the *sra* files, and `run_download.sh` loops through the paths (below) listed in the file `andrysik2017_chip.srr` and downloads them locally.
 
 ```
 https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR4090097/SRR4090097
