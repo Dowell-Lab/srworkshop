@@ -28,6 +28,7 @@ If you don’t know how to do something, don’t be discouraged! Look at the doc
 	- **ssh** lets you log into a remote server like the one we’re using during the short  read workshop 
 	- **whoami** will print your current active user
 	- **uname-n** This is useful to  make sure you’re actually on the short read server and not your local machine
+   	- **mkdir** make a folder
 - Navigating Around:
 	- **pwd**  (print working directory) will tell you which directory you’re in 
 	- **cd** (change directory) lets you move to a different directory. You can move folders using absolute or relative paths. For example, if  you’re starting in /scratch/ and you want to be in the Workshop directory inside of it, typing cd /scratch/Workshop will move you using  the absolute path and typing cd Workshop will move you using the *relative path* 
