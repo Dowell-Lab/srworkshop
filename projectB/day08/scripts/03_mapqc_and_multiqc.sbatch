@@ -68,7 +68,7 @@ done
 multiqcdir=${wd}/multiqc
 mkdir -p ${multiqcdir}
 
-source /data/multiqc-1.14-venv/bin/activate
+source /scratch/Shares/public/sread2024/generalpythonvenv/bin/activate
 multiqc ${qc} -o ${multiqcdir}
 
 echo "DONE: Preprocessing................."
