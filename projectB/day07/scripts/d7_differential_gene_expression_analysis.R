@@ -7,6 +7,7 @@
 ##########################################
 library(DESeq2)
 library(ggplot2)
+library(dyplr)
 ##########################################
 # Loading the 2 input files.             #
 ##########################################
@@ -142,23 +143,24 @@ results_shrunk <- results_shrunk[order(results_shrunk$padj), ]
 #########################################
 results_shrunk_sig <- subset(results_shrunk, padj < alphaValue)
 
+outdir="/PATH/TO/day07/data/"
+
 write.table(results_shrunk_sig, 
             sep = "\t",
             quote = FALSE, 
             row.names = TRUE,
             col.names = TRUE,
-            "/PATH/TO/day07/data/Andrysik2017_RNAseq_Nutlin_results.tsv")
+            paste(outdir, "Andrysik2017_RNAseq_Nutlin_results.tsv", sep="")
 
 res_shrink_expressed <- as.data.frame(results_shrunk)
 res_shrink_expressed <- res_shrink_expressed[!is.na(res_shrink_expressed$padj),]
 
-outdir="/PATH/TO/day07/data/"
 
 write.csv(rownames(res_shrink_expressed), file = paste0(outdir,"backgroundgenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 write.csv(rownames(results_shrunk_sig), file = paste0(outdir,"siggenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 
-rnkdf <- tibble(gene = rownames(results_shrunk),
-				rnk = -log(res$pvalue) * sign(res$log2FoldChange)) %>%
+rnkdf <- tibble(gene = rownames(results),
+				rnk = -log(results$pvalue) * sign(results$log2FoldChange)) %>%
 	arrange(desc(rnk)) %>% drop_na()
 
 ## Write out the table without any additional information
