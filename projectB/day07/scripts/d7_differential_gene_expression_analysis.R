@@ -6,6 +6,8 @@
 # Loading libraries.                     #
 ##########################################
 library(DESeq2)
+library(tidyverse)
+library(dplyr)
 library(ggplot2)
 ##########################################
 # Loading the 2 input files.             #
@@ -157,8 +159,8 @@ outdir="/PATH/TO/day07/data/"
 write.csv(rownames(res_shrink_expressed), file = paste0(outdir,"backgroundgenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 write.csv(rownames(results_shrunk_sig), file = paste0(outdir,"siggenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 
-rnkdf <- tibble(gene = rownames(results_shrunk),
-				rnk = -log(res$pvalue) * sign(res$log2FoldChange)) %>%
+rnkdf <- tibble(gene = rownames(results),
+				rnk = -log(results$pvalue) * sign(results$log2FoldChange)) %>%
 	arrange(desc(rnk)) %>% drop_na()
 
 ## Write out the table without any additional information
