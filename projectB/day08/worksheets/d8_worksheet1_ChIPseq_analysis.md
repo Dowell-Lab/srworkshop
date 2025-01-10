@@ -37,7 +37,7 @@ NB: The directory and username used in the screenshot will be for my working dir
 
 ## Expected outputs 
 
-Section A (This will be run in the server)
+**Section A** - This will be run in the server
 
 a. Fastq QC summary for ChIP-seq data (as an html) and trimmed fastq files (as bam files).
 
@@ -49,11 +49,13 @@ d. Peak calls in a text files (in bed file format) highlighting the narrow peaks
 
 e. Text file with TF motif locations.
 
-Section B (The first part will be run on the server, while the second will be submitted to the MEME webserver.)
+**Section B** - The first part will be run on the server, while the second will be submitted to the MEME webserver.
 
 a. Get sequences for peak regions (as a fasta file)
 
-b. MEME results outputted on their website. (see Section B from steps 6-8)
+b. MEME results outputted on their website. (see exampls in Section B from steps 6-8)
+This step is run on the webserver since it is computationally greedy.
+
 
 ## Section A: Preprocessing of ChIP-seq data
 
