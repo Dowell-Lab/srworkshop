@@ -35,6 +35,26 @@ We will go over assessing the quality of ChIP-seq data and mapping the reads to 
 
 NB: The directory and username used in the screenshot will be for my working directory and username and will be different than yours. Here we will be working on the server and editing the script in *vim*.
 
+## Expected outputs 
+
+Section A (This will be run in the server)
+
+a. Fastq QC summary for ChIP-seq data (as an html) and trimmed fastq files (as bam files).
+
+b. Mapped files in bam format (as bam files).
+
+c. Mapping QC summary (as an html plus folder with intermediate files).
+
+d. Peak calls in a text files (in bed file format) highlighting the narrow peaks as well as the summit peaks.
+
+e. Text file with TF motif locations.
+
+Section B (The first part will be run on the server, while the second will be submitted to the MEME webserver.)
+
+a. Get sequences for peak regions (as a fasta file)
+
+b. MEME results outputted on their website. (see Section B from steps 6-8)
+
 ## Section A: Preprocessing of ChIP-seq data
 
 1. Navigate to your github repo clone and git pull to _"pull"_ any updates that someone had _"pushed"_ to the repository to your own work environment on the AWS.
