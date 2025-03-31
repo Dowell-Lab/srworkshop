@@ -1,5 +1,4 @@
-#!/bin/bash                                                                                                                                                      
-
+#!/bin/bash    
 #SBATCH --job-name=get_data # Job name
 #SBATCH --nodes=1                                                                                                                                                
 #SBATCH --ntasks=1 # Num of CPU                                                                                                  
@@ -8,33 +7,5 @@
 #SBATCH --mem=50mb # Memory                                                                                                                                 
 #SBATCH --output=/scratch/Users/allenma/e_and_o/%x_%j.out                                                                                                          #SBATCH --error=/scratch/Users/allenma/e_and_o/%x_%j.err                                                                  
 #SBATCH --mail-type=FAIL                      
-#SBATCH --mail-user=allenma@colorado.edu 
+#SBATCH --mail-user=allenma@colorado.edu
 
-
-################################################################################
-####################### initialize directories  ################################
-SRRPATH=$srrpath
-
-##############################
-##summary of run
-##############################
-printf "\nRun on: $(hostname)"
-printf "\nRun from: $(pwd)"
-printf "\nScript: $0\n"
-date
-
-printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
-
-echo $outdir
-echo $infile
-echo $whichline
-
-cd $outdir
-
-# use wget to download the files
-awk -v line="$whichline" 'NR == line {print $0}' "$infile" > "${outdir}shellscript${whichline}.sh"
-cat ${outdir}header.txt ${outdir}shellscript${whichline}.sh > ${outdir}temp${whichline}.sh
-mv temp${whichline}.sh ${outdir}shellscript${whichline}.sh
-sbatch ${outdir}shellscript${whichline}.sh
-
-echo "DONE!"
