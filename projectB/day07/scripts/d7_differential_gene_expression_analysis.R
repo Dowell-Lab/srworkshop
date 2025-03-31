@@ -6,6 +6,8 @@
 # Loading libraries.                     #
 ##########################################
 library(DESeq2)
+library(tidyverse)
+library(dplyr)
 library(ggplot2)
 library(dyplr)
 ##########################################
