@@ -7,8 +7,6 @@
 2. GO analysis to look for functional enrichment in our results. 
 
 ### Resources for today
-Bedtools functions: https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html \
-<br>
 ggvenn documentation: https://github.com/yanlinlin82/ggvenn \
 pheatmap documentation: https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap \
 helpful blog on pheatmap: https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/ \
