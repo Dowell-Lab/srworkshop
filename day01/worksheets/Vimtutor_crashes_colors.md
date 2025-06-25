@@ -62,7 +62,7 @@ Vimtutor is entirely white text on black. When you actually start scripting in V
 Take the .bash_profile file we copied earlier as an example:
 ![Bash profile file](md_images/bash_profile_file.png)
 
-The colors are incredibly useful for readability of code, but the default color scheme may be difficult for some people to see. You can change the colors as follows:
+The colors are incredibly useful for readability of code, but the default color scheme may be difficult for some people to see (including your TAs!). You can change the colors as follows:
 
 <ol>
   <li>Find the color scheme you want.
@@ -76,10 +76,10 @@ The colors are incredibly useful for readability of code, but the default color 
   <li>Make a .vimrc file
     <ul>
       <li>Make sure you're still in your home directory.</li>
-      <li>Open a file called <code>.vimrc</code> in Vim.</li>
+      <li>Open a new file called <code>.vimrc</code> in Vim.</li>
       <li>Enter insert mode (<code>i</code>) and type <code>colorscheme &#60;chosen colorscheme&#62;</code>.<li>Exit insert mode and save and quit.</li>
     </ul>
   </li>
 </ol>
 
-The next time you open vim, your color configuration should automatically load.
+The next time you open vim, your color scheme should automatically load from this VIM configuration file.

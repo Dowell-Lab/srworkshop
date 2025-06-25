@@ -15,7 +15,7 @@ Unlike the website, anyone who has 'edit' access (i.e. anyone in the DnA Lab) to
 
 <ol>
 <h3><li>
-In another tab/window, go to the <a href="https://github.com/Dowell-Lab/srworkshop/", target="_blank">GitHub repository</a> main page.
+In another tab/window, go to the <a href="https://github.com/Dowell-Lab/srworkshop/", target="_blank">srworkshop GitHub repository</a> main page.
 </h3>
 
 ![Github main page](md_images/github_mainpage.png)
@@ -32,7 +32,7 @@ Open your terminal program.
 
 If you successfully got onto the AWS previously, do so again with the command `ssh <github_username>@<aws_ip>`.
 
->**Note**: Remember that pointed brackets show that the description inside needs to be replaced by your actual information. There should be no pointed brackets in the final command.
+>**Note**: Remember that pointed brackets show that the description inside needs to be replaced by your actual information. There should be no pointed brackets in the final command. My version of this command would be `ssh lynn-sanford@13.58.16.233`.
 
 If you’re still troubleshooting getting onto the AWS, it’s fine to do this worksheet on your local computer within your terminal.
 </li>
@@ -50,7 +50,7 @@ Type `ls`. This lists the contents of your current directory. Since you’ve cre
 
 Navigate back to the top of the repo in your browser, or click the link above again.
 
-Click on the green button that says “<> Code”, make sure the dropdown has “HTTPS” highlighted, and copy the link it gives you. This is the easiest way to clone a repository that you don’t have permissions to edit.
+Click on the green button that says “<> Code”, make sure the dropdown has “HTTPS” highlighted, and copy the link it gives you. This is the easiest way to clone a repository that you don’t have permission to edit.
 >Note: In the future, if you do have edit access on a repository and want to clone it, make sure you have an SSH key set up and use the "SSH" option instead.
 
 ![GitHub cloning link](md_images/github_clone.png)
@@ -88,7 +88,7 @@ Navigate into `srworkshop` again, and type `cd d`, then hit Tab. This completes 
 ![Tab complete example](md_images/tab_complete.png)
 </li>
 <h3><li>Copy a file from the repository</h3>
-When starting out using the command line, you may get confused about what computer you are currently running commands on. The prompt that you get at the beginning of a line should help you, i.e. the
+When starting out using the command line, you may get confused about what computer you are currently running commands on. The prompt that you get at the beginning of a line should help you. For me this prompt looks like this:
 
 ![Command prompt](md_images/command_prompt.png)
 
@@ -150,7 +150,7 @@ Once you’re familiar enough with Vim to edit files (later today), you can come
 </li>
 <h3><li>Pull from the repository</h3>
 
-When content on the remote repo (the one hosted on Github) changes, you’ll need to update the copy on your computer or on the AWS. To do this, make sure you’re somewhere in the repo (`cd` into `srworkshop/`) and type `git pull`. If nothing has changed, it will tell you you’re up to date. If something has changed, it’ll let you know what has.
+When we change content on the remote repo (the one hosted on Github), you’ll need to update your copy on the AWS. To do this, make sure you’re somewhere in the repo (`cd` into `srworkshop/`) and type `git pull`. If nothing has changed, it will tell you you’re up to date. If something has changed, it’ll let you know what has.
 
 ![Git pull](md_images/git_pull.png)
 
@@ -164,12 +164,14 @@ When you’re done with your session on a super computer, log out before you clo
 
 ## Extra: Change the prompt color
 
+You need to understand how to open and edit a file in VIM before running through this section. If you don't, come back to this later.
+
 The `.bash_profile` file contains instructions for initiation of your instance on the AWS super computer. For your personal computer or a different super computer, you may need to edit a `.bashrc` file instead, but ignore that for the AWS.
 
 Opening the `.bash_profile` file that I’ve provided to you shows the following:
 
 ![Bash profile file](md_images/bash_profile_file.png)
 
-Each of these lines does something different, but the one at the bottom is the one that specifies how your command prompt looks. The text color for the `username@hostname` portion of the prompt is encoded by the 33 toward the beginning of the line, and the text color for the current working directory is encoded by the 34 a little farther in. You can change the colors to whatever you want by editing the number based on the following table.
+Each of these lines does something different, but the one at the bottom is the one that specifies how your command prompt looks. The text color for the `username@hostname` portion of the prompt is encoded by the 33 toward the beginning of the line, and the text color for the current working directory is encoded by the 36 a little farther in. You can change the colors to whatever you want by editing the number based on the following table.
 
 ![Bash color table](md_images/bash_color_table.png)
