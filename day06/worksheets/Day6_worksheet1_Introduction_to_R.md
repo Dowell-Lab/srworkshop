@@ -1,6 +1,6 @@
 # Short Read Day 6 Worksheet | Introdution to R and RStudio (R you ready to learn R?!)
 
-Authors: Taylor Jones (2022), Rutendo Sigauke (2024)
+Authors: Taylor Jones (2022), Rutendo Sigauke (2024-2025)
 
 ## Introduction
 

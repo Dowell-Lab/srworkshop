@@ -1,6 +1,6 @@
 # Short Read Day 6 Worksheet | R in RStudio
 
-Authors: Georgia Barone (2023), Rutendo Sigauke (2024)
+Authors: Georgia Barone (2023), Rutendo Sigauke (2024-2025)
 
 ## Section A : Learning R in RStudio
 
@@ -34,7 +34,7 @@ Move into the `srworkshop` repository and update from repository by running `git
 
 1. Log in to AWS
 
-2. Go into `/scratch/Users/<your_username>/` and use the mkdir command to make a folder called `day6`
+2. Go into `/scratch/Users/<your_username>/` and use the `mkdir` command to make a folder called `day6`
 
 - Inside your `day6` folder, make the folders `scripts`, `eofiles`, and `results`
 
