@@ -6,9 +6,9 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024)
 
 ### Before class
 
-- Make sure you have [RStudio](https://www.rstudio.com/products/rstudio/download/) and the latest version of R (R 4.4.1) installed on your computer!
+- Make sure you have [RStudio](https://www.rstudio.com/products/rstudio/download/) and the latest version of [R](https://cran.rstudio.com/) (R 4.4.1 or greater) installed on your computer!
 
-- You want to get RStudio Desktop - Free
+	- You want to get RStudio Desktop - Free
 
 - R is awesome for plot generation and any statistical analysis you want to do- even those that aren’t related to next gen sequencing!
 
