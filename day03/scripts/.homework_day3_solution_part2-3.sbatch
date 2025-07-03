@@ -1,13 +1,14 @@
 #!/bin/bash
-#SBATCH --output=/scratch/Users/<username>/homework-day3/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/<username>/homework-day3/eofiles/%x_%j.err
-#SBATCH --mail-user=<email address>
-#SBATCH --mail-type=END
-#SBATCH --time=00:20:00
-#SBATCH -p short
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH --mem=1Gb
+#SBATCH --job-name=<JOB_NAME>                         # Job Name
+#SBATCH --mail-type=ALL                               # Mail (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=<YOU@EMAIL.COM>                   # Your email address
+#SBATCH --nodes=1                                     # Number of nodes requested, should always be 1
+#SBATCH --ntasks=1                                    # Number of CPUs (processor cores/tasks)
+#SBATCH --mem=256mb                                   # Memory limit, formatted 256mb, 8gb, etc.
+#SBATCH --time=00:10:00                               # Time limit hrs:min:sec
+#SBATCH --partition=short                             # Partition/queue requested on server
+#SBATCH --output=/scratch/Users/<YOURUSERNAME>/homework-day3/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<YOURUSERNAME>/homework-day3/eofiles/%x_%j.err
 
 # Load our module in the proper version
 module load fastqc/0.11.5
