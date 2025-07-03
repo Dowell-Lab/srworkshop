@@ -1,6 +1,6 @@
 # Short Read Day 3: Working with Supercomputers
 - Author: Zach Maas
-- Edited by Lynn Sanford, 2024
+- Edited by Lynn Sanford, 2024; Malia Fredrickson, 2025
 
 ## Part 1: Write an SBATCH script and submit it to Slurm
 
@@ -18,21 +18,21 @@ Things you need to do:
 
 3. Make another `workshop-day3` directory here. Within that directory, create directories for `data`, `scripts`, `results`, and `eofiles` (error and output files). 
 
-4. In the `scripts` directory, write a slurm script to copy the following file to your `data` directory:\ `/scratch/Shares/public/sread2024/day3/SRR062641.filt.fastq.gz`
+4. In the `scripts` directory, write a slurm script to copy the following file to your `data` directory:\ `/scratch/Shares/public/sread2025/day3/SRR062641.filt.fastq.gz`
     - You can name this script whatever you want, but by convention we use a `.sbatch` suffix for slurm scripts.
     - Your sbatch script needs directives added to the top of the file so that the slurm system knows how many compute resources you need:
     ```
     #!/bin/bash
-    #SBATCH --output=<path to your eofiles directory>/%x_%j.out
-    #SBATCH --error=<path to your eofiles directory>/%x_%j.err
-    #SBATCH --mail-user=<an email address to get notifications at>
-    #SBATCH --mail-type=<ALL, END, FAIL, NONE>
-    #SBATCH --job-name=<a descriptive name for the job>
-    #SBATCH --time=00:10:00  # Time limit hrs:min:sec
-    #SBATCH -p <the name of the slurm partition we’re on>
-    #SBATCH -N <the number of nodes to use, should always be 1>
-    #SBATCH -c <the number of cores to use>
-    #SBATCH --mem=<the amount of memory to use, formatted 256mb, 8gb, etc>
+    #SBATCH --job-name=<JOB_NAME>                         # Job Name
+    #SBATCH --mail-type=ALL                               # Mail (NONE, BEGIN, END, FAIL, ALL)
+    #SBATCH --mail-user=<YOU@EMAIL.COM>                   # Your email address
+    #SBATCH --nodes=1                                     # Number of nodes requested, should always be 1
+    #SBATCH --ntasks=1                                    # Number of CPUs (processor cores/tasks)
+    #SBATCH --mem=256mb                                   # Memory limit, formatted 256mb, 8gb, etc
+    #SBATCH --time=00:10:00                               # Time limit hrs:min:sec
+    #SBATCH --partition=short                             # Partition/queue requested on server
+    #SBATCH --output=/scratch/Users/<YOURUSERNAME>/workshop-day3/eofiles/%x_%j.out
+    #SBATCH --error=/scratch/Users/<YOURUSERNAME>/workshop-day3/eofiles/%x_%j.err
 
     <the rest of your script: a command to copy the file>
     ```
