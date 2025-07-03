@@ -8,15 +8,16 @@ The objective of this worksheet is to learn how to navigate the terminal, create
 
 The file we will be using is a GTF, or Gene Transfer Format, which contains gene annotations for the human genome. Depending on your comfort level or experience, you are welcome to try this autonomously, or refer to the step by step instructions for Part 1 below, which contain screenshots of the code and rationale for each step in the terminal. The more you can do independently the better, but if you need help you can rely on the steps below, and your TAs.
 
-Part 1 Steps
+Part 1 Steps (Try it on your own if you feel comfortable, if not jump to A)
 
-1. In your /scratch/Users/<username> create a directory *day2-workshop* and subdirectories *scripts* *eofiles* *gtf*
+1. In your /scratch/Users/<username> create a directory *day2-workshop* and subdirectories *scripts*    *eofiles*    *gtf*
 2. Copy the gene annotation file */scratch/Shares/public/sread2025/data_files/day2/bedfiles/hg38.genes.gtf*  to your *gtf* directory
 3. Determine the number of annotations in the file
 4. Determine the number of annotations from chromosome 1 in the file
 5. Create a new file in the *gtf* directory, the contains the gene annotation only exons from chromosome 1, called *chr1_exon.gtf*
 6. Copy the *chr1_exon.gtf* file to your local device
 
+Guided Steps Part 1
 ### A.  Create the Directories
 
 1. Start about by logging into the AWS using the `ssh` followed by `<username>@<IP>`
@@ -26,22 +27,22 @@ Part 1 Steps
 5. To check if you made the new directory, you can type `ls` while in your scratch and you should see *day2-workshop* appear
 6. Change directories to *day-2-workshop* using `cd` 
 - Note: after typing `cd` you can start typing the name of the directoy and hit the tab key to tab complete, it will save you time.
-7. Once in *day2-workshop* make the following directories using the `mkdir` command: *scripts* *eofiles* *gtf*
+7. Once in *day2-workshop* make the following directories using the `mkdir` command: *scripts*   *eofiles*   *gtf*
 - Note: when making multiple directories within the same direcotry you can use `mkdir <dir1> <dir2>`
-- Challenge: If you use `mkdir` to make a direcotory that already exists, it will override that direcotry and everything in it. Use the `man` command to see what flag you can add to make it so that `mkdir` will only make a directory if it does not exist
-8. You can verrify the new directories are created using `ls`
+- Challenge: If you use `mkdir` to make a direcotory that already exists, it will override that directory and everything in it. Use the `man` command to see what flag you can add to make it so that `mkdir` will only make a directory if it does not exist
+8. You can verify the new directories are created using `ls`
 9. Practice navigating around between the directories using relative and absolute paths
 
 
 ### B. Copy over the GTF File
 
 1. Navigate to the */scratch/Users/<username>/day2-workshop/gtf* directory
-This directory is the directory we will copy the gtf file into
+- This directory is the directory we will copy the gtf file into
 2. Using the `rsync` command, copy the *hg38.genes.gtf file: */scratch/Shares/public/sread2025/data_files/day2/bedfiles/hg38.genes.gtf*  to your gtf directory
-- The format of the `rsync` command is as follows: `rsync <source> <destination>
+- The format of the `rsync` command is as follows: `rsync <source> <destination>`
 - Recall, because we are currntly in the desintation directory what is the symbol we can use to represent that?
 - Challenge: You do not need to be in the destination directory to rsync a file to there, what would the script be for moving the file if your current working directory were simply: */scratch/Users/<username>* ?
-3. Check that the file is there using ls
+3. Check that the file is there using `ls`
 
 
 ### C. Working with the GTF file
