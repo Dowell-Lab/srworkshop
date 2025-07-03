@@ -25,7 +25,7 @@ Part 1 Steps
 4. While in your scratch make a new directory *day2-workshop* using `mkdir`
 5. To check if you made the new directory, you can type `ls` while in your scratch and you should see *day2-workshop* appear
 6. Change directories to *day-2-workshop* using `cd` 
-Note: after typing `cd` you can start typing the name of the directoy and hit the tab key to tab complete, it will save you time.
+- Note: after typing `cd` you can start typing the name of the directoy and hit the tab key to tab complete, it will save you time.
 7. Once in *day2-workshop* make the following directories using the `mkdir` command: *scripts* *eofiles* *gtf*
 Note: when making multiple directories within the same direcotry you can use `mkdir <dir1> <dir2>`
 Challenge: If you use `mkdir` to make a direcotory that already exists, it will override that direcotry and everything in it. Use the `man` command to see what flag you can add to make it so that `mkdir` will only make a directory if it does not exist
