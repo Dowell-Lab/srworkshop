@@ -36,7 +36,7 @@ Guided Steps Part 1
 
 ### B. Copy over the GTF File
 
-1. Navigate to the */scratch/Users/<username>/day2-workshop/gtf* directory
+1. Navigate to the */scratch/Users/username/day2-workshop/gtf* directory
 - This directory is the directory we will copy the gtf file into
 2. Using the `rsync` command, copy the *hg38.genes.gtf file: */scratch/Shares/public/sread2025/data_files/day2/bedfiles/hg38.genes.gtf*  to your gtf directory
 - The format of the `rsync` command is as follows: `rsync <source> <destination>`
