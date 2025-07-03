@@ -23,12 +23,12 @@ Key programs:
 * MACS
 * MEME
 * Tomtom
+* bedtools
 
 ### Day 3
 Learn how to easily perform comparisons between genomic datasets, make figures, and look for functional enrichment. \
 Key programs: 
 
-* bedtools
 * ggvenn
 * pheatmap
 * PantherGO
