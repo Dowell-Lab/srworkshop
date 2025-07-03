@@ -25,7 +25,7 @@ All that’s left is to do some basic set manipulation here in R and create some
 1. On your **local computer**, pick a location that's convenient for you and make a "day9" folder.
 2. Inside your "day9" folder, make a "data" folder and a "results" folder.
 3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
-4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2024/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2025/cookingShow/day9b/deseq_output* to your "day9/data" folder.
 
 ## Now work in the *day9_graphing.R* script
 ### First, set up the environment.
