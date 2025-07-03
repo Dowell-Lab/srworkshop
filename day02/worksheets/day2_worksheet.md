@@ -1,5 +1,5 @@
 # Workshop Day 2: Navigating the Unix Enviorment
-
+Author: Christopher Rauchet (2025) 
 ## Part 1: Working with Files and Directories in the Command Line
 
 
