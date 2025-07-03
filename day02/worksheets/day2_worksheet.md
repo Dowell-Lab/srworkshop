@@ -76,7 +76,7 @@ Now, let's say that we don't just want to know how many annotations there are fo
 
 Stop and Think: How can we use `grep` and `|` to get lines that contain only chr1 and exons? How do we output that to a new file?
 
-6. While still in the *gtf* directory, write a line of code to take the annotations only from chr1 and exons to an output file based on this: `grep -flag <term> <filename> | grep -flag <term> > <outputfile>.gtf
+6. While still in the *gtf* directory, write a line of code to take the annotations only from chr1 and exons to an output file based on this: `grep -flag <term> <filename> | grep -flag <term> > <outputfile>.gtf`
 - Note: Think about why we do not need a filename in the second `grep` in that pipe
 - The key output indicator is '>'
 - Be sure to include a .gtf at the end of the output file so that you can remember the file type.
