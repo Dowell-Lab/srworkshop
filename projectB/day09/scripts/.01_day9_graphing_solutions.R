@@ -4,7 +4,7 @@
 # Set environment ---------------------------------------------------------
 
   library(ggplot2) # load ggplot2 
-  setwd('your/path/to/2024_shortread/day9/') # set your local working directory 
+  setwd('your/path/to/2025_shortread/day9/') # set your local working directory 
   outdir <- 'results/'
   
 
