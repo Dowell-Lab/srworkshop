@@ -12,21 +12,21 @@ Terminal commands:
 - Bash specific cheat sheet [here](https://devhints.io/bash) (variables, for loops, etc. that are helpful in bash scripts)
 
 Vim: 
-- Make sure you have done the vim tutorial already by typing vimtutor in command line
+- Make sure you have done the vim tutorial already by typing `vimtutor` in command line
 - Short cheat sheet found [here](https://www.shell-tips.com/cheat-sheets/vim-quick-references/vi_vim_cheat_sheet.pdf)
 - Middle-length cheat sheet found [here](https://www.cs.cmu.edu/~15131/f17/topics/vim/vim-cheatsheet.pdf)
 - Longer cheat sheet found [here](https://phoenixnap.com/kb/vim-commands-cheat-sheet)
 ### Some Common Code
 Linux commands:
-- mkdir (make a directory)
-- pwd (print working directory)
-- cd (change directory)
-- ls (see information about the files in the directory)
-- realpath <filename> (gives you the absolute path of a file) *Remember that the <> means you DON'T type that so if my file was file.txt I'd type* `realpath file.txt`
+- `mkdir` (make a directory)
+- `pwd` (print working directory)
+- `cd` (change directory)
+- `ls` (see information about the files in the directory)
+- `realpath <filename>` (gives you the absolute path of a file) *Remember that the <> means you DON'T type that so if my file was file.txt I'd type* `realpath file.txt`
 - CTRL-c (abort the command you just ran)
 - Check out the **worksheet** section to find a more detailed list of common commands
 
 Vim:
-- Before being able to type, you must click i (insert).
+- Before being able to type, you must click `i` (insert).
 - To save you must quit with `:wq` (include colon), to quit without saving, quit with `:q!`. Make sure to click escape if you are still in editing mode.
 - To search for a pattern, do `:/<pattern>`
