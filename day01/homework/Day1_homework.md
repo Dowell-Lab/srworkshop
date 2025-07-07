@@ -7,6 +7,8 @@
 <h3><li>Vimtutor</h3>
 <ul>
 <li>Lessons 1 and 2</li>
+    review here if you need too
+    https://github.com/Dowell-Lab/srworkshop/blob/main/day01/worksheets/Vimtutor_crashes_colors.md
 <li>Advanced students should do lessons 3,4,5</li>
 </ul>
 </li>
