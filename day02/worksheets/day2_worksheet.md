@@ -84,7 +84,7 @@ Once a data file is in the place you need it to be, there are a few things to no
 8. After you create the file, use `ls` in the directory to see if it is there
 9. Use `head` to check the first 10 lines and see if there is just chr1 and exon, and `tail` to see what the last lines look like. 
 
-### D. Copying a file to from the server to the local device
+### D. Copying a file from the server to the local device
 
 Once you have data files, it is important to be able to transfer them to your local device so you can then use them for things like viewing them on IGV
 
