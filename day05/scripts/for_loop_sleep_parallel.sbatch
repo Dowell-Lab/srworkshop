@@ -12,7 +12,7 @@
 
 ################ DEFINE VARIABLES #############################################
 
-filepath=$FILEPATH
+# 'filepath' is defined in the coordinator script and fed into this script
 
 ################ RUN SCRIPT #################################################
 

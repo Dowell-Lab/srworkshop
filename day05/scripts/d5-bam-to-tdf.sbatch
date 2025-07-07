@@ -17,7 +17,7 @@
 # user directory. The rest of the script can be kept the same!
 
 FILENAME=chr21Eric_repA.RNA
-INDIR=/scratch/Shares/public/sread2024/cookingShow/day5/bam/
+INDIR=/scratch/Shares/public/sread2025/cookingShow/day5/bam/
 OUTDIR=/scratch/Users/<YOUR_USERNAME>/workshop-day5
 
 # We'll also need to give the Genome size and info so that the file can be compressed into a TDF
