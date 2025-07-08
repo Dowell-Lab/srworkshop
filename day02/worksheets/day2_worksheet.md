@@ -142,9 +142,9 @@ Steps:
  
 ## Part 3 Challenge: Write a Script to copy fastq files
 
-One of the reasons that we have taught you how to use `vim` is because we use `vim` to write a script. A script is a series of commands that the shell can execute sequentially. So, rather than typing commands directly into the command line interface, we can create a text document that has the ability to be submitted. There will be more on this tomorrow but here is an introduction. To indicate something is a bash shell script the `#!/bin/bash` . On subsequent lines, you can write commands that are executable by the bash shell. However, recall that there is 
+One of the reasons that we have taught you how to use `vim` is because we use `vim` to write a script. A script is a series of commands that the shell can execute sequentially. So, rather than typing commands directly into the command line interface, we can create a text document that has the ability to be submitted. There will be more on this tomorrow but here is an introduction. To indicate something is a bash shell script the `#!/bin/bash` . On subsequent lines, you can write commands that are executable by the bash shell.
 
-To submit a bash script, you will need to exit out of the script, and on the command line interface use the `bash` command
+To submit a bash script, you will need to exit out of the script, and on the command line interface use the `bash` command. 
 
 *Goal*: Learn how to take a series of steps like you ran before and combine them into a single script that you can run for reproducbility.
 
@@ -153,7 +153,7 @@ To submit a bash script, you will need to exit out of the script, and on the com
 2. Add `#!/bin/bash` as the first line of the file.
 3. Write a series of commands on separate lines in your script to make a subdirectory of your scratch *day2-workshop* called *fastq* and copy the fastq file */scratch/Shares/public/sread2025/data_files/day4/fastq/chr21Eric_repA.RNA.end2.fastq* to your new *fastq* directory. As a tip, absolute paths make life much easier in this case.  
 4. Run the script on the command line interface using `bash <script_file>` to submit the script.
-5. Check to see if the directory is made, and if the file copied over. (For fun see what the fastq file looks like using `head`
+5. Check to see if the directory is made, and if the file copied over. (For fun see what the fastq file looks like using `head`)
 
 
 
