@@ -88,7 +88,7 @@ Once a data file is in the place you need it to be, there are a few things to no
 
 Once you have data files, it is important to be able to transfer them to your local device so you can then use them for things like viewing them on IGV
 
-Stop and ThinK: Based on the example in class, how would you copy the chr1_exon.gtf file to your local device? Do you want to be logged into the server when you do this or on the local computer? Do you want the file to end up in a particualr place?
+Stop and ThinK: Based on the example in class, how would you copy the chr1_exon.gtf file to your local device? Do you want to be logged into the server when you do this or on the local computer? Do you want the file to end up in a particular place?
 
 1. When you are ready to copy the file, open a new window in the terminal or log out of the server. You want to be on the local device when copying a file from the AWS server.
 2. Change directories on the local device to the place where you want the file to copy over, or have the relative or absolute path for the destination ready.
@@ -140,7 +140,20 @@ Steps:
 - **chmod** changes the permission on files
 
  
+## Part 3 Challenge: Write a Script to copy fastq files
 
+One of the reasons that we have taught you how to use `vim` is because we use `vim` to write a script. A script is a series of commands that the shell can execute sequentially. So, rather than typing commands directly into the command line interface, we can create a text document that has the ability to be submitted. There will be more on this tomorrow but here is an introduction. To indicate something is a bash shell script the `#!/bin/bash` . On subsequent lines, you can write commands that are executable by the bash shell. However, recall that there is 
+
+To submit a bash script, you will need to exit out of the script, and on the command line interface use the `bash` command
+
+*Goal*: Learn how to take a series of steps like you ran before and combine them into a single script that you can run for reproducbility.
+
+### Steps:
+1. Make a new file called *download_fastq.sh* in your scratch *day2-workshop/scripts* directory using `vim`
+2. Add `#!/bin/bash` as the first line of the file.
+3. Write a series of commands on separate lines in your script to make a subdirectory of your scratch *day2-workshop* called *fastq* and copy the fastq file */scratch/Shares/public/sread2025/data_files/day4/fastq/chr21Eric_repA.RNA.end2.fastq* to your new *fastq* directory. As a tip, absolute paths make life much easier in this case.  
+4. Run the script on the command line interface using `bash <script_file>` to submit the script.
+5. Check to see if the directory is made, and if the file copied over. (For fun see what the fastq file looks like using `head`
 
 
 
