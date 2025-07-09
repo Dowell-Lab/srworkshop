@@ -50,7 +50,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 # Mapping paired-end FASTQ files to make a SAM file.
 hisat2 \
-	--threads 4 \
+	--threads 2 \
 	--very-sensitive \
 	-x ${INDICES} \
 	-1 ${INDIR}/${FILENAME}.end1.fastq \
@@ -61,13 +61,13 @@ hisat2 \
         
 # Converting SAM to BAM.                               
 samtools \
-	view -@ 4 -h -bS \
+	view -@ 2 -h -bS \
 	-o ${BAM}/${FILENAME}.bam \
 	${SAM}/${FILENAME}.sam
 
 # Sorting BAM file.         
 samtools \
-	sort -@ 4 \
+	sort -@ 2 \
 	${BAM}/${FILENAME}.bam \
 	> ${BAM}/${FILENAME}.sorted.bam
 
@@ -110,7 +110,7 @@ mkdir -p ${BEDGRAPHdir} ${TDFdir} ${STATSdir}
 # Because SAMtools uses a code to save information about reads, this can seem complicated. First, we need to get the filestats.
 # Obtaining file stats from BAM input file.
 samtools flagstat \
-        -@ 8 ${BAM} \
+        -@ 2 ${BAM} \
         > ${STATSdir}/${BAMroot}.bam.flagstat \
         2>${STATSdir}/${BAMroot}.bam.flagstat.err
 
