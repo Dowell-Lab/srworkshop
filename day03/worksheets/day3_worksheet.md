@@ -19,6 +19,7 @@ Things you need to do:
 3. Make another `workshop-day3` directory here. Within that directory, create directories for `data`, `scripts`, `results`, and `eofiles` (error and output files). 
 
 4. In the `scripts` directory, write a slurm script to copy the following file to your `data` directory:\ `/scratch/Shares/public/sread2025/day3/SRR062641.filt.fastq.gz`
+    - **Note:** If you look for this file, you may notice that this fastq filepath is problematic, but that's intentional, so follow these instructions for now.
     - You can name this script whatever you want, but by convention we use a `.sbatch` suffix for slurm scripts.
     - Your sbatch script needs directives added to the top of the file so that the slurm system knows how many compute resources you need:
     ```
@@ -36,7 +37,6 @@ Things you need to do:
 
     <the rest of your script: a command to copy the file>
     ```
-    - **Note:** If you're paying close attention, you may notice that this fastq filepath is problematic, but that's intentional, so follow these instructions for now.
 
 5. Submit your slurm script using the `sbatch` command (`sbatch <scriptname>`) and check the queue with `squeue`.
     - You likely won't see your user ID in the queue, since this script will take less than a second to run, but it is always a good habit to check the queue after submitting a script.
