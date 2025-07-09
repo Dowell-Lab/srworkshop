@@ -49,7 +49,7 @@ fastqc -o ${FASTQC} ${FASTQ}/${FILENAME}.RNA.end2.fastq
 
 ##2: Trim FASTQ Files                                                                                                                                                                                                                                                
 java -jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar PE \
- -threads 8 \
+ -threads 2 \
  -phred33 \
  -trimlog ${TRIM}/trimlog \
  ${FASTQ}/${FILENAME}.RNA.end1.fastq ${FASTQ}/${FILENAME}.RNA.end2.fastq \
