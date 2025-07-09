@@ -3,8 +3,8 @@
 #SBATCH --mail-type=ALL                   # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL>           	# Where to send mail
 #SBATCH --nodes=1                           # Number of nodes requested
-#SBATCH --ntasks=8                          # Number of CPUs (processor cores/tasks)
-#SBATCH --mem=4gb                           # Memory limit
+#SBATCH --ntasks=2                          # Number of CPUs (processor cores/tasks)
+#SBATCH --mem=1gb                           # Memory limit
 #SBATCH --time=00:30:00                     # Time limit hrs:min:sec
 #SBATCH --partition=short                 # Partition/queue requested on server
 #SBATCH --output=/scratch/Users/<USERNAME>/workshop-day4/eofiles/%x.%j.out  
