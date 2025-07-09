@@ -2,11 +2,9 @@
 Author: Lynn Sanford, 2025
 
 ## This worksheet covers:
-<ul>
-<li>`for` loop syntax in Unix</li>
-<li>Serial `for` loops (most basic)</li>
-<li>How to use `for` loops with SLURM to parallelize scripts</li>
-</ul>
+- `for` loop syntax in Unix
+- Serial `for` loops (most basic)
+- How to use `for` loops with SLURM to parallelize scripts
 
 ## `for` loop syntax in Unix
 `for` loops in any coding language are blocks of code that loop for a given condition. In this class, our most common use of `for` loops is to loop through code for each file of a certain type in a directory (such as all FASTQ files).
@@ -51,10 +49,8 @@ In order to speed up analysis, we can parallelize running scripts. This involves
 >**Note:** You'll notice that this actually does involve running a `for` loop on the head node. But submitting jobs is not at all resource-intensive and is very fast, so this is an acceptable use of the head node.
 
 To do this, we use two scripts:
-<ul>
-<li>The SBATCH script that runs on each file (`for_loop_sleep_parallel.sbatch`)</li>
-<li>A coordinator BASH script (`for_loop_sleep_coordinator.sh`)</li>
-</ul>
+- The SBATCH script that runs on each file (`for_loop_sleep_parallel.sbatch`)
+- A coordinator BASH script (`for_loop_sleep_coordinator.sh`)
 
 Look at the coordinator script. It takes each value of the input list as in the previous examples, but now it feeds that path into an SBATCH submission with the parameter `--export`. Each submission then goes as a separate job to a child node.
 

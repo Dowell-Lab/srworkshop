@@ -4,7 +4,7 @@
 #SBATCH --mail-user=YOUREMAIL@colorado.edu          # Where to send mail
 #SBATCH --nodes=1                                   # Numbers of nodes
 #SBATCH --ntasks=1                                  # Number of CPU (tasks)
-#SBATCH --time=00:10:00                             # Time limit hrs:min:sec
+#SBATCH --time=00:02:00                             # Time limit hrs:min:sec
 #SBATCH --partition=short                           # Partition/queue requested on server    
 #SBATCH --mem=1gb                                   # Memory limit
 #SBATCH --output=/path/to/your/e_o/%x_%j.out

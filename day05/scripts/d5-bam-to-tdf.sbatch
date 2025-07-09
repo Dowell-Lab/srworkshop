@@ -3,10 +3,10 @@
 #SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL>            	# Where to send mail
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=4                                      # Number of CPU (tasks)
+#SBATCH --ntasks=2                                      # Number of CPU (tasks)
 #SBATCH --time=00:30:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                            # Partition/queue requested on server    
-#SBATCH --mem=10gb                                      # Memory limit
+#SBATCH --mem=7782mb                                      # Memory limit
 #SBATCH --output=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.out
 #SBATCH --error=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.err
 
@@ -30,7 +30,7 @@ mkdir -p ${OUTDIR}
 ############### LOAD REQUIRED MODULES ####################################################
 # These are the programs used to run our code
 module load samtools/1.8
-module load bedtools/2.25.0
+module load bedtools/2.28.0
 module load igvtools/2.3.75
 
 ##########################################################################################
