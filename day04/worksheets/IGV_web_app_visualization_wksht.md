@@ -1,5 +1,6 @@
 # Visualizing with the IGV Web App
 Authors: Samuel Hunter and Lynn Sanford, 2023
+Edited: Georgia Barone (2025)
 
 ## Introduction
 To view BAM and TDF files, we can use IGV.
@@ -8,7 +9,7 @@ In the videos for today, you saw the functionality of the IGV Desktop Applicatio
 
 ## Make sure you have BAM and BAI files
 You should have transferred these files to you computer at the end of the last worksheet. If you were not able to generate these files, do Step 9 of the Day4_Mapping_worksheet with the `.bam` and `.bam.bai` files at the following location on the AWS:\
-`/scratch/Shares/public/sread2024/cookingShow/day4/`
+`/scratch/Shares/public/sread2025/cookingShow/day4/`
 
 ## Using the IGV Web App (on your local machine)
 

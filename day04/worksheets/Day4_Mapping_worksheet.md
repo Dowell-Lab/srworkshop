@@ -1,8 +1,8 @@
 # Day 4 Worksheet - Read mapping and visualization
 Author: Qing Yang, 2021\
-Edited: Lynn Sanford, 2024
+Edited: Lynn Sanford (2024), Georgia Barone (2025)
 
-1. Make sure that you have two trimmed fastq files from the Trimmomatic step, one for read 1 and one for read 2. **If you're still struggling to get Trimmomatic to work**, copy the two files from `/scratch/Shares/public/sread2024/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
+1. Make sure that you have two trimmed fastq files from the Trimmomatic step, one for read 1 and one for read 2. **If you're still struggling to get Trimmomatic to work**, copy the two files from `/scratch/Shares/public/sread2025/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
 \
 ![Trimmed fastq file locations](md_images/trimmed_fastq_file_locations.png)
 
