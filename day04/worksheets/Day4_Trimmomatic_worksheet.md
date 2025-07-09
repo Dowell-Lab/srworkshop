@@ -1,6 +1,6 @@
 # Day 4 Worksheet – Trimmomatic 
 Author: Jessica Westfall, 2021\
-Edited: Lynn Sanford, 2024
+Edited: Lynn Sanford (2024), Georgia Barone (2025)
 
 ## Introduction
 Now that we have evaluated our sequence library initially to determine if the libraries are worth analyzing, we will do some “cleaning up” by trimming unwanted sequences such as adapter sequences. This step is necessary for improved alignment and mapping to the reference genome downstream. Once trimming is completed, we will reevaluate our trimmed files with FastQC for quality to decide if we will move forward with mapping.
@@ -27,7 +27,7 @@ Assigning path variables will make your scripts easier to read. In addition, thi
 - Here we define five variables.
 - The `FASTQ=` (input directory) variable specifies the path to the directory where the fastq data files are located. This has been filled in for you.
 - Modify the `OUTDIR=` (output directory) to point to the appropriate output file directories for our fastQC and trimmed fastq files.
-- Note that although in this case you already manually made these directories, it's useful to make sure that the output directories exist by calling `mkdir` within the sbatch script. Look up what the `-p` parameter does.
+- Note that although in this case you already manually made these directories, it's useful to make sure that the output directories exist by calling `mkdir` within the sbatch script. Look up what the `-p` parameter does.**Note: file path below has `sread2024` incorperated into the path. It should be `sread2025`**
 
   ![Trimmomatic variables](md_images/trimmomatic_variables.png)
  
