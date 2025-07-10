@@ -20,7 +20,7 @@ Now that we have evaluated our sequence library initially to determine if the li
 In your scratch day4 scripts directory, edit the trimming script in Vim.
 
 You will need to change the job name, user email, and the standard output and error log directories. Use a useful name for the job name, such as `trim_qc`.
-- Note also that we have changed the numbers of processors (`--ntasks`) for the job, as Trimmomatic can use multiple processors per input file. We'll request 1 node, 8 ntasks, 4gb of memory and 30 minutes of wall time.
+- Note also that we have changed the numbers of processors (`--ntasks`) for the job, as Trimmomatic can use multiple processors per input file. We'll request 1 node, 2 ntasks, 1gb of memory and 30 minutes of wall time.
 - You'll also see just under the header is a section that specifies certain information about the job that might help in troubleshooting or in documenting your work. Since we're just printing this to standard output, this information will be stored in the `.out` file.
 
 Assigning path variables will make your scripts easier to read. In addition, this makes it easier to reference a given path and utilize it in your scripts.
