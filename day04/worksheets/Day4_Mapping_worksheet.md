@@ -11,7 +11,7 @@ Edited: Lynn Sanford (2024), Georgia Barone (2025)
 3. Edit the SLURM header configurations:
     - Change the name of the job to something useful like `hisat2_mapping`
     - Replace any user inputs (`<>`) with your specific values. Make sure your output and error directory exists.
-    - HISAT2 can use multiple processors per input file, but still only one node. For this run, edit the fields to reserve 1 node, 8 processors (`ntasks`), 8gb memory and 1 hr of walltime.
+    - HISAT2 can use multiple processors per input file, but still only one node. For this run, edit the fields to reserve 1 node, 2 processors (`ntasks`), 1gb memory and 1 hr of walltime.
 
 4. Assign path variables. In this case, `DATADIR` is set to your working directory on scratch, and the `TRIM` path variable is the default trimmomatic directory within that. The `HISAT` variable points to the output directory for this script. Make sure all of these paths are accurate for you.
     - Note that in this case, we didn't manually make a `hisat2` directory on the command line. The `mkdir` command in the script should do it for us.
