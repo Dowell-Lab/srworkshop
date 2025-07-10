@@ -12,7 +12,7 @@ In a future day of the workshop we will go into more details about RNA-seq libra
   </li>
   <h3><li>FastQC</h3>
     Evaluate the fastq files in
-    <code>/scratch/Shares/public/sread2024/homework_data_files/day4/</code>.
+    <code>/scratch/Shares/public/sread2025/homework_data_files/day4/</code>.
     <br />
     <br />
     How is the quality of these sequence libraries? Things we want to look at are:
