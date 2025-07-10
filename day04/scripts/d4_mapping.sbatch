@@ -45,7 +45,7 @@ mkdir -p ${TRIM}
 ##Run the pipeline   ##
 #######################
 ##4: Map trimmed reads to reference genome                                                                                                                                                     
-hisat2 -p 8 --very-fast -x /scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome \
+hisat2 -p 2 --very-fast -x /scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome \
 -1 ${TRIM}/${FILENAME}.RNA.end1.trimmed.fastq \
 -2 ${TRIM}/${FILENAME}.RNA.end2.trimmed.fastq \
 > ${HISAT2}/${FILENAME}.RNA.sam \
@@ -55,10 +55,10 @@ hisat2 -p 8 --very-fast -x /scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2
 ##The BAM file is a compressed binary version of a SAM file, so takes up less space
 ##The sorted bam also takes up less space
 ###5.1 - convert SAM to BAM 
-samtools view -@ 8 -bS -o ${HISAT2}/${FILENAME}.RNA.bam ${HISAT2}/${FILENAME}.RNA.sam
+samtools view -@ 2 -bS -o ${HISAT2}/${FILENAME}.RNA.bam ${HISAT2}/${FILENAME}.RNA.sam
 
 ###5.2 - sort bam file
-samtools sort -@ 8 ${HISAT2}/${FILENAME}.RNA.bam > ${HISAT2}/${FILENAME}.RNA.sorted.bam
+samtools sort -@ 2 ${HISAT2}/${FILENAME}.RNA.bam > ${HISAT2}/${FILENAME}.RNA.sorted.bam
 
 ###5.3 - index sorted bam file
 samtools index ${HISAT2}/${FILENAME}.RNA.sorted.bam  ${HISAT2}/${FILENAME}.RNA.sorted.bam.bai
