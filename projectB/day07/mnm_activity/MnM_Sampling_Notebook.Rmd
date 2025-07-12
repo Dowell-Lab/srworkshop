@@ -1,0 +1,350 @@
+---
+title: "MnM_Sampling_Notebook"
+author: "Rutendo Sigauke"
+date: "2025-07-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary of R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# M&M Counting Exercise
+
+Here we will use M&M counts from a previous Short Read workshop. In this experiment,
+we have two bowls (red and green) with M&Ms. The two bowls represent an experimental set up, say green is our control while red is our treated. 
+
+The goal of this exercise is to visualize how we count reads in Short Read sequencing and ways to treat bias (i.e. contamination).
+
+Since this will be virtual, we will ask you to run the code cells below and explore the outputs. 
+
+## Loading libraries
+
+We will be using these libraries below. If you do not have them installed, please go ahead and do so. 
+
+```{r loadlibraries, echo=TRUE}
+# First, install the required packages
+#install.packages('data.table')
+#install.packages('tidyverse)
+#install.packages('ggplot2')
+#install.packages('cowplot)
+
+# Load the required library 
+library(data.table)
+library(tidyverse)
+library(ggplot2)
+library(cowplot)
+
+```
+
+## Loading data
+
+This are M&M counts from 2024. Note the summary statistics for each color of M&Ms. What other candies do you observe in out two bowls?
+
+```{r load_data, echo = TRUE}
+
+# Load the data from 2024 m&m counts as a data table
+mnm_dt <- data.table::fread("~/Desktop/SR2025/day7/notebooks/MandM_all_2024.tsv")
+dim(mnm_dt) #get the dimensions of datatable
+head(mnm_dt) # getting the top lines
+```
+
+```{r rename_bowl_column, echo=TRUE}
+# Rename columns and remove spaces, since it easier to work with
+setnames(mnm_dt,
+         c("big marsh", "tiny marsh","Green bowl or Red bowl"),
+         c("big_marsh", "tiny_marsh","bowl"))
+colnames(mnm_dt) #print the column names
+```
+
+## Exploring the data
+
+```{r plotting_hist}
+# Histogram of each color, binwidth will depend on approx size of samples
+ggplot(mnm_dt, aes(x=blue)) + 
+  geom_histogram(binwidth=10, fill="blue", color="gray90") +
+  labs(title = " ", 
+       y = "Count",
+       x = "Blue (N)") +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5),
+        title = element_text(size = 30), 
+        axis.title = element_text(size = 20),
+        axis.text.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18)) 
+
+```
+
+_CHALLENGE:_ Plot the distribution of the other M&Ms
+
+We can do this one M&M, skittle, marshmallow at a time. But, we can make this step
+simpler. In order to plot all the items in the data.table, we have to rearrange the 
+the table from a **wide** for to a **long** form. There are a couple ways we can 
+achieve this (1.) with `pivot_longer` from [tidyr](https://tidyr.tidyverse.org/reference/pivot_longer.html) or (2) `melt` from [reshape2](https://www.rdocumentation.org/packages/reshape2/versions/1.4.4/topics/melt).
+
+Below, I am using the `melt` function. Additional resources for reshaping a `data.table` can be found [here](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html).
+
+```{r wide_to_long, echo=TRUE}
+# get long format for the table
+mnm_long_dt <- melt(mnm_dt, id.vars = c("Name","bowl"),
+                    measure.vars =c('big_marsh', 'tiny_marsh', 'blue', 
+                                    'brown', 'orange', 'yellow', 'red',
+                                    'green',  'orange_sktl', 
+                                    'green_sktl', 'red_sktl', 
+                                    'yellow_sktl', 'purple_sktl'))
+
+```
+
+_CHALLENGE:_ Compare the dimensions of the `mnm_dt` and the `mnm_long_dt`. How many row and columns do each of teh data.tables have? Feel free to also view the top 5 rows of each data.table.
+
+```{r rename_columns, echo=TRUE}
+# If you have completed the CHALLENGE above, you will notice
+#  the headings are generic. We can rename each of the columns below
+colnames(mnm_long_dt) <- c("Name","bowl","mnm","count")
+
+```
+
+```{r plot_multi_hist, echo=TRUE}
+ggplot(mnm_long_dt, aes(count, fill=mnm)) + 
+  geom_histogram(bins=10) + 
+  facet_wrap(~mnm, scales = 'free_x') + 
+  ggtitle("Raw Counts") +
+  labs(title = "Raw Counts", 
+       y = "Count",
+       x = "M&M+ Counts") +
+  theme_cowplot(12) +
+  theme(plot.title = element_text(hjust = 0.5),
+        title = element_text(size = 12), 
+        axis.title = element_text(size = 10),
+        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 8)) 
+```
+
+_CHALLENGE:_ Keep only the M&M and plot the histogram of only the M&M (*blue*,	*brown*, *orange*,	*yellow*,	*red*,	*green*). Hint: You can use the `subset` function.
+
+## Comparing Green and Red Bowl Counts
+
+### Split the data into respective bowls
+
+Here, to compare between the green and red bowl, we will split the M&M counts between the two bowls.
+
+```{r split_bowls, echo=TRUE}
+# Here we are splitting the bowls with M&M 
+mnm_redbowl_dt <- subset(mnm_dt, bowl == "red")
+mnm_greenbowl_dt <- subset(mnm_dt, bowl == "green")
+
+#summary of dimensions
+dim(mnm_redbowl_dt)
+dim(mnm_greenbowl_dt)
+```
+
+### Calculate the Fold Change on Raw Counts
+
+**Note:** Since we have uneven number of samples/individuals between the red and green bowl, we will have to use the smallest sample sizes for both data.tables to calculate the fold change
+
+```{r fold_change_green_red}
+
+# 1: get value columns
+mnm_redbowl_val_dt <- mnm_redbowl_dt[1:22,c('blue','brown','orange',
+                                            'yellow','red','green')]
+
+mnm_greenbowl_val_dt <- mnm_greenbowl_dt[1:22,c('blue','brown','orange',
+                                              'yellow', 'red', 'green')]
+
+# 2: calculate the fold change of the columns
+mnm_redgreen_fc_dt <- mnm_redbowl_val_dt/mnm_greenbowl_val_dt
+head(mnm_redgreen_fc_dt)
+
+```
+We can plot histograms of the fold change calculations.
+
+```{r blue_fc_hist}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width
+blue_fc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=blue)) + 
+                  geom_histogram(bins = 20, fill="blue", color="gray90") + 
+                  labs(title = "Blue M&Ms", 
+                       y = "Count",
+                       x = "Red/Green Bowl Fold Change") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+blue_fc_hist
+```
+
+
+```{r red_fc_hist}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width
+red_fc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=red)) + 
+                  geom_histogram(bins = 20, fill="red", color="gray90") + 
+                  labs(title = "Red M&Ms", 
+                       y = "Count",
+                       x = "Red/Green Bowl Fold Change") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+red_fc_hist
+```
+
+We can make publication ready plots using `cowplot`. See the [cowplot vignette](https://wilkelab.org/cowplot/articles/plot_grid.html).
+
+```{r combinig_plots, fig.dim = c(8, 4)}
+
+red_blue_fc_hist  <- plot_grid(blue_fc_hist,
+                               red_fc_hist, 
+                               labels = c('A', 'B'),
+                               label_size = 20)
+red_blue_fc_hist
+```
+
+We can save the plot using `ggsave` from [ggplot2](https://ggplot2.tidyverse.org/reference/ggsave.html).
+
+```{r save_combined_plot}
+
+ggplot2::ggsave(filename = "~/Desktop/SR2025/day7/notebooks/red_blue_mnm_fc_hist.png", 
+       plot = red_blue_fc_hist,
+       width = 8, height = 4)
+
+```
+
+### Normalize the Counts by Sample Size
+
+```{r normalize_mnm_counts}
+
+# 1: we will get row totals for each sample (individual)
+mnm_redbowl_rowtotal <- rowSums(mnm_redbowl_val_dt)
+mnm_greenbowl_rowtotal <- rowSums(mnm_greenbowl_val_dt)
+
+# 2: divide each row item with the row total
+mnm_redbowl_val_norm_dt <- mnm_redbowl_val_dt[,.SD/mnm_redbowl_rowtotal] # using data.table sytax
+mnm_greenbowl_val_norm_dt <- mnm_greenbowl_val_dt[,.SD/mnm_greenbowl_rowtotal] 
+
+# 3: get the fold change for normalized counts
+mnm_redgreen_norm_fc_dt <- mnm_redbowl_val_norm_dt/mnm_greenbowl_val_norm_dt
+colnames(mnm_redgreen_norm_fc_dt) <- paste0(colnames(mnm_redgreen_norm_fc_dt),
+                                            "_norm") #update the column names to show that they are normalized
+head(mnm_redgreen_norm_fc_dt)
+
+```
+**Note:** were are using `cbind` from base R. Best practices is to use an ID 
+maintaining approaches like `merge` from [base R](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/merge) or  
+`left_join` from [dplyr](https://dplyr.tidyverse.org/reference/mutate-joins.html).
+
+```{r compare_foldchanges}
+
+# we can compare the raw count fold change with the normalized fold change. 
+mnm_redgreen_compare_fc_dt <- cbind(mnm_redgreen_fc_dt,
+                                    mnm_redgreen_norm_fc_dt)
+head(mnm_redgreen_compare_fc_dt)
+```
+
+```{r plot_blue_norm_original}
+
+ggplot(mnm_redgreen_compare_fc_dt, aes(x=blue, y=blue_norm)) + 
+  geom_point(shape=21, fill="blue", color="gray90", size=4) +
+  labs(title = "Blue M&M \n Original Counts vs. Normalized Counts", 
+       y = "Red/Green Normalized",
+       x = "Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=1) +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 20), 
+        axis.title = element_text(size = 18),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16)) 
+```
+
+### Normalize the Counts by Marshmallows 
+
+Note, the number of marshmallows between the two bowls was kept constant.
+
+```{r normalize_mnm_counts_marsh}
+
+# 1: we will get marshmallow totals for each sample (individual)
+mnm_redbowl_marshtotal <- rowSums(mnm_redbowl_dt[,c("big_marsh","tiny_marsh")])
+mnm_greenbowl_marshtotal <- rowSums(mnm_greenbowl_dt[,c("big_marsh","tiny_marsh")])
+
+# 2: divide each row item with the marshmallow total
+mnm_redbowl_marsh_norm_dt <- mnm_redbowl_val_dt[,.SD/mnm_redbowl_marshtotal] # using data.table syntax
+mnm_greenbowl_marsh_norm_dt <- mnm_greenbowl_val_dt[,.SD/mnm_greenbowl_marshtotal] 
+
+# 3: get the fold change for normalized counts
+mnm_redgreen_marsh_norm_fc_dt <- mnm_redbowl_marsh_norm_dt/mnm_greenbowl_marsh_norm_dt
+colnames(mnm_redgreen_marsh_norm_fc_dt) <- paste0(colnames(mnm_redgreen_marsh_norm_fc_dt),
+                                            "_marshnorm") #update the column names to show that they are normalized
+head(mnm_redgreen_marsh_norm_fc_dt)
+
+```
+
+```{r compare_foldchanges_marsh}
+
+# we can compare the raw count fold change with the normalized fold change. 
+mnm_redgreen_compare_all_fc_dt <- cbind(mnm_redgreen_compare_fc_dt, 
+                                        mnm_redgreen_marsh_norm_fc_dt)
+head(mnm_redgreen_compare_all_fc_dt)
+```
+```{r plot_blue_marshnorm_original}
+
+ggplot(mnm_redgreen_compare_all_fc_dt, aes(x=blue, y=blue_marshnorm)) + 
+  geom_point(shape=21, fill="blue", color="gray90", size=4) +
+  labs(title = "Blue M&M \n Original vs. Marshmallow Normalized Counts", 
+       y = "Red/Green Marshmallow Normalized",
+       x = "Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=1) +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 20), 
+        axis.title = element_text(size = 18),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16)) 
+```
+```{r plot_blue_marshnorm_norm}
+
+ggplot(mnm_redgreen_compare_all_fc_dt, aes(x=blue_norm, y=blue_marshnorm)) + 
+  geom_point(shape=21, fill="blue", color="gray90", size=4) +
+  labs(title = "Blue M&M \n Sample vs. Marshmallow Normalized", 
+       y = "Red/Green Marshmallow Normalized",
+       x = "Red/Green Sample Normalized") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=1) +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 20), 
+        axis.title = element_text(size = 18),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16)) 
+```
+###TO DO
+1: Fold change on all counts combined between bowls. 
+2: Compare those to the individual fold changes
