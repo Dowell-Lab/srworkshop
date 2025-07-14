@@ -1,4 +1,3 @@
-# Path to your CSV file
 CSV_FILE="/scratch/Shares/public/sread2025/cookingShow/day6/populationRNAseq/genesymbolchr.csv"
 
 # Skip the header and loop through each line of the CSV file
@@ -11,8 +10,9 @@ do
     export agenename="$symbol"
 
     # Submit the job via sbatch, passing the variable agenename
-    sbatch --export=agenename "$PWD/step1_gene_Submit_Rscript.sbatch"
-    
+    sbatch --export=agenename "/Users/maallen3/srworkshop/day06/scripts/step1_gene_Submit_Rscript.sbatch"
+
     # Optional: Print the symbol being passed
     echo "Submitting job for gene: $symbol"
+break
 done
