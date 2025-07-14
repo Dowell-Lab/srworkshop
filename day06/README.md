@@ -25,6 +25,7 @@ We will cover running R three ways:
    Could you create an R script to graph the data for one subsection (i.e. graph data for one person, or one gene or one deer, or one sports team)?
    Create a sbatch script that runs the R script.
    Graph every subsection via the R script on separate CPUs.
+   An example which will not work because you don't have tidyverse installed is under scripts and called step1. 
    
 
 ## Homework
