@@ -18,7 +18,7 @@ module load R/4.3.1
 ################################################################ 
 ##Set paths
 ################################################################
-rscript_path=/path/to/step1_genes_R_submit_aws.R
+rscript_path=/Users/maallen3/srworkshop/day06/scripts/step1_genes_R_submit_aws.R
 
 ################################################################ 
 ##Job information
@@ -35,6 +35,6 @@ printf "\nYou have requested $SLURM_CPUS_ON_NODE core(s).\n"
 ## Run Script 
 ################################################################
 #using the Rscript command to run the script
-Rscript ${rscript_path} $agenename
+Rscript ${rscript_path} $agenename 
 
 echo Job finished at `date +"%T %a %d %b %Y"`

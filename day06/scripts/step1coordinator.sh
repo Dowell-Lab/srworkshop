@@ -14,5 +14,5 @@ do
 
     # Optional: Print the symbol being passed
     echo "Submitting job for gene: $symbol"
-break
+break #once the whole thing works for the first gene--- remove this break. It only lets the script loop once until then. 
 done
