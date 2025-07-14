@@ -19,6 +19,14 @@ We will cover running R three ways:
 - `Learning_R_submit_aws.R` R script
 - `Submit_Rscript.sbatch` sbatch script calling the `Learning_R_submit_aws.R` R script
 
+4. R challenge for really advanced students
+   Find some data online or some data you own.
+   Copy that to the super computer
+   Make an R script to graph info for one subsection of the data
+   Create a sbatch script that runs the R script
+   Graph every suubsection via the R script
+   
+
 ## Homework
 
 1. Homework can be done in R Studio
