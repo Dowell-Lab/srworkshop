@@ -37,7 +37,7 @@ We will cover running R three ways:
 
 a. Project A : Single-cell RNA-seq
 
-More details in Project A folder
+More details in Project A folder (we are not doing this in 2025)
 
 - Seurat : Install on personal computer R
 - CellChat : Install on	personal computer R
