@@ -35,9 +35,9 @@ We will cover running R three ways:
 
 2. Additional homework is to install R packages we will use later in the week. Both packages can be found on bioconductor.
 
-a. Project A : Single-cell RNA-seq
+a. Project A : Single-cell RNA-seq (we are not doing project A in 2025)
 
-More details in Project A folder (we are not doing this in 2025)
+More details in Project A folder 
 
 - Seurat : Install on personal computer R
 - CellChat : Install on	personal computer R
