@@ -1,6 +1,6 @@
 
 #indir="/Users/maryallen/srworkshop/projectB/day07/mnm_activity/"
-indir=""
+indir="~/srworkshop/projectB/day07/mnm_activity/"
 infile = "bowldf.csv"
 howmanyreads = 100
 whichbowl = "redbowl" #other option is greenbowl
