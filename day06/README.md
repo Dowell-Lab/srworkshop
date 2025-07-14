@@ -22,7 +22,7 @@ We will cover running R three ways:
 4. R challenge for really advanced students:
    Find some data online or some data you own.
    Copy that to the supercomputer.
-   Could you create an R script to graph the data for one subsection?
+   Could you create an R script to graph the data for one subsection (i.e. graph data for one person, or one gene or one deer, or one sports team)?
    Create a sbatch script that runs the R script.
    Graph every subsection via the R script on separate CPUs.
    
