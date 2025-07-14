@@ -11,10 +11,10 @@ whichbowl = "redbowl" #other option is greenbowl
 grabahandful <- function(whichbowl, howmanyreads){
   bowls = read.csv(paste(indir, infile, sep=""))
   if (whichbowl=="redbowl"){
-    samp_idx <- sample(seq_len(nrow(bowls)), howmanyreads, prob = df$redbowl, replace = TRUE)
+    samp_idx <- sample(seq_len(nrow(bowls)), howmanyreads, prob = bowls$redbowl, replace = TRUE)
     
   } else {
-    samp_idx <- sample(seq_len(nrow(bowls)), howmanyreads, prob = df$greenbowl, replace = TRUE)
+    samp_idx <- sample(seq_len(nrow(bowls)), howmanyreads, prob = bowls$greenbowl, replace = TRUE)
   }
   new_data <- bowls[samp_idx, ] 
   handful = table(new_data$name)
