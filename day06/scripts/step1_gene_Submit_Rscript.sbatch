@@ -35,6 +35,6 @@ printf "\nYou have requested $SLURM_CPUS_ON_NODE core(s).\n"
 ## Run Script 
 ################################################################
 #using the Rscript command to run the script
-Rscript ${rscript_path}
+Rscript ${rscript_path} $agenename
 
 echo Job finished at `date +"%T %a %d %b %Y"`
