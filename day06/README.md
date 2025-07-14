@@ -20,12 +20,13 @@ We will cover running R three ways:
 - `Submit_Rscript.sbatch` sbatch script calling the `Learning_R_submit_aws.R` R script
 
 4. R challenge for really advanced students:
-   Find some data online or some data you own.
-   Copy that to the supercomputer.
-   Could you create an R script to graph the data for one subsection (i.e. graph data for one person, or one gene or one deer, or one sports team)?
-   Create a sbatch script that runs the R script.
-   Graph every subsection via the R script on separate CPUs.
-   An example which will not work because you don't have tidyverse installed is under scripts and called step1. 
+
+-   Find some data table online or your own data table.
+-   Copy the data to the supercomputer.
+-   Could you create an R script to graph the data for one subsection (i.e. graph data for one person, or one gene or one deer, or one sports team)?
+-   Create a sbatch script that runs the R script.
+-   Graph every subsection via the R script on separate CPUs.
+-   An example which will not work because you don't have tidyverse installed is under scripts and called step1. 
    
 
 ## Homework
@@ -36,16 +37,9 @@ We will cover running R three ways:
 
 2. Additional homework is to install R packages we will use later in the week. Both packages can be found on bioconductor.
 
-a. Project A : Single-cell RNA-seq (we are not doing project A in 2025)
+Project B : Multi-omics (RNA-seq & ChIP-seq)
 
-More details in Project A folder 
-
-- Seurat : Install on personal computer R
-- CellChat : Install on	personal computer R
-
-b. Project B : Multi-omics (RNA-seq & ChIP-seq)
-
-More details in Project B folder
+More details in **Project B Day07 Worksheets** folder 
 
 - [rsubread](https://bioconductor.org/packages/release/bioc/html/Rsubread.html) : Install on AWS R
 - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) : Install on personal computer R
