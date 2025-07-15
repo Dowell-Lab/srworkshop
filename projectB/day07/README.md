@@ -1,13 +1,20 @@
 # Project B Day 7 | RNA-seq: Counting Reads and Differential Expression
 
-Today we will count RNA-seq reads and use the counts to run *DESeq2*.
+Today we will count RNA-seq reads using *Rsubread* and use the counts to run *DESeq2*.
 
-First, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
+Today, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
 
+- Before we start, follow instructions for installing *Rsubread* on AWS in the `Day7_installing_Rsubread.md` worksheet.
+
+> *NOTE:* The AWS   is using an older version of R,   so we will be installing Rsubread from source.
+> Follow instructions from "Install Rsubread from Source" section.
+> If you are on	      a server with a	     newer R	  version	you can	install	the package from BiocManager.
+
+- Also install *DESeq2* on your personal computer if you have not done so.
 
 ## BEFORE WE START
 
-We will do the M and M example. 
+We will go over an M and M example. 
 
 Please count your M and Ms and put them here: https://tinyurl.com/MnMstats
 

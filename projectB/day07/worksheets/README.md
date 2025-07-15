@@ -1,7 +1,11 @@
 # First, you will need to log into the AWS and follow:
 
 
-1. Instructions for installing RSubread on AWS here `Day7_installing_Rsubread.pdf`
+1. Instructions for installing RSubread on AWS are in the `Day7_installing_Rsubread.md` worksheet.
+
+> *NOTE:* The AWS is using an older version of R, so we will be installing Rsubread from source. 
+> Follow instructions from "Install Rsubread from Source" section.
+> If you are on a server with a newer R version you can install the package from BiocManager.
 
 2. If you are online, you will be getting a simulated set of M&M candy. 
 
