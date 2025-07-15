@@ -4,19 +4,25 @@ Today we will count RNA-seq reads and use the counts to run *DESeq2*.
 
 First, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
 
-###
 
-BEFORE WE START
+## BEFORE WE START
+
 We will do the M and M example. 
-Please count your M and Ms and put them here. 
 
+Please count your M and Ms and put them here: https://tinyurl.com/MnMstats
 
-https://tinyurl.com/MnMstats
+- If you are online, I'm sorry we can't give you candy. 
 
-If you are online, I'm sorry we can't give you candy. First login to tha AWS and cd into srworkshop and git pull.  Simulate getting candy by running. You can change the size of your handfull to anything between 50 and 150. Here I have it set to 100.
-   `Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 greenbowl`
-or
-`Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 redbowl`
+i. First login to tha AWS and `cd` into `srworkshop` and run `git pull`. 
+ii. Simulate getting candy by running the following R script.
+
+- You can change the size of your handfull to anything between 50 and 150. Here I have it set to 100.
+
+To sample from the _Green Bowl_, run:
+```Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 greenbowl```
+
+To sample from the _Red Bowl_, run:
+```Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 redbowl```
 
 
 ## In-class Worksheets
