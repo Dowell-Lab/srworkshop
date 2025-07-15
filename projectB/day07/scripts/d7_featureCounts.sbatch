@@ -4,7 +4,7 @@
 #SBATCH --mail-type=ALL				 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR E-MAIL ADDRESS>		 # Where to send mail
 #SBATCH --nodes=1					 # Number of cores job will run on
-#SBATCH --ntasks=4					 # Number of CPU (processers, tasks)
+#SBATCH --ntasks=2					 # Number of CPU (processers, tasks)
 #SBATCH --time=00:10:00					 # Time limit hrs:min:sec
 #SBATCH --partition short				 # Job queue
 #SBATCH --mem=4mb					 # Memory limit

@@ -75,7 +75,7 @@ library("Rsubread")
 #' 
 #' Read in bam file list
 ## ----bamdir, eval=TRUE-------------------------------------------------------------------------------------------
-bamdir <- '/scratch/Shares/public/sread2024/data_files/day7/bam'
+bamdir <- '/scratch/Shares/public/sread2025/data_files/day7/bam'
 
 filelist <- list.files(path=bamdir,
                        pattern="sorted.bam$",
@@ -90,7 +90,7 @@ dir.create(outdir) ###creating the directory
 #' 
 ## ----loadGTF, eval=TRUE------------------------------------------------------------------------------------------
 
-hg38gtf <- "/scratch/Shares/public/sread2024/data_files/day7/annotations/hg38_ucsc_genes_chr21.gtf"
+hg38gtf <- "/scratch/Shares/public/sread2025/data_files/day7/annotations/hg38_ucsc_genes_chr21.gtf"
 
 #' ## Read counting using `featureCounts`
 #' 
@@ -114,7 +114,7 @@ fc <- featureCounts(files=filelist,
                     countMultiMappingReads=TRUE,
                     isPairedEnd=TRUE,
 		    strandSpecific=2,
-                    nthreads=4)  #when you move to a bigger machine change to 8
+                    nthreads=2)  #when you move to a bigger machine change to 8
 
 #Flag info here: ??Rsubread::featureCounts for specifics on each flag
 
