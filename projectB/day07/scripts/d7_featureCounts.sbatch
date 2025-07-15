@@ -7,7 +7,7 @@
 #SBATCH --ntasks=2					 # Number of CPU (processers, tasks)
 #SBATCH --time=00:10:00					 # Time limit hrs:min:sec
 #SBATCH --partition short				 # Job queue
-#SBATCH --mem=4mb					 # Memory limit
+#SBATCH --mem=40mb					 # Memory limit
 #SBATCH --output=/YOUR/EOFILES/PATH/%x_%j.out
 #SBATCH --error=/YOUR/EOFILES/PATH/%x_%j.err
 
