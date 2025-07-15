@@ -1,6 +1,6 @@
 # Short Read Day 8 Worksheet | Preprocessing ChIP-Seq Data
 
-- Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024)
+- Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024), Chris D. Ozeroff (2025)
 
 ## Introduction
 
