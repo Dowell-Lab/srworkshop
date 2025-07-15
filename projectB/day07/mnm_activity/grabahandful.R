@@ -2,9 +2,13 @@
 #indir="/Users/maryallen/srworkshop/projectB/day07/mnm_activity/"
 indir="~/srworkshop/projectB/day07/mnm_activity/"
 infile = "bowldf.csv"
-howmanyreads = 100
-whichbowl = "redbowl" #other option is greenbowl
+#howmanyreads = 100
+#whichbowl = "redbowl" #other option is greenbowl
 
+args = commandArgs(trailingOnly=TRUE)
+
+howmanyreads = args[1]
+whichbowl = args[2]
 
 #don't edit stuff below
 
