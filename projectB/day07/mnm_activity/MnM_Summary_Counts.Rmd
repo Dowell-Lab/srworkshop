@@ -54,7 +54,8 @@ head(mnm_dt) # getting the top lines
 ```{r plotting_hist, echo = FALSE}
 # Histogram of each color, binwidth will depend on approx size of samples
 ggplot(mnm_dt, aes(x=blue)) + 
-  geom_histogram(binwidth=10, fill="blue", color="gray90") +
+  #geom_histogram(binwidth=10, fill="blue", color="gray90") +
+  geom_histogram(bins=10, fill="blue", color="gray90") +
   labs(title = " ", 
        y = "Count",
        x = "Blue (N)") +
@@ -252,16 +253,19 @@ for (i in candies){
   print(paste(i, " M&M"))
 
   candy_logfc_hist <- ggplot(mnm_redgreen_logfc_dt, aes_string(x=i)) + 
-                  geom_histogram(bins = 10, fill=i, color="gray90") + 
-                  labs(title = paste(i, "M & M"), 
-                       y = "Count",
-                       x = "Log2 Fold Change \n Red Bowl/Green Bowl") +
-                  theme_cowplot(15) +
-                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
-                        title = element_text(size = 15), 
-                        axis.title = element_text(size = 12),
-                        axis.text.y = element_text(size = 10),
-                        axis.text.x = element_text(size = 10))
+    geom_histogram(bins = 20, fill=i, color="gray90") + 
+    labs(title = paste(i, "M & M"), 
+         y = "Count",
+         x = "Log2 Fold Change \n Red Bowl/Green Bowl") +
+    theme_cowplot(15) +
+    geom_vline(xintercept = 0, linetype="dashed", 
+               color = "gray40", size=0.5) +
+    scale_x_continuous(limits = c(-4,4)) +
+    theme(plot.title = element_text(hjust = 0.5, face="plain"),
+          title = element_text(size = 15), 
+          axis.title = element_text(size = 12),
+          axis.text.y = element_text(size = 10),
+          axis.text.x = element_text(size = 10))
   
   candy_fc_hist_list[[i]] <- candy_logfc_hist
   print("-----------------------------------------------")
@@ -269,6 +273,7 @@ for (i in candies){
 }
 
 #plot the histograms for all candies
+
 candy_fc_hist_all <- cowplot::plot_grid(plotlist = candy_fc_hist_list, ncol = 3)
 candy_fc_hist_all
     
@@ -324,6 +329,7 @@ ggplot(mnm_redgreen_compare_logfc_dt, aes(x=blue, y=blue_norm)) +
         axis.text.y = element_text(size = 14),
         axis.text.x = element_text(size = 14)) 
 ```
+
 ```{r compare_all_logfc, echo = FALSE}
 
 #get list of unique candies
@@ -522,4 +528,103 @@ ggplot(mnm_all_foldchanges_long, aes(x=norm, y=log_fc, fill=variable)) +
         axis.text.x = element_text(size = 12))
 
 ```
+## Exploring Control Fold Change
 
+Since we do not have an easy way to get total fold change between control (i.e. *Green Bowl* vs *Green Bowl*). We will explore the and rough sampling between the two bowls such that both *Control A* and *Control B* with contain samples from both the *Green* and *Red* bowls.
+
+```{r control_fc, echo=FALSE}
+
+###################################
+#consider randomizing the rows again
+#mnm_row_random_dt <- mnm_dt[sample(nrow(mnm_dt)),]
+
+# Split the table top vs. bottom
+mnm_cntrl_dtA <- head(mnm_dt, minsample) #head(mnm_row_random_dt, minsample)
+mnm_cntrl_dtB <- tail(mnm_dt, minsample) #tail(mnm_row_random_dt, minsample)
+
+#check the split 
+print("Control vs. Control")
+print(table(mnm_cntrl_dtA$red_bowl))
+print(table(mnm_cntrl_dtB$red_bowl))
+
+#get M&M counts
+cntrl_redbowl_val_dt <- mnm_cntrl_dtA[,c('blue','brown','orange',
+                                            'yellow','red','green')]
+cntrl_greenbowl_val_dt <-mnm_cntrl_dtB[,c('blue','brown','orange',
+                                            'yellow','red','green')]
+  
+############################
+# 1: get total values for green to read bowl
+#i- raw counts sums
+cntrl_redbowl_sum <- sum(cntrl_redbowl_val_dt)
+cntrl_greenbowl_sum <- sum(cntrl_greenbowl_val_dt)
+
+#ii- spike-in counts
+cntrl_redbowl_spiketotal_sum <- sum(mnm_cntrl_dtA[,c("red_hots","mike_ike")])
+cntrl_greenbowl_spiketotal_sum <- sum(mnm_cntrl_dtB[,c("red_hots","mike_ike")])
+
+# 2: Get totals for each M&Ms 
+cntrl_redbowl_val_total <- t(as.data.frame(colSums(cntrl_redbowl_val_dt)))
+cntrl_greenbowl_val_total <- t(as.data.frame(colSums(cntrl_greenbowl_val_dt)))
+
+# 3: fold change of sum between bowls
+#i: Calculate the raw fold change
+cntrl_redgreen_sum_fc_df <- cntrl_redbowl_val_total/cntrl_greenbowl_val_total
+
+#ii: Calculate the total normalized fold change
+cntrl_redbowl_val_sumnorm <- (cntrl_redbowl_val_total/cntrl_redbowl_sum) # color m&m/all m&m in red bowl
+cntrl_greenbowl_val_sumnorm <- (cntrl_greenbowl_val_total/cntrl_greenbowl_sum) # color m&m/all m&m in green bowl
+cntrl_redgreen_norm_fc_df <- cntrl_redbowl_val_sumnorm/cntrl_greenbowl_val_sumnorm 
+
+#iii: Calculate the spike-in normalized fold change
+cntrl_redbowl_val_spikenorm <- (cntrl_redbowl_val_total/cntrl_redbowl_spiketotal_sum) # color m&m/red bowl spike
+cntrl_greenbowl_val_spikenorm <- (cntrl_greenbowl_val_total/cntrl_greenbowl_spiketotal_sum) # color m&m/green bowl spike
+cntrl_redgreen_spikenorm_fc_df <- cntrl_redbowl_val_spikenorm/cntrl_greenbowl_val_spikenorm 
+
+# 4: merge all the data frames
+cntrl_all_foldchanges <- as.data.frame(rbind(cntrl_redgreen_sum_fc_df,
+                             cntrl_redgreen_norm_fc_df,
+                             cntrl_redgreen_spikenorm_fc_df))
+rownames(cntrl_all_foldchanges) <- c("not_norm","count_norm","spike_norm")
+cntrl_all_foldchanges$norm <- c("Not Normalized","Count Normalized", "Spike-in Normalized")
+cntrl_all_foldchanges$norm <- factor(cntrl_all_foldchanges$norm,
+                                   levels = cntrl_all_foldchanges$norm)
+cntrl_all_foldchanges
+
+```
+```{r total_fc_original_plot_control, echo = FALSE}
+
+cntrl_all_foldchanges_dt <- data.table::data.table(cntrl_all_foldchanges)
+
+#  fill="#3182bd"
+# get long format for the table
+cntrl_all_foldchanges_long <- melt(cntrl_all_foldchanges_dt,
+                                 id.vars = c("norm"),
+                                 measure.vars = c('blue', 'brown', 'orange',
+                                                  'yellow', 'red', 'green'))
+cntrl_all_foldchanges_long$log_fc <- log(cntrl_all_foldchanges_long$value, base=2)
+
+ggplot(mnm_all_foldchanges_long, aes(x=norm, y=log_fc, fill=variable)) + 
+  geom_point(shape=21, color="gray90", size=4) +
+  geom_jitter(data=cntrl_all_foldchanges_long,
+             fill="gray90",
+             width = 0.15,
+             shape=21, color="gray20", size=4, 
+             aes(x=norm, y=log_fc)) +
+  annotate("text", x = 3, y = 0.5, 
+           label = "Control vs. Control", 
+           size = 4,
+           color="gray60") +
+  labs(title = "Comparing Fold Change", 
+       y = "log2 Fold Change \n Red Bowl/Green Bowl",
+       x = "Normalization",
+       fill = "M&M") +
+  scale_fill_manual(values = unique(as.character(mnm_all_foldchanges_long$variable))) +
+  theme_cowplot(16) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 16), 
+        axis.title = element_text(size = 14),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12))
+
+```
