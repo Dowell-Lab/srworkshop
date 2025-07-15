@@ -147,12 +147,12 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 **NOTE: Unfortunately, we do not have the appropriate version of python on the AWS to run multiQC. The preseq part of the script will run, the multiQC will not. Instead, use these paths to copy an example of multiqc results to your computer. We have multiqc for both Whole genome and just chromosome 21, feel free to compare the two:
 
 For chromosome 21 only:
-'/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_data'
-'/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_report.html'
+`/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_data`
+`/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_report.html`
 
 For whole genome:
-'/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_data'
-'/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_report.html'
+`/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_data`
+`/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_report.html`
   
   - You will need to move both the folder *multiqc_data* and the html file *multiqc_report.html* to your local computer. 
 
