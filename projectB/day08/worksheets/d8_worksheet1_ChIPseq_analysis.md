@@ -135,12 +135,14 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 ### Step 3: Map quality and summary of QC
 
 1. Edit and run the `03_mapqc_and_multiqc.sbatch` script.
-
+   
 2. Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
 
 - Note: The output is going into the QC folder as well (*${QC}/preseq*).
 
-3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. 
+3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side.
+
+**NOTE: Unfortunately, we do not have the appropriate version of python on the AWS to run multiQC. The preseq part of the script will run, the multiQC will not. Instead, use this path to copy the multiqc results to your computer
 
 - There is a summary table for all the quality control metrics reported, additionally, several tabs for each of the QC metrics can be explored interactively. 
 
