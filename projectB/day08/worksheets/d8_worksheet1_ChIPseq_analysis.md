@@ -82,7 +82,7 @@ Create a working directory for day8 in scratch using the *mkdir* command.
 3. Copy scripts to your scratch folder
 
 ```
-[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/ /scratch/Users/<YourUsername>/day8/scripts
+[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/thescriptswewant /scratch/Users/<YourUsername>/day8/scripts
 ```
 
 Copy the following scripts from the github repository folder into your scripts directory
