@@ -1,10 +1,11 @@
 #!/bin/bash                              
 #SBATCH --job-name=<JOB ID>                                  # Job name
 #SBATCH --mail-type=ALL                                      # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=<E-MAIL>                                 # Where to send mail 
+#SBATCH --mail-user=<E-MAIL>                                 # Where to send mail
 #SBATCH --nodes=1                                            # Numbers of nodes
-#SBATCH --ntasks=4 # Num of CPU                              # Number of CPU (tasks) 
-#SBATCH --time=00:30:00 # Time limit                         # Time limit hrs:min:sec 
+#SBATCH --ntasks=1                                           # Number of tasks
+#SBATCH --cpus-per-task=2                                    # Number CPU
+#SBATCH --time=00:30:00 # Time limit                         # Time limit hrs:min:sec
 #SBATCH --partition=short                                  # Partition/queue requested on server
 #SBATCH --mem=500mb                                          # Memory limit
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out # Where to save out files             
@@ -26,7 +27,7 @@ module load java/1.8.0_101
 wd=/scratch/Users/<YourUsername>/day8
 qc=${wd}/qc
 trim=${wd}/trim
-fastq=/scratch/Shares/public/sread2024/data_files/day8b/fastq
+fastq=/scratch/Shares/public/sread2025/data_files/day8b/fastq
 
 #make folders that do not exist
 mkdir -p ${qc} ${trim} 
@@ -57,7 +58,7 @@ for sample in `ls ${fastq} | tr '.' '\t' | cut -f 1`;
 do
     #1: trim fastq file using trimmomatic 
     java -jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar SE \
-	-threads 4 \
+	-threads 2 \
 	-phred33 \
 	-trimlog \
 	${qc}/trim_log/${sample}.trimlog \
