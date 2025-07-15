@@ -69,7 +69,7 @@ module load R/4.3.1
 - Enter the conda below pointing to the path to the `Rsubread_2.14.0.tar.gz` file.
 
 ```R
-install.packages(“/path_to_file/Rsubread_2.14.0.tar.gz”, repos = NULL, type="source")
+install.packages("/path_to_file/Rsubread_2.14.0.tar.gz", repos = NULL, type="source")
 ```
 
 > Note: If the library is installed successfully, it can be loaded as shown below.
