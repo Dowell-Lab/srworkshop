@@ -60,8 +60,8 @@ add_to_bowl <- function(df, extraname, extranumber) {
 }
 
 equalbowl = createbowl(df)
-redbowl = add_to_bowl(equalbowl, extraname="mmblue", extranumber=100)
-greenbowl = add_to_bowl(equalbowl, extraname="mmblue", extranumber=0)
+redbowl = add_to_bowl(equalbowl, extraname="mmblue", extranumber=0)
+greenbowl = add_to_bowl(equalbowl, extraname="mmblue", extranumber=230)
 
 justcountsred = redbowl %>% select(name, bowlnumber)
 colnames(justcountsred) <- c("name", "redbowl")
