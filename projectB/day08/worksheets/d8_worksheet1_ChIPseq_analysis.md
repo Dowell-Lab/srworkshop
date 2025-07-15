@@ -296,4 +296,4 @@ You can run IGV on either the web server or locally on your machine.
 
 # Example files for chromosome 21 runs
 
-You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2024/cookingShow/day8b/chr21`.
+You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/`.
