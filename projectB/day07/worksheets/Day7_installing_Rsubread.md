@@ -43,21 +43,23 @@ BiocManager::install("Rsubread")
 library("Rsubread")
 ```
 
-3. If the above does not work, try installing from source:**
+3. If the above does not work, try installing from source.
+
+## Install Rsubread from Source
 
 In some cases, you may have to download an older version of Rsubread from source ([https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/Rsubread/](https://bio\
 conductor.org/packages/3.17/bioc/src/contrib/Archive/Rsubread/)).
 
-1. Make sure you have loaded R
-
-```sh
-module load R/4.3.1
-```
-
-2.  Second, download the tar.gz file with `wget` to a location on the AWS.
+1. First, download the tar.gz file with `wget` to a location on the AWS in your home.
 
 ```sh
 wget https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/Rsubread/Rsubread_2.14.0.tar.gz
+```
+
+2. Make sure you have loaded R on the AWS
+
+```sh
+module load R/4.3.1
 ```
 
 3. Then open R, in an R console, install the package from the source file as shown below. 
@@ -70,3 +72,8 @@ wget https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/Rsubread/Rs
 install.packages(“/path_to_file/Rsubread_2.14.0.tar.gz”, repos = NULL, type="source")
 ```
 
+> Note: If the library is installed successfully, it can be loaded as shown below.
+
+```R
+library("Rsubread")
+```
