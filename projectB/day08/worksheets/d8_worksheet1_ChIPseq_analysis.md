@@ -142,11 +142,13 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side.
 
-**NOTE: Unfortunately, we do not have the appropriate version of python on the AWS to run multiQC. The preseq part of the script will run, the multiQC will not. Instead, use this path to copy the multiqc results to your computer
-
 - There is a summary table for all the quality control metrics reported, additionally, several tabs for each of the QC metrics can be explored interactively. 
 
-- You can copy an example of the multiqc output to your personal computer. 
+**NOTE: Unfortunately, we do not have the appropriate version of python on the AWS to run multiQC. The preseq part of the script will run, the multiQC will not. Instead, use these paths to copy an example of multiqc results to your computer:
+
+/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_data
+
+/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_report.html
   
   - You will need to move both the folder *multiqc_data* and the html file *multiqc_report.html* to your local computer. 
 
