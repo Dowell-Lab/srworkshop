@@ -69,7 +69,7 @@ do
 
     #2: check quality of the fastq files after trimming 
     #CHALLENGE: Compare them to the raw input 
-    fastqc --threads=4 ${trim}/${sample}.trimmed.fastq.gz -o ${qc}/fastqc
+    fastqc --threads=2 ${trim}/${sample}.trimmed.fastq.gz -o ${qc}/fastqc
 
 done
 
