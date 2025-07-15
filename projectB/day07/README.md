@@ -11,17 +11,18 @@ We will do the M and M example.
 
 Please count your M and Ms and put them here: https://tinyurl.com/MnMstats
 
-- If you are online, I'm sorry we can't give you candy. 
+- If you are online, I'm sorry we can't give you candy. However, we have a simulation option for you.
 
 i. First login to tha AWS and `cd` into `srworkshop` and run `git pull`. 
+
 ii. Simulate getting candy by running the following R script.
 
 - You can change the size of your handfull to anything between 50 and 150. Here I have it set to 100.
 
-To sample from the _Green Bowl_, run:
+- To sample from the _Green Bowl_, run:
 ```Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 greenbowl```
 
-To sample from the _Red Bowl_, run:
+- To sample from the _Red Bowl_, run:
 ```Rscript /Users/<yourusername>/srworkshop/projectB/day07/mnm_activity/grabahandful.R 100 redbowl```
 
 
