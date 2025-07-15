@@ -1,0 +1,525 @@
+---
+title: "MnM_Summary_Notebook"
+author: "Rutendo Sigauke"
+date: "2025-07-11"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# M&M Counting Exercise 
+
+This notebook summarizes the M&M counts from the Short Read Workshop. In this experiment,
+we have two bowls (red and green) with M&Ms. The two bowls represent an experimental set up, say green is our control while red is our treated. 
+
+The goal of this exercise is to visualize how we count reads in Short Read sequencing and ways to treat bias (i.e. contamination and batch effects).
+
+## Loading libraries
+
+We will be using these libraries below. 
+
+```{r loadlibraries, echo=TRUE}
+# First, install the required packages
+#install.packages('data.table')
+#install.packages('ggplot2')
+#install.packages('cowplot)
+
+# Load the required library 
+library(data.table)
+library(ggplot2)
+library(cowplot)
+
+```
+
+## Loading data
+
+The summary statistics are for each color of the M&M colors. What other candies do you observe in our two bowls?
+
+```{r load_data, echo = FALSE}
+
+# Load the data from m&m counts as a data table
+# the data.table package can handle large datasets. 
+# NOTE: to set the nThreads to a number you have
+mnm_dt <- data.table::fread("~/Desktop/SR2025/day7/notebooks/2025_M_and_M.tsv", nThread = 1) 
+dim(mnm_dt) #get the dimensions of data.table
+head(mnm_dt) # getting the top lines
+```
+
+## Exploring the data
+
+```{r plotting_hist, echo = FALSE}
+# Histogram of each color, binwidth will depend on approx size of samples
+ggplot(mnm_dt, aes(x=blue)) + 
+  geom_histogram(binwidth=10, fill="blue", color="gray90") +
+  labs(title = " ", 
+       y = "Count",
+       x = "Blue (N)") +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5),
+        title = element_text(size = 30), 
+        axis.title = element_text(size = 20),
+        axis.text.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18)) 
+
+```
+
+We can do this one M&M, skittle, e.t.c at a time. But, we can make this step
+simpler. In order to plot all the M&Ms in the data.table, we have to rearrange the 
+the table from a **wide** for to a **long** format. There are a couple ways we can 
+achieve this. 
+
+1. With `pivot_longer` from [tidyr](https://tidyr.tidyverse.org/reference/pivot_longer.html) or 
+2. With `melt` from [reshape2](https://www.rdocumentation.org/packages/reshape2/versions/1.4.4/topics/melt).
+
+Below, we can use the `melt` function. Additional resources for reshaping a `data.table` can be found [here](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html).
+
+```{r wide_to_long,echo = FALSE}
+# get long format for the table
+mnm_long_dt <- melt(mnm_dt, id.vars = c("Name","red_bowl","virtual"),
+                    measure.vars =c('red_hots','mike_ike', 'blue', 
+                                    'brown', 'orange', 'yellow', 'red',
+                                    'green',  'orange_sktl', 
+                                    'green_sktl', 'red_sktl', 
+                                    'yellow_sktl', 'purple_sktl'))
+
+```
+
+
+```{r rename_columns, echo = FALSE}
+# If you have completed the CHALLENGE above, you will notice
+#  the headings are generic. We can rename each of the columns below
+colnames(mnm_long_dt) <- c("Name","red_bowl","virtual","candy_type","count")
+
+```
+
+```{r plot_multi_hist, echo = FALSE}
+ggplot(mnm_long_dt, aes(count, fill=candy_type)) + 
+  geom_histogram(bins=10) + 
+  facet_wrap(~candy_type, scales = 'free_x') + 
+  ggtitle("Raw Counts") +
+  labs(title = "Raw Counts", 
+       y = "Count",
+       x = "M&M+ Counts",
+       fill = "Candy") +
+  theme_cowplot(12) +
+  theme(plot.title = element_text(hjust = 0.5),
+        title = element_text(size = 12), 
+        axis.title = element_text(size = 10),
+        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 8)) 
+```
+
+## Comparing Green and Red Bowl Counts between Samples
+
+### Split the data into respective bowls
+
+Here, to compare between the green and red bowl, we will split the M&M counts between the two bowls.
+
+```{r split_bowls, echo = FALSE}
+# Here we are splitting the bowls with M&M 
+mnm_redbowl_dt <- subset(mnm_dt, red_bowl == "TRUE")
+mnm_greenbowl_dt <- subset(mnm_dt, red_bowl == "FALSE")
+
+#summary of dimensions
+print(paste0("Dimensions of Red Bowl (rows) = ",
+             nrow(mnm_redbowl_dt)))
+print(paste0("Dimensions of Green Bowl (rows) = ",
+             nrow(mnm_greenbowl_dt)))
+
+```
+
+### Calculate the Fold Change on Raw Counts
+
+**Note:** Since we have uneven number of samples/individuals between the red and green bowl, we will have to use the smallest sample sizes for both data.tables to calculate the fold change
+
+```{r fold_change_green_red, echo = FALSE}
+# 1: smallest samples size to use for fold change
+minsample <- min(nrow(mnm_redbowl_dt), nrow(mnm_greenbowl_dt))
+
+# 2: get value columns for just the M&Ms
+mnm_redbowl_val_dt <- mnm_redbowl_dt[1:minsample,c('blue','brown','orange',
+                                            'yellow','red','green')]
+
+mnm_greenbowl_val_dt <- mnm_greenbowl_dt[1:minsample,c('blue','brown','orange',
+                                              'yellow', 'red', 'green')]
+
+# 3: calculate the fold change of the columns
+mnm_redgreen_fc_dt <- mnm_redbowl_val_dt/mnm_greenbowl_val_dt
+dim(mnm_redgreen_fc_dt)
+
+```
+We can plot histograms of the fold change calculations.
+
+```{r blue_fc_hist, echo = FALSE}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width
+blue_fc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=blue)) + 
+                  geom_histogram(bins = 20, fill="blue", color="gray90") + 
+                  labs(title = "Blue M&Ms", 
+                       y = "Count",
+                       x = "Red/Green Bowl Fold Change") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+blue_fc_hist
+```
+```{r blue_logfc_hist, echo = FALSE}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width
+blue_logfc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=log(blue, 2))) + 
+                  geom_histogram(bins = 20, fill="blue", color="gray90") + 
+                  labs(title = "Blue M&Ms", 
+                       y = "Count",
+                       x = "log2 Fold Change \n Red Bowl/Green Bowl") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+blue_logfc_hist
+```
+
+```{r red_fc_hist, echo = FALSE}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width
+red_fc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=red)) + 
+                  geom_histogram(bins = 20, fill="red", color="gray90") + 
+                  labs(title = "Red M&Ms", 
+                       y = "Count",
+                       x = "Red/Green Bowl Fold Change") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+red_fc_hist
+```
+
+```{r red_logfc_hist, echo = FALSE}
+# Histogram of each color, binwidth will depend on approx size of samples
+# we can pick number of bins instead of bin width (RED)
+red_logfc_hist <- ggplot(mnm_redgreen_fc_dt, aes(x=log(red, 2))) + 
+                  geom_histogram(bins = 20, fill="red", color="gray90") + 
+                  labs(title = "Red M&Ms", 
+                       y = "Count",
+                       x = "log2 Fold Change \n Red Bowl/Green Bowl") +
+                  theme_cowplot(20) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 20), 
+                        axis.title = element_text(size = 18),
+                        axis.text.y = element_text(size = 15),
+                        axis.text.x = element_text(size = 15)) 
+
+red_logfc_hist
+```
+
+
+```{r combinig_plots, fig.dim = c(8, 4), echo = FALSE}
+
+red_blue_logfc_hist  <- plot_grid(blue_logfc_hist,
+                               red_logfc_hist, 
+                               labels = c('A', 'B'),
+                               label_size = 20)
+red_blue_logfc_hist
+```
+
+```{r all_fc_hist, echo = FALSE}
+
+#get list of unique candies
+candies <- unique(colnames(mnm_redgreen_fc_dt))
+
+#create an empty list to add our plots
+candy_fc_hist_list <- list()
+
+# calculate log2 fc
+mnm_redgreen_logfc_dt <- log(mnm_redgreen_fc_dt, base=2)
+
+# loop through all the different candies and generate histogram
+for (i in candies){
+  print("-----------------------------------------------")
+  print(paste(i, " M&M"))
+
+  candy_logfc_hist <- ggplot(mnm_redgreen_logfc_dt, aes_string(x=i)) + 
+                  geom_histogram(bins = 10, fill=i, color="gray90") + 
+                  labs(title = paste(i, "M & M"), 
+                       y = "Count",
+                       x = "Log2 Fold Change \n Red Bowl/Green Bowl") +
+                  theme_cowplot(15) +
+                  theme(plot.title = element_text(hjust = 0.5, face="plain"),
+                        title = element_text(size = 15), 
+                        axis.title = element_text(size = 12),
+                        axis.text.y = element_text(size = 10),
+                        axis.text.x = element_text(size = 10))
+  
+  candy_fc_hist_list[[i]] <- candy_logfc_hist
+  print("-----------------------------------------------")
+  
+}
+
+#plot the histograms for all candies
+candy_fc_hist_all <- cowplot::plot_grid(plotlist = candy_fc_hist_list, ncol = 3)
+candy_fc_hist_all
+    
+```
+
+### Normalize the Counts by Sample Size
+
+```{r normalize_mnm_counts, echo = FALSE}
+
+# 1: we will get row totals for each sample (individual)
+mnm_redbowl_rowtotal <- rowSums(mnm_redbowl_val_dt)
+mnm_greenbowl_rowtotal <- rowSums(mnm_greenbowl_val_dt)
+
+# 2: divide each row item with the row total
+mnm_redbowl_val_norm_dt <- mnm_redbowl_val_dt[,.SD/mnm_redbowl_rowtotal] # using data.table sytax
+mnm_greenbowl_val_norm_dt <- mnm_greenbowl_val_dt[,.SD/mnm_greenbowl_rowtotal] 
+
+# 3: get the fold change for normalized counts
+mnm_redgreen_norm_fc_dt <- mnm_redbowl_val_norm_dt/mnm_greenbowl_val_norm_dt
+colnames(mnm_redgreen_norm_fc_dt) <- paste0(colnames(mnm_redgreen_norm_fc_dt),
+                                            "_norm") #update the column names to show that they are normalized
+head(mnm_redgreen_norm_fc_dt)
+
+```
+**Note:** were are using `cbind` from base R. Best practices is to use an ID 
+maintaining approaches like `merge` from [base R](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/merge) or  
+`left_join` from [dplyr](https://dplyr.tidyverse.org/reference/mutate-joins.html).
+
+```{r compare_foldchanges, echo = FALSE}
+
+# we can compare the raw count fold change with the normalized fold change. 
+mnm_redgreen_compare_fc_dt <- cbind(mnm_redgreen_fc_dt,
+                                    mnm_redgreen_norm_fc_dt)
+head(mnm_redgreen_compare_fc_dt)
+```
+
+```{r plot_blue_norm_original, echo = FALSE}
+#calculate log2 fold change 
+mnm_redgreen_compare_logfc_dt <- log(mnm_redgreen_compare_fc_dt, base=2)
+
+# scatterplot of log2 FC between the original and read normalized
+ggplot(mnm_redgreen_compare_logfc_dt, aes(x=blue, y=blue_norm)) + 
+  geom_point(shape=21, fill="blue", color="gray90", size=4) +
+  labs(title = "Blue M&M \n Original Counts vs. Read Normalized Counts", 
+       y = "log2 FC \n Red/Green Red Normalized",
+       x = "log2 FC \n Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=0.5) +
+  theme_cowplot(18) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 18), 
+        axis.title = element_text(size = 16),
+        axis.text.y = element_text(size = 14),
+        axis.text.x = element_text(size = 14)) 
+```
+```{r compare_all_logfc, echo = FALSE}
+
+#get list of unique candies
+candies <- unique(colnames(mnm_redgreen_fc_dt))
+
+#create an empty list to add our plots
+mnm_redgreen_compare_logfc_list <- list()
+
+# calculate log2 fc
+mnm_redgreen_logfc_dt <- log(mnm_redgreen_fc_dt, base=2)
+
+# loop through all the different candies and generate histogram
+for (i in candies){
+  print("-----------------------------------------------")
+  print(paste(i, " M&M"))
+  
+  mnm_redgreen_compare_logfc_plot <- ggplot(mnm_redgreen_compare_logfc_dt, 
+                                            aes_string(x=i, y=paste0(i,"_norm"))) + 
+  geom_point(shape=21, fill=i, color="gray90", size=4) +
+  labs(title = paste(i, " M&M"), 
+       y = "log2 FC \n Red/Green Read Normalized",
+       x = "log2 FC \n Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=0.5) +
+  theme_cowplot(8) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 12), 
+        axis.title = element_text(size = 10),
+        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 8)) 
+  
+  mnm_redgreen_compare_logfc_list[[i]] <- mnm_redgreen_compare_logfc_plot
+  print("-----------------------------------------------")
+  
+}
+
+#plot the histograms for all candies
+mnm_redgreen_compare_logfc_plot_all <- cowplot::plot_grid(plotlist = mnm_redgreen_compare_logfc_list, 
+                                                          ncol = 3)
+mnm_redgreen_compare_logfc_plot_all
+
+```
+
+
+### Normalize the Counts by Spike-ins 
+
+*Note:* The number of spike-in (Red Hots, Mike and Ike) between the two bowls was kept constant.
+
+```{r normalize_mnm_counts_spike, echo = FALSE}
+
+# 1: we will get marshmallow totals for each sample (individual)
+mnm_redbowl_spiketotal <- rowSums(mnm_redbowl_dt[,c("red_hots","mike_ike")])
+mnm_greenbowl_spiketotal <- rowSums(mnm_greenbowl_dt[,c("red_hots","mike_ike")])
+
+# 2: divide each row item with the marshmallow total
+mnm_redbowl_spike_norm_dt <- mnm_redbowl_val_dt[,.SD/mnm_redbowl_spiketotal] # using data.table syntax
+mnm_greenbowl_spike_norm_dt <- mnm_greenbowl_val_dt[,.SD/mnm_greenbowl_spiketotal] 
+
+# 3: get the fold change for normalized counts
+mnm_redgreen_spike_norm_fc_dt <- mnm_redbowl_spike_norm_dt/mnm_greenbowl_spike_norm_dt
+colnames(mnm_redgreen_spike_norm_fc_dt) <- paste0(colnames(mnm_redgreen_spike_norm_fc_dt),
+                                            "_spike") #update the column names to show that they are normalized
+head(mnm_redgreen_spike_norm_fc_dt)
+
+```
+
+```{r compare_foldchanges_marsh, echo = FALSE}
+
+# we can compare the raw count fold change with the normalized fold change. 
+mnm_redgreen_compare_all_fc_dt <- cbind(mnm_redgreen_compare_fc_dt, 
+                                        mnm_redgreen_spike_norm_fc_dt)
+head(mnm_redgreen_compare_all_fc_dt)
+```
+```{r plot_blue_marshnorm_original, echo = FALSE}
+
+ggplot(mnm_redgreen_compare_all_fc_dt, aes(x=blue, y=blue_spike)) + 
+  geom_point(shape=21, fill="blue", color="gray90", size=4) +
+  labs(title = "Blue M&M \n Original vs. Spike-in Normalized Counts", 
+       y = "Red/Green Spike-in Normalized",
+       x = "Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=1) +
+  theme_cowplot(20) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 20), 
+        axis.title = element_text(size = 18),
+        axis.text.y = element_text(size = 16),
+        axis.text.x = element_text(size = 16)) 
+```
+
+
+```{r compare_all_logfc_spike, echo = FALSE}
+#create an empty list to add our plots
+mnm_redgreen_comparespike_logfc_list <- list()
+
+# calculate log2 fc
+mnm_redgreen_compare_all_logfc_dt <- log(mnm_redgreen_compare_all_fc_dt, base=2)
+
+# loop through all the different candies and generate histogram
+for (i in candies){
+  print("-----------------------------------------------")
+  print(paste(i, " M&M"))
+  
+  mnm_redgreen_comparespike_logfc_plot <- ggplot(mnm_redgreen_compare_all_logfc_dt, 
+                                            aes_string(x=i, y=paste0(i,"_spike"))) + 
+  geom_point(shape=21, fill=i, color="gray90", size=4) +
+  labs(title = paste(i, " M&M"), 
+       y = "log2 FC \n Red/Green Spike-in Normalized",
+       x = "log2 FC \n Red/Green Original") +
+  geom_abline(intercept = 0, slope=1, 
+              linetype='dashed', color = 'gray20', linewidth=0.5) +
+  theme_cowplot(8) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 12), 
+        axis.title = element_text(size = 10),
+        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 8)) 
+  
+  mnm_redgreen_comparespike_logfc_list[[i]] <- mnm_redgreen_comparespike_logfc_plot
+  print("-----------------------------------------------")
+  
+}
+
+#plot the histograms for all candies
+mnm_redgreen_comparespike_logfc_all <- cowplot::plot_grid(plotlist = mnm_redgreen_comparespike_logfc_list, 
+                                                          ncol = 3)
+mnm_redgreen_comparespike_logfc_all
+
+```
+## Comparing *TOTAL* normalized vs original counts across M&Ms
+
+```{r total_fc_original, echo = FALSE}
+
+# 1: get total values for green to read bowl
+#i- raw counts sums
+mnm_redbowl_sum <- sum(mnm_redbowl_val_dt)
+mnm_greenbowl_sum <- sum(mnm_greenbowl_val_dt)
+
+#ii- spike-in counts
+mnm_redbowl_spiketotal_sum <- sum(mnm_redbowl_dt[,c("red_hots","mike_ike")])
+mnm_greenbowl_spiketotal_sum <- sum(mnm_greenbowl_dt[,c("red_hots","mike_ike")])
+
+# 2: Get totals for each M&Ms 
+mnm_redbowl_val_total <- t(as.data.frame(colSums(mnm_redbowl_val_dt)))
+mnm_greenbowl_val_total <- t(as.data.frame(colSums(mnm_greenbowl_val_dt)))
+
+# 3: fold change of sum between bowls
+#i: Calculate the raw fold change
+mnm_redgreen_sum_fc_df <- mnm_redbowl_val_total/mnm_greenbowl_val_total
+
+#ii: Calculate the total normalized fold change
+mnm_redbowl_val_sumnorm <- (mnm_redbowl_val_total/mnm_redbowl_sum) # color m&m/all m&m in red bowl
+mnm_greenbowl_val_sumnorm <- (mnm_greenbowl_val_total/mnm_greenbowl_sum) # color m&m/all m&m in green bowl
+mnm_redgreen_norm_fc_df <- mnm_redbowl_val_sumnorm/mnm_greenbowl_val_sumnorm 
+
+#iii: Calculate the spike-in normalized fold change
+mnm_redbowl_val_spikenorm <- (mnm_redbowl_val_total/mnm_redbowl_spiketotal_sum) # color m&m/red bowl spike
+mnm_greenbowl_val_spikenorm <- (mnm_greenbowl_val_total/mnm_greenbowl_spiketotal_sum) # color m&m/green bowl spike
+mnm_redgreen_spikenorm_fc_df <- mnm_redbowl_val_spikenorm/mnm_greenbowl_val_spikenorm 
+
+# 4: merge all the data frames
+mnm_all_foldchanges <- as.data.frame(rbind(mnm_redgreen_sum_fc_df,
+                             mnm_redgreen_norm_fc_df,
+                             mnm_redgreen_spikenorm_fc_df))
+rownames(mnm_all_foldchanges) <- c("not_norm","count_norm","spike_norm")
+mnm_all_foldchanges$norm <- c("Not Normalized","Count Normalized", "Spike-in Normalized")
+mnm_all_foldchanges$norm <- factor(mnm_all_foldchanges$norm,
+                                   levels = mnm_all_foldchanges$norm)
+mnm_all_foldchanges
+```
+
+```{r total_fc_original_plot, echo = FALSE}
+
+mnm_all_foldchanges_dt <- data.table::data.table(mnm_all_foldchanges)
+
+#  fill="#3182bd"
+# get long format for the table
+mnm_all_foldchanges_long <- melt(mnm_all_foldchanges_dt,
+                                 id.vars = c("norm"),
+                                 measure.vars = c('blue', 'brown', 'orange',
+                                                  'yellow', 'red', 'green'))
+mnm_all_foldchanges_long$log_fc <- log(mnm_all_foldchanges_long$value, base=2)
+
+ggplot(mnm_all_foldchanges_long, aes(x=norm, y=log_fc, fill=variable)) + 
+  geom_point(shape=21, color="gray90", size=4) +
+  labs(title = "Comparing Fold Change", 
+       y = "log2 Fold Change \n Red Bowl/Green Bowl",
+       x = "Normalization",
+       fill = "M&M") +
+  scale_fill_manual(values = unique(as.character(mnm_all_foldchanges_long$variable))) +
+  theme_cowplot(16) +
+  theme(plot.title = element_text(hjust = 0.5, face='plain'),
+        title = element_text(size = 16), 
+        axis.title = element_text(size = 14),
+        axis.text.y = element_text(size = 12),
+        axis.text.x = element_text(size = 12))
+
+```
+
