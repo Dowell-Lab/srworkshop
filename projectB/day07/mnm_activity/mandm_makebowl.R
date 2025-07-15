@@ -26,15 +26,15 @@ sktlyellowpecent = 0.20
 sktlpurplepecent = 0.20
 
 colors = c("mmblue", "mmorange", "mmgreen", "mmyellow",
-           "mmgreen", "mmyellow", "mmbrown", "mike_ikepercent", "redhotpercent",
+           "mmred", "mmbrown", "mike_ikepercent", "redhotpercent",
            "sktlorange", "sktlgreen", "sktlred", 
            "sktlyellow", "sktlpurple")
 
 percents_item = rbind(mmbluepercent,mmorangepercent,mmgreenpercent,mmyellowpercent, 
-                 mmgreenpercent, mmredpercent, mmbrownpercent, mike_ikepercent, redhotpercent,
+              mmredpercent, mmbrownpercent, mike_ikepercent, redhotpercent,
                 sktlorangepecent, sktlgreenpecent, sktlredpecent, 
                 sktlyellowpecent, sktlpurplepecent)
-totals = c(rep(totalMandMs, 7),rep(mike_ike, 1),rep(redhotpercent, 1) , rep(skittlestotal, 5))
+totals = c(rep(totalMandMs, 6),rep(mike_ike, 1),rep(redhot, 1) , rep(skittlestotal, 5))
 
 df = cbind(colors, percents_item, totals)
 
@@ -68,7 +68,7 @@ colnames(justcountsred) <- c("name", "redbowl")
 justcountsgreen = greenbowl %>% select(name, bowlnumber)
 colnames(justcountsgreen) <- c("name", "greenbowl")
 
-bowlsdf = merge(justcountsred, justcountsgreen, by="name")
+bowlsdf= merge(justcountsred, justcountsgreen, by="name")
 
 write.csv(bowlsdf, paste(outdir,"bowldf.csv", sep=""))
 
