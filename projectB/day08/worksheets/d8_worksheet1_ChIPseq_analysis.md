@@ -144,7 +144,7 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 - There is a summary table for all the quality control metrics reported, additionally, several tabs for each of the QC metrics can be explored interactively. 
 
-**NOTE: Unfortunately, we do not have the appropriate version of python on the AWS to run multiQC. The preseq part of the script will run, the multiQC will not. Instead, use these paths to copy an example of multiqc results to your computer. We have multiqc for both Whole genome and just chromosome 21, feel free to compare the two:
+**if you have issues with this step, you can use the completed outputs in cooking show, these can be found at:
 
 For chromosome 21 only:
 `/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_data`
