@@ -13,9 +13,13 @@
 echo "BEGIN: Preprocessing................."
 
 ################### LOAD MODULES ###################################
-module load python/2.7.14
-module load python/2.7.14/MACS/2.1.1
+#module load python/2.7.14
+#module load python/2.7.14/MACS/2.1.1
 module load bedtools/2.25.0
+module load module load MACS3/3.0.0a7
+#source /opt/MACS3/bin/activate
+#export PATH=$HOME/.local/bin:$PATH  If you pip isntall MACS3 to you're home directory
+
 
 ################## SET VARIABLES ###################################
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
@@ -52,12 +56,12 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 ###################################################################
 ##INPUT vs DMSO
 ###################################################################
-echo macs2 HCT116 DMSO
+echo macs3 HCT116 DMSO
 date
 
 #### Call peaks with controls
 # If you want to get broad peaks you can use the flag --broad
-macs2 callpeak \
+macs3 callpeak \
  -c ${INDIR}/${INPUT}.sorted.bam \
  -t ${INDIR}/${DMSO}.sorted.bam \
  --outdir ${OUTDIR} \
@@ -66,7 +70,7 @@ macs2 callpeak \
  -B \
  -q 0.01 \
 
-echo macs2 done
+echo macs3 done
 date
 
 #### Removing ENCODE Blacklist regions
@@ -85,12 +89,12 @@ date
 ####################################################################
 ##INPUT vs NUTLIN
 ####################################################################
-echo macs2 HCT116 NUTLIN
+echo macs3 HCT116 NUTLIN
 date
 
 #### Call peaks with controls
 # If you want to get broad peaks you can use the flag --broad
-macs2 callpeak \
+macs3 callpeak \
  -c ${INDIR}/${INPUT}.sorted.bam \
  -t ${INDIR}/${NUTLIN}.sorted.bam \
  --outdir ${OUTDIR} \
@@ -99,7 +103,7 @@ macs2 callpeak \
  -B \
  -q 0.01 \
 
-echo macs2 done
+echo macs3 done
 date
 
 #### Removing ENCODE Blacklist regions
