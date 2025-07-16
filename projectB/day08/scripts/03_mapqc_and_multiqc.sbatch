@@ -68,7 +68,7 @@ done
 multiqcdir=${wd}/multiqc
 mkdir -p ${multiqcdir}
 
-module load multiqc/1.19
+source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate  #virtual machine with correct multiqc and python
 multiqc ${qc} -o ${multiqcdir}
 
 echo "DONE: Preprocessing................."
