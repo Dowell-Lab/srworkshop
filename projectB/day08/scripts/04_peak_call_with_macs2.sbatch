@@ -13,13 +13,8 @@
 echo "BEGIN: Preprocessing................."
 
 ################### LOAD MODULES ###################################
-#module load python/2.7.14
-#module load python/2.7.14/MACS/2.1.1
 module load bedtools/2.25.0
-module load module load MACS3/3.0.0a7
-#source /opt/MACS3/bin/activate
-#export PATH=$HOME/.local/bin:$PATH  If you pip isntall MACS3 to you're home directory
-
+source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate
 
 ################## SET VARIABLES ###################################
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
