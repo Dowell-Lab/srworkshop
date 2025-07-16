@@ -14,7 +14,7 @@ echo "BEGIN: Preprocessing................."
 
 ################### LOAD MODULES ###################################
 module load bedtools/2.25.0
-source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate
+source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate  #this will load a virtual machine with MACS3
 
 ################## SET VARIABLES ###################################
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
