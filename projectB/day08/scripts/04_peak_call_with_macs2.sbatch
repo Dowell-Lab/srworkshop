@@ -29,7 +29,7 @@ OUTDIR=${WD}/macs
 mkdir -p ${OUTDIR} 
 
 #Blacklist region bed file 
-BLACKLIST=/scratch/Shares/public/sread2024/data_files/day8b/chip_blacklist/blacklist_hg38.bed
+BLACKLIST=/scratch/Shares/public/sread2025/data_files/day8b/chip_blacklist/blacklist_hg38.bed
 
 #Samples (HCT116 samples are below)
 INPUT=SRR4090089_chr21
