@@ -1,4 +1,4 @@
-# Short Read Workshop 2024
+# Short Read Workshop 2025
 
 This github repository holds the scripts and files for the 2025 Short Read Analysis Workshop, a biological data science course created by the DnA Lab (Dowell and Allen) at the University of Colorado Boulder. This course will teach the basics of RNA-seq analysis using a super computer, the bash language, R, and common bioinformatics software packages. This course assumes you will use a super computer for analysis.
 
