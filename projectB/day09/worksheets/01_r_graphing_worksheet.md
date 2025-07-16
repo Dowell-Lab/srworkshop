@@ -1,7 +1,7 @@
 # Day9: Making Figures in R
 
-Meaghan Courvan
-24-07-18
+Meaghan Courvan (2024)
+Georgia Barone (2025)
 
 ## Learning objectives:
 
@@ -16,7 +16,7 @@ We’ve gotten almost to answering this question throughout this project, and we
 
 1.  We calculated differential gene expression on Day 7.
 2.  We called p53 ChIP peaks on Day 8.
-3.  Earlier today, we used bedtools to get a list of p53 ChIP peaks overlapping genes in control (DSMO) conditions.
+3.  We used bedtools to get a list of p53 ChIP peaks overlapping genes in control (DSMO) conditions.
 4.  We got an equivalent list of p53 ChIP peaks overlapping genes in experimental (Nutlin) conditions.
 
 All that’s left is to do some basic set manipulation here in R and create some figures.
