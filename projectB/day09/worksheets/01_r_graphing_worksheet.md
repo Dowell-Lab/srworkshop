@@ -27,7 +27,7 @@ All that’s left is to do some basic set manipulation here in R and create some
 3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
 4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2025/cookingShow/day9b/deseq_output* to your "day9/data" folder.
 
-## Now work in the *day9_graphing.R* script
+## Now work in the *01_day9_graphing.R* script
 ### First, set up the environment.
 
 At the top of your script, set your working directory and the results directory. 
