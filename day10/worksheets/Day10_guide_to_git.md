@@ -1,6 +1,6 @@
 # A quick guide to GitHub | Software Engineering for Scientists
 
-Authors: Jacob Stanley (2023), Mary Allen (2023)
+Authors: Jacob Stanley (2023), Mary Allen (2023,2025)
 
 
 **Version control** is a system designed to manage changes to files for a project. The basic functionality of a version control system includes:
@@ -12,10 +12,17 @@ Authors: Jacob Stanley (2023), Mary Allen (2023)
 - tagging specific versions
 
 
-## Creating a repository
+# Creating a repository
+
+## Go to the github website and start a new repository.
+ 
+![](images/gotogithub.png)
 
 On your GitHub page if you select the "Repositories" tab, it will bring you to the list of your repos. At the top right you’ll see a green button "New", which will bring up the "Create a new repository" page.
  
+## Chose GNU licence and create it.
+![](images/nameit.png)
+
 To create your new repository, specify a name, whether or not it’s public or private, and whether or not to include a README and a license.
  
 It is recommended that you include a README. This file is a markdown file that will be displayed on your repo’s page, below all the files. These READMEs are useful for providing information about the contents of your software and how it can be run.
@@ -24,15 +31,12 @@ The license is also important because it is required for a piece of software to 
 
 Once you have specified all the above information, click the green button "Create repository".
 
-![](md_images/github_image1.png)
-
-![](md_images/github_image3.png)
-
-![](md_images/github_image2.png)
-
 Check _Add readme_ and choose a license. Then click _create a repository_.
 
-![](md_images/github_image5.png)
+## Clone the repository
+
+
+
 
 You will then get a homepage for the repository.
 
