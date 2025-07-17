@@ -9,7 +9,7 @@ The goal of this section is to become familiar with working with dataframes in R
 
 One common question people have when running multimodal experiments (for example with RNA-seq and ChIP-seq) is:  
 
-* What genes are differentially expressed and have a p53 ChIP peak in their promoter?
+* What genes are differentially expressed and have a p53 ChIP peak?
 * Do these genes fall into one functional classification, molecular pathway, or biological function?
 
 We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
@@ -48,7 +48,7 @@ At the top of your script, set your working directory and the results directory.
 ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
                     'chip_strand', 'signalValue', 'log_pval', 'log_qval', 
-                    'summit', 'promoter_chr', 'promoter_start', 'promoter_end', 
+                    'summit', 'gene_chr', 'gene_start', 'gene_end', 
                     'gene', '.', 'gene_strand', 'overlap') 
   colnames(dmso_peaks) <- set_colnames
   colnames(nutlin_peaks) <- set_colnames

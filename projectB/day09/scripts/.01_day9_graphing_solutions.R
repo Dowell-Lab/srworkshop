@@ -19,7 +19,7 @@
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
                     'chip_strand', 'signalValue', 'log_pval', 'log_qval', 
-                    'summit', 'promoter_chr', 'promoter_start', 'promoter_end', 
+                    'summit', 'gene_chr', 'gene_start', 'gene_end', 
                     'gene', '.', 'gene_strand', 'overlap') 
   colnames(dmso_peaks) <- set_colnames
   colnames(nutlin_peaks) <- set_colnames

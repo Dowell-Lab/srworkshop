@@ -4,28 +4,28 @@
 # Set environment ---------------------------------------------------------
 
   library(ggplot2) # load ggplot2
-  setwd("/Your-Working-Dir-Here/") # set your local working directory
-  outdir <- "/Your-Working-Dir-Here/" # define an output directory
+  setwd("your/path/to/2025_shortread/day9/") # set your local working directory
+  outdir <- "your/path/to/where/you/want/your/results/" # define an output directory
 
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks <- read.table('p53_peaks_in_genes_hct_dmso.bed', 
+  dmso_peaks <- read.table('bedtools/p53_peaks_in_genes_hct_dmso.bed', 
                            header = FALSE) 
   
-  nutlin_peaks <- read.table('p53_peaks_in_genes_hct_nutlin.bed', 
+  nutlin_peaks <- read.table('bedtools/p53_peaks_in_genes_hct_nutlin.bed', 
                              header = FALSE)     
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
                     'chip_strand', 'signalValue', 'log_pval', 'log_qval', 
-                    'summit', 'promoter_chr', 'promoter_start', 'promoter_end', 
+                    'summit', 'gene_chr', 'gene_start', 'gene_end', 
                     'gene', '.', 'gene_strand', 'overlap') 
   colnames(dmso_peaks) <- set_colnames
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de.import <- read.table('hct116_deres.txt', header=TRUE)# read in data here 
+  de.import <- read.table('deseq_output/hct116_deres.txt', header=TRUE)# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
   de <- de.import[abs(de.import$log2FoldChange) > 1.25 & de.import$padj < 0.05, ]
@@ -49,7 +49,7 @@
   print(bound_de_genes)
   
   ### --- Create a venn diagram
-  install.packages("ggvenn") #install on this line. Once you install, comment this line out 
+  #install.packages("ggvenn") #install on this line. Once you install, comment this line out 
   library(ggvenn) # don't forget to load your new library on this line 
   venn_list <- list(
     dmso_peaks = dmso_peaks$gene, 
@@ -81,10 +81,10 @@
   
   ### --- Load differential expression analysis results
   
-  hct.de <- read.table('data/deseq_output/hct116_deres.txt', header = TRUE)
-  hct_p53ko.de <- read.table('data/deseq_output/hct116p53ko_deres.txt', header = TRUE)
-  sjsa.de <- read.table('data/deseq_output/sjsa_deres.txt', header = TRUE)
-  mcf7.de <- read.table('data/deseq_output/mcf7_deres.txt', header = TRUE)
+  hct.de <- read.table('deseq_output/hct116_deres.txt', header = TRUE)
+  hct_p53ko.de <- read.table('deseq_output/hct116p53ko_deres.txt', header = TRUE)
+  sjsa.de <- read.table('deseq_output/sjsa_deres.txt', header = TRUE)
+  mcf7.de <- read.table('deseq_output/mcf7_deres.txt', header = TRUE)
   
   ### --- Create a venn diagram of the cell lines 
   
