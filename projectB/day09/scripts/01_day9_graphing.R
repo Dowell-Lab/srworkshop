@@ -4,8 +4,8 @@
 # Set environment ---------------------------------------------------------
 
   library(ggplot2) # load ggplot2
-  setwd("/Users/georgiabarone/Desktop/") # set your local working directory
-  outdir <- "/Users/georgiabarone/Desktop/" # define an output directory
+  setwd("/Your-Working-Dir-Here/") # set your local working directory
+  outdir <- "/Your-Working-Dir-Here/" # define an output directory
 
 # Read in data ------------------------------------------------------------
 
