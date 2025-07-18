@@ -19,3 +19,23 @@ A gene list is good for lots of things! Here are the top things to use it for:
 **1. Check your positive and negative controls.** Every experiment should have control genes you expect to change in a predictable way. Make sure your controls are acting as you expect. You don't want to analyze a dataset if your treatment didn't even work. 
 **2. Are the top changing genes interesting to people in your field?** Sometimes the most differentially expressed genes are a direct hint as to what sort of changes are going on in your experiment. 
 
+
+# Steps to go beyond a gene list
+
+1. Know your field
+2. Pathway analysis
+3. Mine public databases
+4. Visualize your nextworks and pathways (aka, put your differentially expressed genes into their biological context)
+5. Combine with additional datasets, timepoints, etc
+6. **Know your field** and find a story.
+
+# 1. Know your field 
+Read every day. 
+
+Genes are just genes. Mostly just three letter acronyms. A bioinformatics pipeline can't tell you why they're important. Even ChatGPT isn't very good at that yet. As scientists, we have to keep struggling until we figure out why the genes matter in the context we're studying. 
+
+Trust me, this is harder than learning how to code (sorry). 
+
+# 2. Use pathway analysis 
+
+For detailed instructions, please refer to [Day10_GSEA.md] and [Day10_GO_analysis_wlakthrough]
