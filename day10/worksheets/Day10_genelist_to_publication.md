@@ -70,8 +70,10 @@ Public databases are incredible ways to search for what other proteins might be 
 
 **Interaction databases** \
 Use these databases to figure out what other proteins your specific gene-of-interest could be interacting with. This is a *hypothesis generating* exercise, and can be very helpful in figuring out what you want your next experiment to be. 
+
 [Reactome](https://reactome.org) \
 [String](https://string-db.org) 
+
 <figure>
 <img width="264" height="265" alt="image" src="https://github.com/user-attachments/assets/4e929b9c-dd45-418b-bdd8-5438f1f6e57f" />
 <figurecaption> STAT1 interaction network, generated from String</figurecaption>
