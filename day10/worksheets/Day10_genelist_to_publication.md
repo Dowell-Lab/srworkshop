@@ -15,8 +15,8 @@ Read on to learn more about making good figures!
 
 
 ### First, is a gene list good for anything? YES!!
-A gene list is good for lots of things! Here are the top things to use it for: <br>
-**1. Check your positive and negative controls.** Every experiment should have control genes you expect to change in a predictable way. Make sure your controls are acting as you expect. You don't want to analyze a dataset if your treatment didn't even work. <br>
+A gene list is good for lots of things! Here are the top things to use it for: <br><br>
+**1. Check your positive and negative controls.** Every experiment should have control genes you expect to change in a predictable way. Make sure your controls are acting as you expect. You don't want to analyze a dataset if your treatment didn't even work. <br><br>
 **2. Are the top changing genes interesting to people in your field?** Sometimes the most differentially expressed genes are a direct hint as to what sort of changes are going on in your experiment. 
 
 
