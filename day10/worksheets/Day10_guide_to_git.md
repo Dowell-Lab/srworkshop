@@ -75,6 +75,7 @@ I’m going to add all files in the directory so I use \*.
 
 When you commit you will go to a new screen. This screen is running vim and wants you to create a 'commit message' to document the changes you made. Keep in mind, what you put here will be forever on the internet. Check out [https://twitter.com/gitlost?lang=en](https://www.google.com/url?q=https://twitter.com/gitlost?lang%3Den&sa=D&source=editors&ust=1721333013905913&usg=AOvVaw3U5pv0E4ZUGK7rYqGbMzdf).
 
+## If it's your first time 
 
 The first time you push you may need to configure your settings. Try to push, and you will get a warning message. Use the config statements provided in that message to set your username and email address.
 
@@ -94,7 +95,7 @@ You may also get an warning that requires you to configure your push settings. I
 ![](images/itworked2.png)
 
 ## Everytime you change a file, 
-I want ot change the files,  what do I do?
+I want to change the files,  what do I do?
 
 1. git pull
 (kinda silly, but always better to pull before pushing. Less accidents with Lab mates)
