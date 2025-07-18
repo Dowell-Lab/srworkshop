@@ -80,7 +80,7 @@ Online Mendelian Inheritance in Man [OMIM](https://www.omim.org)
 
 Differential expression data can be visualized in the context of networks and pathways using R packages like [clusterProfiler](https://yulab-smu.top/biomedical-knowledge-mining-book/enrichplot.html) or GUI interfaces like [Cytoscape](https://cytoscape.org/). 
 
-This is a [good tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/basic-data-visualization/#/) for getting started with Cytoscape. My <ins>favorite</ins> way to use Cytoscape is with Wikipathways, so check out [this tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/wikipathways-app/#/title). It allows you to make pathways like the one below, where differential expression is mapped onto each node (blue is decreased expression, red is increased expression). 
+This is a [good tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/basic-data-visualization/#/) for getting started with Cytoscape. My [<ins>favorite</ins> way to use Cytoscape is with Wikipathways](https://cytoscape.org/cytoscape-tutorials/protocols/wikipathways-app/#/title), so check out this tutorial. It allows you to make pathways like the one below, where differential expression is mapped onto each node (blue is decreased expression, red is increased expression). 
 <figure>
 <img width="674" height="515" alt="image" src="https://github.com/user-attachments/assets/9b87be23-08d4-4433-8c66-09c561ecf400" />
 <figurecaption>https://cytoscape.org/cytoscape-tutorials/protocols/wikipathways-app/#/3/5</figurecaption>
@@ -88,3 +88,10 @@ This is a [good tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/ba
 
 
 Cytoscape is a little clunky to learn, but extremely useful once you know how to use it. And you can export your figures as .svg's and take them into Adobe Illustrator or Inkscape to finalize your figures. 
+
+# 5. Integrate your data with other type of omics 
+
+<img width="408" height="230" alt="image" src="https://github.com/user-attachments/assets/0c5c2b7f-b0a1-499b-830c-d53126ddd867" />
+
+#### Working with published data: 
+When working with previously published data, you'll first need to process the data as appropriate. Then, you'll be able to bring the processed data into R or Python and work with it similar to how we did on Day 9 in the 
