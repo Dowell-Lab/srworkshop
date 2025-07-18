@@ -1,5 +1,6 @@
 # A quick guide to GitHub | Software Engineering for Scientists
 
+
 Authors: Jacob Stanley (2023), Mary Allen (2023,2025)
 
 
@@ -45,6 +46,7 @@ You will then get a homepage for the repository.
 
 ### General rule of thumb, pick HTTP to clone something you will only pull from, SSH if you want to pull and push
 
+
 ![](images/cloneitlocal.png)
 
 
@@ -54,8 +56,10 @@ Run `git clone <repository link>` in your local terminal. This will download the
 
 ## Put something in  the repository
 But it's currently empty. Let's add a file or six.
+RUN `git config --global core.editor "vim"`
 
 ![](images/putin.png)
+
 
 ## Git add and commit (general rule, pull then push)
 

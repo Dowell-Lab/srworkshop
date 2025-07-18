@@ -26,6 +26,9 @@
 
 	Fourth, consider super computer "rental". See below. 
 
+	Fifth, think about if you can use awk to chop your data into lots of small files. Then run the mapper on the smaller files on 30 of your friends computers.
+
+
 ## Super computer "Rental", a.k.a. cloud computing. 
 	0. Use GCP (Google Cloud Platform) or AWS (Amazon Web Services). These are super computer you essentialy rent. That's what we did this week. 
 	  There are lots of tutorials online about how to set up a super comptuer on GCP or AWS. But renting super computers costs some  money--- so you need to practice stuff below, before you do that!
@@ -42,6 +45,8 @@
 			tutorials:
 			https://github.com/NIH-NICHD/Elements-of-Style-Workflow-Creation-Maintenance/
  	3. Once you are ready both GCP and AWS have free credits you can start with. 
+	PRO: you don't have to use slurm! You are not sharing! You have this super computer to yourself. Use Bash to run stuff, not sbatch. 
+ 
 
 
 ## test with a tiny file	
