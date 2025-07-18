@@ -40,4 +40,21 @@ Trust me, this is harder than learning how to code (sorry).
 
 For detailed instructions, please refer to [Day10_GSEA.md](Day10_GSEA.md) and [Day10_GO_analysis_walkthrough](Day10_GO_analysis_walkthrough). 
 
+**What's the point of pathway analysis?** 
+We want to put our differentially expressed genes into the context of cellular functions that are easier to understand. <ins> In my experience, people are overly optimistic that pathway analysis will tell them THE answer. </ins> It's an extremely helpful tool, but can be confusing. 
+
+The most common challenges with pathway analysis are: 
+* The pathways are too general, and don't lead to specific hypotheses about what's going on.
+* The pathways are related to a different cell type.
+* There are so many pathways! Where does anyone start figuring out which ones are important?
+
+When this happens, look into which pathways you're testing. For **GSEA**, there are multitudinous different [pathway collections](https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp) you can test. Test sets of pathways specifically instead of testing them all at once. **GO** relies on different databases, and similarly you can test specific databases. For example, [KEGG](https://www.genome.jp/kegg/), [Reactome](https://reactome.org/), [WikiPathways])(https://www.wikipathways.org/). 
+
+Ultimately, you're hoping to get a figure that compares multiple pathways and shows only the ones significantly enriched. Like this one below: 
+
+<figure>
+<img width="414" height="236" alt="image" src="https://github.com/user-attachments/assets/70f519ab-a54f-46d1-b553-7bed1a21f161" />
+<figurecaption>https://bioinformatics.sdstate.edu/go/</figurecaption>
+</figure>
+
 
