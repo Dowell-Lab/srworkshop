@@ -38,4 +38,6 @@ Trust me, this is harder than learning how to code (sorry).
 
 # 2. Use pathway analysis 
 
-For detailed instructions, please refer to [Day10_GSEA.md] and [Day10_GO_analysis_wlakthrough]
+For detailed instructions, please refer to [Day10_GSEA.md](Day10_GSEA.md) and [Day10_GO_analysis_walkthrough](Day10_GO_analysis_walkthrough). 
+
+
