@@ -1,0 +1,80 @@
+# Suggestions on getting from Day 9 to a publication. 
+<img width="1120" height="628" alt="image" src="https://github.com/user-attachments/assets/ba16c93d-6b7a-41c5-9b90-4a3124fda52a" />
+
+## Sequencing experiments are just like any other experiment...
+They are best with a clear hypothesis and good controls. You should be able to succinctly articulate what question you'll ask of your data and *have a plan to process the data to answer it*. Otherwise, your experiment probably needs more planning. 
+
+Sometimes people sequence because they don't know what else to do. The problem? Sequencing generates *massive amounts of data* that now you need to interpret. With nowhere to start. That's a recipe for a lot of time and money spent for little payout. 
+
+**TL;DR**  The best way to get from a gene list to a publication is to 
+1. Have a clear question
+2. Know your field well and why your question is important
+3. Learn to make good figures
+
+Read on to learn more about making good figures! 
+
+
+### First, is a gene list good for anything? YES!!
+A gene list is good for lots of things! Here are the top things to use it for: 
+**1. Check your positive and negative controls.** Every experiment should have control genes you expect to change in a predictable way. Make sure your controls are acting as you expect. You don't want to analyze a dataset if your treatment didn't even work. 
+**2. Are the top changing genes interesting to people in your field?** Sometimes the most differentially expressed genes are a direct hint as to what sort of changes are going on in your experiment. 
+
+
+# Steps to go beyond a gene list
+
+1. Know your field
+2. Pathway analysis
+3. Mine public databases
+4. Visualize your nextworks and pathways (aka, put your differentially expressed genes into their biological context)
+5. Combine with additional datasets, timepoints, etc
+6. **Know your field** and find a story.
+
+# 1. Know your field 
+Read every day. 
+
+Genes are just genes. Mostly just three letter acronyms. A bioinformatics pipeline can't tell you why they're important. Even ChatGPT isn't very good at that yet. As scientists, we have to keep struggling until we figure out why the genes matter in the context we're studying. 
+
+Trust me, this is harder than learning how to code (sorry). 
+
+# 2. Use pathway analysis 
+
+For detailed instructions, please refer to [Day10_GSEA.md](Day10_GSEA.md) and [Day10_GO_analysis_walkthrough](Day10_GO_analysis_walkthrough). 
+
+**What's the point of pathway analysis?** 
+We want to put our differentially expressed genes into the context of cellular functions that are easier to understand. <ins> In my experience, people are overly optimistic that pathway analysis will tell them THE answer. </ins> It's an extremely helpful tool, but can be confusing. 
+
+The most common challenges with pathway analysis are: 
+* The pathways are too general, and don't lead to specific hypotheses about what's going on.
+* The pathways are related to a different cell type.
+* There are so many pathways! Where does anyone start figuring out which ones are important?
+
+When this happens, look into which pathways you're testing. For **GSEA**, there are multitudinous different [pathway collections](https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp) you can test. Test sets of pathways specifically instead of testing them all at once. **GO** relies on different databases, and similarly you can test specific databases. For example, [KEGG](https://www.genome.jp/kegg/), [Reactome](https://reactome.org/), [WikiPathways](https://www.wikipathways.org/). 
+
+Ultimately, you're hoping to get a figure that compares multiple pathways and shows only the ones significantly enriched. Like this one below: 
+
+<figure>
+<img width="414" height="236" alt="image" src="https://github.com/user-attachments/assets/70f519ab-a54f-46d1-b553-7bed1a21f161" />
+<figurecaption>https://bioinformatics.sdstate.edu/go/</figurecaption>
+</figure>
+
+### Similar tools to check out: 
+* Transcription Factor Enrichment Analysis ([TFEA](https://github.com/Dowell-Lab/TFEA))
+* [TFEA-ChIP](https://pubmed.ncbi.nlm.nih.gov/31347689/)
+* ChIP Enrichment Analysis ([ChEA](https://pmc.ncbi.nlm.nih.gov/articles/PMC6602523/))
+* Qiagen's [IPA](https://digitalinsights.qiagen.com/products-overview/discovery-insights-portfolio/analysis-and-visualization/qiagen-ipa/) (Very $$$ but actually pretty good)
+
+
+# 3. Mine public databases
+
+Public databases are incredible ways to search for what other proteins might be interacting with your differentially expressed genes, what TF's are known to regulate it, and if it's associated with any known disease or SNPs. 
+
+**Interaction databases** \
+[Reactome](https://reactome.org) \
+[String](https://string-db.org) 
+
+**Known mutatios and clinical relevance** \
+[ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
+Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) 
+
+# 4. Visualize networks and pathways 
+
