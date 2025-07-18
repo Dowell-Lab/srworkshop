@@ -22,7 +22,7 @@ On your GitHub page if you select the "Repositories" tab, it will bring you to t
  
 ## Chose GNU licence and create it.
 ![](images/nameit.png)
-![](images/create.png)
+
 
 To create your new repository, specify a name, whether or not it’s public or private, and whether or not to include a README and a license.
  
@@ -34,14 +34,19 @@ Once you have specified all the above information, click the green button "Creat
 
 Check _Add readme_ and choose a license. Then click _create a repository_.
 
+![](images/create.png)
+
 You will then get a homepage for the repository.
 
 ## Clone the repository (pick SSH!)
 
 ![](images/cloneit.png)
-![](images/cloneitlocal.png)
+
 
 ### General rule of thumb, pick HTTP to clone something you will only pull from, SSH if you want to pull and push
+
+![](images/cloneitlocal.png)
+
 
 Now that you’ve created a remote repository on GitHub, you will have to run the "clone" command to create a copy of it *locally* on your computer. On the repo page click the green "Code" button which will bring up the clone menu. Copy the 'SSH' link.
  
