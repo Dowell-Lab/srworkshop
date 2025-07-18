@@ -14,8 +14,8 @@ Sometimes people sequence because they don't know what else to do. The problem? 
 Read on to learn more about making good figures! 
 
 
-## Is a gene list good for anything? 
-Yes, a gene list is good for lots of things! Here are the top things to use it for: 
+### First, is a gene list good for anything? YES!!
+A gene list is good for lots of things! Here are the top things to use it for: 
 **1. Check your positive and negative controls.** Every experiment should have control genes you expect to change in a predictable way. Make sure your controls are acting as you expect. You don't want to analyze a dataset if your treatment didn't even work. 
 **2. Are the top changing genes interesting to people in your field?** Sometimes the most differentially expressed genes are a direct hint as to what sort of changes are going on in your experiment. 
 
