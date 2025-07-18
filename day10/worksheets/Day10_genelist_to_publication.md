@@ -94,4 +94,7 @@ Cytoscape is a little clunky to learn, but extremely useful once you know how to
 <img width="408" height="230" alt="image" src="https://github.com/user-attachments/assets/0c5c2b7f-b0a1-499b-830c-d53126ddd867" />
 
 #### Working with published data: 
-When working with previously published data, you'll first need to process the data as appropriate. Then, you'll be able to bring the processed data into R or Python and work with it similar to how we did on Day 9 in the 
+When working with previously published data, you'll first need to process the data as appropriate. Then, you'll be able to bring the processed data into R or Python and work with it similar to how we did on Day 9 in the [R graphing worksheet](https://github.com/Dowell-Lab/srworkshop/blob/main/projectB/day09/worksheets/01_r_graphing_worksheet.md). 
+
+#### Performing your own multiomics experiment 
+If you're performing your own multiomics experiments, there are most advanced tools you can use to integrate data. However, usually these tools come with the caveat that all the omics where collected from the same population of cells at the same time! So be careful wtih your experimental design. A package I've liked using in the past is [mixOmics](https://mixomics.org/). 
