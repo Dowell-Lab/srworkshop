@@ -80,7 +80,7 @@ Use these databases to figure out what other proteins your specific gene-of-inte
 </figure>
 
  <br><br>
- **Known mutatios and clinical relevance** \
+ **Known mutations and clinical relevance** \
 [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
 Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) 
 
@@ -117,4 +117,4 @@ If you're performing your own multiomics experiments, there are most advanced to
 
 <img width="600" height="337" alt="image" src="https://github.com/user-attachments/assets/b396dbb2-08f9-46cb-bdd5-218954d2663b" />
 
-Sequencing datasets are very rich, with massive amounts of data. If you're not sure what the story is, either there is one, or there are many different stories you could tell! A PhD or postdoc is only so long. Eventually you have to pick the story that is the most interesting to you, your PI, and the field and tell that story. You can always come back and use the dataset again in another paper. 
+Sequencing datasets are very rich, with massive amounts of data. If you're not sure what the story is, either there isn't one, or there are many different stories you could tell! A PhD or postdoc is only so long. Eventually you have to pick the story that is the most interesting to you, your PI, and the field. Tell that story! You can always come back and use the dataset again in another paper. 
