@@ -79,12 +79,15 @@ Use these databases to figure out what other proteins your specific gene-of-inte
 <figurecaption> STAT1 interaction network, generated from String</figurecaption>
 </figure>
 
+
+
 **Known mutatios and clinical relevance** \
 [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
 Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) 
 
 Below, I've searched STAT1 in ClinVar and am looking at a table of known variants that are pathogenic. 
-<img width="1262" height="561" alt="image" src="https://github.com/user-attachments/assets/0bea8080-eb2c-4ea9-8fc7-73cf297fb408" />
+
+<img width="631" height="280" alt="image" src="https://github.com/user-attachments/assets/0bea8080-eb2c-4ea9-8fc7-73cf297fb408" />
 
 
 # 4. Visualize networks and pathways 
