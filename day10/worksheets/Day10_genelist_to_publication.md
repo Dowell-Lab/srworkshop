@@ -48,7 +48,7 @@ The most common challenges with pathway analysis are:
 * The pathways are related to a different cell type.
 * There are so many pathways! Where does anyone start figuring out which ones are important?
 
-When this happens, look into which pathways you're testing. For **GSEA**, there are multitudinous different [pathway collections](https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp) you can test. Test sets of pathways specifically instead of testing them all at once. **GO** relies on different databases, and similarly you can test specific databases. For example, [KEGG](https://www.genome.jp/kegg/), [Reactome](https://reactome.org/), [WikiPathways])(https://www.wikipathways.org/). 
+When this happens, look into which pathways you're testing. For **GSEA**, there are multitudinous different [pathway collections](https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp) you can test. Test sets of pathways specifically instead of testing them all at once. **GO** relies on different databases, and similarly you can test specific databases. For example, [KEGG](https://www.genome.jp/kegg/), [Reactome](https://reactome.org/), [WikiPathways](https://www.wikipathways.org/). 
 
 Ultimately, you're hoping to get a figure that compares multiple pathways and shows only the ones significantly enriched. Like this one below: 
 
@@ -57,4 +57,24 @@ Ultimately, you're hoping to get a figure that compares multiple pathways and sh
 <figurecaption>https://bioinformatics.sdstate.edu/go/</figurecaption>
 </figure>
 
+### Similar tools to check out: 
+* Transcription Factor Enrichment Analysis ([TFEA](https://github.com/Dowell-Lab/TFEA))
+* [TFEA-ChIP](https://pubmed.ncbi.nlm.nih.gov/31347689/)
+* ChIP Enrichment Analysis ([ChEA](https://pmc.ncbi.nlm.nih.gov/articles/PMC6602523/))
+* Qiagen's [IPA](https://digitalinsights.qiagen.com/products-overview/discovery-insights-portfolio/analysis-and-visualization/qiagen-ipa/) (Very $$$ but actually pretty good)
+
+
+# 3. Mine public databases
+
+Public databases are incredible ways to search for what other proteins might be interacting with your differentially expressed genes, what TF's are known to regulate it, and if it's associated with any known disease or SNPs. 
+
+**Interaction databases**
+[Reactome](https://reactome.org)
+[String](https://string-db.org)
+
+**Known mutatios and clinical relevance**
+[ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)
+Online Mendelian Inheritance in Man [OMIM](https://www.omim.org)
+
+# 4. Visualize networks and pathways 
 
