@@ -68,13 +68,13 @@ Ultimately, you're hoping to get a figure that compares multiple pathways and sh
 
 Public databases are incredible ways to search for what other proteins might be interacting with your differentially expressed genes, what TF's are known to regulate it, and if it's associated with any known disease or SNPs. 
 
-**Interaction databases**
-[Reactome](https://reactome.org)
-[String](https://string-db.org)
+**Interaction databases** \
+[Reactome](https://reactome.org) \
+[String](https://string-db.org) \
 
-**Known mutatios and clinical relevance**
-[ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)
-Online Mendelian Inheritance in Man [OMIM](https://www.omim.org)
+**Known mutatios and clinical relevance** \
+[ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
+Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) \
 
 # 4. Visualize networks and pathways 
 
