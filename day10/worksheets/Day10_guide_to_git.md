@@ -55,12 +55,12 @@ Run `git clone <repository link>` in your local terminal. This will download the
 ## Put something in  the repository
 But it's currently empty. Let's add a file or six.
 
-![](md_images/putin.png)
+![](images/putin.png)
 
 ## Git add and commit (general rule, pull then push)
 
-![](md_images/gitaddcommit.png)
-![](md_images/commitmessage.png)
+![](images/gitaddcommit.png)
+![](images/commitmessage.png)
 
 
 Now that we have added a file… we need to update the github repository. We need to tell git what file changes we'd like to save. To do that we use the `git add` or `git rm` commands.
@@ -76,8 +76,6 @@ I’m going to add all files in the directory so I use \*.
 When you commit you will go to a new screen. This screen is running vim and wants you to create a 'commit message' to document the changes you made. Keep in mind, what you put here will be forever on the internet. Check out [https://twitter.com/gitlost?lang=en](https://www.google.com/url?q=https://twitter.com/gitlost?lang%3Den&sa=D&source=editors&ust=1721333013905913&usg=AOvVaw3U5pv0E4ZUGK7rYqGbMzdf).
 
 
-![](md_images/github_image11.png)
-
 The first time you push you may need to configure your settings. Try to push, and you will get a warning message. Use the config statements provided in that message to set your username and email address.
 
 ![](md_images/github_image13.png)
@@ -89,6 +87,24 @@ You may also get an warning that requires you to configure your push settings. I
 ![](md_images/github_image9.png)
 
 ![](md_images/github_image12.png)
+
+## It worked!
+
+![](images/itworked.png)
+![](images/itworked2.png)
+
+## Everytime you change a file, 
+I want ot change the files,  what do I do?
+
+1. git pull
+(kinda silly, but always better to pull before pushing. Less accidents with Lab mates)
+
+2. Edit the file
+
+3. git add *, then git commit, then git push
+	git add  * (only working locally)
+	git commit (only working locally)	
+	git push (putting it on the internet)
 
 ## Github repositories on a supercomputer
 If you only want to *use* a repository on the supercomputer, you can do as we did in this class and clone the repository with the 'HTTPS' link. After doing so, you can pull from the repository anytime you'd like.
