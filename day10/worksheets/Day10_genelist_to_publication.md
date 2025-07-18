@@ -82,7 +82,7 @@ Differential expression data can be visualized in the context of networks and pa
 
 This is a [good tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/basic-data-visualization/#/) for getting started with Cytoscape. My <ins>favorite</ins> way to use Cytoscape is with Wikipathways, so check out [this tutorial](https://cytoscape.org/cytoscape-tutorials/protocols/wikipathways-app/#/title). It allows you to make pathways like the one below, where differential expression is mapped onto each node (blue is decreased expression, red is increased expression). 
 <figure>
-<img width="160" height="122" alt="image" src="https://github.com/user-attachments/assets/9b87be23-08d4-4433-8c66-09c561ecf400" />
+<img width="962" height="736" alt="image" src="https://github.com/user-attachments/assets/9b87be23-08d4-4433-8c66-09c561ecf400" />
 <figurecaption>https://cytoscape.org/cytoscape-tutorials/protocols/wikipathways-app/#/3/5</figurecaption>
 </figure>
 \
