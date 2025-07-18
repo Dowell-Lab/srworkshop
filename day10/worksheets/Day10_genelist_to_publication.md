@@ -98,3 +98,10 @@ When working with previously published data, you'll first need to process the da
 
 #### Performing your own multiomics experiment 
 If you're performing your own multiomics experiments, there are most advanced tools you can use to integrate data. However, usually these tools come with the caveat that all the omics where collected from the same population of cells at the same time! So be careful wtih your experimental design. A package I've liked using in the past is [mixOmics](https://mixomics.org/). 
+
+
+# 6. Pick a story to tell! 
+
+<img width="600" height="337" alt="image" src="https://github.com/user-attachments/assets/b396dbb2-08f9-46cb-bdd5-218954d2663b" />
+
+Sequencing datasets are very rich, with massive amounts of data. If you're not sure what the story is, either there is one, or there are many different stories you could tell! A PhD or postdoc is only so long. Eventually you have to pick the story that is the most interesting to you, your PI, and the field and tell that story. You can always come back and use the dataset again in another paper. 
