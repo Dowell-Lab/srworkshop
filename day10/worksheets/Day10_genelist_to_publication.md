@@ -69,12 +69,21 @@ Ultimately, you're hoping to get a figure that compares multiple pathways and sh
 Public databases are incredible ways to search for what other proteins might be interacting with your differentially expressed genes, what TF's are known to regulate it, and if it's associated with any known disease or SNPs. 
 
 **Interaction databases** \
+Use these databases to figure out what other proteins your specific gene-of-interest could be interacting with. This is a *hypothesis generating* exercise, and can be very helpful in figuring out what you want your next experiment to be. 
 [Reactome](https://reactome.org) \
 [String](https://string-db.org) 
+<figure>
+<img width="264" height="265" alt="image" src="https://github.com/user-attachments/assets/4e929b9c-dd45-418b-bdd8-5438f1f6e57f" />
+<figurecaption> STAT1 interaction network, generated from String</figurecaption>
+</figure>
 
 **Known mutatios and clinical relevance** \
 [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
 Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) 
+
+Below, I've searched STAT1 in ClinVar and am looking at a table of known variants that are pathogenic. 
+<img width="1262" height="561" alt="image" src="https://github.com/user-attachments/assets/0bea8080-eb2c-4ea9-8fc7-73cf297fb408" />
+
 
 # 4. Visualize networks and pathways 
 
