@@ -79,8 +79,7 @@ Use these databases to figure out what other proteins your specific gene-of-inte
 <figurecaption> STAT1 interaction network, generated from String</figurecaption>
 </figure>
 
- \ 
- \ 
+ <br><br>
  **Known mutatios and clinical relevance** \
 [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) \
 Online Mendelian Inheritance in Man [OMIM](https://www.omim.org) 
