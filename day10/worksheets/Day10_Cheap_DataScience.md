@@ -26,7 +26,30 @@
 
 	Fourth, consider super computer "rental". See below. 
 
-	Fifth, think about if you can use awk to chop your data into lots of small files. Then run the mapper on the smaller files on 30 of your friends computers.
+	Fifth, chop your data into lots of small files. Then run the reads mapper on the smaller files on many of your friends computers. Or thirty really old computers you set up in the lab. 
+		*****important****
+			To run it on your friends computers in the background you don't want it to affect what they are doing. So you want the pieces of your fastq to be small enought that hisat2 (or your mapper) doesn't take to much memory or CPU. 
+			step 1, scritp1.sh #chop the input file to many peices
+			`filename="sample.fastq"
+			basename="${filename%.fastq}"
+			lines_per_file=400 #400 may not be right, right is based on how many computers you will be running this on. 
+
+			awk -v lines_per_file=500 -v basename="$basename" '{
+    				file = sprintf("%s.%02d.fastq", basename, int((NR - 1) / lines_per_file) + 1)
+    				print > file
+			}' "$filename"`
+			step 2: #run it on lots of computers
+			You don't need to use slurm, since that's probably not on a normal mac or windows with a linux virtual enviorment. 
+			You should open a terminal, install the program you need.
+			then when you run the program you want to add a "&" at the end of the line. (ampersand)
+			like this
+				`histat2 -input_files -output_files &`
+				The ampersand pushes something you are running to the background so its not sitting on the command line the whole time. Leave the terminal running to or the job will stop.
+			step 3: #put the output back together
+			each hisat2 will make a smaller bam, so once you are done you have to put the bams back togeter.
+			`samtools merge output.bam input1.bam input2.bam input3.bam ...`			
+
+			
 
 
 ## Super computer "Rental", a.k.a. cloud computing. 
