@@ -48,9 +48,10 @@
 			step 3: #put the output back together
 			each hisat2 will make a smaller bam, so once you are done you have to put the bams back togeter.
 			`samtools merge output.bam input1.bam input2.bam input3.bam ...`			
-
-			
-
+			after you merge they are not sorted like they should be
+			`samtools sort merged.bam -o merged.sorted.bam`
+			then index it
+			`samtools index merged.sorted.bam`
 
 ## Super computer "Rental", a.k.a. cloud computing. 
 	0. Use GCP (Google Cloud Platform) or AWS (Amazon Web Services). These are super computer you essentialy rent. That's what we did this week. 
