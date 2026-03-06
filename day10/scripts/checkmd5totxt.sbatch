@@ -19,7 +19,7 @@ out=${outdir}afterdownload.md5sum.txt
 for f in "${indir%/}"/*.fastq.gz; do
     [ -e "$f" ] || continue
     echo "Processing $f..."
-    gunzip -c "$f" | md5sum | awk -v file="$(basename "$f")" '{print $1, file}' >> "$out"
+    md5sum "$f" | awk -v file="$(basename "$f")" '{print $1, file}' >> "$out"
 done
 
 
