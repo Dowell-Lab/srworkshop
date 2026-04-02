@@ -1,57 +1,64 @@
-#!/bin/bash                                                                                                                                                      
+#!/bin/bash
 
-#SBATCH --job-name=get_data # Job name
-#SBATCH --nodes=1                                                                                                                                                
-#SBATCH --ntasks=1 # Num of CPU                                                                                                  
-#SBATCH --time=24:00:00 # Time limit                                                                                                                
-#SBATCH --partition short                                                                                                                                        
-#SBATCH --mem=50mb # Memory                                                                                                                                 
-#SBATCH --output=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%j.out
-#SBATCH --error=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%j.err                                                                  
-#SBATCH --mail-type=FAIL                      
-#SBATCH --mail-user=ispe1418@colorado.edu 
+#SBATCH --job-name=get_data           # Job name
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --time=24:00:00
+#SBATCH --partition=short
+#SBATCH --mem=50mb
+#SBATCH --output=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.out
+#SBATCH --error=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.err
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=ispe1418@colorado.edu
 
+# This script is meant to be run as a job array.
+# Each array task handles one line (one wget) from $infile.
 
-################################################################################
-####################### initialize directories  ################################
-SRRPATH=$srrpath
-
-##############################
-##summary of run
-##############################
-printf "\nRun on: $(hostname)"
-printf "\nRun from: $(pwd)"
-printf "\nScript: $0\n"
+echo "Run on: $(hostname)"
+echo "Run from: $(pwd)"
+echo "Script:  $0"
 date
 
-printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
+echo "Array job ID:  $SLURM_ARRAY_JOB_ID"
+echo "Task ID:       $SLURM_ARRAY_TASK_ID"
+echo "Requested CPUs: $SLURM_CPUS_ON_NODE"
 
-echo $outdir
-echo $infile
-echo $whichline
+# Variables coming from --export in sbatch: outdir, infile
+echo "outdir:  $outdir"
+echo "infile:  $infile"
 
-cd $outdir
+mkdir -p "$outdir"
 
-line_content=$(awk -v line="$whichline" 'NR == line {print $0}' "$infile")
+whichline="$SLURM_ARRAY_TASK_ID"
 
-# Extract the URL (last field of the line) and then its basename
-url=${line_content##* }                    # everything after last space
-fname=${url##*/}                           # SRR5412628.fastq.gz
+# Get the wget line for this task
+line_content=$(sed -n "${whichline}p" "$infile")
+if [ -z "$line_content" ]; then
+    echo "No content for line $whichline in $infile, exiting."
+    exit 0
+fi
 
-# Example: start a new script for each wget
-cat "${script_dir}header.txt"                >  "${outdir}shellscript${whichline}.sh"
+# Extract URL and filename
+url=${line_content##* }
+fname=${url##*/}
+fullpath="${outdir}/${fname}"
+#fullpath="${outdir%/}/${fname}" this is if you don't like the double slash in your path
 
-# Define full path to the expected file
-printf 'fullpath="%s"\n' "${outdir}${fname}" >> "${outdir}shellscript${whichline}.sh"
+echo "URL:     $url"
+echo "Target:  $fullpath"
 
-# Only run the download command if the file does NOT already exist
-printf 'if [ ! -f "$fullpath" ]; then\n' >> "${outdir}shellscript${whichline}.sh"
-printf '  %s\n' "$line_content" >> "${outdir}shellscript${whichline}.sh"
-printf 'else\n' >> "${outdir}shellscript${whichline}.sh"
-printf '  echo "Downloaded file already exists: $fullpath"\n' >> "${outdir}shellscript${whichline}.sh"
-printf 'fi\n' >> "${outdir}shellscript${whichline}.sh"
+# If file already exists, skip
+if [ -f "$fullpath" ]; then
+    echo "File already exists, skipping download: $fullpath"
+    exit 0
+fi
 
+# Add a rate limit (adjust as needed)
+#this just relaces wget in the line with wget --limit-rate=200k because the host server was locking us out for downloading to much
+cmd="${line_content/wget /wget --limit-rate=200k }"
 
-sbatch ${outdir}shellscript${whichline}.sh
+echo "Running: $cmd"
+cd "$outdir"
+eval "$cmd" #this runs to wget command in my orginal line_content
 
-echo "DONE!"
+echo "DONE"

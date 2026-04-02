@@ -11,15 +11,31 @@
 #SBATCH --mail-user=allenma@colorado.edu
 
 
-indir=/Users/allenma/CNOT_and_brain/AGO2/fastqs/
-outdir=/Users/allenma/CNOT_and_brain/AGO2/qc/
+source ~/jhub_venv/bin/activate
+
+#filereport_read_run=/Users/allenma/CNOT_and_brain/AGO2/metadata/filereport_read_run_SRP233483.tsv
+#indir=/Users/allenma/CNOT_and_brain/AGO2/fastqs/
+#outdir=/Users/allenma/CNOT_and_brain/AGO2/qc/
+#out=${outdir}afterdownload.md5sum.txt
+
+filereport_read_run=/Users/allenma/CNOT_and_brain/EDC3/metadata/filereport_read_run_PRJNA436576.tsv
+indir=/Users/allenma/CNOT_and_brain/EDC3/fastqs/
+outdir=/Users/allenma/CNOT_and_brain/EDC3/qc/
 out=${outdir}afterdownload.md5sum.txt
 
 
+
+
+#remove the check file if it exists
+rm -f $out
+
+
+#get the md5 sum
 for f in "${indir%/}"/*.fastq.gz; do
     [ -e "$f" ] || continue
     echo "Processing $f..."
     md5sum "$f" | awk -v file="$(basename "$f")" '{print $1, file}' >> "$out"
 done
 
-
+#check it agains orginals
+python3 checkmd5sumagainstori.py $out $filereport_read_run 
