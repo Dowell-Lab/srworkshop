@@ -6,6 +6,10 @@
 1. Expand your abilities to plot data in R. We'll talk about other plotting packages. In addition, we'll get you ready for making publication-quality figures by diving more into plotting options that let you control the aesthetics. 
 2. GO analysis to look for functional enrichment in our results. 
 
+### Before Day 9
+Please watch the following video:
+<a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools</a>
+
 ## In-class worksheets
 1. Use the 01_r_graphing_worksheet.md to graph the results from step 1.
 1. *Optional challenge if you finish the above*: Use 02_go_analysis_worksheet.pdf

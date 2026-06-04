@@ -4,13 +4,20 @@ Today we will count RNA-seq reads using *Rsubread* and use the counts to run *DE
 
 Today, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
 
-- Before we start, follow instructions for installing *Rsubread* on AWS in the `Day7_installing_Rsubread.md` worksheet.
+## Before Day 7
+- Please watch the following videos:
+  - <a href="https://www.youtube.com/watch?v=nQDpoM2vc8k" target="_blank">B7.1 | Counting Reads</a>
+  - <a href="https://www.youtube.com/watch?v=Tk4Q91Kvr7o" target="_blank">B7.2 | Differential Expression Analysis</a>
+  - <a href="https://www.youtube.com/watch?v=JfYo1eXSbtg" target="_blank">B7.3 | DESeq2</a>
+  - <a href="https://www.youtube.com/watch?v=X6p3E-QTcUc" target="_blank">B7.4 | Multifactor Designs in DESeq2 (Optional)</a>
+
+- Follow instructions for installing *Rsubread* on AWS in the `Day7_installing_Rsubread.md` worksheet.
 
 > *NOTE:* The AWS   is using an older version of R,   so we will be installing Rsubread from source.
 > Follow instructions from "Install Rsubread from Source" section.
 > If you are on	      a server with a	     newer R	  version	you can	install	the package from BiocManager.
 
-- Also install *DESeq2* on your personal computer if you have not done so.
+- Install *DESeq2* on your personal computer if you have not done so.
 
 ## BEFORE WE START
 

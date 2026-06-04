@@ -2,6 +2,10 @@
 
 This workshop gives an introduction to R! Briefly, R is a statistical programming language with a wide array of applications. In this workshop you will learn how to run R code in a few environments. You will learn basic R commands, how to load tables, save tables, plot publication ready figures and save all these files.
 
+## Before Day 6
+Please watch the following video:
+<a href="https://youtu.be/TbT0UDbMrag" target="_blank">6.1 | Intro to R</a>
+
 ## Inclass Worksheets
 
 We will cover running R three ways:
