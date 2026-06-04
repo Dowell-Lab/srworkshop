@@ -5,7 +5,7 @@ Today, we will explore two ways to analyze processed scRNA-seq data. The first w
 
 ## Before Day 9
 Please watch the following video:
-<a href="https://www.youtube.com/watch?v=VGjddh2yNsQ" target="_blank">A9.1 | An Introduction to Cell Chat</a>
+- <a href="https://www.youtube.com/watch?v=VGjddh2yNsQ" target="_blank">A9.1 | An Introduction to Cell Chat</a>
 
 ## In class
 1. Start with `CellChat-Worksheeet.md` in the `worksheets/` directory

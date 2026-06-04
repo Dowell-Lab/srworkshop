@@ -2,8 +2,8 @@
 
 ## Before Day 7
 Please watch the following videos:
-<a href="https://www.youtube.com/watch?v=SN0KbPeazsg" target="_blank">A7.2 | Single Cell Sequencing Overview</a>
-<a href="https://youtu.be/j4d4TcmCJJc" target="_blank">A7.1 | Single Cell Sequencing Analysis and Seurat</a>
+- <a href="https://www.youtube.com/watch?v=SN0KbPeazsg" target="_blank">A7.2 | Single Cell Sequencing Overview</a>
+- <a href="https://youtu.be/j4d4TcmCJJc" target="_blank">A7.1 | Single Cell Sequencing Analysis and Seurat</a>
 
 
 ###

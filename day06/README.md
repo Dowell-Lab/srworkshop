@@ -4,7 +4,7 @@ This workshop gives an introduction to R! Briefly, R is a statistical programmin
 
 ## Before Day 6
 Please watch the following video:
-<a href="https://youtu.be/TbT0UDbMrag" target="_blank">6.1 | Intro to R</a>
+- <a href="https://youtu.be/TbT0UDbMrag" target="_blank">6.1 | Intro to R</a>
 
 ## Inclass Worksheets
 

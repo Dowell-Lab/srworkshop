@@ -5,14 +5,14 @@ Graphical interfaces (like Finder for Mac or Files for Windows) offer a user-fri
 
 ### Before Day 2
 Please watch the following videos:
-<a href="https://www.youtube.com/watch?v=q3KF_XafjFM&t=1s" target="_blank">2.1 | SSH and VPN Introduction</a>
-2.2 | Directory structures and navigation
-2.3 | The anatomy of a Unix command
+- <a href="https://www.youtube.com/watch?v=q3KF_XafjFM&t=1s" target="_blank">2.1 | SSH and VPN Introduction</a>
+- 2.2 | Directory structures and navigation
+- 2.3 | The anatomy of a Unix command
 
 Optional videos (kind of like video cheat sheets):
-<a href="https://youtu.be/CqGhVfdxU94" target="_blank">Remote Rsync/Reading Files</a>
-<a href="https://youtu.be/jItBDa6zgTo" target="_blank">Searching/editing Files, Pipes, and Outputs</a>
-<a href="https://youtu.be/b_uZ0rxfnJs" target="_blank">Directory Permissions</a>
+- <a href="https://youtu.be/CqGhVfdxU94" target="_blank">Remote Rsync/Reading Files</a>
+- <a href="https://youtu.be/jItBDa6zgTo" target="_blank">Searching/editing Files, Pipes, and Outputs</a>
+- <a href="https://youtu.be/b_uZ0rxfnJs" target="_blank">Directory Permissions</a>
 
 ### Goal
 The goal of day 2 is to learn some basic Linux/Unix commands for managing files. Today we will go over basic Unix/Linux commands and work more with text editors (Vim). You can Google search Linux/Unix commands/Vim commands and use the handy cheat-sheets (below) for all of these tools.

@@ -8,7 +8,7 @@
 
 ### Before Day 9
 Please watch the following video:
-<a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools</a>
+- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools</a>
 
 ## In-class worksheets
 1. Use the 01_r_graphing_worksheet.md to graph the results from step 1.
