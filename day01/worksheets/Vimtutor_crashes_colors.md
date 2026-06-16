@@ -77,7 +77,10 @@ The colors are incredibly useful for readability of code, but the default color 
     <ul>
       <li>Make sure you're still in your home directory.</li>
       <li>Open a new file called <code>.vimrc</code> in Vim.</li>
-      <li>Enter insert mode (<code>i</code>) and type <code>colorscheme &#60;chosen colorscheme&#62;</code>.<li>Exit insert mode and save and quit.</li>
+      <li>Enter insert mode (<code>i</code>) 
+      <li>On the first line, type <code>syntax on<code>
+      <li>Type <code>colorscheme &#60;chosen colorscheme&#62;</code>.
+      <li>Exit insert mode and save and quit.</li>
     </ul>
   </li>
 </ol>
