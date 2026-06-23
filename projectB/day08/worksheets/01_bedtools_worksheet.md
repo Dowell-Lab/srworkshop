@@ -89,7 +89,7 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 <img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
   
 
-There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
+:yellow_circle: There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
 - Consider these flag options: -wa, -wb, -wo, -woa
 
 :yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
