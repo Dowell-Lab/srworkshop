@@ -9,6 +9,10 @@ An annotation file is any file that describes regions of the genome. At
 its most basic, it just needs a chromosome id, a start coordinate, and a
 stop coordinate. 
 
+<picture>
+ <img src='images.bed_3.png'>
+</picture>
+
 You can get some annotation files online. NCBI, UCSC, and Ensembl all
 curate different lists of gene annotations that are similar in a lot of
 ways but also have distinct differences. You can read more about these
