@@ -11,6 +11,10 @@ stop coordinate. 
 
 ![bed3 diagram](images/bed_3.png)
 
+<picture>
+ <img src="images/bed_3.png" alt="Bed file diagram" width="600">
+</picture>
+
 You can get some annotation files online. NCBI, UCSC, and Ensembl all
 curate different lists of gene annotations that are similar in a lot of
 ways but also have distinct differences. You can read more about these
