@@ -34,6 +34,9 @@ While you can make very simple annotation files, and in some cases you may want 
 
 The most common file types that you’ll see for annotation are either BED files or GTF files, which contain much of the same information in different columns.  
 
+**Example of a bed file**
+![bed file example](images/bed_12.png)
+
 :yellow_circle: Take a moment to look at the information for these two file types from the UCSC link above, then use head to look at the gene annotation bedfile located at<br>
 <code>head /scratch/Shares/public/sread2025/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed</code>. 
 
