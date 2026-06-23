@@ -87,7 +87,7 @@ We have a list of genes, and we have a list of peaks called from a p53 ChIP expe
   bedtools commands is here:
   <https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html>.
 
-![bedtools intersect diagram](images/bedtools_intersect.png)
+<img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
   
 There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes?
 
