@@ -51,15 +51,15 @@ module load bedtools/2.28.0
 #grep '^chr21' ${ANNOT} > ${results}/chr21_annotations.bed
 
 # --- Which p53 peaks are associated with genes (not intergenic)
-bedtools intersect -wo -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_in_genes_hct_dmso.bed
+bedtools intersect -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_in_genes_hct_dmso.bed
 cat ${results}/p53_peaks_in_genes_hct_dmso.bed | wc -l
 
 # --- Which p53 peeks are entirely within genes 
-bedtools intersect -f 1 -wo -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_completelyin_genes_hct_dmso.bed
+bedtools intersect -f 1 -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_completelyin_genes_hct_dmso.bed
 cat ${results}/p53_peaks_completelyin_genes_hct_dmso.bed | wc -l
 
 # --- Which p53 peaks are intergenic 
-bedtools intersect -v -wo -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_intergenic_hct_dmso.bed
+bedtools intersect -v -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_intergenic_hct_dmso.bed
 cat ${results}/p53_peaks_intergenic_hct_dmso.bed | wc -l
 
 # --- Which genes overlap with p53 peaks? 
