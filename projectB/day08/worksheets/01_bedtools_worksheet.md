@@ -133,14 +133,15 @@ In order to define only a TSS, we need a 1-base region that is at the start of e
 
 **So what is the starting coordinate of each gene?**
 *Would you treat these two genes the same?* 
-<img src="images/gene_fwd_rev.png" alt="Genes on alternate strands" width=500>
+<img src="images/gene_fwd_rev.png" alt="Genes on alternate strands" width=400>
 
 You might think the answer is just column 2 of the gene annotation bedfile, but it actually depends on the strand of the gene. 
+
 :triangular_flag_on_post:  All coordinates are with respect to the (+)-strand of the genome, so for (-)-strand genes, the TSS of the gene is actually the end coordinate of the gene region. We therefore have to parse the file based on gene strand.
 
 There’s a few ways that you can do this. You can read the annotation file into R or python and do column manipulation there, with conditionals. You can also do a looping strategy in bash that reads in a line, defines a few variables based on the contents of the line and prints out a new version of that line. If you want to try those, feel free! In this example, I’ll show you a powerful bash command line program called [awk](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/). awk has a moderate learning curve and seems pretty obtuse when you first start with it, but it is an incredibly fast and powerful tool for manipulating files.
 
-- Open your 01_day9_bedtools.sbatch script again. Paste the following lines
+:yellow_circle: Open your 01_day9_bedtools.sbatch script again. Paste the following lines
   below everything else in the script area.
 
 <!-- -->
@@ -155,23 +156,32 @@ There’s a few ways that you can do this. You can read the annotation file into
     "$results"/hg38_refseq_tss_neg.bed \
     > "$results"/hg38_refseq_tss.bed
 
-Each of the first two command strings pipes the bedfile to awk, which manipulates the files and pipes the output to a new bedfile. We run it twice, since we’re filtering (+)-strand genes in the first instance and (-)-strand genes in the second one. Then we concatenate the two into a full TSS bedfile.
+:small_blue_diamond: Each of the first two command strings pipes the bedfile to awk, which manipulates the files and pipes the output to a new bedfile. 
+
+:small_blue_diamond: We run it twice, since we’re filtering (+)-strand genes in the first instance and (-)-strand genes in the second one. 
+
+:small_blue_diamond: Then we concatenate the two into a full TSS bedfile.
 
 If you want to learn more about awk, look up an awk tutorial, but below I’ve given a basic breakdown of the command: ![using awk](images/awk.png)
 
 Once you’ve manipulated an annotation file like this, you always want to check that you did what you think you did.
 
-- Run your sbatch script, then pull the results hg38_refseq_tss.bed file to your computer and look at it in IGV.
-- Make sure that you only see a 1-base region at the beginning of each gene, and that it’s at the correct end of the gene depending on gene strand.
+:yellow_circle: Run your sbatch script, then pull the results hg38_refseq_tss.bed file to your computer and look at it in IGV.
 
-Now we’ll pad the TSS file to make a gene promoter file.
+:yellow_circle: Make sure that you only see a 1-base region at the beginning of each gene, and that it’s at the correct end of the gene depending on gene strand.
 
-- Look up the documentation for bedtools slop. You’ll need the 2 required flags and 3 optional flags to add 1000bp upstream (left) of the TSS and 100bp downstream (right) of the TSS. What flags are these?
-- Write the bedtools slop command in your sbatch script and pipe the results into a new promoter bedfile.
+#### Now we’ll pad the TSS file to make a gene promoter file.
+
+:yellow_circle: Look up the documentation for bedtools slop. You’ll need the 2 required flags and 3 optional flags to add 1000bp upstream (left) of the TSS and 100bp downstream (right) of the TSS. What flags are these?
+
+:yellow_circle: Write the bedtools slop command in your sbatch script and pipe the results into a new promoter bedfile.
   - HINT: the –g <genome> file that bedtools slop takes in is actually just a list of chromosome sizes. There’s a variable in your script that already defines the path to this file on the AWS.
-- Once you’ve run your sbatch script and obtained your promoter bedfile, sync it back to your machine and look at it in IGV.
-- If it looks good, go back to your 01_day9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
-- How many peaks are located in gene promoter regions? How does this compare to the number of peaks overlapping any part of a gene?
+
+:yellow_circle: Once you’ve run your sbatch script and obtained your promoter bedfile, sync it back to your machine and look at it in IGV.
+
+:yellow_circle: If it looks good, go back to your 01_day9_bedtools.sbatch script and write a command to intersect your p53 peaks with your promoter file, then run it again.
+
+:yellow_circle: How many peaks are located in gene promoter regions? How does this compare to the number of peaks overlapping any part of a gene?
 
 NOTE: Instead of using both bedtools slop and bedtools intersect, you could instead use bedtools window.
 
