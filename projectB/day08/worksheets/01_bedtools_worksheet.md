@@ -11,7 +11,7 @@ stop coordinate. 
 
 <!-- ![bed3 diagram](images/bed_3.png) -->
 
-<img src="images/bed_3.png" alt="Bed file diagram" width="400">
+<img src="images/bed_3.png" alt="Bed file diagram" width="300">
 
 
 You can get some annotation files online. NCBI, UCSC, and Ensembl all
