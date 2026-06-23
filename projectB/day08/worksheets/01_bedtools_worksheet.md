@@ -9,11 +9,10 @@ An annotation file is any file that describes regions of the genome. At
 its most basic, it just needs a chromosome id, a start coordinate, and a
 stop coordinate. 
 
-![bed3 diagram](images/bed_3.png)
+<!-- ![bed3 diagram](images/bed_3.png) -->
 
-<picture>
- <img src="images/bed_3.png" alt="Bed file diagram" width="600">
-</picture>
+<img src="images/bed_3.png" alt="Bed file diagram" width="400">
+
 
 You can get some annotation files online. NCBI, UCSC, and Ensembl all
 curate different lists of gene annotations that are similar in a lot of
