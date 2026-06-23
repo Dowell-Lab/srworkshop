@@ -109,7 +109,10 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 ### Now we’ll actually look at these annotation files to make sure that they make sense.
 
 :yellow_circle: Pull the annotation file, you MACS bedfile, and your four intersection results bedfiles to your home computer
-:yellow_circle: Import them into IGV or the IGV Web App. Where are the intergenic p53 peaks? Where are the ones that completely overlapped genes?
+
+:yellow_circle: Import them into IGV or the IGV Web App. 
+- Where are the intergenic p53 peaks?
+- Where are the ones that completely overlapped genes?
  <!-- - HINT: In the desktop version of IGV, highlight a track and use Ctrl-F/Ctrl-B to skip to the next/previous feature. -->
 
 ### Annotation files – more complicated questions
@@ -123,12 +126,17 @@ What if we want to find out **how many of the p53 peaks that overlap with genes 
 - Think about how you’d make this from the gene annotation bedfile.
 - *What columns need to change?
 - Does that column differ depending on
-  what gene it is?*
+  what gene it is?
+- How does strand affect your strategy?*
 
-In order to define only a TSS, we need a 1-base region that is at the start of each gene. So what is the starting coordinate of each gene?
+In order to define only a TSS, we need a 1-base region that is at the start of each gene. 
 
-You might think the answer is just column 2 of the gene annotation bedfile, but it actually depends on the strand of the gene. All
-coordinates are with respect to the (+)-strand of the genome, so for (-)-strand genes, the TSS of the gene is actually the end coordinate of the gene region. We therefore have to parse the file based on gene strand.
+**So what is the starting coordinate of each gene?**
+*Would you treat these two genes the same?* 
+<img src="images/gene_fwd_rev.png" alt="Genes on alternate strands" width=500>
+
+You might think the answer is just column 2 of the gene annotation bedfile, but it actually depends on the strand of the gene. 
+:triangular_flag_on_post:  All coordinates are with respect to the (+)-strand of the genome, so for (-)-strand genes, the TSS of the gene is actually the end coordinate of the gene region. We therefore have to parse the file based on gene strand.
 
 There’s a few ways that you can do this. You can read the annotation file into R or python and do column manipulation there, with conditionals. You can also do a looping strategy in bash that reads in a line, defines a few variables based on the contents of the line and prints out a new version of that line. If you want to try those, feel free! In this example, I’ll show you a powerful bash command line program called [awk](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/). awk has a moderate learning curve and seems pretty obtuse when you first start with it, but it is an incredibly fast and powerful tool for manipulating files.
 
