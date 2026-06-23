@@ -114,7 +114,7 @@ What if we want to find out **how many of the p53 peaks that overlap with genes 
 
 :triangular_flag_on_post: **NOTE:** :triangular_flag_on_post: The definition of a “promoter” is variable, even within our lab. Different people create this type of annotation file differently. <u>If you make your own annotation files, you should keep detailed documentation on how you made them</u>. 
 
-:small_red_triangle: Right now, we’ll define a promoter as everything ***between 1kb upstream of the annotated transcription start site (TSS) and 100 bp downstream of the TSS***. To make this promoter file, we first need a file that contains just the TSS of genes.
+:triangular_flag_on_post: **Define Promoter Region:** :triangular_flag_on_post: Right now, we’ll define a promoter as everything ***between 1kb upstream of the annotated transcription start site (TSS) and 100 bp downstream of the TSS***. To make this promoter file, we first need a file that contains just the TSS of genes.
 
 - Think about how you’d make this from the gene annotation bedfile.
 - *What columns need to change?
