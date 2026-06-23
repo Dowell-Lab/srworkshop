@@ -52,7 +52,7 @@ recognize this as a bed file based on those six columns and ignore the rest.
 
 You can do annotation file manipulations with text editors (not recommended – most are quite large), command line commands, or other software such as Bedtools.  
 
-:orange_circle:Make a directory for this worksheet at
+:orange_circle: Make a directory for this worksheet at
   **/scratch/Users/\<username\>/day9/**
   
 :orange_circle: Within this directory, make folders named "scripts", "eofiles", and "bedtools_results".
@@ -67,18 +67,23 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
-- Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
-- Input the paths to the gene annotation file and your MACS peak file
-- We will now fill the script section with bedtools commands.
+:orange_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
+
+:orange_circle: Input the paths to the gene annotation file and your MACS peak file
+
+:orange_circle: We will now fill the script section with bedtools commands.
 
 **NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day08/scripts/.06_day8_bedtools_answers.sbatch*
 
-We have a list of genes, and we have a list of peaks called from a p53 ChIP experiment, identifying putative p53 binding locations in control (DMSO treated) HCT116 cells. What if we want to find out how many of those p53 binding sites overlap with genes, rather than being in intergenic regions?
+We have a list of genes, and we have a list of peaks called from a p53 ChIP experiment, identifying putative p53 binding locations in experimental (**Nutlin treated**) HCT116 cells. What if we want to find out how many of those p53 binding sites overlap with genes, rather than being in intergenic regions?
 
-- Look at the documentation for bedtools intersect. A useful list of all
+:orange_circle: Look at the documentation for bedtools intersect. A useful list of all
   bedtools commands is here:
   <https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html>.
-- There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes?
+
+![bedtools intersect diagram](images/bedtools_intersect.png)
+  
+:orange_circle: There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes?
 - Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
 - **HINT:** By default bedtools results go to stdout, which within a slurm job will go to your .out file. Pipe the results into a different file that is better labeled and give it the .bed extension
 - Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. Every command should pipe results into a different new file with a descriptive filename. Run the script again.
