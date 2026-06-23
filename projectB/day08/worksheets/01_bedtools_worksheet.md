@@ -9,8 +9,6 @@ An annotation file is any file that describes regions of the genome. At
 its most basic, it just needs a chromosome id, a start coordinate, and a
 stop coordinate. 
 
-<!-- ![bed3 diagram](images/bed_3.png) -->
-
 <img src="images/bed_3.png" alt="Bed file diagram" width="300">
 
 
@@ -97,7 +95,7 @@ There are many flags that can define exactly how you want to define “overlap.�
 
 :yellow_circle: Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. 
 - Every command should pipe results into a different new file with a descriptive filename. Run the script again.
-- 
+  
 :yellow_circle: Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
 
 :yellow_circle: Write a command for finding the genes that have any overlap with a p53 peak and run the script again.
@@ -106,13 +104,13 @@ There are many flags that can define exactly how you want to define “overlap.�
 
 ### Now we’ll actually look at these annotation files to make sure that they make sense.
 
-- Pull the annotation file, you MACS bedfile, and your four intersection results bedfiles to your home computer
-- Import them into IGV or the IGV Web App. Where are the intergenic p53 peaks? Where are the ones that completely overlapped genes?
-  - HINT: In the desktop version of IGV, highlight a track and use Ctrl-F/Ctrl-B to skip to the next/previous feature.
+:yellow_circle: Pull the annotation file, you MACS bedfile, and your four intersection results bedfiles to your home computer
+:yellow_circle: Import them into IGV or the IGV Web App. Where are the intergenic p53 peaks? Where are the ones that completely overlapped genes?
+ <!-- - HINT: In the desktop version of IGV, highlight a track and use Ctrl-F/Ctrl-B to skip to the next/previous feature. -->
 
 ### Annotation files – more complicated questions
 
-What if we want to find out how many of the p53 peaks that overlap with genes are located in promoter regions? These might be of more interest than those that are located in intronic regions. To do this, we need to use the gene annotation file to make a gene promoter annotation file.
+What if we want to find out $${\color{red}how many of the p53 peaks that overlap with genes are located in promoter regions?}$$ These might be of more interest than those that are located in intronic regions. To do this, we need to use the gene annotation file to make a gene promoter annotation file.
 
 **NOTE:** The definition of a “promoter” is variable, even within our lab. Different people create this type of annotation file differently. If you make your own annotation files, you should keep detailed documentation on how you made them. Right now, we’ll define a promoter as everything <u>between 1kb upstream of the annotated transcription start site (TSS) and 100 bp downstream of the TSS</u>. To make this promoter file, we first need a file that contains just the TSS of genes.
 
