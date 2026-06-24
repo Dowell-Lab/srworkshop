@@ -7,5 +7,6 @@ Day9: Learning goals and worksheets
 3. GO analysis to look for functional enrichment in our results. 
 
 ### TO DO for Day 9
-1. Use the 01_r_graphing_worksheet to graph the bedtools results from yesterday. 
-2. If you have time, use the 02_go_analysis_worksheet to run a GO analysis. 
+1. Go through 01_bedtools_worksheet.md to learn how to use multiomics data to answer questions, and continue practicing using bedtools.
+2. Use the 02_r_graphing_worksheet.md to graph the results from step 1.
+3. Optional challenge if you finish the above: Learn how to analyze gene sets with 03_go_analysis_worksheet.pdf
