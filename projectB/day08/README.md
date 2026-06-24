@@ -10,6 +10,7 @@ Please watch the following videos:
 - <a href="https://www.youtube.com/watch?v=B6SiIp2Cess" target="_blank">B8.3 | MACS2 for ChIP-seq Data</a>
 - <a href="https://www.youtube.com/watch?v=ZOjbiHIOQm0" target="_blank">B8.4 | Motif Calling with MEME</a>
 - <a href="https://www.youtube.com/watch?v=0JqCexUujZM" target="_blank">B8.5 | ATAC-seq Analysis</a> (Optional)
+- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools (Recommended)</a>
 
 ## Sample metadata
 
