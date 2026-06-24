@@ -174,6 +174,12 @@ Once you’ve manipulated an annotation file like this, you always want to check
 
 :yellow_circle: Look up the documentation for bedtools slop. You’ll need the 2 required flags and 3 optional flags to add 1000bp upstream (left) of the TSS and 100bp downstream (right) of the TSS. What flags are these?
 
+Hints: 
+- Which flag is for how many bases to the <u>left</u> the annotation should extend?
+- Which flag is for how many bases to the <u>right</u> the annotation should extend?
+- Is strandedness important?
+- Why do we need the `-i` flag?
+
 :yellow_circle: Write the bedtools slop command in your sbatch script and pipe the results into a new promoter bedfile.
   - HINT: the –g <genome> file that bedtools slop takes in is actually just a list of chromosome sizes. There’s a variable in your script that already defines the path to this file on the AWS.
 
