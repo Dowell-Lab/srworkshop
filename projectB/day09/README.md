@@ -1,5 +1,5 @@
 # Short Read Project B, Day 9
-- Author: Meaghan Courvan, 2024
+- Author: Meaghan Courvan, 2024, 2026
 - Edited: Georgia Barone, 2025
 
 ### Goals for Day 9
