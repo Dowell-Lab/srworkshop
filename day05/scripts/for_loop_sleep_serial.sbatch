@@ -12,7 +12,7 @@
 
 ################ DEFINE INPUT DIRECTORY #######################################
 
-indir=/scratch/Shares/public/sread2025/data_files/day5/fastq/for_loops_fastq
+indir=/scratch/Shares/public/sread/data_files/day5/fastq/for_loops_fastq
 
 ################ RUN FOR LOOP #################################################
 
