@@ -19,7 +19,7 @@ echo "$filepath"
 
 done
 ```
-In this loop, Unix takes in `./*.fastq` as a list of paths to fastq files in the current directory (For the purposes of this demonstration, I've moved into the directory to the fastq files we're using today, `/scratch/Shares/public/sread2025/data_files/day5/fastq/for_loops_fastq`).
+In this loop, Unix takes in `./*.fastq` as a list of paths to fastq files in the current directory (For the purposes of this demonstration, I've moved into the directory to the fastq files we're using today, `/scratch/Shares/public/sread/data_files/day5/fastq/for_loops_fastq`).
 
 Then, in each iteration of the loop, the next path in that list is stored as the variable `filepath`. `do` and `done` bracket the code block that runs during each iteration.
 
