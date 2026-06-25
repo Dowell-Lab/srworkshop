@@ -198,10 +198,11 @@ files for the experimental (Nutlin-treated) samples.
 
 ### Enrichment and expectation
 
-We have p53 peaks that overlap genes. You might be excited about this because it could provide you some target genes to look at more closely. But it’s always a good idea to think about your expectation. If p53 peaks were randomly distributed in the genome, how often would they overlap genes? Or, said another way, are p53 peaks enriched in genes compared to random expectation? Bedtools has useful functions to help you evaluate this question. One calculates a jaccard index for your data, which is a ratio of an intersection of a set to the union of the set (see more details in the documentation for bedtools jaccard).
+We have p53 peaks that overlap genes. You might be excited about this because it could provide you some target genes to look at more closely. But it’s always a good idea to think about your expectation. If p53 peaks were randomly distributed in the genome, how often would they overlap genes? Or, said another way, are p53 peaks enriched in genes compared to random expectation? 
+
+Bedtools has useful functions to help you evaluate this question. One calculates a jaccard index for your data, which is a ratio of an intersection of a set to the union of the set (see more details in the documentation for bedtools jaccard).
 
 It’s useful to calculate a jaccard index for your intersection of interest AND for the intersection of regions randomly shuffled throughout the genome. If the two are similar, your intersection is probably not showing enrichment over random expectation. If the index for your intersection is much higher, than there is probably enrichment.
-
 
 <img src="images/shuffled_regions.png" alt="Shuffled genomic regions" width="750">
 
