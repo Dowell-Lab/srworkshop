@@ -203,7 +203,7 @@ We have p53 peaks that overlap genes. You might be excited about this because it
 It’s useful to calculate a jaccard index for your intersection of interest AND for the intersection of regions randomly shuffled throughout the genome. If the two are similar, your intersection is probably not showing enrichment over random expectation. If the index for your intersection is much higher, than there is probably enrichment.
 
 
-<img src="images/shuffled_regions.png" alt="Shuffled genomic regions" width="450">
+<img src="images/shuffled_regions.png" alt="Shuffled genomic regions" width="600">
 
 - Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
 - Once you run the script again, look at this file. Use the bedtools jaccard documentation to understand the output.
