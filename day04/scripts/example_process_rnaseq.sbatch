@@ -3,34 +3,34 @@
 #SBATCH --mail-type=END                         # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL_HERE>           # Where to send mail
 #SBATCH --nodes=1                               # Number of nodes requested
-#SBATCH --ntasks=8                              # Number of CPUs (processor cores/tasks)
+#SBATCH --ntasks=4                              # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=4gb                               # Memory limit
 #SBATCH --time=00:30:00                        # Time limit hrs:min:sec
 #SBATCH --partition=short                      # Partition/queue requested on server
 #SBATCH --output=<path_to_eofiles>/%x_%j.out       # Standard output:  the %x will be replaced with job_name and the %j by the job id
 #SBATCH --error=<path_to_eofiles>/%x_%j.err        # Standard error log
 
-### Displays the job context
+################## Display job context ################################
+## In this script, the fastq files will be used as input to fastqc and trimmomatic
+## Trimmed reads will then be passed on to the mapping step
 echo Job: $SLURM_JOB_NAME with ID $SLURM_JOB_ID
 echo Running on host `hostname`
 echo Job started at `date +"%T %a %d %b %Y"`
 echo Directory is `pwd`
 echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
-##############################
-### Assigns path variables ###
-##############################
+################## Assign variables ###################################
+fastq=/scratch/Shares/public/sread/homework_data_files/day4
+datadir=/scratch/Users/<USERNAME>/workshop-day4   #day4 scratch working directory
+fastqc="$datadir"/fastqc
+hisat2="$datadir"/hisat2
+trim="$datadir"/trimmomatic
+store=/Users/<USERNAME>/workshop-day4
 
-## the fastq files will be used as input to fastqc and trimmomatic
-## trimmed reads will then be passed on to the mapping step
-FASTQ=/scratch/Shares/public/sread2024/homework_data_files/day4
-DATADIR=/scratch/Users/<username>/workshop-day4   #day4 scratch working directory
-FASTQC=${DATADIR}/fastqc
-HISAT2=${DATADIR}/hisat2
-TRIM=${DATADIR}/trimmomatic
-BACKUP=/Users/<username>/workshop-day4
+filebase=chr21Ethan_repA.RNA    # Prefix of the files to analyze
+adapter_file=/data/software/Trimmomatic-0.39/adapters/TruSeq3-PE.fa # Adapter sequences 
+hisat2_indexbase=/scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome # Genome index path/prefix
 
-FILENAME=chr21Ethan_repA    # Prefix of the files to analyze
 ######################
 ### Loads modules   ##
 ######################
@@ -44,9 +44,9 @@ module load samtools/1.8
 #######################
 ##1: Run fastqc on the samples (here run on example file ${FILENAME}.RNA.end1.fastq)
 
-##2: Trim FASTQ Files
+##2: Trim fastq files
 
-##3: Check Post-Trimming QC stats
+##3: Check post-trimming QC stats
 
 ##4: Map trimmed reads to reference genome
 
@@ -55,12 +55,12 @@ module load samtools/1.8
 ##The sorted bam also takes up less space
 ###5.1 - convert SAM to BAM
 
-###5.2 - sort bam file
+###5.2 - sort BAM file
 
-###5.3 - index sorted bam file
+###5.3 - index sorted BAM file
 
 ##6: Backup and clean up
-###6.1 - remove your SAM and unsorted BAM file
+###6.1 - remove your intermediate files (SAM and unsorted BAM files)
 
 ###6.2 - back up your scripts and results
 

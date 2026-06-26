@@ -18,7 +18,7 @@ You are welcome and encouraged to try this autonomously with the help of cheat s
 
 ## Part 1 Tasks (Try on your own - if you need help, guided steps are below)
 
-1. In `/scratch/Users/<username>`, create a directory `day2-workshop` and subdirectories `scripts`, `eofiles`, `gtf`
+1. In `/scratch/Users/<username>`, create a directory `workshop-day2` and subdirectories `scripts`, `eofiles`, `gtf`
 2. Copy the gene annotation file `/scratch/Shares/public/sread/data_files/day2/bedfiles/hg38.genes.gtf`  to your `gtf` directory
 - Note: DON'T open this file in VIM - it's large and you don't want to accidentally edit it. Do the following steps outside of VIM.
 3. Determine the number of annotations in the file
@@ -32,11 +32,11 @@ You are welcome and encouraged to try this autonomously with the help of cheat s
 1. Start by logging into the AWS using `ssh` followed by `<username>@<IP>`
 2. Once on the AWS, change directories using `cd` to `/scratch/Users/<username>` 
 3. You can check the contents of this directory using the `ls` command
-4. While in your scratch directory make a new directory `day2-workshop` using `mkdir`
-5. To check if you made the new directory, you can type `ls` while in your scratch and you should see `day2-workshop` appear
-6. Change directories to `day2-workshop` using `cd` 
+4. While in your scratch directory make a new directory `workshop-day2` using `mkdir`
+5. To check if you made the new directory, you can type `ls` while in your scratch and you should see `workshop-day2` appear
+6. Change directories to `workshop-day2` using `cd` 
     - Note: after typing `cd` you should start typing the name of the directory and hit `Tab` to tab complete to save you time and typing
-7. Once in `day2-workshop` make the following directories using the `mkdir` command: `scripts`, `eofiles`, `gtf`
+7. Once in `workshop-day2` make the following directories using the `mkdir` command: `scripts`, `eofiles`, `gtf`
     - Note: when making multiple directories within the same directory you can use `mkdir <dir1> <dir2>`
     > Challenge: If you use `mkdir` to make a directory that already exists, it will throw an error. Use the `man` command to see what flag you can add to make it so that `mkdir` will only make a directory if it does not exist
 8. You can verify the new directories are created using `ls`
@@ -44,7 +44,7 @@ You are welcome and encouraged to try this autonomously with the help of cheat s
 
 ### B. Copy over the GTF File
 
-1. Navigate to the `/scratch/Users/<username>/day2-workshop/gtf` directory
+1. Navigate to the `/scratch/Users/<username>/workshop-day2/gtf` directory
     - This is the directory into which we will copy the gtf file
 2. Using the `rsync` command, copy the `hg38.genes.gtf` file (`/scratch/Shares/public/sread2025/data_files/day2/bedfiles/hg38.genes.gtf`) to this directory
     - The format of the `rsync` command is as follows: `rsync <source> <destination>`
@@ -121,7 +121,7 @@ An additional important concept for file management is modifying *permissions*. 
 You will read about `.tar.gz` files, copy a compressed archive file into your directory, and decompress and extract the files from it. Then you will change the permissions on one of those files. 
 
 Steps:
-1. In the `day2-workshop` directory you made in your scratch, create a subdirectory called `bedfiles`
+1. In the `workshop-day2` directory you made in your scratch, create a subdirectory called `bedfiles`
 2. Copy this file to your `bedfiles` directory: `/scratch/Shares/public/sread/data_files/day2/bedfiles/chr1_bedfiles.tar.gz` 
 3. Using the resources below, decompress and extract the files from `chr1_bedfiles.tar.gz`
 4. Change the permissions on any one of the files so that the owner has read, write and execute permissions; the group has read and execute permissions; and the public has only read permission
@@ -139,7 +139,7 @@ Steps:
     - `mkdir`: make a folder
 - Navigating Around:
     - `pwd` (print working directory) will tell you which directory you’re in
-    - `cd` (change directory) lets you move to a different directory. You can navigate using absolute or relative paths. For example, if you’re starting in `/scratch/Users/<username>` and you want to be in the `day2-workshop` directory inside of it, typing `cd /scratch/Users/<username>/day2-workshop` will move you using the *absolute path* and typing `cd day2-workshop` will move you using the *relative path*
+    - `cd` (change directory) lets you move to a different directory. You can navigate using absolute or relative paths. For example, if you’re starting in `/scratch/Users/<username>` and you want to be in the `workshop-day2` directory inside of it, typing `cd /scratch/Users/<username>/workshop-day2` will move you using the *absolute path* and typing `cd workshop-day2` will move you using the *relative path*
         - Relative paths have some shortcuts: `..` (two dots) means "the directory immediately above the one that I'm in" and `.` (one dot) means "the directory that I'm currently in"
     - `ls` (list) prints out information about the files in your current directory
 - Working with Files:
@@ -166,9 +166,9 @@ To submit a bash script, you will need to exit out of the script, and on the com
 *Goal*: Learn how to take a series of steps like you ran before and combine them into a single script that you can run for reproducibility.
 
 ### Steps:
-1. Make a new file called `sync_files.sh` in your scratch `day2-workshop/scripts` directory using `vim`
+1. Make a new file called `sync_files.sh` in your scratch `workshop-day2/scripts` directory using `vim`
 2. Write `#!/bin/bash` as the first line of the file
-3. Write a series of commands on separate lines in your script to make a subdirectory in `day2-workshop` called `gtf_from_script` and copy the same human annotation gtf file from Part 1 to this new directory. As a tip, absolute paths in scripts make them much more reproducible and reduce errors
+3. Write a series of commands on separate lines in your script to make a subdirectory in `workshop-day2` called `gtf_from_script` and copy the same human annotation gtf file from Part 1 to this new directory. As a tip, absolute paths in scripts make them much more reproducible and reduce errors
 4. Run the script on the command line interface using `sh <script_file>` to submit the script
 5. Check to see if the directory is made, and if the file copied over
 
