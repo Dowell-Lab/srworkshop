@@ -1,7 +1,7 @@
 # Day 2 | Intro to Linux & Vim
 
 ### How/Why can I use a computer without a graphical interface?
-Graphical interfaces (like Finder for Mac or Files for Windows) offer a user-friendly experience, while working from the terminal allows a user more complete control over the computer. You do this from the command line using **Linux/Unix commands**. Since the terminal does not provide things like Microsoft word to edit and search files, we instead use a tool called **Vim**.
+Graphical interfaces (like Finder for Mac or File Explorer for Windows) offer a user-friendly experience, while working from the terminal allows a user more complete control over the computer. You do this from the command line using **Linux/Unix commands**. Since the terminal does not provide things like Microsoft Word to edit and search files, we instead use a tool called **Vim**.
 
 ### Before Day 2
 Please watch the following videos:
@@ -32,12 +32,14 @@ Linux commands:
 - `mkdir` (make a directory)
 - `pwd` (print working directory)
 - `cd` (change directory)
-- `ls` (see information about the files in the directory)
-- `realpath <filename>` (gives you the absolute path of a file) *Remember that the <> means you DON'T type that so if my file was file.txt I'd type* `realpath file.txt`
-- CTRL-c (abort the command you just ran)
+- `ls` (list)
+- `realpath <filename>` (gives you the absolute path of a file)
+  - *Remember that you DON'T type the <>. So if my file was* `file.txt`*, I'd type* `realpath file.txt`
+- `CTRL-C` (abort the command you just ran)
 - Check out the **worksheet** section to find a more detailed list of common commands
 
 Vim:
-- Before being able to type, you must click `i` (insert).
-- To save you must quit with `:wq` (include colon), to quit without saving, quit with `:q!`. Make sure to click escape if you are still in editing mode.
+- Before being able to type, you must click `i` (insert) or `a` (append)
+- Before saving, quitting, or running other commands, you must hit `Esc`
+- To save and quit you must use `:wq` (include colon), or to quit without saving use `:q!`.
 - To search for a pattern, do `:/<pattern>`

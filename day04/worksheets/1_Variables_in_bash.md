@@ -43,7 +43,7 @@ General properties of Bash variables:
 
 <ul>
 <li>
-Variables in Bash must be defined by an equals sign with no spaces on either side:
+Variables in Bash must be defined by an equals sign with <em>no spaces</em> on either side:
 
 <code>a=hello</code>, NOT <code>a = hello</code>\
 <code>testnum=91</code>, NOT <code>testnum=   91</code>
@@ -54,10 +54,10 @@ Variables in Bash are called (used) by preceding them with a dollar sign. There 
 `$a` or `$testnum`, NOT `$ a` or `$ testnum`
 </li>
 <li>
-Generally be aware of whitespace (spaces or tabs) in Bash. Whitespace is by default a separator unless you indicate otherwise. We'll explore this concept more below.
+Generally be aware of whitespace (spaces or tabs) in Bash. Whitespace is a separator unless you indicate otherwise. We'll explore this concept more below.
 </li>
 <li>
-Unlike in other programming languages, Bash variables have no type. They are all stored as strings of characters, though some mathematical operations can be performed on them if the characters happen to be numbers. Bash is <strong>not</strong> the language to use for anything but basic computation, but it is powerful for manipulating files.
+Unlike in other programming languages, Bash variables have no 'type'. They are all stored as strings of characters, though some mathematical operations can be performed on them if the characters happen to be numbers. Bash is <strong>not</strong> the language to use for anything but basic computation, but it is powerful for manipulating files.
 </li>
 </ul>
 
@@ -65,7 +65,7 @@ Unlike in other programming languages, Bash variables have no type. They are all
 <ol>
 <h3><li>Open a terminal window and log into the AWS.</h3>
 
-You should have already cloned the srworkshop repository into your home directory. Now, also in your home directory, create a new directory called 'folder'.
+You should have already cloned the srworkshop repository into your home directory. Now, also in your home directory, create a new directory called `folder`.
 </li>
 <h3><li>Set a variable</h3>
 
@@ -136,7 +136,9 @@ ls "$basedir"01
 
 With no brackets or quotes, Bash assumes anything after the $ is the variable name. So extra characters can't just be added to variable names with no delineation. Either brackets or quotes must be used.
 
-Also note that since there is no whitespace (or special characters) in this variable value, the `"$variable"` and `${variable}` notation is functionally equivalent. Since all Bash users are soon trained out of using whitespace in paths, the notation people use is largely a matter of personal preference. You'll see both notations in class scripts, depending on who wrote them. But it's also useful to know that there are edge cases where the notation differences might matter.
+Also note that since there is no whitespace (or special characters) in this variable value, the `"$variable"` and `${variable}` notation is functionally equivalent. Since all Bash users are soon trained out of using whitespace in paths, the notation people use is largely a matter of personal preference when working with single strings. You'll see both notations in class scripts, depending on who wrote them.
+
+It's also useful to know that there are edge cases where the notation differences might matter. The main difference is that `${}` notation works with something called an <em>array</em>, which stores a list of values in one variable name. Arrays are more of an advanced topic that we're not covering right now, but they can be very powerful.
 </li>
 </ol>
 
