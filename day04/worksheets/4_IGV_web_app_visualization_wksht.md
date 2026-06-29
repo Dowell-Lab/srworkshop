@@ -1,5 +1,5 @@
 # Visualizing with the IGV Web App
-Authors: Samuel Hunter and Lynn Sanford, 2023
+Authors: Samuel Hunter and Lynn Sanford, 2023\
 Edited: Georgia Barone (2025)
 
 ## Introduction
@@ -9,7 +9,7 @@ In the videos for today, you saw the functionality of the IGV Desktop Applicatio
 
 ## Make sure you have BAM and BAI files
 You should have transferred these files to you computer at the end of the last worksheet. If you were not able to generate these files, do Step 9 of the Day4_Mapping_worksheet with the `.bam` and `.bam.bai` files at the following location on the AWS:\
-`/scratch/Shares/public/sread2025/cookingShow/day4/`
+`/scratch/Shares/public/sread/cookingShow/day4/`
 
 ## Using the IGV Web App (on your local machine)
 
@@ -62,7 +62,7 @@ You should have transferred these files to you computer at the end of the last w
     In the individual read visualization panel, the thicker grey bars indicate reads, while the thin grey bar indicates the continuation of a read across a splice junction. If a base in the read doesn’t match the reference, the mismatch will be indicated by a colored vertical line in the read. If the read alignment suggests a deletion, the entire read will be colored red. Insertions will be colored blue, and translocations colored green. For more info about the IGV color-codes, visit: <a href="https://software.broadinstitute.org/software/igv/interpreting_insert_size", target="_blank">https://software.broadinstitute.org/software/igv/interpreting_insert_size</a>
   </li>
   <li>
-    Note: BAM files are memory-intensive, so it isn’t a good idea to load in many at once. TDFs (more tomorrow on these) are lightweight, but specific read info isn’t retained.
+    Note: BAM files are memory-intensive, so it isn’t a good idea to load in many at once. TDFs (more tomorrow on these) are lightweight, but specific read info isn’t retained - they really just provide the histogram of reads.
   </li>
   <li> 
     Visualizations can be misleading! Making sure the read scaling and count normalization are the same is necessary for comparing multiple libraries. Next week, you’ll learn how to run differential analysis for a principled way of determining significant changes between data sets.

@@ -2,7 +2,15 @@
 Author: Qing Yang, 2021\
 Edited: Lynn Sanford (2024), Georgia Barone (2025)
 
-1. Make sure that you have two trimmed fastq files from the Trimmomatic step, one for read 1 and one for read 2. **If you're still struggling to get Trimmomatic to work**, copy the two files from `/scratch/Shares/public/sread2025/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
+Now we will use the trimmed FASTQ files and map them to the reference genome. This is another essential step for any sequencing libraries derived from a genome or transcriptome.
+
+Mapping takes each individual read, looks for a small part of it in the genome, and then attempts to align the rest of the read. Often, any read will only align well to one place in the genome, but sometimes it will align well to multiple places.
+
+Today we will be using one of the main alignment software packages designed for RNA-seq: HISAT2. This is a splice-aware aligner, meaning that it takes into account when a read may map to two different places in the genome due to it spanning a splice site.
+
+Navigate to your **scratch** `workshop-day4` directory if you are not already there.
+ 
+1. Make sure that you have two trimmed FASTQ files from the Trimmomatic step, one for read 1 and one for read 2. **If you're still struggling to get Trimmomatic to work**, copy the two `.fastq` files from `/scratch/Shares/public/sread/cookingShow/day4/` to your scratch `workshop-day4/trimmomatic/` directory.\
 \
 ![Trimmed fastq file locations](md_images/trimmed_fastq_file_locations.png)
 
@@ -11,13 +19,13 @@ Edited: Lynn Sanford (2024), Georgia Barone (2025)
 3. Edit the SLURM header configurations:
     - Change the name of the job to something useful like `hisat2_mapping`
     - Replace any user inputs (`<>`) with your specific values. Make sure your output and error directory exists.
-    - HISAT2 can use multiple processors per input file, but still only one node. For this run, edit the fields to reserve 1 node, 2 processors (`ntasks`), 1gb memory and 1 hr of walltime.
+    - HISAT2 can use multiple processors per input file, but still only one node. For this run, edit the fields to reserve 1 node, 2 processors (`ntasks`), 1gb memory and 20 minutes of walltime.
 
-4. Assign path variables. In this case, `DATADIR` is set to your working directory on scratch, and the `TRIM` path variable is the default trimmomatic directory within that. The `HISAT` variable points to the output directory for this script. Make sure all of these paths are accurate for you.
-    - Note that in this case, we didn't manually make a `hisat2` directory on the command line. The `mkdir` command in the script should do it for us.
+4. Assign path variables. In this case, `datadir` is set to your working directory on scratch, and the `trim` path variable is the default trimmomatic directory within that. The `hisat2` variable points to the output directory for this script. Make sure all of these paths are accurate for you.
+    - The `mkdir -p` command covers our bases to make sure all directories exist
 
-5. Load modules for hisat2 and samtools. HISAT2 is our read mapping software and we'll use SAMtools for file conversion afterward.
-    - `samtools/1.8` is the version actually on the AWS.
+5. Load the module for hisat2. HISAT2 is our read mapping software and we'll use SAMtools for file conversion afterward.
+    - Typically we would probably also have a module for SAMtools, but on the AWS it's currently installed system-wide, so we don't need to load it.
 
 6. Finally, look at the read mapping and file conversion commands.
     - As before, note that `\` with no trailing spaces provides a displayed line break that doesn't actually break up the command as run by the computer. This makes the code more readable.
@@ -32,9 +40,9 @@ Edited: Lynn Sanford (2024), Georgia Barone (2025)
 
 9. Of your 5 output files, you'll see that they vary in size. Take a look at the top 200 lines of the large `.sam` file with `head` (look up parameters for how to change the default number of lines shown). Most of these lines are an extensive header, but at the bottom of these 200 lines you'll see a copy of the hisat2 command you ran, and then a few actual read alignments. You can look up more about the SAM file format in the SAMtools documentation.
 
-10. Most importantly, human-readable SAM files are almost never used in downstream analysis, as they are too large. Downstream analysis is instead uses the binary BAM files derived from SAM files. So in general, it's best to save your final BAM file (in this case the `.sorted.bam` file) and delete the rest to save space and money.
-    - Remove the `.sam` and non-sorted `.bam` files in your scratch working directory.
-        - By default read alignments in a SAM/BAM file are in order of the reads in the fastq file (i.e. random). In order for many downstream programs to run efficiently, the BAM file needs to be sorted by (usually) chromosomal coordinate or by (sometimes) read name. Other than the read order, the unsorted and sorted BAM files are equivalent, so keeping both is redundant.\
+10. Most importantly, human-readable SAM files are almost never used in downstream analysis, as they are too large. Downstream analysis instead uses the binary BAM files derived from SAM files. So in general, it's best to save your final BAM file (in this case the `.sorted.bam` file) and delete the rest to save space and money.
+    - By default, read alignments in a SAM/BAM file are in order of the reads in the fastq file (i.e. random). In order for many downstream programs to run efficiently, the BAM file needs to be sorted by (usually) chromosomal coordinate or by (sometimes) read name. Other than the read order, the unsorted and sorted BAM files are equivalent, so keeping both is redundant.
+    - Remove the `.sam` and non-sorted `.bam` files in your `hisat2` directory.\
         \
 ![removing_mapped files](md_images/removing_mapped_files.png)
 
@@ -44,5 +52,5 @@ Edited: Lynn Sanford (2024), Georgia Barone (2025)
     - Copy the full path to your `chr21Eric_repA.RNA.sorted.bam` file. One way to display this full path is using the command `realpath <file>`. Then copy it to your clipboard.
     - Open a terminal on your local machine (NOT connected to the AWS).
     - Navigate to the local directory where you want your mapped files.
-      - Note again that on a Windows machine, it may be easiest to navigate to your Desktop, which is either located at `/mnt/c/Users/<username>/Desktop/` OR `/mnt/c/Users/<username>/OneDrive/Desktop/`
+      - Note that on a Windows machine, it may be easiest to navigate to your Desktop, which for Windows Subsystem for Linux is either located at `/mnt/c/Users/<username>/Desktop/` OR `/mnt/c/Users/<username>/OneDrive/Desktop/`
     - Use `rsync` to transfer the bamfile to your current directory on your local machine (`rsync <username>@<AWS_ip_address>:<path to file> ./`). Do the same with the `chr21Eric_repA.RNA.sorted.bam.bai` file.

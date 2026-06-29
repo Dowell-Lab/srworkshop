@@ -20,8 +20,7 @@ echo Directory is `pwd`
 echo Using $SLURM_NTASKS processors across $SLURM_NNODES nodes
 
 ################## Assign variables ###################################
-indir=/scratch/Shares/public/sread/data_files/day4
-fastq="$indir"/fastq
+fastq=/scratch/Shares/public/sread/data_files/day4/fastq
 outdir=/scratch/Users/<USERNAME>/workshop-day4
 fastqc="$outdir"/fastqc
 trim="$outdir"/trimmomatic
@@ -47,7 +46,7 @@ fastqc -o $fastqc "$fastq"/"$filebase".end2.fastq
 
 ##2: Trim FASTQ Files
 java -jar $trimmomatic_exec PE \
- -threads 2 \
+ -threads $SLURM_NTASKS \
  -phred33 \
  -trimlog "$trim"/trimlog \
  "$fastq"/"$filebase".end1.fastq "$fastq"/"$filebase".end2.fastq \

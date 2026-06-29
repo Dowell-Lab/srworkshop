@@ -32,8 +32,8 @@ adapter_file=/data/software/Trimmomatic-0.39/adapters/TruSeq3-PE.fa # Adapter se
 hisat2_indexbase=/scratch/Shares/public/genomes/hisatfiles/hg38/HISAT2/genome # Genome index path/prefix
 
 ################## Load modules/software ##############################
-module load fastqc/0.11.5
-module load hisat2/2.1.0
+module load fastqc/0.12.1
+module load hisat2/2.2.1
 
 # Trimmomatic is a program that we run the executable manually with Java
 # Set this executable path as a variable
@@ -43,6 +43,9 @@ trimmomatic_exec=/data/software/Trimmomatic-0.39/trimmomatic-0.39.jar
 # But samtools v1.23.1 is just installed system-wide here
 
 ################## Run the pipeline ###################################
+##0: Make directories if they don't already exist
+mkdir -p $datadir $fastqc $hisat2 $trim $store
+
 ##1: Run fastqc on the samples (here run on example file "$filebase".RNA.end1.fastq)
 fastqc -o $fastqc "$fastq"/"$filebase"*.fastq
 
