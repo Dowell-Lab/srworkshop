@@ -1,23 +1,11 @@
 
-This is how I did the homework.
+1. First, log onto the super computer
 
+2. Make the directory `<your_name>_Rocks` and check that it's there with `ls`
 
-1. First I logged onto the super computer
-![alt text](https://github.com/Dowell-Lab/srworkshop/blob/main/day02/images/logontosupercomputer.png "loging on to the super computer")
+3. Run `rsync`. Notice the `-r` flag. That stands for recursive which means the directory and everything in it. Then check that it worked with `ls`
+- Why do I have a `/` before `scratch` but not before `<your_name>_Rocks`? Do you remember? If not, make sure to look up more Linux relative vs. absolute paths. 
+![alt text](images/hw_day2_answers.png "Did rsync work")
 
-2. Then I made the directory I wanted and checked it was there with ls
-![alt text](https://github.com/Dowell-Lab/srworkshop/blob/main/day02/images/mkdirmaryrocks.png "mkdir maryrocks")
-
-3. Then I ran rsync. Notice the -r flag. That stands for recursive which means the directory and everything in it. 
-![alt text](https://github.com/Dowell-Lab/srworkshop/blob/main/day02/images/didrsyncwork.png "Did rsync work")
-Then I checked if rsync worked by cd into that folder and using ls to see the files. 
-
-Why do I have a / before scratch but not before Mary_Rocks? Do you remember? If not make sure to look up linux relative vs absolute paths. 
-
-4.  Make sure you practice vimtutor some more before tomorrow!
-![alt text](https://github.com/Dowell-Lab/srworkshop/blob/main/day02/images/rsyncandvimtutor.png "running rsync")
-
-![alt text](https://github.com/Dowell-Lab/srworkshop/blob/main/day02/images/vimtutorscreenshot.png "vimtutor screen shot")
-
-
+4. Make sure you practice `vimtutor` some more before tomorrow!
 
