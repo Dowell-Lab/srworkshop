@@ -3,7 +3,7 @@
 #SBATCH --mail-type=END                         # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR_EMAIL>           # Where to send mail
 #SBATCH --nodes=1                               # Number of nodes requested
-#SBATCH --ntasks=4                              # Number of CPUs (processor cores/tasks)
+#SBATCH --ntasks=2                              # Number of CPUs (processor cores/tasks)
 #SBATCH --mem=4gb                               # Memory limit
 #SBATCH --time=00:30:00                        # Time limit hrs:min:sec
 #SBATCH --partition=short                      # Partition/queue requested on server
