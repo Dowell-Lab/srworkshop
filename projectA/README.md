@@ -1,6 +1,6 @@
 # Single-Cell RNA-seq Teaching Course
 
-Author: Mary Allen And Perplexity AI 
+Authors: Mary Allen and Perplexity AI, based on scripts from Mary Allen, Chris Ozeroff, Jesse Kurland, Georgia Barone, Hope Townsend, Tyler Amos, Brianna Fernandez, Alyx Gray
 
 A hands-on walkthrough of a complete scRNA-seq analysis, from raw counts to
 cell-cell communication and developmental trajectories. Each pipeline **step**
