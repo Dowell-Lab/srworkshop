@@ -1,0 +1,135 @@
+# =============================================================================
+# GATA1 track - Script 05: Trajectory / pseudotime with monocle3
+# -----------------------------------------------------------------------------
+# Orders cells along a developmental continuum. This dataset is a hematopoietic
+# differentiation TIME COURSE (collected at D7, D9, D11), so pseudotime has a
+# real-world anchor: the inferred ordering should broadly track the sampling day.
+# That makes it a great teaching case - you can VALIDATE pseudotime against the
+# experimental day metadata.
+#
+# Input : OUT_DIR/gata1_combined_annotated.rds  (from script 03)
+# Output: a monocle3 cds + trajectory plots in OUT_DIR.
+#
+# Interactive calls (order_cells / choose_cells) pop up a chooser window when
+# run in RStudio. A non-interactive root-picking helper is provided so the
+# script also runs start-to-finish on a headless server.
+# =============================================================================
+
+source("../00_paths_and_setup.R")
+
+library(monocle3)
+library(R.utils)
+library(Seurat)
+library(SeuratWrappers)
+library(dplyr)
+library(ggplot2)
+
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated.rds"))
+combined <- JoinLayers(combined)
+
+# ---- 1. Subset to ONE lineage so the trajectory is interpretable ------------
+# A trajectory only makes sense within a single continuum. Erythroid maturation
+# is the dominant axis here. We keep the erythroid-labeled cells from SingleR.
+# Inspect the labels first and adjust the pattern to match what YOUR run produced.
+print(sort(table(combined$SingleR_label), decreasing = TRUE))
+
+ery_pattern <- "Erythro|Eryth|Ery"     # matches "Erythroid", "Erythrocytes", etc.
+ery_cells   <- grepl(ery_pattern, combined$SingleR_label, ignore.case = TRUE)
+message("Erythroid cells selected: ", sum(ery_cells))
+
+red <- subset(combined, cells = colnames(combined)[ery_cells])
+
+# ---- 2. Convert Seurat -> monocle3 cell_data_set ----------------------------
+cds <- SeuratWrappers::as.cell_data_set(red)
+# Carry gene names over so plot_cells(genes = ...) can find them.
+cds@rowRanges@elementMetadata@listData[["gene_short_name"]] <- rownames(red[["RNA"]])
+
+# =============================================================================
+# BASIC pseudotime - required setup + ordering
+# =============================================================================
+# Required order: preprocess -> reduce_dimension -> cluster -> learn_graph
+cds <- monocle3::preprocess_cds(cds, method = "PCA", num_dim = 10)
+ggsave(file.path(OUT_DIR, "gata1_pt_pc_variance.png"),
+       plot = monocle3::plot_pc_variance_explained(cds), width = 6, height = 4, dpi = 150)
+
+cds <- monocle3::reduce_dimension(cds, reduction_method = "UMAP", preprocess_method = "PCA")
+cds <- monocle3::cluster_cells(cds)
+cds <- monocle3::learn_graph(cds)
+
+# Color the trajectory by the things we know about each cell.
+save_cells <- function(p, file, w = 7, h = 5) {
+  ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
+}
+save_cells(monocle3::plot_cells(cds, color_cells_by = "day", label_cell_groups = FALSE),
+           "gata1_pt_by_day.png")
+save_cells(monocle3::plot_cells(cds, color_cells_by = "construct", label_cell_groups = FALSE),
+           "gata1_pt_by_construct.png")
+
+# Erythroid maturation markers to orient the path (early -> late).
+save_cells(monocle3::plot_cells(cds, genes = c("CD34", "GATA1", "TFRC", "HBG1"),
+                                label_cell_groups = FALSE, show_trajectory_graph = FALSE),
+           "gata1_pt_markers.png", w = 9, h = 7)
+
+# ---- 3. Pick the root WITHOUT a mouse click ---------------------------------
+# order_cells() normally opens an interactive node-picker. For a headless run we
+# pick the root automatically as the node sitting among the EARLIEST cells -
+# here, the cells from day D7 (progenitor-rich, high CD34).
+get_earliest_node <- function(cds, time_col = "day", early_value = "D7") {
+  cell_ids <- which(colData(cds)[[time_col]] == early_value)
+  if (length(cell_ids) == 0) return(NULL)
+  closest_vertex <- cds@principal_graph_aux[["UMAP"]]$pr_graph_cell_proj_closest_vertex
+  closest_vertex <- as.matrix(closest_vertex[colnames(cds), ])
+  top_node <- as.numeric(names(which.max(table(closest_vertex[cell_ids, ]))))
+  igraph::V(principal_graph(cds)[["UMAP"]])$name[top_node]
+}
+
+root_node <- get_earliest_node(cds, "day", "D7")
+if (!is.null(root_node)) {
+  cds <- monocle3::order_cells(cds, root_pr_nodes = root_node)
+} else {
+  # Fallback: interactive picker (RStudio only).
+  cds <- monocle3::order_cells(cds)
+}
+
+save_cells(monocle3::plot_cells(cds, color_cells_by = "pseudotime",
+                                label_cell_groups = FALSE, label_leaves = FALSE,
+                                label_branch_points = FALSE, graph_label_size = 1.5),
+           "gata1_pt_pseudotime.png")
+
+# VALIDATE: does pseudotime track the experimental day? It should, broadly.
+pt <- monocle3::pseudotime(cds, reduction_method = "UMAP")
+val <- data.frame(pseudotime = pt, day = colData(cds)$day)
+val <- val[is.finite(val$pseudotime), ]
+p_val <- ggplot(val, aes(x = day, y = pseudotime, fill = day)) +
+  geom_violin() + geom_boxplot(width = 0.1, outlier.size = 0.3) +
+  labs(title = "Pseudotime vs. experimental day (sanity check)") + theme_bw()
+save_cells(p_val, "gata1_pt_vs_day_violin.png")
+
+saveRDS(cds, file.path(OUT_DIR, "gata1_cds_pseudotime.rds"))
+message("Saved: ", file.path(OUT_DIR, "gata1_cds_pseudotime.rds"))
+
+# =============================================================================
+# ADVANCED - genes that change along the trajectory
+# =============================================================================
+# graph_test: which genes vary SPATIALLY along the trajectory graph?
+#   morans_I : strength of spatial autocorrelation (higher = cleaner gradient).
+#   q_value  : multiple-testing-corrected significance.
+cds_pr_test_res <- monocle3::graph_test(cds, neighbor_graph = "principal_graph", cores = 4)
+deg <- subset(cds_pr_test_res, q_value < 0.0005 & morans_I > 0.25)
+deg <- deg[order(-deg$morans_I), ]
+pr_deg_ids <- rownames(deg)
+print(head(pr_deg_ids, 30))
+write.csv(deg, file.path(OUT_DIR, "gata1_pt_trajectory_genes.csv"))
+
+# Plot a few erythroid genes ALONG pseudotime to see the maturation program.
+genes_look_interesting <- intersect(c("CD34", "GATA1", "TFRC", "HBG1", "HBG2", "GFI1B"),
+                                     rownames(rowData(cds)))
+if (length(genes_look_interesting) > 0) {
+  subset_cds <- cds[rowData(cds)$gene_short_name %in% genes_look_interesting, ]
+  p_genes <- monocle3::plot_genes_in_pseudotime(subset_cds, color_cells_by = "day",
+                                                vertical_jitter = TRUE, cell_size = 0.3)
+  save_cells(p_genes, "gata1_pt_genes_in_pseudotime.png", w = 7, h = 8)
+}
+
+# choose_graph_segments() (interactive) isolates one branch start->end:
+# cds_sub <- monocle3::choose_graph_segments(cds)

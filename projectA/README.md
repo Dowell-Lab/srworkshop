@@ -1,58 +1,152 @@
-# Project A | Single-cell RNA-seq
+# Single-Cell RNA-seq Teaching Course
 
-## 0. We have gotten data from fetuses that are either Trisomy 21 or Eupliod. 
+Author: Mary Allen And Perplexity AI 
 
-Jardine, L., Webb, S., Goh, I., Quiroga Londoño, M., Reynolds, G., Mather, M., ... & Haniffa, M. (2021). Blood and immune development in human fetal bone marrow and Down syndrome. Nature, 598(7880), 327-331.
+A hands-on walkthrough of a complete scRNA-seq analysis, from raw counts to
+cell-cell communication and developmental trajectories. Each pipeline **step**
+has a runnable R script and a companion teaching `.md` lesson explaining what
+every block of code does and *why*.
 
-Supplemental table 1
-https://docs.google.com/spreadsheets/d/17JnPENn9CDxJa6igqSnC1O5RCjmZPxQ3bepf7jaS-MM/edit?gid=0#gid=0
+**Audience:** comfortable with R; new to single-cell.
 
-Premade HD5 objects
-https://developmental.cellatlas.io/fetal-bone-marrow
+---
 
-Link to tutorial for batch correction with Harmony: https://portals.broadinstitute.org/harmony/articles/quickstart.html. We don't go over it in these scripts due to time constraints.
+## Two tracks, two datasets
 
-## 1. Installing packages
-If you haven't already, download the following packages locally onto R by following the steps below:
+The course is organized into **two parallel tracks**. You run the GATA1 track
+end to end as the primary worked example; the fetal bone marrow track is a
+reference you can dip into for a few techniques the GATA1 data doesn't exercise.
 
-1. Open R (type R on the terminal and you should see something like the output below):
-```
-R version 4.4.0 (2024-04-24) -- "Puppy Cup"
-Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin20
+### Track A — GATA1 (PRIMARY) · GSE271399
 
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
+The main dataset you run yourself. An **isogenic iPSC differentiation time
+course** of hematopoietic progenitors with a clean 2 × 2 × 3 design:
+**genotype** (Euploid / T21) × **construct** (wtGATA1 / GATA1s) × **day**
+(D7 / D9 / D11) = 12 conditions. GATA1s is the truncated isoform central to
+Down-syndrome-associated leukemia.
 
-  Natural language support but running in an English locale
+- Biology: Takasaki et al., *Single-cell transcriptomics reveal individual and
+  cooperative effects of trisomy 21 and GATA1s on hematopoiesis*,
+  [*Stem Cell Reports* 2025](https://pubmed.ncbi.nlm.nih.gov/40680731/) ·
+  [GEO GSE271399](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE271399)
+- Why primary: clean, well-designed, and a real **time course**, so pseudotime
+  can be validated against sampling day and metadata can be derived cleanly from
+  sample names.
 
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
+### Track B — Fetal bone marrow (REFERENCE) · T21 / D21
 
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
+Two fetal bone marrow samples used to demonstrate techniques the GATA1 data
+doesn't need — and, deliberately, to show what **messy metadata** looks like
+(one fetus is labeled with two impossible ages; see the pitfalls note).
 
+| Label | Meaning |
+|---|---|
+| **T21** | Trisomy 21 (Down syndrome) |
+| **D21** | Disomic (typical control) |
 
+Biology source: [fetal bone marrow cell atlas](https://developmental.cellatlas.io/fetal-bone-marrow).
 
-```
+---
 
-2. Install Seurat according to instructions [here](https://satijalab.org/seurat/articles/install.html). TLDR version is below
-*  Type this in R: `remotes::install_github("satijalab/seurat", "seurat5", quiet = TRUE)`. You don't need to install the optional packages. 
-* If it says somehting like remotes can't be found, do `install.packages('remotes')` and try again. 
-* If it says that a dependency package isn't installing, try installing from source. For example, if I wanted to install the paackage "Rcpp" from source, I'd google cran Rcpp where the first link would get me to [here](https://cran.r-project.org/web/packages/Rcpp/index.html). I'd find a link to the latest release under the section Downloads, copy the link address of the appropriate version (in my case r-release(x86_64): Rcpp_1.0.12.tgz). Then in R I'd type `install.packages("link_I_copied", repo=NULL, type="source")` so in my case this would be `install.packages("https://cran.r-project.org/bin/macosx/big-sur-x86_64/contrib/4.4/Rcpp_1.0.12.tgz", repo=NULL, type="source")`
-* If that doesn't work, install using `install.packages('Seurat').
+## Data lives read-only on the cluster — no downloads
 
-2. Install CellChat according to instructions on the README [here](https://github.com/jinworks/CellChat)
-* For troubleshooting dependencies, use the install from source tip from above
-**Note** Make sure you install all of the specified dependencies before trying to install CellChat. 
+All data is **read-only on the shared AWS/Fiji cluster**. Nobody downloads
+anything. Paths are centralized in `scripts/00_paths_and_setup.R`; if the
+workshop directory ever moves, that's the only file to edit. Every script writes
+its intermediates to a per-user, writable `OUT_DIR` (defaults to
+`~/scRNAseq_course_output`), never to the share.
 
-## 2. Getting the data
-If you were successfully able to install Seurat (don't worry if not Cellchat), download the Seurat objects from the zenodo link [here](https://zenodo.org/records/12725642).
+| Track | Stage | Location on the share |
+|---|---|---|
+| GATA1 | Raw matrices (all lessons) | `…/cookingShow/day7a/iPCStoblood/GSE271399_<sample>_{matrix.mtx,barcodes.tsv,features.tsv}.gz` |
+| FBM | Raw 10x matrices (QC) | `…/cookingShow/day7a/total_data/{T21BM_male04, D21_male35}` |
+| FBM | Pre-labeled Seurat objects | `…/cookingShow/day9/cellchat-prelabeled-seurat-objs/{t21,d21}_norm_seurat_obj.RData` |
+| FBM | Pre-made CellChat objects | `…/cookingShow/day9/cellchatobjs/{t21,d21}-cellchat-obj.rds` |
 
-If you were successfully able to install Seurat **and** CellChat, download the the CellChat objects from the zenodo link above. 
+---
 
-## 3. Open this cheat sheet.
-   https://satijalab.org/seurat/articles/essential_commands.html
+## Course map
+
+### Track A — GATA1 (run these in order)
+
+| # | Lesson | Script | What you learn |
+|---|---|---|---|
+| 1 | [Load, QC & metadata-from-names](lessons/gata1/01_load_qc_metadata.md) | `scripts/gata1/01_load_qc_metadata.R` | ReadMtx per sample, merge, QC metrics & filtering, **parsing metadata from sample names**, stress/apoptosis module scores |
+| 2 | [Clustering, UMAP & composition](lessons/gata1/02_cluster_umap_composition.md) | `scripts/gata1/02_cluster_umap_composition.R` | Normalize/scale/PCA, clustering, UMAP, **composition heatmaps with hierarchical clustering** |
+| 3 | [Multi-reference annotation](lessons/gata1/03_multiref_singler_annotation.md) | `scripts/gata1/03_multiref_singler_annotation.R` | JoinLayers, **SingleR across several celldex atlases**, confidence pruning, marker validation |
+| 4 | [Cell-cell communication](lessons/gata1/04_cellchat.md) | `scripts/gata1/04_cellchat.R` | CellChat built **from scratch**: object, network inference, pathway analysis |
+| 5 | [Pseudotime / trajectories](lessons/gata1/05_pseudotime.md) | `scripts/gata1/05_pseudotime.R` | monocle3: lineage subset, learn_graph, headless root picking, **validating pseudotime against sampling day** |
+
+### Track B — Fetal bone marrow (reference)
+
+| # | Lesson | Script | What you learn |
+|---|---|---|---|
+| 1 | [QC, Filtering & Integration](lessons/fbm/01_qc_filtering_integration.md) | `scripts/fbm/01_qc_filtering_integration.R` | Read10X, QC, SoupX, RPCA integration, clustering, UMAP |
+| 2 | [Marker Genes & Doublets](lessons/fbm/02_markers_doublets.md) | `scripts/fbm/02_markers_doublets.R` | FindAllMarkers/FindMarkers, condition DE, DoubletFinder |
+| 3 | [Cell Type Annotation](lessons/fbm/03_cell_type_annotation.md) | `scripts/fbm/03_cell_type_annotation.R` | Seurat reference mapping, SingleR + celldex, SC-Type marker scoring |
+| 4 | [Cell-Cell Communication](lessons/fbm/04_cellchat.md) | `scripts/fbm/04_cellchat.R` | CellChat from **pre-made** objects, pathway analysis, condition comparison |
+| 5 | [Pseudotime / Trajectories](lessons/fbm/05_pseudotime.md) | `scripts/fbm/05_pseudotime.R` | monocle3: cds setup, learn_graph, order_cells, trajectory-variable genes |
+
+### Cross-cutting teaching note
+
+- [**Metadata pitfalls**](lessons/metadata_pitfalls.md) — contrasts the clean
+  "parse from the sample name" approach (GATA1) with the hand-typed sheet that
+  put two impossible ages on one FBM fetus. Read after GATA1 Lesson 1.
+
+---
+
+## How to run
+
+1. `cd scripts/gata1/` (or `scripts/fbm/`).
+2. Open the script for the lesson you're on; read the matching `lessons/**/…md`
+   alongside it.
+3. Each script begins with `source("../00_paths_and_setup.R")` to get the
+   cluster paths and a writable `OUT_DIR`.
+4. Within each track, lessons chain through saved `.rds` objects in `OUT_DIR`, so
+   run them in order. The GATA1 track flows 1 → 2 → 3, and lessons 4 and 5 both
+   build on the annotated object from lesson 3.
+
+---
+
+## Required packages
+
+| Package | Used in | Purpose |
+|---|---|---|
+| Seurat | all | core single-cell object & analysis |
+| Matrix | GATA1 1 | sparse matrix I/O for ReadMtx |
+| tidyverse (dplyr, tidyr, ggplot2) | most | data wrangling & plotting |
+| patchwork | several | combining plots |
+| SoupX | FBM 1 | ambient RNA correction |
+| DoubletFinder | FBM 2 | doublet detection |
+| SingleR | GATA1 3, FBM 3 | reference-based annotation |
+| celldex | GATA1 3, FBM 3 | built-in reference atlases |
+| HGNChelper | FBM 3 | gene-symbol correction (SC-Type) |
+| openxlsx | FBM 3 | read SC-Type marker database |
+| CellChat | GATA1 4, FBM 4 | cell-cell communication |
+| ComplexHeatmap | GATA1 4 | CellChat signaling-role heatmaps |
+| monocle3 | GATA1 5, FBM 5 | trajectory / pseudotime |
+| R.utils | GATA1 5, FBM 5 | utility functions for monocle3 workflow |
+| SeuratWrappers | GATA1 5, FBM 5 | Seurat ↔ monocle3 conversion |
+
+External tools referenced: **CellRanger 7.2.0** produced the raw matrices.
+
+---
+
+## Notes for instructors
+
+- **GATA1 is the spine of the course.** Students run all five GATA1 lessons on
+  data they process themselves — including building CellChat from scratch and
+  validating pseudotime against the D7/D9/D11 clock.
+- **The FBM track adds contrast and pre-computed shortcuts.** Its labeled objects
+  carry true cell-type labels at two resolutions (`broad_extfig7A_cell.labels`,
+  `cell.labels`) that FBM Lesson 3 uses to *measure* annotation accuracy, and its
+  CellChat objects are pre-made so class time can focus on interpretation.
+- **Metadata pitfalls is the unifying lesson.** Use the FBM two-ages error to
+  motivate the GATA1 parse-from-names discipline.
+- Slow steps (CellChat `computeCommunProb`, monocle3 `order_cells`) are clearly
+  marked. The GATA1 pseudotime script includes a **headless root picker** so it
+  runs without an interactive display.
+- `load_one()` (in `00_paths_and_setup.R`) grabs whatever object name a labeled
+  `.Rdata` file holds, so the FBM scripts are robust to naming differences.
+- Every script writes intermediates to a per-user `OUT_DIR`, never to the
+  read-only share.
