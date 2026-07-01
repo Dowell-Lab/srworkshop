@@ -1,6 +1,6 @@
 # GATA1 Lesson 01 — Loading data, QC, metadata-from-names, and module scores
 
-**Script:** `scripts/gata1/01_load_qc_metadata.R`
+**Script:** `scripts/gata1/day07/01_load_qc_metadata.R`
 **Dataset:** GSE271399 — Takasaki et al., *Stem Cell Reports* 2025
 
 This is the dataset you run from start to finish. It is a clean, well-designed
