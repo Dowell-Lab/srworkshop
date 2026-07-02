@@ -92,9 +92,10 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
   <https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html>.
 
 <img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
-  
 
-:yellow_circle: There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
+
+:yellow_circle: Edit the script to find which p53 peaks overlap with genes using bedtools intersect. Write out just information about the p53 peaks. 
+- There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
 - Consider these flag options: -wa, -wb, -wo, -woa
 
 :yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
