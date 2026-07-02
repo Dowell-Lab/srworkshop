@@ -1,4 +1,4 @@
-Day8: Using bedtools to identify overlaps
+Day9: Using bedtools to identify overlaps
 ================
 Authors: Meaghan Courvan (2024, 2026) & Lynn Sanford (2023)
 Edited: Chris Rauchet & Georgia Barone (2025)
