@@ -1,11 +1,11 @@
 # GATA1 Lesson 01 — Loading data, QC, metadata-from-names, and module scores
 
-**Script:** `scripts/gata1/01_load_qc_metadata.R`
+**Script:** `scripts/gata1/day07/01_load_qc_metadata.R`
 **Dataset:** GSE271399 — Takasaki et al., *Stem Cell Reports* 2025
 
 This is the dataset you run from start to finish. It is a clean, well-designed
 study, which makes it a good place to learn the habits that keep single-cell
-analysis honest. The companion fetal-bone-marrow track (in `lessons/fbm/`) uses
+analysis honest. The companion fetal-bone-marrow track (in `scripts/fbm/`) uses
 a messier real-world dataset on purpose — we contrast the two in the
 "metadata pitfalls" note.
 

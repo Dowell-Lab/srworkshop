@@ -11,25 +11,22 @@ Installation can be done in the R console (shown below).
 1. First load a version of R installed on the AWS
 
 ```sh
-module load R/4.3.1
+module load R/4.6.0
 ```
 
 2. Rsubread can be installed from the **BiocManager**
 
 - Type `R` in the terminal 
 
-> Note: To install Rsubread from BiocManager requires R 4.5.0. 
-> Since were are working with R 4.3.1, the command below will not work.
+> Note: If you are installing somewhere other than the AWS, installing Rsubread from BiocManager requires R >= 4.5.0
 
 - We have to first install **BiocManager**. **BiocManager** library can be installed from the R Comprehensive R Archive Network (CRAN).
 
 ```R
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
+install.packages("BiocManager")
 ```
 
-- The above command will initiate a new personal library for your R packages. Select **yes**. Additionally, CRAN mirrors from where to download the packages. We will use the USA (KS) mirror.
+- The above command will initiate a new personal library for your R packages. Select **yes**. Additionally, CRAN mirrors from where to download the packages. We will use the USA (MO) mirror.
 
 - Now, we can install **Rsubread** from **BiocManager** to our **R** libraries.
 
@@ -59,14 +56,14 @@ wget https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/Rsubread/Rs
 2. Make sure you have loaded R on the AWS
 
 ```sh
-module load R/4.3.1
+module load R/4.6.0
 ```
 
 3. Then open R, in an R console, install the package from the source file as shown below. 
 
 - Type `R` in the terminal.
 
-- Enter the conda below pointing to the path to the `Rsubread_2.14.0.tar.gz` file.
+- Enter the code below pointing to the path to the `Rsubread_2.14.0.tar.gz` file.
 
 ```R
 install.packages("/path_to_file/Rsubread_2.14.0.tar.gz", repos = NULL, type="source")

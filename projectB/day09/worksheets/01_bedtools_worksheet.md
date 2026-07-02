@@ -1,4 +1,4 @@
-Day8: Using bedtools to identify overlaps
+Day9: Using bedtools to identify overlaps
 ================
 Authors: Meaghan Courvan (2024, 2026) & Lynn Sanford (2023)
 Edited: Chris Rauchet & Georgia Barone (2025)
@@ -40,11 +40,12 @@ The most common file types that you’ll see for annotation are either BED files
 ![bed file example](images/bed_12.png)
 
 :yellow_circle: Take a moment to look at the information for these two file types from the UCSC link above, then use head to look at the gene annotation bedfile located at<br>
-<code>head /scratch/Shares/public/sread2025/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed</code>. 
+<code>head /scratch/Shares/public/sread/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed</code>. 
 
 :yellow_circle: Can you identify all the columns?
 
-:yellow_circle: Now look at the .narrowPeak file that you generated with MACS for p53 binding in HCT116 cells treated with DMSO.  
+:yellow_circle: Now look at the .narrowPeak file that you generated with MACS for p53 binding in HCT116 cells treated with NUTLIN.  
+* If you do not have this file, you can do the exercise with the this file: <code>/scratch/Shares/public/sread/cookingShow/day8b/chr21/macs/HCT116_NUTLIN_peaks_clean.narrowPeak</code>
 
 :yellow_circle: Does this file follow the standardized bed12 format?
 
@@ -72,11 +73,15 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
+:yellow_circle: Go to your github folder. Pull to make sure you have the most up-to-date versions of today's materials.
+
 :yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 
-:yellow_circle: Input the paths to the gene annotation file and your MACS peak file
+:yellow_circle: Make sure your SBATCH headers are correct.
 
-#### We will now fill the script section with bedtools commands.
+:yellow_circle: Edit the **USER INPUT**. This includes paths to the gene annotation file and your MACS peak file. What else do you need to edit? 
+
+### We will now fill the script section with bedtools commands.
 
 **NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day08/scripts/.06_day8_bedtools_answers.sbatch*
 
@@ -87,9 +92,10 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
   <https://bedtools.readthedocs.io/en/latest/content/bedtools-suite.html>.
 
 <img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
-  
 
-:yellow_circle: There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
+
+:yellow_circle: Edit the script to find which p53 peaks overlap with genes using bedtools intersect. Write out just information about the p53 peaks. 
+- There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
 - Consider these flag options: -wa, -wb, -wo, -woa
 
 :yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
@@ -200,17 +206,34 @@ files for the experimental (Nutlin-treated) samples.
 
 We have p53 peaks that overlap genes. You might be excited about this because it could provide you some target genes to look at more closely. But it’s always a good idea to think about your expectation. If p53 peaks were randomly distributed in the genome, how often would they overlap genes? Or, said another way, are p53 peaks enriched in genes compared to random expectation? 
 
-Bedtools has useful functions to help you evaluate this question. One calculates a jaccard index for your data, which is a ratio of an intersection of a set to the union of the set (see more details in the documentation for bedtools jaccard).
+Bedtools has several useful functions to help you evaluate if your p53 peaks are enriched in genes compared to random expectation. 
+
+<code>jaccard</code> calculates a jaccard index for your data.
+
+***What is a Jaccard index???***
+:bangbang: The Jaccard index is a ratio of an intersection of a set to the union of the set (see diagram below. More details specific to genomics can be found in the documentation for bedtools jaccard).
+
+<img src="images/jaccard.png" alt="Jaccard index" width="500">
+
+
 
 It’s useful to calculate a jaccard index for your intersection of interest AND for the intersection of regions randomly shuffled throughout the genome. If the two are similar, your intersection is probably not showing enrichment over random expectation. If the index for your intersection is much higher, than there is probably enrichment.
 
+
 <img src="images/shuffled_regions.png" alt="Shuffled genomic regions" width="750">
 
-- Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
-- Once you run the script again, look at this file. Use the bedtools jaccard documentation to understand the output.
-- Now, do the same calculation using peaks called in the experimental (Nutlin-treated) samples.
-- Write a bedtools shuffle command to randomize the locations of your p53 peaks in the experimental (Nutlin-treated) samples.
-- Write another bedtools jaccard command to calculate the jaccard index between your shuffled peaks and genes.
+
+- Here is the bedtools documentation for <code>jaccard</code>: https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html
+
+:yellow_circle: Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. 
+- This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
+- Look at your output file. Use the bedtools jaccard documentation to understand it.
+  
+:yellow_circle: Now, do the same calculation using peaks called in the experimental (Nutlin-treated) samples.
+
+:yellow_circle: Write a bedtools shuffle command to randomize the locations of your p53 peaks in the experimental (Nutlin-treated) samples.
+
+:yellow_circle: Write another bedtools jaccard command to calculate the jaccard index between your shuffled peaks and genes.
   - HINT: The shuffled file needs to be sorted before it can be used. The bedtools jaccard documentation tells you the bash command you need to sort it
 - Compare your three jaccard output files. Which intersection has a higher jaccard index? When you run the script again, the peaks are shuffled differently. How does that change the output?
 
