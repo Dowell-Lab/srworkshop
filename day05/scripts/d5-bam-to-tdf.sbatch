@@ -30,8 +30,8 @@ mkdir -p ${OUTDIR}
 ############### LOAD REQUIRED MODULES ####################################################
 # These are the programs used to run our code
 # Samtools is also required, but does not require a module load
-module load bedtools/2.31.0
-module load igvtools/2.19.8
+module load bedtools
+module load igvtools
 
 ##########################################################################################
 ################## PRINT JOB INFO ########################################################
