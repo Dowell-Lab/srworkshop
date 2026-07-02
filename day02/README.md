@@ -1,7 +1,18 @@
 # Day 2 | Intro to Linux & Vim
 
 ### How/Why can I use a computer without a graphical interface?
-Graphical interfaces (like Finder for Mac or Files for Windows) offer a user-friendly experience, while working from the terminal allows a user more complete control over the computer. You do this from the command line using **Linux/Unix commands**. Since the terminal does not provide things like Microsoft word to edit and search files, we instead use a tool called **Vim**.
+Graphical interfaces (like Finder for Mac or File Explorer for Windows) offer a user-friendly experience, while working from the terminal allows a user more complete control over the computer. You do this from the command line using **Linux/Unix commands**. Since the terminal does not provide things like Microsoft Word to edit and search files, we instead use a tool called **Vim**.
+
+### Before Day 2
+Please watch the following videos:
+- <a href="https://www.youtube.com/watch?v=q3KF_XafjFM&t=1s" target="_blank">2.1 | SSH and VPN Introduction</a>
+- 2.2 | Directory structures and navigation
+- 2.3 | The anatomy of a Unix command
+
+Optional videos (kind of like video cheat sheets):
+- <a href="https://youtu.be/CqGhVfdxU94" target="_blank">Remote Rsync/Reading Files</a>
+- <a href="https://youtu.be/jItBDa6zgTo" target="_blank">Searching/editing Files, Pipes, and Outputs</a>
+- <a href="https://youtu.be/b_uZ0rxfnJs" target="_blank">Directory Permissions</a>
 
 ### Goal
 The goal of day 2 is to learn some basic Linux/Unix commands for managing files. Today we will go over basic Unix/Linux commands and work more with text editors (Vim). You can Google search Linux/Unix commands/Vim commands and use the handy cheat-sheets (below) for all of these tools.
@@ -12,21 +23,23 @@ Terminal commands:
 - Bash specific cheat sheet [here](https://devhints.io/bash) (variables, for loops, etc. that are helpful in bash scripts)
 
 Vim: 
-- Make sure you have done the vim tutorial already by typing vimtutor in command line
+- Make sure you have done the vim tutorial already by typing `vimtutor` in command line
 - Short cheat sheet found [here](https://www.shell-tips.com/cheat-sheets/vim-quick-references/vi_vim_cheat_sheet.pdf)
 - Middle-length cheat sheet found [here](https://www.cs.cmu.edu/~15131/f17/topics/vim/vim-cheatsheet.pdf)
 - Longer cheat sheet found [here](https://phoenixnap.com/kb/vim-commands-cheat-sheet)
 ### Some Common Code
 Linux commands:
-- mkdir (make a directory)
-- pwd (print working directory)
-- cd (change directory)
-- ls (see information about the files in the directory)
-- realpath <filename> (gives you the absolute path of a file) *Remember that the <> means you DON'T type that so if my file was file.txt I'd type* `realpath file.txt`
-- CTRL-c (abort the command you just ran)
+- `mkdir` (make a directory)
+- `pwd` (print working directory)
+- `cd` (change directory)
+- `ls` (list)
+- `realpath <filename>` (gives you the absolute path of a file)
+  - *Remember that you DON'T type the <>. So if my file was* `file.txt`*, I'd type* `realpath file.txt`
+- `CTRL-C` (abort the command you just ran)
 - Check out the **worksheet** section to find a more detailed list of common commands
 
 Vim:
-- Before being able to type, you must click i (insert).
-- To save you must quit with `:wq` (include colon), to quit without saving, quit with `:q!`. Make sure to click escape if you are still in editing mode.
+- Before being able to type, you must click `i` (insert) or `a` (append)
+- Before saving, quitting, or running other commands, you must hit `Esc`
+- To save and quit you must use `:wq` (include colon), or to quit without saving use `:q!`.
 - To search for a pattern, do `:/<pattern>`

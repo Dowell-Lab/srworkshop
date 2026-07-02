@@ -3,12 +3,12 @@
 #SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=YOUREMAIL@colorado.edu            	# Where to send mail
 #SBATCH --nodes=1                                       # Numbers of nodes
-#SBATCH --ntasks=4                                      # Number of CPU (tasks)
+#SBATCH --ntasks=2                                      # Number of CPU (tasks)
 #SBATCH --time=00:30:00                                 # Time limit hrs:min:sec
 #SBATCH --partition=short                            # Partition/queue requested on server    
-#SBATCH --mem=10gb                                      # Memory limit
-#SBATCH --output=/path/to/your/e_o/%x_%j.out
-#SBATCH --error=/path/to/your/e_o/%x_%j.err
+#SBATCH --mem=7782mb                                      # Memory limit
+#SBATCH --output=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<YOUR_USERNAME>/workshop-day5/eofiles/%x_%j.err
 
 ################ SET REQUIRED VARIABLES #################################################
 
@@ -27,10 +27,10 @@ mkdir -p $BAM $SAM $QC
 ##########################################################################################
 ############### LOAD REQUIRED MODULES ####################################################
 
-module load hisat2/2.1.0
-module load samtools/1.8
-module load bedtools/2.25.0
-module load igvtools/2.3.75
+module load hisat2
+module load bedtools
+module load igvtools
+# Samtools is also needed but does not require a module load
 
 ##########################################################################################
 ################## PRINT JOB INFO ########################################################
@@ -50,7 +50,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 # Mapping paired-end FASTQ files to make a SAM file.
 hisat2 \
-	--threads 4 \
+	--threads 2 \
 	--very-sensitive \
 	-x ${INDICES} \
 	-1 ${INDIR}/${FILENAME}.end1.fastq \
@@ -61,13 +61,13 @@ hisat2 \
         
 # Converting SAM to BAM.                               
 samtools \
-	view -@ 4 -h -bS \
+	view -@ 2 -h -bS \
 	-o ${BAM}/${FILENAME}.bam \
 	${SAM}/${FILENAME}.sam
 
 # Sorting BAM file.         
 samtools \
-	sort -@ 4 \
+	sort -@ 2 \
 	${BAM}/${FILENAME}.bam \
 	> ${BAM}/${FILENAME}.sorted.bam
 
@@ -110,7 +110,7 @@ mkdir -p ${BEDGRAPHdir} ${TDFdir} ${STATSdir}
 # Because SAMtools uses a code to save information about reads, this can seem complicated. First, we need to get the filestats.
 # Obtaining file stats from BAM input file.
 samtools flagstat \
-        -@ 8 ${BAM} \
+        -@ 2 ${BAM} \
         > ${STATSdir}/${BAMroot}.bam.flagstat \
         2>${STATSdir}/${BAMroot}.bam.flagstat.err
 

@@ -1,0 +1,14 @@
+Question Title,Question Type,Options
+What is your current level of study?,Multiple Choice,Undergraduate;Master’s student;PhD student;Postdoc;Faculty/Researcher;Other:
+Have you used any of the following tools before this workshop?,Checkboxes,Bash / command line;R programming;Supercomputers / HPC systems;None of the above
+How would you rate the following components of the workshop?,Grid,Bash / Command Line;R Programming;Supercomputer / HPC Usage;Overall Structure / Flow | 1 – Poor;2;3;4;5 – Excellent
+Which topics or activities did you enjoy the most? Why?,Paragraph,
+Which topics or activities did you find least helpful or confusing? Why?,Paragraph,
+How would you rate the quality of instruction?,Multiple Choice,Poor;Fair;Good;Very Good;Excellent
+How approachable and helpful were the instructors and assistants?,Multiple Choice,Not at all;Slightly;Moderately;Very;Extremely
+Was the pace of the workshop appropriate for your skill level?,Multiple Choice,Too slow;Just right;Too fast
+What skills or knowledge did you gain from this workshop?,Paragraph,
+What would you like to see added or changed in future versions of this workshop?,Paragraph,
+Would you recommend this workshop to other students in biology or related fields?,Multiple Choice,Yes;No;Maybe
+Any other comments, suggestions, or feedback?,Paragraph,
+

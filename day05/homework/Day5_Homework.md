@@ -17,6 +17,8 @@ Authors: Daniel Ramírez (2022), Samuel Hunter (2023), Hope Townsend (2024)
 
 4.	Now edit this script to become a SBATCH script 
     - Add the SBATCH required headings to the bash script to make it SBATCH. Use `nodes=1`, `ntasks=1`, `time` is 1 minute, and `mem=1gb`. Don’t forget to change the paths to the output and error!
+    - Run the script using `sbatch`
+    - Check your `.out` file to see if the correct text printed out
 
 5.	Now annotate each step of `day05/scripts/d5-fastq-to-tdf.sbatch` with what the different parameter options mean for the following commands: (Examples of what a good annotation might look like is on lines 192-194)
     - `hisat2` (line 52)

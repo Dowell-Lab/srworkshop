@@ -1,6 +1,6 @@
 # Short Read Day 8 Worksheet | Preprocessing ChIP-Seq Data
 
-- Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024)
+- Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024), Chris D. Ozeroff (2025)
 
 ## Introduction
 
@@ -82,7 +82,7 @@ Create a working directory for day8 in scratch using the *mkdir* command.
 3. Copy scripts to your scratch folder
 
 ```
-[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/ /scratch/Users/<YourUsername>/day8/scripts
+[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/thescriptswewant /scratch/Users/<YourUsername>/day8/scripts
 ```
 
 Copy the following scripts from the github repository folder into your scripts directory
@@ -135,22 +135,31 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 ### Step 3: Map quality and summary of QC
 
 1. Edit and run the `03_mapqc_and_multiqc.sbatch` script.
-
+   
 2. Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
 
 - Note: The output is going into the QC folder as well (*${QC}/preseq*).
 
-3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side. 
+3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side.
 
 - There is a summary table for all the quality control metrics reported, additionally, several tabs for each of the QC metrics can be explored interactively. 
 
-- You can copy an example of the multiqc output to your personal computer. 
+**if you have issues with this step, you can use the completed outputs in cooking show, these can be found at:
+
+For chromosome 21 only:
+`/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_data`
+`/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/multiqc_report.html`
+
+For whole genome:
+`/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_data`
+`/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_report.html`
   
   - You will need to move both the folder *multiqc_data* and the html file *multiqc_report.html* to your local computer. 
 
   - You can open the html file in a web browser to interact with the page.
 
 ![Editing script header example](images/multiqc_example.png)
+
 
 ## Section B: Peak calling 
 
@@ -288,4 +297,4 @@ You can run IGV on either the web server or locally on your machine.
 
 # Example files for chromosome 21 runs
 
-You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2024/cookingShow/day8b/chr21`.
+You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/`.

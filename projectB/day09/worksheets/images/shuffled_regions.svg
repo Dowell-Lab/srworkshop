@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="198.44083mm"
+   height="114.44769mm"
+   viewBox="0 0 198.44083 114.44769"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="shuffled_regions.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0683582"
+     inkscape:cx="336.96564"
+     inkscape:cy="257.87232"
+     inkscape:window-width="2544"
+     inkscape:window-height="1080"
+     inkscape:window-x="2244"
+     inkscape:window-y="137"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.7866354,-6.7874751)">
+    <rect
+       style="opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:0"
+       id="rect6"
+       width="197.62801"
+       height="46.063667"
+       x="3.4671581"
+       y="13.125669"
+       sodipodi:insensitive="true" />
+    <rect
+       style="opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-opacity:0"
+       id="rect7"
+       width="197.62801"
+       height="46.063667"
+       x="3.4671581"
+       y="75.039207"
+       sodipodi:insensitive="true" />
+    <path
+       style="opacity:1;fill:#4d4d4d;stroke:#b3b3b3;stroke-width:0.904394;stroke-dasharray:none;stroke-opacity:1"
+       d="M 38.249659,38.175707 H 191.22382"
+       id="path1" />
+    <path
+       style="opacity:1;fill:#8d5fd3;fill-opacity:0;stroke:#00aad4;stroke-width:0.1;stroke-dasharray:1.2, 1.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 50.784198,32.747053 144.29717,84.23172"
+       id="path9" />
+    <path
+       style="fill:#4d4d4d;stroke:#b3b3b3;stroke-width:0.904394;stroke-dasharray:none;stroke-opacity:1"
+       d="M 37.691094,45.228354 H 190.66525"
+       id="path1-7" />
+    <rect
+       style="opacity:1;fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="14.184552"
+       height="6.129127"
+       x="45.028484"
+       y="34.955502" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;opacity:1;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="37.268925"
+       y="38.918671"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-size:4.23333px;text-align:end;text-anchor:end;fill:#1a1a1a;stroke-width:1"
+         x="37.268925"
+         y="38.918671">Forward</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;opacity:1;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="37.138702"
+       y="46.055"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-size:4.23333px;text-align:end;text-anchor:end;fill:#1a1a1a;stroke-width:1"
+         x="37.138702"
+         y="46.055">Reverse</tspan></text>
+    <path
+       style="opacity:1;fill:#8d5fd3;fill-opacity:0;stroke:#ff2a7f;stroke-width:0.1;stroke-dasharray:1.2, 1.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 137.81781,32.747053 46.75648,51.30955"
+       id="path8" />
+    <rect
+       style="fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-5"
+       width="14.184552"
+       height="6.129127"
+       x="133.52696"
+       y="34.738445" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:1;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="52.00845"
+       y="39.005527"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="52.00845"
+         y="39.005527">promoter</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="140.50684"
+       y="38.788471"
+       id="text4-5"><tspan
+         sodipodi:role="line"
+         id="tspan4-8"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="140.50684"
+         y="38.788471">promoter</tspan></text>
+    <path
+       style="opacity:1;fill:#8d5fd3;fill-opacity:0;stroke:#008000;stroke-width:0.1;stroke-dasharray:1.2, 1.2;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 161.10849,32.747053 72.849056,84.406839"
+       id="path7" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:0.994118;stroke:none;stroke-width:0.0808757;stroke-dasharray:0.970508, 0.970508;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect9"
+       width="110.49939"
+       height="6.4793639"
+       x="2.7866354"
+       y="67.770638" />
+    <rect
+       style="fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-7"
+       width="14.184552"
+       height="6.129127"
+       x="150.81264"
+       y="42.068745" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="-158.01726"
+       y="-44.704903"
+       id="text4-4"
+       transform="scale(-1)"><tspan
+         sodipodi:role="line"
+         id="tspan4-85"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="-158.01726"
+         y="-44.704903">promoter</tspan></text>
+    <rect
+       style="opacity:1;fill:#00aad4;fill-opacity:1"
+       id="rect4"
+       width="2.2765331"
+       height="11.382665"
+       x="47.830372"
+       y="21.162601" />
+    <rect
+       style="fill:#ff2a7f;fill-opacity:1"
+       id="rect4-7"
+       width="2.2765331"
+       height="11.382665"
+       x="134.99553"
+       y="21.162601" />
+    <rect
+       style="fill:#008000;fill-opacity:1"
+       id="rect4-9"
+       width="2.2765331"
+       height="11.382665"
+       x="161.84425"
+       y="21.162601" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;opacity:1;fill:#00aa88;fill-opacity:1;stroke-width:0.264583"
+       x="37.167641"
+       y="27.098688"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:end;text-anchor:end;fill:#00aa88;fill-opacity:1;stroke-width:0.264583"
+         x="37.167641"
+         y="27.098688">p53 ChIP Peaks</tspan></text>
+    <path
+       style="fill:#4d4d4d;stroke:#b3b3b3;stroke-width:0.904394;stroke-dasharray:none;stroke-opacity:1"
+       d="M 39.277275,100.64397 H 192.25144"
+       id="path1-4" />
+    <path
+       style="fill:#4d4d4d;stroke:#b3b3b3;stroke-width:0.904394;stroke-dasharray:none;stroke-opacity:1"
+       d="M 38.71871,107.69658 H 191.69287"
+       id="path1-7-8" />
+    <rect
+       style="fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-9"
+       width="14.184552"
+       height="6.129127"
+       x="46.056103"
+       y="97.423767" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="37.268925"
+       y="101.38694"
+       id="text2-3"><tspan
+         sodipodi:role="line"
+         id="tspan2-1"
+         style="font-size:4.23333px;text-align:end;text-anchor:end;fill:#1a1a1a;stroke-width:1"
+         x="37.268925"
+         y="101.38694">Forward</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;fill:#1a1a1a;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="37.138702"
+       y="108.5233"
+       id="text3-1"><tspan
+         sodipodi:role="line"
+         id="tspan3-4"
+         style="font-size:4.23333px;text-align:end;text-anchor:end;fill:#1a1a1a;stroke-width:1"
+         x="37.138702"
+         y="108.5233">Reverse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="53.036068"
+       y="101.47379"
+       id="text4-9"><tspan
+         sodipodi:role="line"
+         id="tspan4-5"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="53.036068"
+         y="101.47379">promoter</tspan></text>
+    <rect
+       style="fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-5-9"
+       width="14.184552"
+       height="6.129127"
+       x="134.55458"
+       y="97.206711" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="141.53444"
+       y="101.25674"
+       id="text4-5-0"><tspan
+         sodipodi:role="line"
+         id="tspan4-8-9"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="141.53444"
+         y="101.25674">promoter</tspan></text>
+    <rect
+       style="fill:#800080;stroke:none;stroke-width:1.21356;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-7-3"
+       width="14.184552"
+       height="6.129127"
+       x="151.84024"
+       y="104.53701" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#800080;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="-159.04488"
+       y="-107.17321"
+       id="text4-4-4"
+       transform="scale(-1)"><tspan
+         sodipodi:role="line"
+         id="tspan4-85-0"
+         style="font-size:2.82222px;fill:#ffffff;stroke-width:1"
+         x="-159.04488"
+         y="-107.17321">promoter</tspan></text>
+    <rect
+       style="fill:#008000;fill-opacity:1"
+       id="rect4-75"
+       width="2.2765331"
+       height="11.382665"
+       x="70.156242"
+       y="84.371696" />
+    <rect
+       style="fill:#00aad4;fill-opacity:1"
+       id="rect4-7-7"
+       width="2.2765331"
+       height="11.382665"
+       x="144.79901"
+       y="84.371696" />
+    <rect
+       style="fill:#ff2a7f;fill-opacity:1"
+       id="rect4-9-5"
+       width="2.2765331"
+       height="11.382665"
+       x="184.99771"
+       y="84.371696" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;line-height:1.1;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:end;writing-mode:lr-tb;direction:ltr;text-anchor:end;fill:#8d5fd3;fill-opacity:1;stroke-width:0.264583"
+       x="37.167641"
+       y="89.030159"
+       id="text5-0"><tspan
+         sodipodi:role="line"
+         id="tspan5-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:end;text-anchor:end;fill:#8d5fd3;stroke-width:0.264583"
+         x="37.167641"
+         y="89.030159">Shuffled</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:end;text-anchor:end;fill:#8d5fd3;stroke-width:0.264583"
+         x="37.167641"
+         y="93.686821"
+         id="tspan6">p53 ChIP Peaks</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;opacity:1;fill:#000000;fill-opacity:1"
+       x="3.9624653"
+       y="10.896782"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="font-size:5.64444px;text-align:start;text-anchor:start;fill:#000000"
+         x="3.9624653"
+         y="10.896782">p53 ChIP Data</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.1;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1"
+       x="3.9624653"
+       y="72.935867"
+       id="text7-9"><tspan
+         sodipodi:role="line"
+         id="tspan7-2"
+         style="font-size:5.64444px;text-align:start;text-anchor:start;fill:#000000"
+         x="3.9624653"
+         y="72.935867">p53 peaks shuffled to new genomic locations</tspan></text>
+  </g>
+</svg>

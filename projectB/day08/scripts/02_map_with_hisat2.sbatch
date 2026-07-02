@@ -3,10 +3,10 @@
 #SBATCH --mail-type=ALL                                        # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<E-MAIL>                                   # Where to send mail 
 #SBATCH --nodes=1                                              # Numbers of nodes
-#SBATCH --ntasks=4 # Num of CPU                                # Number of CPU (tasks)
+#SBATCH --ntasks=2 # Num of CPU                                # Number of CPU (tasks)
 #SBATCH --time=00:20:00 # Time limit                           # Time limit hrs:min:sec 
 #SBATCH --partition=short                                    # Partition/queue requested on server
-#SBATCH --mem=5gb                                              # Memory limit
+#SBATCH --mem=2gb                                              # Memory limit
 #SBATCH --output=/scratch/Users/<username>/day8/eofiles/%x_%j.out   # Where to save out files 
 #SBATCH --error=/scratch/Users/<username>/day8/eofiles/%x_%j.err    # Where to save error files
 
@@ -55,7 +55,7 @@ for sample in `ls ${trim} | tr '.' '\t' | cut -f 1`;
 do 
 
     ##i: based on chip appropriate commands       
-    hisat2 -p 4 \
+    hisat2 -p 2 \
 	--very-sensitive \
 	--no-spliced-alignment \
 	-x ${genome} \
@@ -64,12 +64,12 @@ do
 	2> ${qc}/hisat_mapstats/${sample}.hisat2_mapstats.txt
 
     ##ii: convert SAM to BAM 
-    samtools view -@ 4 -h -bS \
+    samtools view -@ 2 -h -bS \
 	-o ${bam}/${sample}.bam \
 	${sam}/${sample}.sam
 
     ##iii: sort BAM file        
-    samtools sort -@ 4 \
+    samtools sort -@ 2 \
 	${bam}/${sample}.bam \
 	> ${bam}/${sample}.sorted.bam
 

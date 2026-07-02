@@ -16,7 +16,7 @@ echo "BEGIN: Preprocessing................."
 ##Load required modules 
 ################################################################
 
-module load preseq/2.0.3
+module load preseq/3.1.2
 
 ################################################################
 ##Initialize folders 
@@ -68,7 +68,7 @@ done
 multiqcdir=${wd}/multiqc
 mkdir -p ${multiqcdir}
 
-source /scratch/Shares/public/sread2024/generalpythonvenv/bin/activate
+source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate  #virtual machine with correct multiqc and python versions
 multiqc ${qc} -o ${multiqcdir}
 
 echo "DONE: Preprocessing................."

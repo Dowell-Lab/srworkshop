@@ -1,6 +1,7 @@
 # Getting started with Vimtutor
 Author: Mary Allen\
-Edited: Lynn Sanford, 2024
+Edited: Lynn Sanford, 2024\
+Edited: Meaghan Sullivan, 2026
 
 ### This worksheet covers:
 [Vimtutor](#vimtutor)\
@@ -73,11 +74,14 @@ The colors are incredibly useful for readability of code, but the default color 
       <li>Once you have one picked out, quit out of the file with <code>:q!</code></li>
     </ul>
   </li>
-  <li>Make a .vimrc file
+  <li>Make a .vimrc file</li>
     <ul>
       <li>Make sure you're still in your home directory.</li>
       <li>Open a new file called <code>.vimrc</code> in Vim.</li>
-      <li>Enter insert mode (<code>i</code>) and type <code>colorscheme &#60;chosen colorscheme&#62;</code>.<li>Exit insert mode and save and quit.</li>
+      <li>Enter insert mode (<code>i</code>).</li> 
+      <li>On line 1, type <code>syntax on</code>.</li> 
+      <li>On line 2, type <code>colorscheme &#60;chosen colorscheme&#62;</code>.</li>
+      <li>Exit insert mode and save and quit.</li>
     </ul>
   </li>
 </ol>
