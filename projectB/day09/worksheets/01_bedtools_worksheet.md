@@ -77,7 +77,9 @@ Today, we'll use bedtools on the AWS. It's also fairly easy to install on your p
 
 :yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 
-:yellow_circle: Input the paths to the gene annotation file and your MACS peak file
+:yellow_circle: Make sure your SBATCH headers are correct.
+
+:yellow_circle: Input the paths to the gene annotation file and your MACS peak file.
 
 #### We will now fill the script section with bedtools commands.
 
