@@ -31,7 +31,7 @@ mkdir -p $hisat2
 
 ################## Load modules/software ##############################
 # Load module for hisat2
-module load hisat2/2.2.1
+module load <hisat module> # Check what the actual module name is on the command line
 
 # On some clusters there might be a samtools module
 # But samtools v1.23.1 is just installed system-wide here

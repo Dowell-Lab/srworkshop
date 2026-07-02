@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=<NAME OF JOB>				 # Job name
-#SBATCH --mail-type=ALL				 # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-type=END			 # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=<YOUR E-MAIL ADDRESS>		 # Where to send mail
 #SBATCH --nodes=1					 # Number of cores job will run on
 #SBATCH --ntasks=2					 # Number of CPU (processers, tasks)
@@ -29,6 +29,6 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 #######################################################################
 ################## LOAD MODULES #######################################
-module load R/4.3.1
+module load R/4.6.0
 
 Rscript $FEATURECOUNTS

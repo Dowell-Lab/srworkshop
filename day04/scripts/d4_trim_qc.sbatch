@@ -33,7 +33,7 @@ mkdir -p $fastqc
 mkdir -p $trim
 
 ################## Load modules/software ##############################
-module load fastqc/0.12.1
+module load <fastqc module> # Check actual module name on command line
 
 # Trimmomatic is a program that we run the executable manually with Java
 # Set this executable path as a variable

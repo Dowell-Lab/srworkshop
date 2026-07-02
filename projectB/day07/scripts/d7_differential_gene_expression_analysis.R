@@ -5,10 +5,8 @@
 ##########################################
 # Loading libraries.                     #
 ##########################################
-library(DESeq2)
-library(tidyverse)
-library(dplyr)
-library(ggplot2)
+library(DESeq2) # Install with BiocManager `BiocManager::install("DESeq2")`
+library(ggplot2) # Install with `install.packages("ggplot2")`
 
 ##########################################
 # Loading the 2 input files.             #
@@ -177,15 +175,6 @@ res_shrink_expressed <- res_shrink_expressed[!is.na(res_shrink_expressed$padj),]
 write.table(rownames(res_shrink_expressed), file = paste0(outdir,"backgroundgenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 write.table(rownames(results_shrunk_sig), file = paste0(outdir,"siggenes.csv"),row.names = FALSE, col.names = FALSE, quote = FALSE)
 
-rnkdf <- tibble(gene = rownames(results),
-				rnk = -log(results$pvalue) * sign(results$log2FoldChange)) %>%
-	arrange(desc(rnk)) %>% drop_na()
-
-## Write out the table without any additional information
-write.table(rnkdf, file = paste0(outdir,"deseq_res_for_gsea.rnk"),
-			append = FALSE, col.names = FALSE, row.names = FALSE,
-			quote = FALSE, sep = "\t")
-
 
 #########################################
 # EXTRA: Creating Heatmaps              #
@@ -209,6 +198,22 @@ pheatmap(normcounts[select,],
          show_rownames = TRUE,
          cluster_cols = FALSE,
          annotation_col = columns_for_heatmap)
+
+
+#########################################
+# EXTRA: Output ranked list for GSEA    #
+#########################################
+#install.packages("dplyr")
+library(dplyr)
+rnkdf <- tibble(gene = rownames(results),
+				rnk = -log(results$pvalue) * sign(results$log2FoldChange)) %>%
+	arrange(desc(rnk)) %>% na.omit()
+
+## Write out the table without any additional information
+write.table(rnkdf, file = paste0(outdir,"deseq_res_for_gsea.rnk"),
+			append = FALSE, col.names = FALSE, row.names = FALSE,
+			quote = FALSE, sep = "\t")
+
 
 ########################################
 ##Lastly, let us print information on ##
