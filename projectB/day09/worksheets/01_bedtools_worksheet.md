@@ -213,7 +213,7 @@ Bedtools has several useful functions to help you evaluate if your p53 peaks are
 ***What is a Jaccard index???***
 :bangbang: The Jaccard index is a ratio of an intersection of a set to the union of the set (see diagram below. More details specific to genomics can be found in the documentation for bedtools jaccard).
 
-<img src="images/jaccard.png" alt="Jaccard index" width="750">
+<img src="images/jaccard.png" alt="Jaccard index" width="650">
 
 It’s useful to calculate a jaccard index for your intersection of interest AND for the intersection of regions randomly shuffled throughout the genome. If the two are similar, your intersection is probably not showing enrichment over random expectation. If the index for your intersection is much higher, than there is probably enrichment.
 
