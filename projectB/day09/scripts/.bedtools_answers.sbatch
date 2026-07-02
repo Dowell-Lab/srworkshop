@@ -14,8 +14,8 @@
 ################## USER INPUT ######################################
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
-ANNOT='/scratch/Shares/public/sread2024/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed'
-CHIP_DIR='/scratch/Shares/public/sread2024/cookingShow/day8b/whole_genome/macs/'
+ANNOT='/scratch/Shares/public/sread/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed'
+CHIP_DIR='/scratch/Shares/public/sread/cookingShow/day8b/whole_genome/macs/'
 HCT116_DMSO_PEAKS=${CHIP_DIR}'/HCT116_DMSO_peaks_clean.narrowPeak'
 HCT116_NUTLIN_PEAKS=${CHIP_DIR}'/HCT116_NUTLIN_peaks_clean.narrowPeak'
 results='/scratch/Users/<username>/day9/bedtools_results/'
@@ -37,10 +37,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 ################### LOAD MODULES ###################################
 
-module load bedtools/2.28.0
-
-################## SET VARIABLES ###################################
-
+module load bedtools/2.31.1
 
 
 ################## SCRIPT ##########################################
@@ -51,21 +48,26 @@ module load bedtools/2.28.0
 #grep '^chr21' ${ANNOT} > ${results}/chr21_annotations.bed
 
 # --- Which p53 peaks are associated with genes (not intergenic)
-bedtools intersect -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_in_genes_hct_dmso.bed
-cat ${results}/p53_peaks_in_genes_hct_dmso.bed | wc -l
+bedtools intersect -wa -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_overlap_genes.bed
+
 
 # --- Which p53 peeks are entirely within genes 
-bedtools intersect -f 1 -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_completelyin_genes_hct_dmso.bed
-cat ${results}/p53_peaks_completelyin_genes_hct_dmso.bed | wc -l
+bedtools intersect -wa -f 1 -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_in_genes.bed
+
 
 # --- Which p53 peaks are intergenic 
-bedtools intersect -v -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_intergenic_hct_dmso.bed
-cat ${results}/p53_peaks_intergenic_hct_dmso.bed | wc -l
+bedtools intersect -wa -v -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}hct116_nutlin_p53_intergenic.bed
+
 
 # --- Which genes overlap with p53 peaks? 
-bedtools intersect -wo -a ${ANNOT} -b ${HCT116_DMSO_PEAKS} > ${results}/genes_with_p53_peaks_hct_dmso.bed
-cat ${results}/genes_with_p53_peaks_hct_dmso.bed | wc -l
+bedtools intersect -wb -a ${ANNOT} -b ${HCT116_NUTLIN_PEAKS} > ${results}/genes_overlap_p53peaks_hct116_nutlin.bed
 
+# --- How many peaks or genes are in each of these files? 
+
+cat ${results}/hct116_nutlin_p53_overlap_genes.bed | wc -l
+cat ${results}/hct116_nutlin_p53_in_genes.bed | wc -l
+cat ${results}hct116_nutlin_p53_intergenic.bed | wc -l
+cat ${results}/genes_overlap_p53peaks_hct116_nutlin.bed | wc -l
 
 ### --- At this point, have them download these to their computer --- ### 
 ### --- to look at in IGV.                                        --- ### 
@@ -88,33 +90,33 @@ cat ${results}/hg38_refseq_tss_pos.bed ${results}/hg38_refseq_tss_neg.bed \
 bedtools slop -l 1000 -r 100 -s -i ${results}/hg38_refseq_tss.bed -g ${chrom_sizes} > ${results}/hg38_refseq_tssregion.bed
 
 # --- Which genes have p53 ChIP sites in their promoters
-bedtools intersect -wo -a ${HCT116_DMSO_PEAKS} -b ${TSS_ANNOT} > ${results}/p53_peaks_over_promoters.bed
+bedtools intersect -wa ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
 cat ${results}/p53_peaks_over_promoters.bed | wc -l
 
 
 ### ------------------------------------------------------------------------------- ###
-### ------------------------ Now for NUTLIN treated HCT116 ------------------------ ###
+### ------------------------ Now for DMSO treated HCT116 ------------------------ ###
 ### ------------------------------------------------------------------------------- ###
 
-# --- Which p53 peaks are associated with genes (not intergenic)
-bedtools intersect -wo -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_in_genes_hct_nutlin.bed
-cat ${results}/p53_peaks_in_genes_hct_nutlin.bed | wc -l
+# --- Which p53 peaks overlap genes 
+
+
 
 # --- Which p53 peeks are entirely within genes 
-bedtools intersect -f 1 -wo -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_completelyin_genes_hct_nutlin.bed
-cat ${results}/p53_peaks_completelyin_genes_hct_nutlin.bed | wc -l
+
+
 
 # --- Which p53 peaks are intergenic 
-bedtools intersect -v -wo -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/p53_peaks_intergenic_hct_nutlin.bed
-cat ${results}/p53_peaks_intergenic_hct_nutlin.bed | wc -l
+
+
 
 # --- Which genes overlap with p53 peaks? 
-bedtools intersect -wo -a ${ANNOT} -b ${HCT116_NUTLIN_PEAKS} > ${results}/genes_with_p53_peaks_hct_nutlin.bed
-cat ${results}/genes_with_p53_peaks_hct_nutlin.bed | wc -l
+
+
 
 # --- Which genes have p53 ChIP sites in their promoters
-bedtools intersect -wo -a ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/p53_peaks_over_promoters_hct_nutlin.bed
-cat ${results}/p53_peaks_over_promoters_hct_nutlin.bed | wc -l
+
+
 
 
 
