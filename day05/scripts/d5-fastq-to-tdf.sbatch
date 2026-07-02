@@ -27,10 +27,10 @@ mkdir -p $BAM $SAM $QC
 ##########################################################################################
 ############### LOAD REQUIRED MODULES ####################################################
 
-module load hisat2/2.1.0
-module load samtools/1.8
-module load bedtools/2.28.0
-module load igvtools/2.3.75
+module load hisat2
+module load bedtools
+module load igvtools
+# Samtools is also needed but does not require a module load
 
 ##########################################################################################
 ################## PRINT JOB INFO ########################################################
