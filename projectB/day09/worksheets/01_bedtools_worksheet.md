@@ -224,11 +224,16 @@ It’s useful to calculate a jaccard index for your intersection of interest AND
 
 
 - Here is the bedtools documentation for <code>jaccard</code>: https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html
-- Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
-- Once you run the script again, look at this file. Use the bedtools jaccard documentation to understand the output.
-- Now, do the same calculation using peaks called in the experimental (Nutlin-treated) samples.
-- Write a bedtools shuffle command to randomize the locations of your p53 peaks in the experimental (Nutlin-treated) samples.
-- Write another bedtools jaccard command to calculate the jaccard index between your shuffled peaks and genes.
+
+:yellow_circle: Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. 
+- This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
+- Look at your output file. Use the bedtools jaccard documentation to understand it.
+  
+:yellow_circle: Now, do the same calculation using peaks called in the experimental (Nutlin-treated) samples.
+
+:yellow_circle: Write a bedtools shuffle command to randomize the locations of your p53 peaks in the experimental (Nutlin-treated) samples.
+
+:yellow_circle: Write another bedtools jaccard command to calculate the jaccard index between your shuffled peaks and genes.
   - HINT: The shuffled file needs to be sorted before it can be used. The bedtools jaccard documentation tells you the bash command you need to sort it
 - Compare your three jaccard output files. Which intersection has a higher jaccard index? When you run the script again, the peaks are shuffled differently. How does that change the output?
 
