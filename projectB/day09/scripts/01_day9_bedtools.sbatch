@@ -41,7 +41,9 @@ module load bedtools/2.28.0
 # Write your bedtools/file manipulation commands here
 
 
-# --- Which p53 peaks are associated with genes (not intergenic)
+# --- Which p53 peaks overlap with genes
+
+bedtools intersect <put_flag_here> -a <file_1> -b <file_2>
 
 
 # --- Which p53 peeks are entirely within genes 
