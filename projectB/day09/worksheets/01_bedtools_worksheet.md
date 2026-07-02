@@ -44,7 +44,8 @@ The most common file types that you’ll see for annotation are either BED files
 
 :yellow_circle: Can you identify all the columns?
 
-:yellow_circle: Now look at the .narrowPeak file that you generated with MACS for p53 binding in HCT116 cells treated with DMSO.  
+:yellow_circle: Now look at the .narrowPeak file that you generated with MACS for p53 binding in HCT116 cells treated with NUTLIN.  
+* If you do not have this file, you can do the exercise with the this file: <code>/scratch/Shares/public/sread/cookingShow/day8b/chr21/macs/HCT116_NUTLIN_peaks_clean.narrowPeak</code>
 
 :yellow_circle: Does this file follow the standardized bed12 format?
 
