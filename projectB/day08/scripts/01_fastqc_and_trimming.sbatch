@@ -27,7 +27,7 @@ module load java/1.8.0_101
 wd=/scratch/Users/<YourUsername>/day8
 qc=${wd}/qc
 trim=${wd}/trim
-fastq=/scratch/Shares/public/sread2025/data_files/day8b/fastq
+fastq=/scratch/Shares/public/sread/data_files/day8b/fastq
 
 #make folders that do not exist
 mkdir -p ${qc} ${trim} 
