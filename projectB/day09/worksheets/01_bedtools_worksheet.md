@@ -73,6 +73,8 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
+:yellow_circle: Go to your github folder. Pull to make sure you have the most up-to-date versions of today's materials.
+
 :yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
 
 :yellow_circle: Input the paths to the gene annotation file and your MACS peak file
