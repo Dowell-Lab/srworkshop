@@ -75,3 +75,4 @@ load_one <- function(path) {
   message("Multiple objects in ", basename(path), ": ", paste(nm, collapse = ", "))
   mget(nm, envir = e)
 }
+

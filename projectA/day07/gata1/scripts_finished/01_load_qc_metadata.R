@@ -21,7 +21,7 @@
 # All outputs are written to OUT_DIR (your own writable folder).
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(Matrix)
@@ -33,6 +33,29 @@ library(patchwork)
 # Files are named GSE271399_<sample>_{matrix.mtx,barcodes.tsv,features.tsv}.gz
 # ReadMtx wants the three pieces explicitly. We loop over GATA1_SAMPLES
 # (defined once in 00_paths_and_setup.R) so the names live in a single place.
+
+#this is how you read in one file
+
+
+mtx_file  <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_matrix.mtx.gz")
+bc_file   <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_barcodes.tsv.gz")
+feat_file <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_features.tsv.gz")
+
+mat <- ReadMtx(
+  mtx            = mtx_file,
+  cells          = bc_file,
+  features       = feat_file,
+  cell.column    = 1,   # barcodes are in column 1
+  feature.column = 2,   # gene SYMBOL is column 2 in a 10x features.tsv
+  mtx.transpose  = FALSE
+)
+
+obj <- CreateSeuratObject(counts = mat, project = "EuploidGATA1sD7")
+
+
+#this is how you read in a lot of files with the same structure to the names
+
+GATA1_SAMPLES
 
 seurat_list <- lapply(GATA1_SAMPLES, function(smpl) {
   mtx_file  <- file.path(GATA1_DIR, paste0("GSE271399_", smpl, "_matrix.mtx.gz"))
@@ -52,7 +75,10 @@ seurat_list <- lapply(GATA1_SAMPLES, function(smpl) {
   obj$sample <- smpl      # stamp the sample name onto every cell
   obj
 })
+
 names(seurat_list) <- GATA1_SAMPLES
+
+seurat_list
 
 # A merged object BEFORE filtering. We keep it so we can compare cell counts
 # before vs. after QC. "ori" = original.
@@ -76,6 +102,7 @@ seurat_list <- lapply(seurat_list, function(obj) {
 qc_dir <- file.path(OUT_DIR, "gata1_qc_violin_plots")
 dir.create(qc_dir, showWarnings = FALSE, recursive = TRUE)
 
+#before you run this section you should make sure you can see plots
 for (nm in names(seurat_list)) {
   p <- VlnPlot(
     seurat_list[[nm]],
@@ -85,16 +112,34 @@ for (nm in names(seurat_list)) {
 
   ggsave(file.path(qc_dir, paste0("QC_violin_", nm, ".png")),
          plot = p, width = 8, height = 4, dpi = 150)
+  print(p)
 }
 
+#something is strange about EuploidwtGATA1D7  
+#something is strange about T21GATA1sD9
+#What is it?
+
+#https://www.biostars.org/p/407036/?__cf_chl_f_tk=LN1gwha3m.ijUcq1uikv0HA6PBsOzcjGK0r0L0zjEC0-1782953449-1.0.1.1-T8Fr7j9pqinxae9lVuutlu1ap8W1BcunvTMpKrUKbs4
+
+#Low nFeature_RNA for a cell indicates that it may be dead/dying or an empty droplet. 
+#High nCount_RNA and/or nFeature_RNA indicates that the "cell" may in fact be a doublet (or multiplet). 
+#In combination with %mitochondrial reads, removing outliers from these groups removes most doublets/dead cells/empty droplets, hence why filtering is a common pre-processing step.
+
+
 # ---- 4. Filter cells --------------------------------------------------------
+
+#these are not numbers you can just use!!!
+#You have to look at the QC_violin plots to decide.
+
 # Keep cells with:
-#   nFeature_RNA > 200   (drop empty droplets / debris)
+#   nFeature_RNA > 200   (drop empty droplets / debris) 
 #   nFeature_RNA < 6000  (drop likely doublets)
-#   percent.mt   < 15    (drop dying cells)
+#   percent.mt   < 15    (drop dying cells) 
+
+
 qc_filtered <- lapply(seurat_list, function(obj) {
   subset(obj,
-         subset = nFeature_RNA > 200 &
+         subset = nFeature_RNA > 2000 &
                   nFeature_RNA < 6000 &
                   percent.mt   < 15)
 })
@@ -168,6 +213,9 @@ p_stress <- VlnPlot(combined, features = c("StressScore1", "ApopScore1", "percen
 ggsave(file.path(OUT_DIR, "gata1_module_scores_by_sample.png"),
        plot = p_stress, width = 12, height = 5, dpi = 150)
 
+
+
 # ---- 7. Save the filtered, annotated object for the next script -------------
 saveRDS(combined, file.path(OUT_DIR, "gata1_combined_qc.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_combined_qc.rds"))
+
