@@ -81,7 +81,7 @@ Today, we'll use bedtools on the AWS. It's also fairly easy to install on your p
 
 :yellow_circle: Edit the **USER INPUT**. This includes paths to the gene annotation file and your MACS peak file. What else do you need to edit? 
 
-#### We will now fill the script section with bedtools commands.
+### We will now fill the script section with bedtools commands.
 
 **NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day08/scripts/.06_day8_bedtools_answers.sbatch*
 
