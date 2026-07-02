@@ -213,12 +213,17 @@ Bedtools has several useful functions to help you evaluate if your p53 peaks are
 ***What is a Jaccard index???***
 :bangbang: The Jaccard index is a ratio of an intersection of a set to the union of the set (see diagram below. More details specific to genomics can be found in the documentation for bedtools jaccard).
 
-<img src="images/jaccard.png" alt="Jaccard index" width="650">
+<img src="images/jaccard.png" alt="Jaccard index" width="500">
+
+
 
 It’s useful to calculate a jaccard index for your intersection of interest AND for the intersection of regions randomly shuffled throughout the genome. If the two are similar, your intersection is probably not showing enrichment over random expectation. If the index for your intersection is much higher, than there is probably enrichment.
 
+
 <img src="images/shuffled_regions.png" alt="Shuffled genomic regions" width="750">
 
+
+- Here is the bedtools documentation for <code>jaccard</code>: https://bedtools.readthedocs.io/en/latest/content/tools/jaccard.html
 - Write a bedtools jaccard command to calculate the jaccard index for your p53 peaks intersecting with genes for the DMSO-treated samples. This outputs a simple text file, not a bed file, so when you pipe the output to a file, give it a .txt extension.
 - Once you run the script again, look at this file. Use the bedtools jaccard documentation to understand the output.
 - Now, do the same calculation using peaks called in the experimental (Nutlin-treated) samples.
