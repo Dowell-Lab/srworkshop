@@ -14,7 +14,7 @@ You are welcome and encouraged to try this autonomously with the help of cheat s
 
 > The file we will be using for this worksheet is a GTF, or Gene Transfer Format, which contains gene annotations for the human genome. Each annotation line specifies a set of genomic coordinates along with metadata about the gene. We will work with these files more in week 2.
 
-> IMPORTANT: As described in the navigation video and in class, you have TWO main directory trees associated with your account. One is at `/Users/<username>` and is referred to as **your home directory**. On a real cluster this would be backed up, but it's slow for computation. The second is at `/scratch/Users/<username>` and is referred to as **your scratch directory**. This would not be backed up but is where you want to do most of your work. For today's exercises you will only work in your scratch directory, but later you will move back and forth.
+> IMPORTANT: We'll go over this more tomorrow, but you have TWO main directory trees associated with your account. One is at `/Users/<username>` and is referred to as **your home directory**. On a real cluster this would be backed up, but it's slow for computation. The second is at `/scratch/Users/<username>` and is referred to as **your scratch directory**. This would not be backed up but is where you want to do most of your work. For today's exercises you will only work in your scratch directory, but later you will move back and forth.
 
 ## Part 1 Tasks (Try on your own - if you need help, guided steps are below)
 
