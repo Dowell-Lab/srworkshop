@@ -16,13 +16,13 @@ BAM files that we made yesterday are an intermediate file (mapped reads to the g
 
 - These files are similar, except TDFs are the compressed version of bedgraphs (meaning they take up less space on your computer and are faster to work with).
 >**Note:** TDFs are binary files and are not human-readable.
-- If you didn't make it through all the scripts yesterday, we've provided the BAM files you need at the following folder: `/scratch/Shares/public/sread2025/cookingShow/day5/bam/`
+- If you didn't make it through all the scripts yesterday, we've provided the BAM files you need at the following folder: `/scratch/Shares/public/sread/cookingShow/day5/bam/`
 	- Files:
 	    - `chr21Eric_repA.RNA.sorted.bam`
 	    - `chr21Eric_repA.RNA.sorted.bam.bai`
 
 1. First, we need to make a script that will run the code to get the bedGraphs and TDFs from the BAM files.
-	- Copy ALL of the scripts from the srworkshop repository `day05/scripts` directory to the `workshop-day5/scripts` directory you made on scratch. 
+	- Copy ALL of the scripts from your srworkshop repository `/Users/<username>/srworkshop/day05/scripts` directory to the `/scratch/Users/<username>/workshop-day5/scripts` directory you made. 
 	- Edit the `d5-bam-to-tdf.sbatch` script to match YOUR information (Remember to delete the `<>` brackets!):
         - `<JOB_NAME>` to the name `bam_to_tdf`
 	    - output and error files (`--output` and `--error`) should use your directory made in Step 0. **Important**: keep the `%x_%j.out` and `%x_%j.err` parts as those are the file names where the `%` symbol means that the job name (`%x`) job id (`%j`) will populate automatically. This makes it really easy to know which error/output files connect to which jobs you ran.
@@ -53,7 +53,7 @@ In the past couple of days, we've run samples one-by-one using individual script
 		- This is a BASH script that then runs the SBATCH script multiple times.
 	    - This is where we actually use the `for` loop.
 3. Now edit the script `run_d5-fastq-to-tdf.sh` to run. 
-    - Edit the `OUTDIR` variable to point to wherever you want (I'd recommend your `workshop-day5`).
+    - Edit the `OUTDIR` variable to point to your `/scratch/Users/<username>/workshop-day5` directory.
     - Read the annotations and make sure you understand what's happening. Check out the variables to which you're assigning values in the script to see what you're doing. If you don't understand what's happening, hold up a red sticky note.
     - Now run the BASH script with `sh run_d5-fastq-to-tdf.sh`
 	    - Note the different run command here. Don't get them mixed up. `sbatch` runs SBATCH scripts, `sh` runs BASH scripts.
