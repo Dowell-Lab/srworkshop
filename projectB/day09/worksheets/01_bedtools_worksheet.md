@@ -79,7 +79,7 @@ Today, we'll use bedtools on the AWS. It's also fairly easy to install on your p
 
 :yellow_circle: Make sure your SBATCH headers are correct.
 
-:yellow_circle: Input the paths to the gene annotation file and your MACS peak file.
+:yellow_circle: Edit the **USER INPUT**. This includes paths to the gene annotation file and your MACS peak file. What else do you need to edit? 
 
 #### We will now fill the script section with bedtools commands.
 
