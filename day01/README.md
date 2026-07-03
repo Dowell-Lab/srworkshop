@@ -11,6 +11,3 @@ Videos to watch before class:
 - <a href="https://youtu.be/lbcyroQv8p0" target="_blank">1.3 | Sequencing: Pre-sequencing library quality</a>
 - <a href="https://youtu.be/gVrmfLXJRGM" target="_blank">1.4 | Sequencing: Illumina Sequencing</a>
 - <a href="https://youtu.be/uoYWyCK0JSA" target="_blank">1.5 | Sequencing: Designing sequencing experiments</a>
-- <a href="https://youtu.be/ye5_AXFIFFk" target="_blank">1.6 | Basic Unix: File System/Directory Trees</a>
-- <a href="https://youtu.be/5_U-xd4WmGQ" target="_blank">1.7 | Basic Unix: Commands for Moving Files/Directories</a>
-- <a href="https://youtu.be/EHqg8WN6674" target="_blank">1.8 | Basic Unix: Vim Tutorial</a>

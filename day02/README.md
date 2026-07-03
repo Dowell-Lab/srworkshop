@@ -6,10 +6,13 @@ Graphical interfaces (like Finder for Mac or File Explorer for Windows) offer a 
 ### Before Day 2
 Please watch the following videos:
 - <a href="https://www.youtube.com/watch?v=q3KF_XafjFM&t=1s" target="_blank">2.1 | SSH and VPN Introduction</a>
-- 2.2 | Directory structures and navigation
+- 2.2 | File systems and paths
 - 2.3 | The anatomy of a Unix command
 
-Optional videos (kind of like video cheat sheets):
+Optional videos (kind of like extended video cheat sheets):
+- <a href="https://youtu.be/ye5_AXFIFFk" target="_blank">File System/Directory Trees</a>
+- <a href="https://youtu.be/5_U-xd4WmGQ" target="_blank">Commands for Moving Files/Directories</a>
+- <a href="https://youtu.be/EHqg8WN6674" target="_blank">Vim Tutorial</a>
 - <a href="https://youtu.be/CqGhVfdxU94" target="_blank">Remote Rsync/Reading Files</a>
 - <a href="https://youtu.be/jItBDa6zgTo" target="_blank">Searching/editing Files, Pipes, and Outputs</a>
 - <a href="https://youtu.be/b_uZ0rxfnJs" target="_blank">Directory Permissions</a>
