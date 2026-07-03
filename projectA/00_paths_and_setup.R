@@ -61,7 +61,10 @@ CELLCHAT_D21_RDS <- file.path(CELLCHAT_DIR, "d21-cellchat-obj.rds")
 
 # ---- Where YOU can write intermediate results (NOT the read-only share) ----
 # Defaults to a folder in your home directory; change as you like.
-OUT_DIR <- path.expand("~/scRNAseq_course_output")
+username = Sys.info()[["user"]] 
+OUT_DIR <- path.expand(paste0("/scratch/Users/",username,"/scRNAseq_course_output"))
+ 
+
 dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
 
 # ---- Small helper: load an .Rdata file and return the object it contains ----

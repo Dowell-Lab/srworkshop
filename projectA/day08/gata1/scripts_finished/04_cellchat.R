@@ -13,7 +13,7 @@
 # https://htmlpreview.github.io/?https://github.com/jinworks/CellChat/blob/master/tutorial/CellChat-vignette.html
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(CellChat)
 library(Seurat)

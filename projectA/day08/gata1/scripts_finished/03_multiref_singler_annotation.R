@@ -9,7 +9,7 @@
 # Outputs: an annotated object + UMAPs / FeaturePlots in OUT_DIR.
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(SingleR)
@@ -41,7 +41,23 @@ sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-n
 # searchReferences() lists more. We annotate with the broad atlas first, then
 # (optionally) a blood-specific one, and compare. Loading a reference pulls it
 # from the celldex cache; it is not part of the read-only data share.
-ref_broad <- HumanPrimaryCellAtlasData()
+
+#whichlabelref <- "BlueprintEncodeData"
+#ref_broad <- BlueprintEncodeData()
+
+#whichlabelref <- "HumanPrimaryCellAtlasData"
+#ref_broad <- HumanPrimaryCellAtlasData()
+
+#whichlabelref <- "MonacoImmuneData"
+#ref_broad <- MonacoImmuneData()
+
+#whichlabelref <- "NovershternHematopoieticData"
+#ref_broad <- NovershternHematopoieticData()
+
+whichlabelref <- "DatabaseImmuneCellExpressionData"
+ref_broad <- DatabaseImmuneCellExpressionData()
+
+
 
 run_singler <- function(ref, test_mat) {
   SingleR(
@@ -81,12 +97,23 @@ combined$SingleR_delta        <- pred_df$delta.next     # gap to the runner-up l
 save_dim <- function(p, file, w = 8, h = 6) {
   ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
 }
-save_dim(DimPlot(combined, reduction = "umap", group.by = "SingleR_label", label = TRUE),
-         "gata1_umap_singler_label.png")
-save_dim(DimPlot(combined, reduction = "umap", group.by = "SingleR_pruned", label = TRUE),
-         "gata1_umap_singler_pruned.png")
-save_dim(DimPlot(combined, reduction = "umap", group.by = "SingleR_labels_other", label = TRUE),
-         "gata1_umap_singler_other.png")
+
+p<- DimPlot(combined, reduction = "umap", group.by = "SingleR_label", label = TRUE)
+p
+fn = paste0(whichlabelref, "gata1_umap_singler_label.png")
+save_dim(p,
+         fn)
+p<- DimPlot(combined, reduction = "umap", group.by = "SingleR_pruned", label = TRUE)
+p
+fn <- paste0(whichlabelref, "gata1_umap_singler_pruned.png")
+
+save_dim(p,
+         fn)
+p<- DimPlot(combined, reduction = "umap", group.by = "SingleR_labels_other", label = TRUE)
+p
+fn <- paste0(whichlabelref, "gata1_umap_singler_other.png")
+save_dim(p,
+         fn)
 
 # ---- 6. Sanity-check with canonical markers ---------------------------------
 # Automated labels are a hypothesis. Confirm them with genes you trust:
@@ -96,22 +123,32 @@ save_dim(DimPlot(combined, reduction = "umap", group.by = "SingleR_labels_other"
 #   TFRC (CD71)- erythroid progenitors
 #   CD34       - hematopoietic stem/progenitor
 #   PTPRC (CD45)- pan-leukocyte
-#   ITGA4, VAMP8, DIAPH3 - additional lineage markers used in the paper
+#   ITGA4, VAMP8, DIAPH3 - additional lineage markers
+
+agene = "HBG2"
+
+p_markers <- FeaturePlot(combined, features = agene, reduction = "umap",
+                         pt.size = 0.3, ncol = 3)
+p_markers
+fn = paste0("gata1dataset_", agene,".png")
+save_dim(p_markers, fn, w = 12, h = 14)
+
+
 markers <- c("HBG2", "HBG1", "GATA1", "GFI1B", "TFRC",
              "CD34", "PTPRC", "ITGA4", "VAMP8", "DIAPH3")
 
 p_markers <- FeaturePlot(combined, features = markers, reduction = "umap",
                          pt.size = 0.3, ncol = 3)
+p_markers
 save_dim(p_markers, "gata1_feature_markers.png", w = 12, h = 14)
 
 # Side-by-side: labels next to a key marker.
 p_combo <- DimPlot(combined, reduction = "umap", group.by = "SingleR_label", label = TRUE) +
   FeaturePlot(combined, features = "HBG1", reduction = "umap")
+p_combo
 save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 
 # ---- 7. Save the fully annotated object -------------------------------------
 saveRDS(combined, file.path(OUT_DIR, "gata1_combined_annotated.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated.rds"))
 
-packageVersion("SingleR")
-packageVersion("celldex")
