@@ -46,7 +46,7 @@ You are welcome and encouraged to try this autonomously with the help of cheat s
 
 1. Navigate to the `/scratch/Users/<username>/workshop-day2/gtf` directory
     - This is the directory into which we will copy the gtf file
-2. Using the `rsync` command, copy the `hg38.genes.gtf` file (`/scratch/Shares/public/sread2025/data_files/day2/bedfiles/hg38.genes.gtf`) to this directory
+2. Using the `rsync` command, copy the `hg38.genes.gtf` file (`/scratch/Shares/public/sread/data_files/day2/bedfiles/hg38.genes.gtf`) to this directory
     - The format of the `rsync` command is as follows: `rsync <source> <destination>`
     - We are currently in the destination directory. What is the symbol we can use to represent that?
     > Challenge: You do not need to be in the destination directory to rsync a file to that location. What is the command to move the file to the destination directory if you are not in that folder? (hint: you will need to specify a path)
