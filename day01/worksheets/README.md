@@ -6,3 +6,6 @@ In class we will use this order for the worksheets:
   <li>Google_shell (only if you have not been able to open a terminal application)</li>
   <li>Vimtutor_crashes_colors.md</li>
 </ol>
+
+Cheat sheet if you want it!
+https://cheatography.com/davechild/cheat-sheets/linux-command-line/
