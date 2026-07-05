@@ -20,20 +20,41 @@ library(Seurat)
 library(patchwork)
 library(dplyr)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated.rds"))
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+
+combined #look at how many cells you have now
+
+gc() # garbage collector, cleans up how much memory the script is using to a minimum 
 
 # ---- 1. Choose the grouping label -------------------------------------------
 # CellChat groups cells by a cell-type label. We use the SingleR labels from
 # script 03. Use the "_other" version so rare labels don't create tiny groups
 # that CellChat can't model. Drop cells with no usable label.
+
 combined$cc_group <- combined$SingleR_labels_other
 combined <- subset(combined, subset = !is.na(cc_group) & cc_group != "other")
 
-# CellChat needs the joined, log-normalized data layer.
-combined <- JoinLayers(combined)
+combined #look at how many cells you have now
+
+data.input <- LayerData(
+  combined,
+  assay = "RNA",
+  layer = "data"   # or "scale.data"/"counts" depending on your workflow
+)  # returns a matrix‑like object[][]
+
+# Build meta with your cc_group labels
+meta <- data.frame(
+  cc_group = combined$cc_group,
+  row.names = colnames(combined)
+)
 
 # ---- 2. Build the CellChat object -------------------------------------------
-cellChat <- createCellChat(object = combined, group.by = "cc_group", assay = "RNA")
+
+cellChat <- createCellChat(
+  object   = data.input,
+  meta     = meta,
+  group.by = "cc_group"
+)
 
 # Attach the human ligand-receptor database.
 CellChatDB <- CellChatDB.human
@@ -42,7 +63,6 @@ cellChat@DB <- CellChatDB
 
 # ---- 3. Pre-processing: over-expressed genes & interactions -----------------
 cellChat <- subsetData(cellChat)            # restrict to genes in the DB
-future::plan("multisession", workers = 4)   # parallelize to ease memory
 cellChat <- identifyOverExpressedGenes(cellChat)
 cellChat <- identifyOverExpressedInteractions(cellChat)
 

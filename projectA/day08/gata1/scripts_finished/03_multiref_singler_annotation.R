@@ -32,6 +32,8 @@ sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-n
 # celldex ships several curated references. Which one fits depends on the
 # tissue. For iPSC-derived blood you have a few sensible options:
 #
+#
+#
 #   BlueprintEncodeData()            - broad human stroma + immune
 #   HumanPrimaryCellAtlasData()      - broad human primary cells (our default)
 #   MonacoImmuneData()               - fine-grained immune subsets
@@ -42,6 +44,8 @@ sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-n
 # (optionally) a blood-specific one, and compare. Loading a reference pulls it
 # from the celldex cache; it is not part of the read-only data share.
 
+#!!!!!!!!!!          make sure to finish with NovershternHematopoieticData()    !!!!!
+
 #whichlabelref <- "BlueprintEncodeData"
 #ref_broad <- BlueprintEncodeData()
 
@@ -51,11 +55,12 @@ sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-n
 #whichlabelref <- "MonacoImmuneData"
 #ref_broad <- MonacoImmuneData()
 
-#whichlabelref <- "NovershternHematopoieticData"
-#ref_broad <- NovershternHematopoieticData()
+#whichlabelref <- "DatabaseImmuneCellExpressionData"
+#ref_broad <- DatabaseImmuneCellExpressionData()
 
-whichlabelref <- "DatabaseImmuneCellExpressionData"
-ref_broad <- DatabaseImmuneCellExpressionData()
+whichlabelref <- "NovershternHematopoieticData"
+ref_broad <- NovershternHematopoieticData()
+
 
 
 
@@ -82,7 +87,7 @@ combined$SingleR_label        <- pred_df$labels
 combined$SingleR_labels_other <- pred_df$labels_other
 combined$SingleR_pruned       <- pred_df$pruned.labels  # NA where the call was weak
 combined$SingleR_delta        <- pred_df$delta.next     # gap to the runner-up label
-
+combined_joined$SingleR_labels_other <- pred_df$labels_other 
 # delta.next is a confidence proxy: a small gap means the top two labels were
 # nearly tied, so treat that cell's label with caution.
 
@@ -151,4 +156,8 @@ save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 # ---- 7. Save the fully annotated object -------------------------------------
 saveRDS(combined, file.path(OUT_DIR, "gata1_combined_annotated.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated.rds"))
+
+saveRDS(combined_joined, file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+
 
