@@ -69,11 +69,11 @@ Things you need to do:
 
 1. Write or extend your previous SBATCH script to run FastQC on the fastq file that you downloaded.
     - If you're not still there, navigate back to your `/scratch/Users/<username>/workshop-day3/scripts/` directory
-    - Inside your script (either the same one or a new one - up to you), you will need to use the module system to load fastqc, using fastqc version 0.11.5.
+    - Inside your script (either the same one or a new one - up to you), you will need to use the module system to load fastqc, using fastqc version 0.12.1.
         - The `module` command allows you to load different programs for use in your script.
         - `module spider <query>` will find a program if available.
         - `module load <program>` will load a program to be run. You may need to specify the version if there is more than one version on the cluster. Even if there is only one version, specifying the version in your script documents it for later use/methods write-ups. It's essential to keep track of the specific versions of tools that you use so that your code and analysis can be reproduced by others.
-        - **IMPORTANT:** In our case, `module spider` or `module avail` will SHOW more than one version of FastQC for legacy reasons, but there is only actually one version installed - `0.11.5`.
+        - **IMPORTANT:** In our case, `module spider` or `module avail` will not show more than one version of FastQC. There is only one version installed - `0.12.1`.
     - If you need help with the fastqc command syntax, outside of your script you can load the module on the command line, then access the command documentation (`fastqc --help`).
         - Unfortunately this is one case where the official online documentation doesn't help that much with running it on the command line. Usually you should take a look at the online documentation for most software packages to make sure you're running them correctly for your use case.
     - Once you've run the sbatch script with your fastqc command (again, run it with `sbatch`), make sure you have a zip file and an html file as output. By default the results are written to the same directory as the data. Move the output of this fastqc run into your results folder, then back it up in your home directory (`/Users/<username>/`) day 3 folder.
