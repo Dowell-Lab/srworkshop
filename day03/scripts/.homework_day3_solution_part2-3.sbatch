@@ -11,7 +11,7 @@
 #SBATCH --error=/scratch/Users/<YOURUSERNAME>/homework-day3/eofiles/%x_%j.err
 
 # Load our module in the proper version
-module load fastqc/0.11.5
+module load fastqc/0.12.1
 
 date
 
