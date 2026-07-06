@@ -5,9 +5,9 @@ Graphical interfaces (like Finder for Mac or File Explorer for Windows) offer a 
 
 ### Before Day 2
 Please watch the following videos:
-- <a href="https://www.youtube.com/watch?v=q3KF_XafjFM&t=1s" target="_blank">2.1 | SSH and VPN Introduction</a>
-- 2.2 | File systems and paths
-- 2.3 | The anatomy of a Unix command
+- <a href="https://youtu.be/-_YTCnmzmZY" target="_blank">2.1 | SSH and VPN Introduction</a>
+- <a href="https://youtu.be/JdO1ONWtMKw">2.2 | File systems and paths</a>
+- <a href="https://youtu.be/vKS8db8CVU8">2.3 | The anatomy of a Unix command</a>
 
 Optional videos (kind of like extended video cheat sheets):
 - <a href="https://youtu.be/ye5_AXFIFFk" target="_blank">File System/Directory Trees</a>
