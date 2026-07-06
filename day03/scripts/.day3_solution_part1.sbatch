@@ -12,7 +12,7 @@
 
 # Original rsync command to copy the file that doesn't exist
 # Commented out so that it won't actually run, but if this file did exist, the command would work
-#rsync /scratch/Shares/public/sread2025/data_files/day3/SRR062641.filt.fastq.gz /scratch/Users/<username>/workshop-day3/data/
+#rsync /scratch/Shares/public/sread/data_files/day3/SRR062641.filt.fastq.gz /scratch/Users/<username>/workshop-day3/data/
 
 # Download our data
 cd /scratch/Users/<username>/workshop-day3/data/
