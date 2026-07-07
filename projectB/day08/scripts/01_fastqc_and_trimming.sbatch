@@ -18,10 +18,9 @@ echo "BEGIN: Preprocessing................."
 ################################################################
 
 module load fastqc/0.12.1
-module load trimmomatic/0.39
+
 trimmomatic_exec=/data/software/Trimmomatic-0.39/trimmomatic-0.39.jar
 adapter_file=/data/software/Trimmomatic-0.39/adapters/TruSeq3-SE.fa
-module load java/1.8.0_101
 
 ################################################################
 ##Initialize folders 
