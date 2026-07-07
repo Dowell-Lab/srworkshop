@@ -1,7 +1,5 @@
 # Project B Day 7 | RNA-seq: Counting Reads and Differential Expression
 
-Today we will count RNA-seq reads using *Rsubread* and use the counts to run *DESeq2*.
-
 Today, you will learn to count reads using *featureCounts*. Then, you will learn about exploratory data analysis and QC checks associated with differential analysis. Finally, you will use the differential analysis pipeline *DESeq2* to identify a list of genes which are differentially expressed in our dataset. This list will be used later in the week when we integrate it together with our ChIP-seq results.
 
 ## Before Day 7
