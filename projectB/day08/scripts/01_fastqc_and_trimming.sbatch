@@ -17,8 +17,10 @@ echo "BEGIN: Preprocessing................."
 ##Load required modules 
 ################################################################
 
-module load fastqc/0.11.5
-module load trimmomatic/0.36
+module load fastqc/0.12.1
+module load trimmomatic/0.39
+trimmomatic_exec=/data/software/Trimmomatic-0.39/trimmomatic-0.39.jar
+adapter_file=/data/software/Trimmomatic-0.39/adapters/TruSeq3-SE.fa
 module load java/1.8.0_101
 
 ################################################################
@@ -57,14 +59,14 @@ mkdir -p ${qc}/fastqc
 for sample in `ls ${fastq} | tr '.' '\t' | cut -f 1`; 
 do
     #1: trim fastq file using trimmomatic 
-    java -jar /opt/trimmomatic/0.36/trimmomatic-0.36.jar SE \
+    java -jar $trimmomatic_exec SE \
 	-threads 2 \
 	-phred33 \
 	-trimlog \
 	${qc}/trim_log/${sample}.trimlog \
 	${fastq}/${sample}.fastq.gz \
 	${trim}/${sample}.trimmed.fastq.gz \
-	ILLUMINACLIP:/opt/trimmomatic/0.36/adapters/TruSeq3-SE.fa:2:30:10 \
+	ILLUMINACLIP:"$adapter_file":2:30:10 \
 	LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
     #2: check quality of the fastq files after trimming 
