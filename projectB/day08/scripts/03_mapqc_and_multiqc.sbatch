@@ -16,7 +16,7 @@ echo "BEGIN: Preprocessing................."
 ##Load required modules 
 ################################################################
 
-module load preseq/3.1.2
+module load preseq/3.2.0
 
 ################################################################
 ##Initialize folders 
