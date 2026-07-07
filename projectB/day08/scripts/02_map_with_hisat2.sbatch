@@ -16,8 +16,9 @@ echo "BEGIN: Preprocessing................."
 ##Load required modules 
 ################################################################
 
-module load hisat2/2.1.0
-module load samtools/1.8
+module load hisat2/2.2.1
+# module load samtools/1.8
+# samtools v1.23.1 is installed system-wide, no need to module load it
 
 ################################################################
 ##Initialize folders 
