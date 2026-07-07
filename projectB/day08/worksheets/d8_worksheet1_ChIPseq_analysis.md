@@ -1,6 +1,7 @@
 # Short Read Day 8 Worksheet | Preprocessing ChIP-Seq Data
 
 - Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024), Chris D. Ozeroff (2025)
+- Edited: Natalie Bratset (2026) & Chris Rauchet (2026)
 
 ## Introduction
 
@@ -73,16 +74,16 @@ After you Log into the AWS, you will make a directory for day 8 in your scratch 
 Create a working directory for day8 in scratch using the *mkdir* command.
 
 ```
-[<username>@<hostname> ~]$ cd /scratch/Users/<YourUsername>
-[<username>@<hostname> ~]$ mkdir day8
-[<username>@<hostname> ~]$ cd day8
-[<username>@<hostname> ~]$ mkdir scripts eofiles 
+cd /scratch/Users/<Your_Username>
+mkdir day8
+cd day8
+ mkdir scripts eofiles 
 ```
 
 3. Copy scripts to your scratch folder
 
 ```
-[<username>@<hostname> ~]$ rsync -a /path/to/srworkshop/projectB/day08/scripts/thescriptswewant /scratch/Users/<YourUsername>/day8/scripts
+rsync -a /path/to/srworkshop/projectB/day08/scripts/<thescriptswewant /scratch/Users/<Your_Username>/day8/scripts
 ```
 
 Copy the following scripts from the github repository folder into your scripts directory
