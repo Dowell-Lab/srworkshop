@@ -1,4 +1,4 @@
-# Workshop Day 2: Navigating the Unix Enviorment
+# Workshop Day 2: Navigating the Unix Environment
 Author: Christopher Rauchet (2025)<br>
 Edited: Lynn Sanford (2026) 
 
