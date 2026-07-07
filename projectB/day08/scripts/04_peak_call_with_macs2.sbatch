@@ -14,7 +14,7 @@ echo "BEGIN: Preprocessing................."
 
 ################### LOAD MODULES ###################################
 module load bedtools/2.25.0
-source /scratch/Shares/public/sread2025/generalpythonvenv/bin/activate  #this will load a virtual machine with MACS3
+source /scratch/Shares/public/sread/generalpythonvenv/bin/activate  #this will load a virtual machine with MACS3
 
 ################## SET VARIABLES ###################################
 #INDIR is where my bams file are stored. OUTDIR is where I want my output from running MACS to go
@@ -24,7 +24,7 @@ OUTDIR=${WD}/macs
 mkdir -p ${OUTDIR} 
 
 #Blacklist region bed file 
-BLACKLIST=/scratch/Shares/public/sread2025/data_files/day8b/chip_blacklist/blacklist_hg38.bed
+BLACKLIST=/scratch/Shares/public/sread/data_files/day8b/chip_blacklist/blacklist_hg38.bed
 
 #Samples (HCT116 samples are below)
 INPUT=SRR4090089_chr21
