@@ -102,6 +102,7 @@ Stop and Think: Based on the example in class, how would you copy the `chr1_exon
 3. Use the `rsync` command with the following format: `rsync <username>@<awsip>:</server_absolute_path_to_file> <local_destination_directory_path>`
     - To get the absolute path of the file on the AWS, you can type it all out or while still logged onto the aws you can use `realpath <file>` and copy that output. This path MUST begin with `/` within the `rsync` command
     - You must have the `:` separating the server address from the file path
+    - Windows paths are sometimes confusing. You can refer to [this worksheet](https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Windows_file_locations.md) to get more information about Windows paths.
 4. Check to see if the file appeared on your local computer using `ls`
 
 # Part 2: File Management and Permissions
