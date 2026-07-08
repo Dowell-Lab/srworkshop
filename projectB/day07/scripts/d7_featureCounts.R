@@ -19,11 +19,6 @@ workdir <- '/PATH/TO/WORKING/DIRECTORY'
 setwd(workdir)
 getwd()
 
-#' Featurecounts uses the package Rsubread, so we need to install that before using it. Install it here.
-
-install.packages("BiocManager")
-BiocManager::install("Rsubread")
-
 # Load Rsubread package
 library("Rsubread")
 
