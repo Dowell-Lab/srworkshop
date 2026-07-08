@@ -1,6 +1,6 @@
 #' ---
 #' title: "Counting Reads with featureCounts"
-#' author: "Taylor Jones (edited by Rutendo Sigauke, Samuel Hunter, Lynn Sanford)"
+#' author: "Taylor Jones (edited by Rutendo Sigauke, Samuel Hunter, Lynn Sanford, Malia Fredrickson)"
 #' date: "`r Sys.Date()`"
 #' output: 
 #'   html_document: 
@@ -12,12 +12,17 @@
 
 #' # Introduction
 #' 
-#' Here we will learn how to download a package, what metadata table is (and why it is important), and run featureCounts, which counts reads over genes.
+#' Here we will learn how to install and download a package, what metadata table is (and why it is important), and run featureCounts, which counts reads over genes.
 
 # Set working directory
 workdir <- '/PATH/TO/WORKING/DIRECTORY'
 setwd(workdir)
 getwd()
+
+#' Featurecounts uses the package Rsubread, so we need to install that before using it. Install it here.
+
+install.packages("BiocManager")
+BiocManager::install("Rsubread")
 
 # Load Rsubread package
 library("Rsubread")
