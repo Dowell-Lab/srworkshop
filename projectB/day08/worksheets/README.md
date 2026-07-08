@@ -1,6 +1,5 @@
 # Workshop Day 8 : Preprocessing ChIP-Seq Data
-
-Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024), Chris D. Ozeroff (2025)
+Authors: Jessica Huynh-Westfall (2023),  Rutendo F. Sigauke (2024), Chris D. Ozeroff (2025)<br>
 Edited: Natalie Bratset (2026) & Chris Rauchet (2026)
 
 ## Introduction
