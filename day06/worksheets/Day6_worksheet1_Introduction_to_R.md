@@ -6,7 +6,7 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024-2025)
 
 ### Before class
 
-- Make sure you have [RStudio](https://www.rstudio.com/products/rstudio/download/) and the latest version of [R](https://cran.rstudio.com/) (R 4.4.1 or greater) installed on your computer!
+- Make sure you have [RStudio](https://www.rstudio.com/products/rstudio/download/) and the latest version of [R](https://cran.rstudio.com/) (R 4.6.0 or greater) installed on your computer!
 
 	- You want to get RStudio Desktop - Free
 
