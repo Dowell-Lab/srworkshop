@@ -52,7 +52,7 @@ git pull
 
 2. Go ahead and launch R in the command line on the AWS server. Different versions of R are already installed. We can check which R is installed by running `module spider R`
 
-Load the newest version of R listed on the AWS server using `module load R/4.3.1`
+Load the newest version of R listed on the AWS server using `module load R/4.6.0`
 
 ![Module load](images/module_load_R.png)
 
