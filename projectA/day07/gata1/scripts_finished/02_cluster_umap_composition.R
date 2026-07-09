@@ -8,6 +8,10 @@
 #
 # Inputs : OUT_DIR/gata1_combined_qc.rds  (from 01_load_qc_metadata.R)
 # Outputs: a processed object + several plots in OUT_DIR.
+#
+# ANSWER KEY for the fill-in template ../02_cluster_umap_composition.R. Try the
+# template (with the worksheet 02_cluster_umap_composition.md) before reading
+# this.
 # =============================================================================
 
 source("~/srworkshop/projectA/00_paths_and_setup.R")

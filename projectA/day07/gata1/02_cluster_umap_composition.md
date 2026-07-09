@@ -1,103 +1,350 @@
 # GATA1 Lesson 02 — Normalization, PCA, clustering, UMAP, and composition
 
-**Script:** `scripts/gata1/02_cluster_umap_composition.R`
+**Template script (you fill this in):** `02_cluster_umap_composition.R`
+**Answer key:** `scripts_finished/02_cluster_umap_composition.R`
 **Input:** `OUT_DIR/gata1_combined_qc.rds` (from Lesson 01)
 
-Lesson 01 gave us a filtered object with clean metadata. Now we turn raw counts
-into a map of cell states (clusters on a UMAP) and then *quantify* how the
-experimental conditions are distributed across that map.
+## How to use this worksheet
 
-## Step 1 — Normalize → variable genes → scale
+Open the template `02_cluster_umap_composition.R` in RStudio next to this
+worksheet. We work through the script one section at a time. For each step you
+will see:
 
-- **`NormalizeData` (LogNormalize, scale factor 1e4).** Cells differ in total
-  counts purely for technical reasons. We divide each count by the cell's total,
-  scale to 10,000, and log-transform so that "expression" is comparable across
-  cells.
-- **`FindVariableFeatures` (vst, 3000 genes).** Most genes are uninformative
-  housekeepers. We keep the 3000 most variable genes, where the biology lives.
-- **`ScaleData(vars.to.regress = c("nCount_RNA", "percent.mt"))`.** Centers and
-  scales each gene to mean 0, variance 1, and *regresses out* sequencing depth
-  and mitochondrial fraction so those technical drivers don't masquerade as
-  biological structure in the PCA.
+1. what the step does and why,
+2. the code to write, and
+3. a task cue indicating which `# YOUR CODE HERE:` block in the template to
+   complete.
 
-## Step 2 — PCA and choosing the number of PCs
+The boilerplate (loading data, the `ggplot` heatmaps, saving plots) is already
+written for you. You complete the key line or lines in each step. Attempt each
+one before consulting the answer key in `scripts_finished/`.
 
-`RunPCA` compresses 3000 genes into a few dozen principal components. The
-`ElbowPlot` (saved as `gata1_elbow.png`) shows how much variance each PC
-explains; where the curve flattens is roughly where added PCs become noise. For
-this dataset the elbow is early, so we keep **`n_pcs <- 10`**. Picking too few
-PCs merges distinct states; too many adds noise. Re-examine the elbow if you
-adapt this to other data.
+Each step provides the function name and its key arguments, so you assemble the
+call rather than write it from scratch.
 
-## Step 3 — UMAP and graph-based clustering
+## Overview
 
-- `RunUMAP(dims = 1:10)` projects the 10-PC space into 2D for visualization.
-  **UMAP is for looking, not for measuring** — distances between far-apart blobs
-  aren't quantitative.
-- `FindNeighbors` + `FindClusters(resolution = 0.4)` do the actual clustering on
-  the PCA graph. Higher resolution → more, smaller clusters. 0.4 is a moderate
-  choice; try a couple of values and see which gives biologically sensible
-  groups.
+Lesson 01 produced a filtered object with clean metadata. In this lesson we turn
+raw counts into a map of cell states (clusters on a UMAP) and then quantify how
+the experimental conditions are distributed across that map. The overall flow is:
 
-We save UMAPs colored by `seurat_clusters`, `day`, `construct`, `genotype`, and
-a faceted `day` split by `construct_genotype`. Because the metadata was parsed
-in Lesson 01, these splits are one argument each.
+> normalize → variable genes → (cell cycle) → scale → PCA → UMAP + clusters →
+> visualize → composition
 
-## Step 4 — Composition analysis (the quantitative payoff)
+---
 
-A UMAP can *suggest* that GATA1s shifts cells toward a lineage, but you need
-numbers to claim it. We cross-tabulate cluster × sample with
-`table(Idents(combined), combined$sample)` and then normalize two ways — each
-answers a different question:
+## Step 0 — Setup and load (already written)
+
+There is nothing to complete here; read and run this block. The script sources
+the shared paths file, loads the libraries, reads the object saved by Lesson 01,
+and sets the default assay to RNA.
+
+```r
+source("~/srworkshop/projectA/00_paths_and_setup.R")
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
+DefaultAssay(combined) <- "RNA"
+```
+
+> Do not edit paths in the script. All paths live in `00_paths_and_setup.R`, and
+> everything you create is written to `OUT_DIR`, not the read-only share.
+
+---
+
+## Step 1 — Normalize and select variable genes
+
+**Normalize.** Cells differ in total counts largely for technical reasons, such
+as how many transcripts were captured. `NormalizeData` (LogNormalize) divides
+each count by the cell's total, scales to 10,000, and log-transforms the result
+so that expression is comparable across cells.
+
+```r
+combined <- NormalizeData(combined, normalization.method = "LogNormalize",
+                          scale.factor = 1e4, verbose = TRUE)
+```
+
+**Your task:** Complete **Step 1a** in the template.
+
+**Variable genes.** Most genes are uninformative housekeeping genes. We keep the
+3,000 most variable genes, which carry most of the biological signal, using
+`FindVariableFeatures`.
+
+```r
+combined <- FindVariableFeatures(combined, selection.method = "vst",
+                                 nfeatures = 3000, verbose = TRUE)
+head(VariableFeatures(combined), 20)
+```
+
+**Your task:** Complete **Step 1b** in the template. The `head(...)` line that
+prints the top 20 variable genes is already written for you.
+
+---
+
+## Step 2 — Cell-cycle scoring
+
+Dividing cells can form clusters that reflect the cell cycle rather than the
+biology of interest. Before scaling, we score each cell's position in the cell
+cycle so that this effect is visible and can be removed later if needed.
+
+`CellCycleScoring` takes two curated gene lists — S-phase and G2M-phase markers,
+which Seurat provides in `cc.genes.updated.2019` — and adds three columns to the
+metadata: `S.Score`, `G2M.Score`, and `Phase` (G1, S, or G2M).
+
+The gene lists are provided:
+
+```r
+s.genes   <- cc.genes.updated.2019$s.genes
+g2m.genes <- cc.genes.updated.2019$g2m.genes
+```
+
+Complete the scoring call:
+
+```r
+combined <- CellCycleScoring(
+  combined,
+  s.features   = s.genes,
+  g2m.features = g2m.genes,
+  set.ident    = TRUE
+)
+```
+
+**Your task:** Complete **Step 1c** in the template.
+
+---
+
+## Step 3 — Scale and regress out technical drivers
+
+`ScaleData` centers and scales each gene to mean 0 and variance 1. It can also
+regress out unwanted signals. We regress out sequencing depth (`nCount_RNA`) and
+mitochondrial fraction (`percent.mt`) so that these technical drivers are not
+mistaken for biological structure in the PCA.
+
+```r
+combined <- ScaleData(
+  combined,
+  features        = VariableFeatures(combined),
+  vars.to.regress = c("nCount_RNA", "percent.mt"),
+  verbose         = TRUE
+)
+```
+
+**Your task:** Complete **Step 1d** in the template.
+
+> Optional experiment: the template includes a commented-out `ScaleData` that
+> also regresses out `S.Score` and `G2M.Score`. If your `Phase` UMAP (Step 6)
+> shows clusters splitting by cell cycle, run that version and compare the
+> results.
+
+---
+
+## Step 4 — PCA and choosing the number of PCs
+
+`RunPCA` compresses 3,000 genes into a few dozen principal components.
+
+```r
+combined <- RunPCA(combined, features = VariableFeatures(combined),
+                   npcs = 50, verbose = FALSE)
+```
+
+**Your task:** Complete **Step 2a** in the template.
+
+The `ElbowPlot` (saved as `gata1_elbow.png`, written for you) shows how much
+variance each PC explains; where the curve flattens is approximately where
+additional PCs become noise. For this dataset the elbow is early, so we keep 10
+PCs (20 also works). Too few PCs merge distinct states; too many add noise. The
+aim is for your conclusions to hold regardless of the exact choice.
+
+```r
+n_pcs <- 10
+```
+
+**Your task:** Complete **Step 2b** in the template.
+
+---
+
+## Step 5 — UMAP and graph-based clustering
+
+- `RunUMAP(dims = 1:n_pcs)` projects the `n_pcs`-dimensional PCA space into 2D
+  for visualization. UMAP is for visualization, not measurement: distances
+  between well-separated groups are not quantitative.
+- `FindNeighbors` followed by `FindClusters(resolution = 0.4)` performs the
+  clustering on the PCA graph. Higher resolution produces more, smaller clusters.
+  0.4 is a moderate choice; test a few values and select the one that yields
+  biologically sensible groups.
+
+```r
+combined <- RunUMAP(combined, dims = 1:n_pcs)
+combined <- FindNeighbors(combined, dims = 1:n_pcs)
+combined <- FindClusters(combined, resolution = 0.4)
+```
+
+**Your task:** Complete **Steps 3a, 3b, and 3c** in the template.
+
+> Cluster numbers are assigned arbitrarily: re-running `FindClusters` produces
+> approximately the same groups, but the number assigned to each group may
+> change.
+
+---
+
+## Step 6 — Visualize with `DimPlot`
+
+`DimPlot` draws the UMAP colored by any metadata column. The pattern is always
+the same:
+
+```r
+p <- DimPlot(combined, reduction = "umap", group.by = <a metadata column>)
+p
+save_dim(p, "some_name.png")
+```
+
+The first plot is provided as a worked example (colored by `seurat_clusters`).
+You then repeat the pattern, changing only `group.by`:
+
+| Template step | `group.by =` | Saves to |
+|---|---|---|
+| 3e | `"day"` | `gata1_umap_day.png` |
+| 3f | `"construct"` | `gata1_umap_construct.png` |
+| 3g | `"genotype"` | `gata1_umap_genotype.png` |
+| 3i | `"Phase"` | `gata1_umap_ccPhase.png` |
+
+The `Phase` plot (Step 3i) addresses a key question: are the clusters driven by
+the cell cycle? If a cluster consists mostly of S/G2M cells, revisit the optional
+regression in Step 3.
+
+Two plots between these are written for you: the `S.Score` vs `G2M.Score` hex
+scatter (Step 3h) and the `ApopScore1` UMAP.
+
+Finally, facet the day-colored UMAP into one panel per condition:
+
+```r
+p <- DimPlot(combined, reduction = "umap", group.by = "day",
+             split.by = "construct_genotype", label = TRUE, pt.size = 0.3)
+```
+
+**Your task:** Complete **Steps 3e, 3f, 3g, 3i, and 3j** in the template. All the
+`group.by` and `split.by` columns come from the metadata parsed in Lesson 01, so
+each split is a single argument.
+
+---
+
+## Step 7 — Composition analysis
+
+A UMAP can suggest that GATA1s shifts cells toward a lineage, but quantifying the
+effect requires numbers. Cross-tabulate cluster × sample, then normalize the
+table two ways, because each normalization answers a different question.
+
+```r
+ct <- table(Idents(combined), combined$sample)
+```
+
+**Your task:** Complete **Step 4a** in the template.
 
 | Normalization | Code | Question answered |
 |---|---|---|
-| **By cluster** (rows sum to 1) | `prop.table(ct, margin = 1)` | "Within this cluster, what fraction came from each sample?" |
-| **By sample** (columns sum to 1) | `prop.table(ct, margin = 2)` | "Within this sample, what fraction of cells fell in each cluster?" |
+| By cluster (rows sum to 1) | `prop.table(ct, margin = 1)` | Within this cluster, what fraction came from each sample? |
+| By sample (columns sum to 1) | `prop.table(ct, margin = 2)` | Within this sample, what fraction of cells fell in each cluster? |
 
-The **by-sample** version is the one that reveals proportion shifts across
-genotype/construct/day — e.g. an erythroid cluster expanding in one condition.
+The by-sample version reveals proportion shifts across genotype, construct, and
+day — for example, an erythroid cluster expanding in one condition.
 
-### Hierarchical clustering to order the heatmap
-
-Plotting clusters/samples in arbitrary order hides structure. We compute
-Euclidean distances between rows and between columns, run `hclust`, and reorder
-the heatmap axes by the dendrogram so similar samples sit together:
+**By cluster (margin = 1).** Build the table, convert it to a data frame, and
+name the columns:
 
 ```r
-hc_col    <- hclust(dist(t(mat), method = "euclidean"), method = "complete")
-col_order <- hc_col$labels[hc_col$order]
-frac_df$sample <- factor(frac_df$sample, levels = col_order)
+frac_by_cluster <- prop.table(ct, margin = 1)
+frac_df <- as.data.frame(frac_by_cluster)
+colnames(frac_df) <- c("cluster", "sample", "fraction")
 ```
 
-This is the same idea as the dendrograms on a bulk RNA-seq heatmap: let the data
-decide the ordering. Two heatmaps are saved —
-`gata1_composition_by_cluster.png` (steelblue) and
-`gata1_composition_by_sample.png` (firebrick).
+**Your task:** Complete **Steps 4b and 4c** in the template.
 
-The script saves `gata1_combined_clustered.rds` for Lesson 03.
+**By sample (margin = 2).** The same steps with a different margin and column
+name:
+
+```r
+frac_by_sample <- prop.table(ct, margin = 2)
+frac_df_sample <- as.data.frame(frac_by_sample)
+colnames(frac_df_sample) <- c("cluster", "sample", "fraction_sample")
+```
+
+**Your task:** Complete the first three lines of **Step 4e** in the template.
+
+The two `ggplot(... geom_tile() ...)` heatmaps (steelblue for by-cluster,
+firebrick for by-sample) are written for you.
+
+---
+
+## Step 8 — Hierarchical clustering to order the heatmap
+
+Plotting clusters and samples in arbitrary order obscures structure. We compute
+Euclidean distances between rows and between columns, run `hclust`, and reorder
+the heatmap axes by the resulting dendrogram so that similar samples are placed
+together. This is the same principle as the dendrograms on a bulk RNA-seq
+heatmap: the ordering is determined by the data.
+
+The distance and `hclust` calls are written for you:
+
+```r
+m <- as.matrix(frac_by_cluster)
+hc_col    <- hclust(dist(t(m), method = "euclidean"), method = "complete")
+col_order <- hc_col$labels[hc_col$order]
+```
+
+Apply that ordering by converting the axes into factors whose level order
+follows the clustering:
+
+```r
+frac_df$sample  <- factor(frac_df$sample,  levels = col_order)
+frac_df$cluster <- factor(frac_df$cluster, levels = sort(unique(frac_df$cluster)))
+```
+
+**Your task:** Complete **Step 4d** (by-cluster) and the two `factor(...)` lines
+of **Step 4f** (by-sample, using `row_order` for cluster and `col_order` for
+sample). Two heatmaps are saved: `gata1_composition_by_cluster.png` and
+`gata1_composition_by_sample.png`.
+
+---
+
+## Step 9 — Save for Lesson 03 (already written)
+
+```r
+saveRDS(combined, file.path(OUT_DIR, "gata1_combined_clustered.rds"))
+```
+
+This clustered object is the input to the annotation lesson.
+
+---
 
 ## Common pitfalls
 
-- **Interpreting UMAP distances quantitatively.** Cluster *membership* is real;
-  the 2D geometry between clusters is not. Always back visual impressions with
-  the composition tables.
-- **Over-tuning resolution.** Cranking `FindClusters` resolution until you get
-  the number of clusters you "expected" is circular. Choose a resolution, then
-  validate with markers (Lesson 03).
-- **Reading the wrong margin.** `margin = 1` vs. `margin = 2` answer different
-  questions. Mixing them up flips the entire interpretation.
-- **Skipping the regression.** If you don't regress out depth/mito, the first PC
-  can just be "library size," and clusters reflect technical variation.
+- **Interpreting UMAP distances quantitatively.** Cluster membership is real; the
+  2D geometry between clusters is not. Always support visual impressions with the
+  composition tables.
+- **Ignoring cell cycle.** If a cluster is entirely S/G2M cells, it may be a
+  cell-cycle artifact rather than a cell type. Check the `Phase` UMAP and regress
+  out `S.Score` and `G2M.Score` if needed.
+- **Over-tuning resolution.** Increasing `FindClusters` resolution until you
+  obtain the number of clusters you expected is circular reasoning. Choose a
+  resolution, then validate with markers (Lesson 03).
+- **Reading the wrong margin.** `margin = 1` and `margin = 2` answer different
+  questions. Confusing them flips the entire interpretation.
+- **Skipping the regression.** If you do not regress out depth and mitochondrial
+  fraction, the first PC may simply represent library size, and clusters will
+  reflect technical variation.
 
 ## Check your understanding
 
 1. Why log-normalize before PCA? What artifact does it remove?
-2. You raise `FindClusters` resolution from 0.4 to 1.2. What happens to cluster
-   count, and how would you decide which resolution is "right"?
-3. A reviewer says "an erythroid cluster expands with GATA1s." Which composition
+2. What three columns does `CellCycleScoring` add, and what would you examine to
+   decide whether cell cycle is a problem for your clusters?
+3. You raise `FindClusters` resolution from 0.4 to 1.2. What happens to the
+   cluster count, and how would you decide which resolution is correct?
+4. A reviewer says an erythroid cluster expands with GATA1s. Which composition
    normalization (`margin = 1` or `margin = 2`) supports that claim, and why?
-4. What is hierarchical clustering doing to the heatmap axes, and why is that
+5. What does hierarchical clustering do to the heatmap axes, and why is that
    better than alphabetical order?
-5. If the elbow plot showed variance still dropping steeply at PC 25, would you
+6. If the elbow plot showed variance still dropping steeply at PC 25, would you
    keep `n_pcs = 10`? What would you change?
