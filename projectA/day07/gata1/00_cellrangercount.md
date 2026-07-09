@@ -56,7 +56,7 @@ Add each block below in order. Read the short explanation before each one.
 #!/bin/bash
 #SBATCH --job-name=cellrangerCount_male19            # Job name
 #SBATCH --nodes=1                                    # Number of nodes
-#SBATCH --ntasks=8                                   # Number of CPUs (tasks)
+#SBATCH --ntasks=1                                   # Number of CPUs (tasks)
 #SBATCH --time=18:00:00                              # Time limit hrs:min:sec
 #SBATCH --partition=short                            # Partition/queue on the server
 #SBATCH --mem=10gb                                   # Memory limit
@@ -95,7 +95,7 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=8      # must match --ntasks above
+  --localcores=1      # must match --ntasks above
 ```
 
 ### 2e. Closing line
@@ -106,7 +106,7 @@ echo Job finished at `date +"%T %a %d %b %Y"`
 
 Save and quit vim with `:wq`.
 
-### What the flags mean
+### What do all these flags in cellranger mean?
 
 | Flag | What it does |
 | --- | --- |
@@ -152,7 +152,7 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=8      # must match --ntasks above
+  --localcores=1      # must match --ntasks above
 
 echo Job finished at `date +"%T %a %d %b %Y"`
 ```
