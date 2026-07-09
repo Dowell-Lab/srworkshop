@@ -29,7 +29,7 @@ Authors: Taylor Jones (2022), Rutendo Sigauke (2024-2025)
 
 ### Useful packages
 
-- Data isn’t always beautiful. To tidy data up there is a very useful package called `tidyvrse` with instructions in R for Data Science. Info can be found here: https://www.tidyverse.org/
+- Data isn’t always beautiful. To tidy data up there is a very useful package called `tidyverse` with instructions in R for Data Science. Info can be found here: https://www.tidyverse.org/
 
 - To plot data beautifully with `ggplot2` (`ggplot2` is also a part of `tidyverse`): https://ggplot2.tidyverse.org/
 
