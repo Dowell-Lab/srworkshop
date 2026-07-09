@@ -21,7 +21,7 @@
 #         shrinkage + fdrtool pattern, adapted to course conventions.
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(data.table)

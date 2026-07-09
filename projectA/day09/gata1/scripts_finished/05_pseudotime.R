@@ -15,7 +15,7 @@
 # script also runs start-to-finish on a headless server.
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(monocle3)
 library(R.utils)
@@ -24,50 +24,72 @@ library(SeuratWrappers)
 library(dplyr)
 library(ggplot2)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated.rds"))
-combined <- JoinLayers(combined)
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+#If you didn't make this yet, use mine!
+#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined.rds"))
+
 
 # ---- 1. Subset to ONE lineage so the trajectory is interpretable ------------
 # A trajectory only makes sense within a single continuum. Erythroid maturation
 # is the dominant axis here. We keep the erythroid-labeled cells from SingleR.
 # Inspect the labels first and adjust the pattern to match what YOUR run produced.
-print(sort(table(combined$SingleR_label), decreasing = TRUE))
+print(sort(table(combined$SingleR_labels_other), decreasing = TRUE))
 
-ery_pattern <- "Erythro|Eryth|Ery"     # matches "Erythroid", "Erythrocytes", etc.
-ery_cells   <- grepl(ery_pattern, combined$SingleR_label, ignore.case = TRUE)
-message("Erythroid cells selected: ", sum(ery_cells))
-
-red <- subset(combined, cells = colnames(combined)[ery_cells])
 
 # ---- 2. Convert Seurat -> monocle3 cell_data_set ----------------------------
-cds <- SeuratWrappers::as.cell_data_set(red)
+cds <- SeuratWrappers::as.cell_data_set(combined)
+#Ignore the warning about cluser patriations. We will run cluster_cells in a minute
+
 # Carry gene names over so plot_cells(genes = ...) can find them.
-cds@rowRanges@elementMetadata@listData[["gene_short_name"]] <- rownames(red[["RNA"]])
+cds@rowRanges@elementMetadata@listData[["gene_short_name"]] <- rownames(combined[["RNA"]])
 
 # =============================================================================
 # BASIC pseudotime - required setup + ordering
 # =============================================================================
 # Required order: preprocess -> reduce_dimension -> cluster -> learn_graph
 cds <- monocle3::preprocess_cds(cds, method = "PCA", num_dim = 10)
+
+plot = monocle3::plot_pc_variance_explained(cds)
+# you can ignore this warning, monocole has not updated. 
+plot
+
 ggsave(file.path(OUT_DIR, "gata1_pt_pc_variance.png"),
-       plot = monocle3::plot_pc_variance_explained(cds), width = 6, height = 4, dpi = 150)
+       plot, width = 6, height = 4, dpi = 150)
 
 cds <- monocle3::reduce_dimension(cds, reduction_method = "UMAP", preprocess_method = "PCA")
 cds <- monocle3::cluster_cells(cds)
 cds <- monocle3::learn_graph(cds)
+#ignore the warning
+
+p<- plot_cells(
+  cds,
+  color_cells_by = "cluster",   # or "partition", "cell_type", etc.
+  label_groups_by_cluster = TRUE,
+  label_leaves = FALSE,
+  label_branch_points = FALSE
+)
+
+p
+
 
 # Color the trajectory by the things we know about each cell.
-save_cells <- function(p, file, w = 7, h = 5) {
+save_graph <- function(p, file, w = 7, h = 5) {
   ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
 }
-save_cells(monocle3::plot_cells(cds, color_cells_by = "day", label_cell_groups = FALSE),
+
+plot <- monocle3::plot_cells(cds, color_cells_by = "day", label_cell_groups = FALSE)
+plot
+save_graph(plot,
            "gata1_pt_by_day.png")
-save_cells(monocle3::plot_cells(cds, color_cells_by = "construct", label_cell_groups = FALSE),
+plot <- monocle3::plot_cells(cds, color_cells_by = "construct", label_cell_groups = FALSE)
+plot
+save_graph(plot,
            "gata1_pt_by_construct.png")
 
+plot <- monocle3::plot_cells(cds, genes = c("CD34", "GATA1", "TFRC", "HBG1"),label_cell_groups = FALSE, show_trajectory_graph = FALSE)
+plot
 # Erythroid maturation markers to orient the path (early -> late).
-save_cells(monocle3::plot_cells(cds, genes = c("CD34", "GATA1", "TFRC", "HBG1"),
-                                label_cell_groups = FALSE, show_trajectory_graph = FALSE),
+save_graph(plot,
            "gata1_pt_markers.png", w = 9, h = 7)
 
 # ---- 3. Pick the root WITHOUT a mouse click ---------------------------------
@@ -91,7 +113,7 @@ if (!is.null(root_node)) {
   cds <- monocle3::order_cells(cds)
 }
 
-save_cells(monocle3::plot_cells(cds, color_cells_by = "pseudotime",
+save_graph(monocle3::plot_cells(cds, color_cells_by = "pseudotime",
                                 label_cell_groups = FALSE, label_leaves = FALSE,
                                 label_branch_points = FALSE, graph_label_size = 1.5),
            "gata1_pt_pseudotime.png")
@@ -103,10 +125,17 @@ val <- val[is.finite(val$pseudotime), ]
 p_val <- ggplot(val, aes(x = day, y = pseudotime, fill = day)) +
   geom_violin() + geom_boxplot(width = 0.1, outlier.size = 0.3) +
   labs(title = "Pseudotime vs. experimental day (sanity check)") + theme_bw()
-save_cells(p_val, "gata1_pt_vs_day_violin.png")
+save_graph(p_val, "gata1_pt_vs_day_violin.png")
+
 
 saveRDS(cds, file.path(OUT_DIR, "gata1_cds_pseudotime.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_cds_pseudotime.rds"))
+
+
+
+#cds<- readRDS(file.path(OUT_DIR, "gata1_cds_pseudotime.rds"))
+# Ignore the warning about save_monocle_objects()
+#it quite working when they update one part and save_monocle_objects wont work with it.
 
 # =============================================================================
 # ADVANCED - genes that change along the trajectory
@@ -128,7 +157,7 @@ if (length(genes_look_interesting) > 0) {
   subset_cds <- cds[rowData(cds)$gene_short_name %in% genes_look_interesting, ]
   p_genes <- monocle3::plot_genes_in_pseudotime(subset_cds, color_cells_by = "day",
                                                 vertical_jitter = TRUE, cell_size = 0.3)
-  save_cells(p_genes, "gata1_pt_genes_in_pseudotime.png", w = 7, h = 8)
+  save_graph(p_genes, "gata1_pt_genes_in_pseudotime.png", w = 7, h = 8)
 }
 
 # choose_graph_segments() (interactive) isolates one branch start->end:

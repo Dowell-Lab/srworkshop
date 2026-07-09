@@ -24,6 +24,11 @@ library(dplyr)
 library(ggplot2)
 
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
+
+#If you didn't make this yet, use mine!
+#combined <- readRDS(file.path(COOKING, "gata1_combined_qc.rds"))
+
+
 DefaultAssay(combined) <- "RNA"
 
 # ---- 1. Normalize -> variable genes -> scale --------------------------------
@@ -128,9 +133,9 @@ p
 save_dim(p,"gata1_umap_ccPhase.png")
 
 #this one takes a while because its not a factor
-p<- DimPlot(combined, reduction = "umap", group.by = "ApopScore1")
-p
-save_dim(p,"gata1_umap_ApopScore1.png")
+#p<- DimPlot(combined, reduction = "umap", group.by = "ApopScore1")
+#p
+#save_dim(p,"gata1_umap_ApopScore1.png")
 
 p<- DimPlot(combined, reduction = "umap", group.by = "day", split.by = "construct_genotype",
             label = TRUE, pt.size = 0.3)

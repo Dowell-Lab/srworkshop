@@ -28,7 +28,7 @@
 #         write to OUT_DIR).
 # =============================================================================
 
-source("../00_paths_and_setup.R")
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 suppressPackageStartupMessages({
   library(Seurat)

@@ -35,8 +35,6 @@ library(patchwork)
 # (defined once in 00_paths_and_setup.R) so the names live in a single place.
 
 #this is how you read in one file
-
-
 mtx_file  <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_matrix.mtx.gz")
 bc_file   <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_barcodes.tsv.gz")
 feat_file <- file.path(GATA1_DIR, "GSE271399_EuploidGATA1sD7_features.tsv.gz")
@@ -52,7 +50,7 @@ mat <- ReadMtx(
 
 obj <- CreateSeuratObject(counts = mat, project = "EuploidGATA1sD7")
 
-
+#But that would be really slow?
 #this is how you read in a lot of files with the same structure to the names
 
 GATA1_SAMPLES
