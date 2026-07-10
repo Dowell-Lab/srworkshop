@@ -19,6 +19,9 @@
 #
 # Nothing is downloaded; the GSE271399 files already live on the cluster.
 # All outputs are written to OUT_DIR (your own writable folder).
+#
+# ANSWER KEY for the fill-in template ../01_load_qc_metadata.R. Try the template
+# (with the worksheet 01_load_qc_metadata.md) before reading this.
 # =============================================================================
 
 source("~/srworkshop/projectA/00_paths_and_setup.R")
@@ -115,11 +118,11 @@ for (nm in names(seurat_list)) {
   print(p)
 }
 
-#something is strange about EuploidwtGATA1D7  
-#something is strange about T21GATA1sD9
+#something is strange about EuploidwtGATA1D7
+#something is strange about T21GATA1sD11
 #What is it?
 
-#https://www.biostars.org/p/407036/?__cf_chl_f_tk=LN1gwha3m.ijUcq1uikv0HA6PBsOzcjGK0r0L0zjEC0-1782953449-1.0.1.1-T8Fr7j9pqinxae9lVuutlu1ap8W1BcunvTMpKrUKbs4
+#https://www.biostars.org/p/407036/
 
 #Low nFeature_RNA for a cell indicates that it may be dead/dying or an empty droplet. 
 #High nCount_RNA and/or nFeature_RNA indicates that the "cell" may in fact be a doublet (or multiplet). 
@@ -139,7 +142,7 @@ for (nm in names(seurat_list)) {
 
 qc_filtered <- lapply(seurat_list, function(obj) {
   subset(obj,
-         subset = nFeature_RNA > 2000 &
+         subset = nFeature_RNA > 200 &
                   nFeature_RNA < 6000 &
                   percent.mt   < 15)
 })
@@ -151,6 +154,11 @@ combined <- merge(
   add.cell.ids = names(qc_filtered)
 )
 
+# Seurat v5 keeps each sample's counts in a separate layer after merge. With a
+# plain merge (no integration) we want them joined so NormalizeData /
+# AddModuleScore below operate on one combined layer.
+combined <- JoinLayers(combined)
+
 # How many cells did each sample lose to QC?
 before <- as.data.frame(table(combinedori$sample)); colnames(before) <- c("sample", "n_before")
 after  <- as.data.frame(table(combined$sample));    colnames(after)  <- c("sample", "n_after")
@@ -160,7 +168,7 @@ print(qc_summary)
 write.csv(qc_summary, file.path(OUT_DIR, "gata1_qc_summary.csv"), row.names = FALSE)
 
 # ---- 5. Metadata FROM the sample names (the clean way) ----------------------
-# The sample name already encodes the full design, e.g. "T21wtGATA1D9".
+# The sample name already encodes the full design, e.g. "T21wtGATA1D11".
 # Instead of maintaining a hand-typed metadata sheet (which is how the messy
 # fetal-bone-marrow dataset went wrong), we PARSE the design out of the name.
 # One source of truth = the file name = impossible to mislabel.

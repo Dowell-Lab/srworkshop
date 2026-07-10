@@ -215,7 +215,8 @@ the cell cycle? If a cluster consists mostly of S/G2M cells, revisit the optiona
 regression in Step 3.
 
 Two plots between these are written for you: the `S.Score` vs `G2M.Score` hex
-scatter (Step 3h) and the `ApopScore1` UMAP.
+scatter (Step 3h) and the `ApopScore1` UMAP (drawn with `FeaturePlot`, since
+`ApopScore1` is a continuous score rather than a discrete group).
 
 Finally, facet the day-colored UMAP into one panel per condition:
 
@@ -308,7 +309,7 @@ sample). Two heatmaps are saved: `gata1_composition_by_cluster.png` and
 
 ---
 
-## Step 9 — Save for Lesson 03 (already written)
+## Step 9 — Save for the annotation lesson (already written)
 
 ```r
 saveRDS(combined, file.path(OUT_DIR, "gata1_combined_clustered.rds"))
@@ -328,7 +329,7 @@ This clustered object is the input to the annotation lesson.
   out `S.Score` and `G2M.Score` if needed.
 - **Over-tuning resolution.** Increasing `FindClusters` resolution until you
   obtain the number of clusters you expected is circular reasoning. Choose a
-  resolution, then validate with markers (Lesson 03).
+  resolution, then validate with markers (the annotation lesson).
 - **Reading the wrong margin.** `margin = 1` and `margin = 2` answer different
   questions. Confusing them flips the entire interpretation.
 - **Skipping the regression.** If you do not regress out depth and mitochondrial

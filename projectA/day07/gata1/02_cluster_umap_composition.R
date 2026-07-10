@@ -39,6 +39,10 @@ library(ggplot2)
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
 DefaultAssay(combined) <- "RNA"
 
+# Join the per-sample layers (Seurat v5) so the whole workflow below runs on one
+# combined layer. Harmless no-op if they are already joined. (written for you)
+combined <- JoinLayers(combined)
+
 # ---- 1. Normalize -> variable genes -> scale --------------------------------
 # (NormalizeData was already run in script 01, but re-running is harmless and
 #  keeps this script runnable on its own.)
@@ -104,8 +108,8 @@ print(combined[["pca"]], dims = 1:5, nfeatures = 10)
 ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
        plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
 
-plot = ElbowPlot(combined, ndims = 50)
-plot
+p_elbow <- ElbowPlot(combined, ndims = 50)
+p_elbow
 
 # ---- Step 2b: choose how many PCs to keep -----------------------------------
 # The elbow flattens early here, so ~10 PCs capture most of the structure (20
@@ -190,8 +194,9 @@ p <-
 p
 save_dim(p, "gata1_umap_ccPhase.png")
 
-#this one takes a while because its not a factor
-p <- DimPlot(combined, reduction = "umap", group.by = "ApopScore1")
+# ApopScore1 is a continuous score, so use FeaturePlot (a colour gradient),
+# not DimPlot (which would treat every value as its own discrete group).
+p <- FeaturePlot(combined, reduction = "umap", features = "ApopScore1")
 p
 save_dim(p, "gata1_umap_ApopScore1.png")
 

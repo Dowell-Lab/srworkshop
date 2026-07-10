@@ -30,6 +30,10 @@ library(ggplot2)
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
 DefaultAssay(combined) <- "RNA"
 
+# Join the per-sample layers (Seurat v5) so the whole workflow below runs on one
+# combined layer. Harmless no-op if they are already joined.
+combined <- JoinLayers(combined)
+
 # ---- 1. Normalize -> variable genes -> scale --------------------------------
 # (NormalizeData was already run in script 01, but re-running is harmless and
 #  keeps this script runnable on its own.)
@@ -76,8 +80,8 @@ print(combined[["pca"]], dims = 1:5, nfeatures = 10)
 ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
        plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
 
-plot = ElbowPlot(combined, ndims = 50)
-plot
+p_elbow <- ElbowPlot(combined, ndims = 50)
+p_elbow
 
 # The elbow flattens early here, so 10 PCs capture most of the structure, you can also use 20
 # the goal is that your story holds no matter what n_pcs you choose
@@ -131,8 +135,9 @@ p<- DimPlot(combined, reduction = "umap", group.by = "Phase")
 p
 save_dim(p,"gata1_umap_ccPhase.png")
 
-#this one takes a while because its not a factor
-p<- DimPlot(combined, reduction = "umap", group.by = "ApopScore1")
+# ApopScore1 is a continuous score, so use FeaturePlot (a colour gradient),
+# not DimPlot (which would treat every value as its own discrete group).
+p<- FeaturePlot(combined, reduction = "umap", features = "ApopScore1")
 p
 save_dim(p,"gata1_umap_ApopScore1.png")
 
@@ -146,7 +151,7 @@ save_dim(p,"gata1_umap_day_by_construct_genotype.png", w = 12, h = 5)
 # the two normalizations answer two different questions.
 ct <- table(Idents(combined), combined$sample)
 
-# now create a dataframe that divides by the proortion in each row
+# now create a dataframe that divides by the proportion in each row
 # (a) margin = 1 -> rows (clusters) sum to 1.
 #     "Within this cluster, what fraction comes from each sample?"
 frac_by_cluster <- prop.table(ct, margin = 1)
