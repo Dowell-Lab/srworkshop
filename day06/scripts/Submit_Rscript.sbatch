@@ -18,7 +18,7 @@ module load R/4.6.0
 ################################################################ 
 ##Set paths
 ################################################################
-rscript_path=/path/to/Learning_R_submit_aws.R
+rscript_path=/scratch/Users/<your_username>/workshop-day6/scripts/Learning_R_submit_aws.R
 
 ################################################################ 
 ##Job information
