@@ -49,11 +49,8 @@ data <- read_csv('/path/to/pokemon_data.csv')
 #1. find a pair of stats that are interesting and make a beautiful pokemon plot!
 #note** consider all the possible additions through ggplot that we practiced on iris and mtcars
 
-####### 6. Install R packages rsubread and DESeq2 (we will be using these packages tomorrow)
-# Both packages can be found on bioconductor
-
-# rsubread (https://bioconductor.org/packages/release/bioc/html/Rsubread.html)
-# rsubread is a library for counting reads from bam files over genome features such as genes. Install this in the R on AWS.
+####### 6. Install R package DESeq2 (we will be using this package tomorrow)
+# The package can be found on bioconductor
 
 # DESeq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
 # DESeq2 is a library that takes in counts as input and performs differential gene expression analyses on the input features. You will be using this library in Day7. Install this on your local machine.
