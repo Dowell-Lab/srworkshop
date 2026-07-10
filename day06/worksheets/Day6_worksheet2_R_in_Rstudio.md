@@ -34,24 +34,24 @@ Move into the `srworkshop` repository and update from repository by running `git
 
 1. Log in to AWS
 
-2. Go into `/scratch/Users/<your_username>/` and use the `mkdir` command to make a folder called `day6`
+2. Go into `/scratch/Users/<your_username>/` and use the `mkdir` command to make a folder called `workshop-day6`
 
-- Inside your `day6` folder, make the folders `scripts`, `eofiles`, and `results`
+- Inside your `workshop-day6` folder, make the folders `scripts`, `eofiles`, and `results`
 
 ![Initialize project](images/ws2_initialize_folders.png)
 
 3. Use the `rsync` or `scp` command to copy `Learning_R_submit_aws.R` and `Submit_Rscript.sbatch`
-from `/Users/<your_username>/srworkshop/day06/scripts`, into the scripts directory in
-`/scratch/Users/<your_username>/day6` you just made.
+from `/Users/<your_username>/srworkshop/workshop-day6/scripts`, into the scripts directory in
+`/scratch/Users/<your_username>/workshop-day6` you just made.
 
-4. Go to `/scratch/Users/<your_username>/day6/scripts`. Use vim to open and edit the
+4. Go to `/scratch/Users/<your_username>/workshop-day6/scripts`. Use vim to open and edit the
 `Learning_R_submit_aws.R` file. Add your own working directory path (it should be something
-along the lines of: `/scratch/Users/<your_username>/day6/results`).
+along the lines of: `/scratch/Users/<your_username>/workshop-day6/results`).
 
 ![Edit R Script](images/ws2_edit_Rscript_vim.png)
 
 5. Look through the rest of the script before saving and exiting vim, to make sure you know what
-the code is doing and where your output will be saving to (set your path to the `/scratch/Users/<your_username>/day6/results`).
+the code is doing and where your output will be saving to (set your path to the `/scratch/Users/<your_username>/workshop-day6/results`).
 
 6. Now use vim to open/edit the `Submit_Rscript.sbatch` file. This is the sbatch script we will be
 using to submit our code to the supercomputer. Edit the script by adding your job name, email,
@@ -69,7 +69,7 @@ submit the `Submit_Rscript.sbatch` script.
 > **Hint:** Check the error/output files and the `results` folder.
 
 9. If the script worked, back up your results to your home directory
-(`/Users/<your_username>/srworkshop/day06`).
+(`/Users/<your_username>/srworkshop/workshop-day6`).
 
 10. Use `rsync` to copy `mtcars.csv` & `mtcars_mpg_wt_scatterplot.png` from AWS to your local
 computer to view.
