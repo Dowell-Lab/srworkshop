@@ -41,7 +41,7 @@ Move into the `srworkshop` repository and update from repository by running `git
 ![Initialize project](images/ws2_initialize_folders.png)
 
 3. Use the `rsync` or `scp` command to copy `Learning_R_submit_aws.R` and `Submit_Rscript.sbatch`
-from `/Users/<your_username>/srworkshop/workshop-day6/scripts`, into the scripts directory in
+from `/Users/<your_username>/srworkshop/day06/scripts`, into the scripts directory in
 `/scratch/Users/<your_username>/workshop-day6` you just made.
 
 4. Go to `/scratch/Users/<your_username>/workshop-day6/scripts`. Use vim to open and edit the
@@ -69,7 +69,7 @@ submit the `Submit_Rscript.sbatch` script.
 > **Hint:** Check the error/output files and the `results` folder.
 
 9. If the script worked, back up your results to your home directory
-(`/Users/<your_username>/srworkshop/workshop-day6`).
+(`/Users/<your_username>/srworkshop/day06`).
 
 10. Use `rsync` to copy `mtcars.csv` & `mtcars_mpg_wt_scatterplot.png` from AWS to your local
 computer to view.
