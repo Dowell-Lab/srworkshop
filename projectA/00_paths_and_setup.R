@@ -29,20 +29,20 @@ SREAD_ROOT <- "/scratch/Shares/public/sread/cookingShow"
 GATA1_DIR <- file.path(SREAD_ROOT, "day7a", "iPCStoblood")
 
 # The 12 condition names. Files follow GSE271399_<sample>_{matrix.mtx,barcodes.tsv,features.tsv}.gz
-#GATA1_SAMPLES <- c(
-#  "EuploidGATA1sD7",  "EuploidGATA1sD9",  "EuploidGATA1sD11",
-#  "EuploidwtGATA1D7", "EuploidwtGATA1D9", "EuploidwtGATA1D11",
-#  "T21GATA1sD7",      "T21GATA1sD9",      "T21GATA1sD11",
-#  "T21wtGATA1D7",     "T21wtGATA1D9",     "T21wtGATA1D11"
-#)
-
-
 GATA1_SAMPLES <- c(
-  "EuploidGATA1sD7",  "EuploidGATA1sD11",
-  "EuploidwtGATA1D7", "EuploidwtGATA1D11",
-  "T21GATA1sD7",      "T21GATA1sD11",
-  "T21wtGATA1D7",     "T21wtGATA1D11"
+  "EuploidGATA1sD7",  "EuploidGATA1sD9",  "EuploidGATA1sD11",
+  "EuploidwtGATA1D7", "EuploidwtGATA1D9", "EuploidwtGATA1D11",
+  "T21GATA1sD7",      "T21GATA1sD9",      "T21GATA1sD11",
+  "T21wtGATA1D7",     "T21wtGATA1D9",     "T21wtGATA1D11"
 )
+
+
+#GATA1_SAMPLES <- c(
+#  "EuploidGATA1sD7",  "EuploidGATA1sD11",
+#  "EuploidwtGATA1D7", "EuploidwtGATA1D11",
+#  "T21GATA1sD7",      "T21GATA1sD11",
+#  "T21wtGATA1D7",     "T21wtGATA1D11"
+#)
 
 # =============================================================================
 # REFERENCE DATASET: T21 / D21 fetal bone marrow (the original demo track)
@@ -70,8 +70,11 @@ CELLCHAT_D21_RDS <- file.path(CELLCHAT_DIR, "d21-cellchat-obj.rds")
 # ---- Where YOU can write intermediate results (NOT the read-only share) ----
 # Defaults to a folder in your home directory; change as you like.
 username = Sys.info()[["user"]] 
-OUT_DIR <- path.expand(paste0("/scratch/Users/",username,"/scRNAseq_course_output"))
- 
+
+
+
+OUT_DIR <- path.expand(paste0("/localscratch/Users/",username,"/scRNAseq_course_output"))
+COOKING <- path.expand(paste0("/scratch/Shares/public/sread/cookingShow/singlecellgeneral/"))
 
 dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
 

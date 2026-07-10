@@ -19,6 +19,9 @@ library(ggplot2)
 library(patchwork)
 
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered.rds"))
+#If you didn't make this yet, use mine!
+#combined <- readRDS(file.path(COOKING, "gata1_combined_clustered.rds"))
+
 
 # ---- 1. Prepare a single expression matrix for SingleR ----------------------
 # After merge(), the RNA assay holds one "data" layer PER sample
@@ -154,10 +157,10 @@ p_combo
 save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 
 # ---- 7. Save the fully annotated object -------------------------------------
-saveRDS(combined, file.path(OUT_DIR, "gata1_combined_annotated.rds"))
-message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated.rds"))
+#saveRDS(combined, file.path(OUT_DIR, "gata1_combined_annotated.rds"))
+#message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated.rds"))
 
-saveRDS(combined_joined, file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
-message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+#saveRDS(combined_joined, file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+#message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 
-
+rm(combined_joined)

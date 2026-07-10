@@ -21,6 +21,9 @@ library(patchwork)
 library(dplyr)
 
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+#If you didn't make this yet, use mine!
+#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined.rds"))
+
 
 combined #look at how many cells you have now
 
@@ -78,6 +81,7 @@ cellChat <- aggregateNet(cellChat)                         # count edges
 saveRDS(cellChat, file.path(OUT_DIR, "gata1_cellchat.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_cellchat.rds"))
 
+
 # ---- 5. Whole-dataset overview ----------------------------------------------
 # Circle plot: nodes = cell types, edge thickness = communication strength.
 groupSize <- as.numeric(table(cellChat@idents))
@@ -109,26 +113,23 @@ dev.off()
 available_pathways <- cellChat@netP$pathways
 print(available_pathways)
 
-if (length(available_pathways) > 0) {
-  pathways.show <- available_pathways[1]   # swap for a pathway of interest
-
-  png(file.path(OUT_DIR, "gata1_cellchat_pathway_circle.png"),
+if (length(available_pathways) > 0) {for (i in seq(length(available_pathways))){
+  onepathway = available_pathways[i] 
+  pathways.show <- available_pathways[i]   # swap for a pathway of interest
+  fn = paste0(onepathway, "_gata1_cellchat_pathway_circle.png")
+  png(file.path(OUT_DIR, fn),
       width = 800, height = 800, res = 150)
   netVisual_aggregate(cellChat, signaling = pathways.show, layout = "circle")
   dev.off()
-
-  png(file.path(OUT_DIR, "gata1_cellchat_pathway_heatmap.png"),
-      width = 800, height = 700, res = 150)
-  netVisual_heatmap(cellChat, signaling = pathways.show, color.heatmap = "Reds")
-  dev.off()
-
+  
   # Contribution of each ligand-receptor pair within the pathway.
   p_contrib <- netAnalysis_contribution(cellChat, signaling = pathways.show)
-  ggplot2::ggsave(file.path(OUT_DIR, "gata1_cellchat_pathway_contribution.png"),
+  fn = paste0(onepathway, "_gata1_cellchat_pathway_contribution.png")
+  ggplot2::ggsave(file.path(OUT_DIR, fn),
                   plot = p_contrib, width = 7, height = 4, dpi = 150)
-}
+}}
 
 # ---- 8. (Optional) compare conditions ---------------------------------------
 # To compare, say, GATA1s vs wtGATA1: subset the annotated object by construct,
 # build a CellChat object for each (steps 2-4), then use CellChat's
-# mergeCellChat() + comparison plots. Left as an exercise.
+# mergeCellChat() + comparison plots. This is a optional exersize. 

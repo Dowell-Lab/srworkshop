@@ -28,6 +28,11 @@ library(dplyr)
 library(ggplot2)
 
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
+
+#If you didn't make this yet, use mine!
+#combined <- readRDS(file.path(COOKING, "gata1_combined_qc.rds"))
+
+
 DefaultAssay(combined) <- "RNA"
 
 # Join the per-sample layers (Seurat v5) so the whole workflow below runs on one
@@ -135,11 +140,10 @@ p<- DimPlot(combined, reduction = "umap", group.by = "Phase")
 p
 save_dim(p,"gata1_umap_ccPhase.png")
 
-# ApopScore1 is a continuous score, so use FeaturePlot (a colour gradient),
-# not DimPlot (which would treat every value as its own discrete group).
-p<- FeaturePlot(combined, reduction = "umap", features = "ApopScore1")
-p
-save_dim(p,"gata1_umap_ApopScore1.png")
+#this one takes a while because its not a factor
+#p<- DimPlot(combined, reduction = "umap", group.by = "ApopScore1")
+#p
+#save_dim(p,"gata1_umap_ApopScore1.png")
 
 p<- DimPlot(combined, reduction = "umap", group.by = "day", split.by = "construct_genotype",
             label = TRUE, pt.size = 0.3)
