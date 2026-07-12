@@ -54,14 +54,14 @@ Add each block below in order. Read the short explanation before each one.
 
 ```bash
 #!/bin/bash
-#SBATCH --job-name=cellrangerCount_male19            # Job name
-#SBATCH --nodes=1                                    # Number of nodes
-#SBATCH --ntasks=1                                   # Number of CPUs (tasks)
-#SBATCH --time=18:00:00                              # Time limit hrs:min:sec
-#SBATCH --partition=short                            # Partition/queue on the server
-#SBATCH --mem=10gb                                   # Memory limit
-#SBATCH --output=/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
-#SBATCH --error=/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
+#SBATCH --job-name=cellrangerCount_male19
+#SBATCH --nodes=1
+#SBATCH --ntasks=2
+#SBATCH --mem=10gb
+#SBATCH --time=18:00:00
+#SBATCH --partition=short
+#SBATCH --output=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
+#SBATCH --error=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
 ```
 
 Two things to customize here:
