@@ -67,7 +67,7 @@ Add each block below in order. Read the short explanation before each one.
 Two things to customize here:
 
 - **Replace `<github_username>`** in both the `--output` and `--error` paths with your own username.
-- **`--ntasks=8`.** Eight is the number of cores we have available on the AWS. On your home university supercomputer you can request more. This has to match `--localcores` in the run command below.
+- **Where did 8 CPUs and 25 GB come from?** They are not arbitrary — they were measured, and the obvious guess turns out to be very wrong. Use them for now; the reasoning is in the **appendix**, once your job is submitted and you have moved on.
 
 > **Heads up:** the `~` shortcut does *not* reliably expand inside `#SBATCH` lines, which is why these paths are written out in full. Use `~` in the commands you type at the shell, but full absolute paths in the directives.
 
