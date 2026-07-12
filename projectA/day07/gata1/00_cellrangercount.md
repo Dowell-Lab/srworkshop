@@ -52,7 +52,8 @@ Add each block below in order. Read the short explanation before each one.
 
 ### 2a. Shebang and SLURM directives
 
-```#!/bin/bash
+```
+#!/bin/bash
 #SBATCH --job-name=cellrangerCount_male19
 #SBATCH --nodes=1
 #SBATCH --ntasks=8
