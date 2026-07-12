@@ -95,7 +95,7 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=1      # must match --ntasks above
+  --localcores=<how_many_cores>      # hint: number must match --ntasks above
 ```
 
 ### 2e. Closing line
@@ -137,9 +137,9 @@ Run through this quick checklist:
 #SBATCH --ntasks=8                                   # Number of CPUs (tasks)
 #SBATCH --time=18:00:00                              # Time limit hrs:min:sec
 #SBATCH --partition=short                            # Partition/queue on the server
-#SBATCH --mem=10gb                                   # Memory limit
-#SBATCH --output=/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
-#SBATCH --error=/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
+#SBATCH --mem=25gb                                   # Memory limit
+#SBATCH --output=/scratch/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
+#SBATCH --error=/scratch/Users/<github_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
 
 module load cellranger/7.2.0
 
@@ -152,7 +152,7 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=1      # must match --ntasks above
+  --localcores=8      # must match --ntasks above
 
 echo Job finished at `date +"%T %a %d %b %Y"`
 ```
