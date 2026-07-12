@@ -52,14 +52,14 @@ Add each block below in order. Read the short explanation before each one.
 
 ### 2a. Shebang and SLURM directives
 
-```bash
-#!/bin/bash
+```#!/bin/bash
 #SBATCH --job-name=cellrangerCount_male19
 #SBATCH --nodes=1
-#SBATCH --ntasks=2
-#SBATCH --mem=10gb
+#SBATCH --ntasks=8
+#SBATCH --mem=25gb
 #SBATCH --time=18:00:00
 #SBATCH --partition=short
+#SBATCH --chdir=/scratch/Users/<your_username>/workshop-day7/cellranger_count
 #SBATCH --output=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
 #SBATCH --error=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
 ```
