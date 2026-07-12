@@ -272,7 +272,7 @@ It would have failed the first time 25 of us hit the alignment stage simultaneou
 
 ## How to measure your own
 
-That is what `/usr/bin/time -v` is doing in the command (§7). For a finished job:
+That is what `/usr/bin/time -v` is doing in the command. For a finished job:
 
 ```bash
 grep -E "Maximum resident|Elapsed|Percent of CPU" eando/cellrangercount.*.err
