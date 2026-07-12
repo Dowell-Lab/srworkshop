@@ -117,6 +117,7 @@ Save and quit vim with `:wq`.
 | `--sample` | The sample prefix that matches the FASTQ filenames. Here that prefix is `DSOX19_1`. |
 | `--include-introns` | Counts reads mapping to introns as well as exons. |
 | `--localcores` | Number of CPUs Cell Ranger may use. Must equal `--ntasks`. |
+| `--localmem` | Memory in GB Cell Ranger may use. **Must equal `--mem`.** |
 
 ---
 
