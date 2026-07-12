@@ -191,7 +191,11 @@ If your job is still listed in the queue and the `.err` file has no error messag
 
 You do not need to wait for the job to finish. Continue to the next worksheet while Cell Ranger runs.
 
-> **What you'll have when it finishes (~2 hrs):** an output directory named `T21BM_male19/`. Inside `T21BM_male19/outs/` is a `filtered_feature_bc_matrix/` directory containing the `matrix`, `barcodes`, and `features` `.tsv` files that Seurat reads.
->
-> Overview of all Cell Ranger outputs:
-> https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/outputs/cr-outputs-overview
+Later, when the run completes, `T21BM_male19/outs/` contains:
+
+- **`web_summary.html`** — open this first, always. Estimated cells, reads per cell, **sequencing saturation**, fraction of reads in cells. It is the first thing a reviewer would look at.
+- **`filtered_feature_bc_matrix/`** — `matrix.mtx.gz`, `barcodes.tsv.gz`, `features.tsv.gz`. This is what Seurat reads. *Filtered* means Cell Ranger has already decided which barcodes are cells and which are empty droplets — a decision made **for** you, by an algorithm, with a threshold. Which is exactly why the next worksheet does its own QC on top of it.
+- **`raw_feature_bc_matrix/`** — every barcode, before that decision.
+
+Full output reference: <https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/outputs/cr-outputs-overview>
+
