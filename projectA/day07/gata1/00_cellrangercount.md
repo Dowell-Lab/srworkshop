@@ -217,10 +217,6 @@ This ten-second habit is the difference between requesting resources by supersti
 
 ---
 
-*Read this once your job is submitted and finished. It is not needed to finish the worksheet — go start worksheet 01 if you'd rather. But it is the transferable to your own data and the story has a sting in the tail.*
-
-
-
 ## The obvious guess was wrong
 
 A previous version of this worksheet requested **`--mem=10gb`**. It ran fine. It ran fine every single time it was tested.
