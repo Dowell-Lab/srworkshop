@@ -117,7 +117,7 @@ Save and quit vim with `:wq`.
 | `--sample` | The sample prefix that matches the FASTQ filenames. Here that prefix is `DSOX19_1`. |
 | `--include-introns` | Counts reads mapping to introns as well as exons. |
 | `--localcores` | Number of CPUs Cell Ranger may use. **Must equal `--ntasks`.** |
-| `--localmem` | Memory in GB Cell Ranger may use. **Must equal `--mem`.** |
+| `--localmem` | Memory in GB Cell Ranger may use. **Less than or equal `--mem`.** |
 
 > **Why `--localcores` and `--localmem` are not optional.** Cell Ranger never asks SLURM what it was allocated. By default it inspects the whole machine and helps itself to **all available cores and 90% of detected memory**. SLURM then kills the job for exceeding its allocation, and the error message will not obviously say "memory." 10x say the same in their own docs: always set both.
 
