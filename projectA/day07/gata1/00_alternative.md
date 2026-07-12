@@ -96,6 +96,8 @@ Add each block below in order. Read the short explanation before each one.
 
 > **`~` and `$USER` do not expand in `#SBATCH` lines.** SLURM's parser reads those lines, not bash, so it has no idea what they mean. Use `~` and `$USER` freely at the command prompt, but write **full, literal, absolute paths** in the directives.
 
+> **Where did 8 CPUs and 25 GB come from?** They are not arbitrary — they were measured, and the obvious guess turns out to be dangerously wrong. Use them for now; the reasoning is in the **appendix**, once your job is submitted and you have moved on.
+
 ### 3b. Load Cell Ranger
 
 ```bash
@@ -157,61 +159,11 @@ Save and quit vim with `:wq`.
 > - The `\` escapes the newline, letting one long command span several lines. **A space *after* the backslash breaks it** — bash treats it as the end of the command, and everything below becomes garbage. If you get a bizarre error, check for a trailing space.
 > - **Do not put `# comments` on continuation lines.** It happens to work on the *last* line and silently breaks the command anywhere else. Put comments above the block.
 
-> **What is `/usr/bin/time -v` doing there?** It records what the job actually used and prints it at the bottom of your `.err` log — most usefully `Maximum resident set size (kbytes)`, the peak memory. It costs nothing, and it is how you find out whether your `--mem` request was sensible. See §8.
+> **What is `/usr/bin/time -v` doing there?** It records what the job actually used and prints it at the bottom of your `.err` log — most usefully `Maximum resident set size (kbytes)`, the peak memory. It costs nothing, and it is how you find out whether your `--mem` request was sensible. See §7.
 
 ---
 
-## 5. How many cores and how much memory?
-
-The answer for today is **8 CPUs and 25 GB** — one job per node. Here is how that number was arrived at, because one day you will have to do this yourself, and because the obvious guess is *wrong in a way that only shows up under load*.
-
-### Ask SLURM what exists
-
-Never trust `lscpu` — you are on the login node, and your job runs on a different machine entirely.
-
-```bash
-sinfo -o "%P %.10l %.6D %C %m"
-```
-
-On this cluster: **10 nodes on `short`, 8 CPUs and ~30 GB each.**
-
-### Measure what the job actually needs
-
-This is the step everyone skips. A previous version of this worksheet requested `--mem=10gb`, and it ran fine — for one person, on an empty cluster. Then we measured it:
-
-```
-14.8 GB   ALIGN_AND_COUNT      ← the peak
-13.3 GB   DETECT_COUNT_CHEMISTRY
- 2.6 GB   WRITE_GENE_INDEX
- 1.3 GB   FILTER_BARCODES
- ...
-```
-
-**The alignment stage peaks at nearly 15 GB** — half again as much as the 10 GB that was being requested. That memory is mostly STAR loading the GRCh38 index, so it is a floor set by the *reference*, not something a smaller FASTQ shrinks.
-
-### Now do the arithmetic for 25 people
-
-SLURM packs jobs onto nodes according to what you **request**, not what you use. So an under-request is not a harmless white lie — it is an instruction to the scheduler to overload the node:
-
-| `--mem` | Jobs packed per node | RAM actually needed | Result |
-| --- | --- | --- | --- |
-| 10 GB | 3 | 3 × 14.8 = **44 GB** | Node has 30. **Kernel OOM.** |
-| 15 GB | 2 | 2 × 14.8 = **29.6 GB** | Node has 30.4. **No margin.** |
-| **25 GB** | **1** | **14.8 GB** | **Safe.** |
-
-So we ask for **25 GB and the whole node's 8 cores**. Ten nodes means ten jobs at a time; the rest of us wait a few minutes in `PD`. That is fine — **nothing in the later worksheets uses this output**, so a queue costs you nothing, whereas an out-of-memory kill halfway through costs you the session.
-
-> **The lesson, and it is a real one:** a resource request that works in testing can be catastrophically wrong in production. The 10 GB request "worked" every time it was tested — because it was tested alone. It would have failed the first time 25 people hit the alignment stage at once, and the failure would have been a kernel OOM killer picking off processes semi-randomly, with no clean error message pointing at the cause.
->
-> **Under-requesting memory is not modest. It is a lie to the scheduler, and other people pay for it.**
-
-### For your own data
-
-10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128**, and a real run (~10,000 cells at ~30,000 reads/cell) takes hours rather than the ~30 minutes you will see here on a 10%-subsampled FASTQ. Size your own runs by measuring, exactly as above.
-
----
-
-## 6. Check your script, then submit
+## 5. Check your script, then submit
 
 - [ ] `<your_username>` replaced in **all three** paths (`--chdir`, `--output`, `--error`)
 - [ ] Those paths point to **scratch**, not home
@@ -264,7 +216,7 @@ sbatch cellrangerCount.sbatch
 
 ---
 
-## 7. Confirm it is running
+## 6. Confirm it is running
 
 ```bash
 squeue -u $USER
@@ -297,7 +249,7 @@ If it is in the queue and the log shows progress, **you are done here. Move on t
 
 ---
 
-## 8. Later: what did it actually use?
+## 7. Later: what did it actually use?
 
 When the job finishes, read what `/usr/bin/time -v` recorded:
 
@@ -314,7 +266,7 @@ This ten-second habit is the difference between requesting resources by supersti
 
 ---
 
-## 9. What you get, and how to reuse it
+## 8. What you get, and how to reuse it
 
 When the run completes, `T21BM_male19/outs/` contains:
 
@@ -339,3 +291,91 @@ This is the part that outlives the workshop. To run Cell Ranger on your own expe
 | `--chdir`, `--output`, `--error` | Your own paths |
 
 Everything else stays exactly as it is. That is the whole point of building it yourself.
+
+---
+
+# Appendix — Choosing `--ntasks` and `--mem` for Cell Ranger
+
+*Read this once your job is submitted. It is not needed to finish the worksheet — go start worksheet 01 if you'd rather. But it is the most transferable thing here, and the story has a sting in the tail.*
+
+## The obvious guess was wrong
+
+A previous version of this worksheet requested **`--mem=10gb`**. It ran fine. It ran fine every single time it was tested.
+
+It would have brought the cluster down on the first day 25 people ran it at once.
+
+## Step 1 — What does the cluster have?
+
+Never trust `lscpu`: you are on the login node, and your job runs on a different machine.
+
+```bash
+sinfo -o "%P %.10l %.6D %C %m"
+```
+
+Here: **10 nodes on `short`, each with 8 CPUs and ~30 GB of RAM.**
+
+## Step 2 — What does the job actually use?
+
+This is the step everyone skips, and it is the only one that matters. Measuring the real run gives peak memory per stage:
+
+```
+14.8 GB   ALIGN_AND_COUNT          ← the peak
+13.3 GB   DETECT_COUNT_CHEMISTRY
+ 2.6 GB   WRITE_GENE_INDEX
+ 1.3 GB   FILTER_BARCODES
+ 0.5 GB   BARCODE_CORRECTION
+ ...
+```
+
+**Alignment peaks at nearly 15 GB** — half again more than the 10 GB that was being requested. That memory is mostly STAR loading the GRCh38 index into RAM, so it is a floor set by the *reference genome*, not something a smaller FASTQ shrinks. Subsampling the reads did not help at all.
+
+## Step 3 — The arithmetic, for 25 people
+
+Here is the thing to understand: **SLURM packs jobs onto nodes according to what you *request*, not what you *use*.** An under-request is not a harmless understatement. It is an instruction to the scheduler to overload the node.
+
+| `--mem` | Jobs SLURM packs per node | RAM actually needed | Result |
+| --- | --- | --- | --- |
+| 10 GB | 3 | 3 × 14.8 = **44 GB** | Node has 30. **Kernel OOM.** |
+| 15 GB | 2 | 2 × 14.8 = **29.6 GB** | Node has 30.4. **No margin.** |
+| **25 GB** | **1** | **14.8 GB** | **Safe.** |
+
+Hence **25 GB, and the whole node's 8 cores**. One job per node, ten nodes, so about a third of the class runs at a time.
+
+## Why this is the real lesson
+
+The 10 GB request passed every test it was ever given — because it was always tested by one person on an idle cluster. Nothing competed for RAM, so nothing broke.
+
+It would have failed the first time 25 of us hit the alignment stage simultaneously. And it would not have failed cleanly: three students' jobs land on one node, together demand 44 GB of a 30 GB machine, and the **kernel's OOM killer** starts terminating processes semi-randomly. No tidy SLURM error. No message saying "memory." Just jobs dying for reasons nobody can reconstruct.
+
+> **A resource request that works in testing can still be catastrophically wrong in production, and the only way to know is to measure.**
+>
+> And the corollary: **under-requesting memory is not modest. It is a lie to the scheduler, and other people pay for it.**
+
+## How to measure your own
+
+That is what `/usr/bin/time -v` is doing in the command (§7). For a finished job:
+
+```bash
+grep -E "Maximum resident|Elapsed|Percent of CPU" eando/cellrangercount.*.err
+```
+
+Peak memory in KB ÷ 1,048,576 = GB. **Request that, plus ~30% headroom.** Then check `Percent of CPU` — if you asked for 8 cores and got 110%, you used one core and wasted seven.
+
+Cell Ranger also records this per stage, which is where the table above came from:
+
+```bash
+for f in $(find T21BM_male19 -name "_jobinfo"); do
+  python3 -c "
+import json
+d = json.load(open('$f'))
+kb = d['rusage']['children']['ru_maxrss']
+print(f\"{kb/1048576:6.2f} GB  {d['name'].split('.')[-3]}\")
+" 2>/dev/null
+done | sort -rn | head
+```
+
+## For your own data
+
+10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128**, with negligible return past 32 cores or 256 GB. A real run (~10,000 cells at ~30,000 reads/cell) takes hours, not the ~30 minutes you saw here.
+
+Do not copy our numbers. Copy the method: **find out what the cluster has → measure what your job needs → divide by how many people are competing → then verify against a real run.**
