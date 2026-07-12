@@ -95,7 +95,8 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=<how_many_cores>      # hint: number must match --ntasks above
+  --localcores=<how_many_cores> \ # hint: number must match --ntasks above
+  --localmem=24
 ```
 
 ### 2e. Closing line
@@ -152,6 +153,7 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
+  --localmem=24 \
   --localcores=8      # must match --ntasks above
 
 echo Job finished at `date +"%T %a %d %b %Y"`
