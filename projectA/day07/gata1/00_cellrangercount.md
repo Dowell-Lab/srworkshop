@@ -95,8 +95,8 @@ cellranger count --id=T21BM_male19 \
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=<how_many_cores> \ # hint: number must match --ntasks above
-  --localmem=24
+  --localmem=24 \
+  --localcores=<how_many_cores> # hint: number must match --ntasks above
 ```
 
 ### 2e. Closing line
