@@ -60,7 +60,6 @@ Add each block below in order. Read the short explanation before each one.
 #SBATCH --mem=25gb
 #SBATCH --time=18:00:00
 #SBATCH --partition=short
-#SBATCH --chdir=/scratch/Users/<your_username>/workshop-day7/cellranger_count
 #SBATCH --output=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.out
 #SBATCH --error=/scratch/Users/<your_username>/workshop-day7/cellranger_count/eando/cellrangercount.%j.err
 ```
