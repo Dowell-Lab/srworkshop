@@ -66,7 +66,7 @@ Add each block below in order. Read the short explanation before each one.
 
 Two things to customize here:
 
-- **Replace `<github_username>`** in both the `--output` and `--error` paths with your own username. Confirm your home path with `echo $HOME`.
+- **Replace `<github_username>`** in both the `--output` and `--error` paths with your own username.
 - **`--ntasks=8`.** Eight is the number of cores we have available on the AWS. On your home university supercomputer you can request more. This has to match `--localcores` in the run command below.
 
 > **Heads up:** the `~` shortcut does *not* reliably expand inside `#SBATCH` lines, which is why these paths are written out in full. Use `~` in the commands you type at the shell, but full absolute paths in the directives.
