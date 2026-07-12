@@ -199,3 +199,21 @@ Later, when the run completes, `T21BM_male19/outs/` contains:
 
 Full output reference: <https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/outputs/cr-outputs-overview>
 
+
+##APPENDIX 1 Later: what did it actually use?
+
+When the job finishes, read what `/usr/bin/time -v` recorded:
+
+```bash
+grep -E "Maximum resident|Elapsed|Percent of CPU" eando/cellrangercount.*.err
+```
+
+- **`Maximum resident set size (kbytes)`** ÷ 1,048,576 = peak GB. Compare that to the 25 GB you requested.
+- **`Percent of CPU this job got`** — 800% means you used all eight cores. 105% means you used one and wasted seven.
+
+This ten-second habit is the difference between requesting resources by superstition and requesting them by measurement — and it is the only honest way to size your *next* job.
+
+> On many clusters you would use `seff <jobid>` for this. **It does not work here**: this cluster has no SLURM accounting database (`sacct` reports *"Slurm accounting storage is disabled"*). Worth knowing — the tool everyone recommends is unavailable on a large fraction of real clusters, whereas `/usr/bin/time -v` works everywhere.
+
+---
+
