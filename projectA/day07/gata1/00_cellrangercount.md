@@ -32,13 +32,11 @@ git pull
 Make a directory for this run, and an `eando` (error-and-output) directory inside it for your log files:
 
 ```bash
-mkdir -p ~/workshop-day7/cellranger_count/eando
-cd ~/workshop-day7/cellranger_count
+mkdir -p /scratch/Users/$USER/workshop-day7/cellranger_count/eando
+cd /scratch/Users/$USER/workshop-day7/cellranger_count
 ```
 
-> **Make `eando` now, not later.** SLURM writes the `.out` and `.err` files the instant the job starts. If the directory named in your `--output`/`--error` paths does not already exist, the job fails immediately. That is why we create it before submitting rather than inside the script.
-
-(If your clone of the repo lives somewhere other than `~/workshop-day7`, adjust these paths to match.)
+> **Make `eando` now, not later.** SLURM writes the `.out` and `.err` files the instant the job starts. If the directory named in your `--output`/`--error` paths does not already exist, the job fails immediately.
 
 ---
 
