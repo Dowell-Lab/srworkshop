@@ -8,6 +8,8 @@ In this tutorial you will take a single-cell RNA-sequencing dataset and map it w
 
 > **Why a subsampled file?** Mapping a full scRNA-seq dataset takes a long time on a large dataset. To keep things moving, you will run Cell Ranger on a FASTQ that is ~10% the size of the real file from the paper. In the next worksheet you will be pointed to full-sized count matrices to analyze in Seurat.
 
+> **What this worksheet is really for.** The count matrix you produce here is **not** used in the following worksheets — those read full-size matrices downloaded from GEO. What you are actually walking away with is a **working template**: a script you can point at your own FASTQs, on your own cluster, when you have your own data. Build it deliberately, and keep it.
+
 ## What you'll do
 
 - Set up a working directory for the run
@@ -20,10 +22,10 @@ Rather than copying a finished script, you will assemble it yourself so you unde
 
 ## 1. Log on and set up your directory
 
-Log onto the AWS, pull the latest from GitHub, and move into the workshop's `day7` directory:
+Log onto the AWS, pull the latest from GitHub:
 
 ```bash
-cd ~/workshop-day7
+cd ~/srworkshop
 git pull
 ```
 
