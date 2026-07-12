@@ -10,7 +10,7 @@ In this worksheet you will build a SLURM batch script for `cellranger count` fro
 
 > **What this worksheet is really for.** The count matrix you produce here is **not** used in the following worksheets — those read full-size matrices downloaded from GEO. What you are actually walking away with is a **working template**: a script you can point at your own FASTQs, on your own cluster, when you have your own data. Build it deliberately, and keep it.
 
-> **Why a subsampled FASTQ?** A real Cell Ranger takes a long time to run. Yours runs on a FASTQ subsampled to ~10% so that it finishes in a reasonable time and 25 of us can run at once.
+> **Why a subsampled FASTQ?** A real Cell Ranger run takes hours. Yours runs on a FASTQ subsampled to ~10% and finishes in roughly **30 minutes**.
 
 ## What you'll do
 
@@ -73,8 +73,8 @@ Add each block below in order. Read the short explanation before each one.
 #!/bin/bash
 #SBATCH --job-name=cellrangerCount_male19
 #SBATCH --nodes=1
-#SBATCH --ntasks=2
-#SBATCH --mem=10gb
+#SBATCH --ntasks=8
+#SBATCH --mem=25gb
 #SBATCH --time=18:00:00
 #SBATCH --partition=short
 #SBATCH --chdir=/scratch/Users/<your_username>/workshop-day7/cellranger_count
@@ -86,8 +86,8 @@ Add each block below in order. Read the short explanation before each one.
 
 | Directive | What it does |
 | --- | --- |
-| `--ntasks=2` | CPUs. Must match `--localcores` below. |
-| `--mem=10gb` | Memory. Must match `--localmem` below. |
+| `--ntasks=8` | CPUs. Must match `--localcores` below. |
+| `--mem=25gb` | Memory. Must match `--localmem` below. |
 | `--time=18:00:00` | Walltime ceiling. Ask for too little and SLURM kills you mid-run. Overestimate while learning. |
 | `--chdir` | The directory the job runs in. |
 | `--output` / `--error` | Log files. `%j` expands to the job ID, so each submission gets its own log instead of overwriting the last. |
@@ -124,8 +124,8 @@ These look like filler. They are not — they land in your `.out` log and tell f
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=2 \
-  --localmem=10
+  --localcores=8 \
+  --localmem=24
 ```
 
 ### 3e. Closing line
@@ -163,23 +163,51 @@ Save and quit vim with `:wq`.
 
 ## 5. How many cores and how much memory?
 
-Short answer for today: **2 CPUs and 10 GB.** Here is where that comes from, because one day you will have to make this call yourself.
+The answer for today is **8 CPUs and 25 GB** — one job per node. Here is how that number was arrived at, because one day you will have to do this yourself, and because the obvious guess is *wrong in a way that only shows up under load*.
 
-Ask SLURM what exists. Do **not** trust `lscpu` — you are on the login node, and your job runs somewhere else entirely:
+### Ask SLURM what exists
+
+Never trust `lscpu` — you are on the login node, and your job runs on a different machine entirely.
 
 ```bash
 sinfo -o "%P %.10l %.6D %C %m"
 ```
 
-On this cluster that reports roughly **8 CPUs and 30 GB per node**, across 10 nodes on `short`.
+On this cluster: **10 nodes on `short`, 8 CPUs and ~30 GB each.**
 
-Now the arithmetic. There are ~25 of us. At 10 GB each, a 30 GB node fits **3 jobs** — capping us at 30 concurrent slots, which is enough for everyone. And since *memory* has already limited us to 3 jobs per node, each of those jobs can take 2 of the node's 8 CPUs for free. Hence **2**.
+### Measure what the job actually needs
 
-Notice what that means: **memory is the binding constraint here, not CPUs.** Asking for more RAM than you need directly costs your classmates a job slot.
+This is the step everyone skips. A previous version of this worksheet requested `--mem=10gb`, and it ran fine — for one person, on an empty cluster. Then we measured it:
 
-> **These are not realistic numbers.** For real data, 10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128** — and even then a normal run (~10,000 cells at ~30,000 reads/cell) takes *hours*. We use 2 cores and 10 GB on a 10%-subsampled FASTQ so that 25 jobs fit on a small teaching cluster.
+```
+14.8 GB   ALIGN_AND_COUNT      ← the peak
+13.3 GB   DETECT_COUNT_CHEMISTRY
+ 2.6 GB   WRITE_GENE_INDEX
+ 1.3 GB   FILTER_BARCODES
+ ...
+```
+
+**The alignment stage peaks at nearly 15 GB** — half again as much as the 10 GB that was being requested. That memory is mostly STAR loading the GRCh38 index, so it is a floor set by the *reference*, not something a smaller FASTQ shrinks.
+
+### Now do the arithmetic for 25 people
+
+SLURM packs jobs onto nodes according to what you **request**, not what you use. So an under-request is not a harmless white lie — it is an instruction to the scheduler to overload the node:
+
+| `--mem` | Jobs packed per node | RAM actually needed | Result |
+| --- | --- | --- | --- |
+| 10 GB | 3 | 3 × 14.8 = **44 GB** | Node has 30. **Kernel OOM.** |
+| 15 GB | 2 | 2 × 14.8 = **29.6 GB** | Node has 30.4. **No margin.** |
+| **25 GB** | **1** | **14.8 GB** | **Safe.** |
+
+So we ask for **25 GB and the whole node's 8 cores**. Ten nodes means ten jobs at a time; the rest of us wait a few minutes in `PD`. That is fine — **nothing in the later worksheets uses this output**, so a queue costs you nothing, whereas an out-of-memory kill halfway through costs you the session.
+
+> **The lesson, and it is a real one:** a resource request that works in testing can be catastrophically wrong in production. The 10 GB request "worked" every time it was tested — because it was tested alone. It would have failed the first time 25 people hit the alignment stage at once, and the failure would have been a kernel OOM killer picking off processes semi-randomly, with no clean error message pointing at the cause.
 >
-> **Do not copy these numbers into your own work. Copy the reasoning:** find out what the cluster has, find out what the software needs, divide by how many people are competing for it — then *measure what your job actually used* and size the next one from that.
+> **Under-requesting memory is not modest. It is a lie to the scheduler, and other people pay for it.**
+
+### For your own data
+
+10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128**, and a real run (~10,000 cells at ~30,000 reads/cell) takes hours rather than the ~30 minutes you will see here on a 10%-subsampled FASTQ. Size your own runs by measuring, exactly as above.
 
 ---
 
@@ -187,8 +215,8 @@ Notice what that means: **memory is the binding constraint here, not CPUs.** Ask
 
 - [ ] `<your_username>` replaced in **all three** paths (`--chdir`, `--output`, `--error`)
 - [ ] Those paths point to **scratch**, not home
-- [ ] `--ntasks=2` and `--localcores=2` agree
-- [ ] `--mem=10gb` and `--localmem=10` agree
+- [ ] `--ntasks=8` and `--localcores=8` agree
+- [ ] `--mem=25gb` and `--localmem=24` agree (localmem sits just under mem)
 - [ ] `eando/` exists
 - [ ] No trailing spaces after any `\`
 
@@ -199,8 +227,8 @@ Notice what that means: **memory is the binding constraint here, not CPUs.** Ask
 #!/bin/bash
 #SBATCH --job-name=cellrangerCount_male19
 #SBATCH --nodes=1
-#SBATCH --ntasks=2
-#SBATCH --mem=10gb
+#SBATCH --ntasks=8
+#SBATCH --mem=25gb
 #SBATCH --time=18:00:00
 #SBATCH --partition=short
 #SBATCH --chdir=/scratch/Users/<your_username>/workshop-day7/cellranger_count
@@ -220,8 +248,8 @@ echo Working directory: `pwd`
   --transcriptome=/scratch/Shares/public/sread/cookingShow/day7a/genomes/refdata-gex-GRCh38-2020-A \
   --sample=DSOX19_1 \
   --include-introns=true \
-  --localcores=2 \
-  --localmem=10
+  --localcores=8 \
+  --localmem=24
 
 echo Job finished at `date +"%T %a %d %b %Y"`
 ```
@@ -263,6 +291,10 @@ tail -5 eando/cellrangercount.*.err
 
 If it is in the queue and the log shows progress, **you are done here. Move on to the next worksheet — do not sit and watch it.**
 
+> **Expect to queue.** Each job takes a whole node, and there are 10 nodes for 25 of us, so roughly a third of the class runs at a time. A `PD` state is not a problem — **nothing in the later worksheets depends on this output.** Start worksheet 01 and let this finish in the background.
+>
+> If the queue is long, you can also submit to the `long` partition (`#SBATCH --partition=long`) — it has 5 more nodes sitting idle.
+
 ---
 
 ## 8. Later: what did it actually use?
@@ -273,8 +305,8 @@ When the job finishes, read what `/usr/bin/time -v` recorded:
 grep -E "Maximum resident|Elapsed|Percent of CPU" eando/cellrangercount.*.err
 ```
 
-- **`Maximum resident set size (kbytes)`** ÷ 1,048,576 = peak GB. Compare that to the 10 GB you requested.
-- **`Percent of CPU this job got`** — 200% means you used both cores. 105% means you used one and wasted the other.
+- **`Maximum resident set size (kbytes)`** ÷ 1,048,576 = peak GB. Compare that to the 25 GB you requested.
+- **`Percent of CPU this job got`** — 800% means you used all eight cores. 105% means you used one and wasted seven.
 
 This ten-second habit is the difference between requesting resources by superstition and requesting them by measurement — and it is the only honest way to size your *next* job.
 
