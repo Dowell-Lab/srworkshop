@@ -111,7 +111,7 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
   
 :yellow_circle: Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
 
-:yellow_circle: Write a command for finding the genes that have any overlap with a p53 peak and run the script again.
+<!-- :yellow_circle: Write a command for finding the genes that have any overlap with a p53 peak and run the script again.-->
 
 :yellow_circle: How many peaks/genes were in each of these outputs compared to the original files?
 
