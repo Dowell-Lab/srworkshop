@@ -75,7 +75,7 @@ Today, we'll use bedtools on the AWS. It's also fairly easy to install on your p
 
 :yellow_circle: Go to your github folder. <code>git pull</code> to make sure you have the most up-to-date versions of today's materials.
 
-:yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
+:yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your **/scratch/Users/\<username\>/day9/scripts/** directory.
 
 :yellow_circle: Make sure your SBATCH headers are correct.
 
