@@ -29,6 +29,8 @@ Down-syndrome-associated leukemia.
 - Biology: Takasaki et al., *Single-cell transcriptomics reveal individual and
   cooperative effects of trisomy 21 and GATA1s on hematopoiesis*,
   [*Stem Cell Reports* 2025](https://pubmed.ncbi.nlm.nih.gov/40680731/) ·
+- If you want to download the data yourself you can do that here:
+
   [GEO GSE271399](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE271399)
 - Why primary: clean, well-designed, and a real **time course**, so pseudotime
   can be validated against sampling day and metadata can be derived cleanly from
