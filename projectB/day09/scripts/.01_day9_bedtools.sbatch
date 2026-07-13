@@ -45,26 +45,22 @@ echo "Starting bedtools commands"
 
 # --- Which p53 peaks are associated with genes (not intergenic)
 
-bedtools intersect -wa -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_overlap_genes.bed
+bedtools intersect -wo -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_overlap_genes.bed
 
 # --- Which p53 peeks are entirely within genes 
 
-bedtools intersect -wa -f 1 -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_in_genes.bed
+bedtools intersect -wo -f 1 -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_in_genes.bed
 
 # --- Which p53 peaks are intergenic 
 
-bedtools intersect -wa -v -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}hct116_nutlin_p53_intergenic.bed
+bedtools intersect -wo -v -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}hct116_nutlin_p53_intergenic.bed
 
-# --- Which genes overlap with p53 peaks? 
-
-bedtools intersect -wb -a ${ANNOT} -b ${HCT116_NUTLIN_PEAKS} > ${results}/genes_overlap_p53peaks_hct116_nutlin.bed
 
 # --- How many peaks or genes are in each of these files? 
 
 cat ${results}/hct116_nutlin_p53_overlap_genes.bed | wc -l
 cat ${results}/hct116_nutlin_p53_in_genes.bed | wc -l 
 cat ${results}hct116_nutlin_p53_intergenic.bed | wc -l
-cat ${results}/genes_overlap_p53peaks_hct116_nutlin.bed | wc -l
 
 # --- Get TSS location 
 
@@ -84,7 +80,8 @@ bedtools slop -l 1000 -r 100 -s -i "$results"/hg38_refseq_tss.bed -g ${chrom_siz
 
 # --- Which genes have p53 ChIP sites in their promoters
 
-bedtools intersect -wa ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
+bedtools intersect -wo ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
+
 
 ###------------------------------------------------###
 ###---- Now do for DMSO treated HCT116 Samples ----###
@@ -93,19 +90,16 @@ bedtools intersect -wa ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct11
 
 # --- Which p53 peaks are associated with genes (not intergenic)
 
-bedtools intersect -wa -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_overlap_genes.bed
+bedtools intersect -wo -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_overlap_genes.bed
 
 # --- Which p53 peeks are entirely within genes
 
-bedtools intersect -wa -f 1 -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_in_genes.bed
+bedtools intersect -wo -f 1 -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_in_genes.bed
 
 # --- Which p53 peaks are intergenic
 
-bedtools intersect -wa -v -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_intergenic.bed
+bedtools intersect -wo -v -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_intergenic.bed
 
-# --- Which genes overlap with p53 peaks?
-
-bedtools intersect -wb -a ${ANNOT} -b ${HCT116_DMSO_PEAKS} > ${results}/genes_overlap_p53peaks_hct116_dmso.bed
 
 
 
@@ -120,7 +114,7 @@ bedtools jaccard -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/jaccard_p53_
 
 # --- Shuffle p53 locations in the nutlin samples, then sort
 bedtools shuffle -chrom -i ${HCT116_NUTLIN_PEAKS} -g ${chrom_sizes} > ${results}/hct116_nutlin_p53peaks_shuffled.bed
-bedtools sort -k 1,1 -k2,2n -i ${results}/hct116_nutlin_p53peaks_shuffled.bed > ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed
+bedtools sort -i ${results}/hct116_nutlin_p53peaks_shuffled.bed > ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed
 
 # --- Similarity between shuffled p53 peaks in Nutlin and genes
 bedtools jaccard -a ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed -b ${ANNOT} > ${results}/p53_nutlin_shuff_genes_jaccard.txt
