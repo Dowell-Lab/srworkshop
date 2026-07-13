@@ -102,11 +102,12 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 
 :yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
 
-- **HINT:** By default bedtools results go to stdout, which within a slurm job will go to your .out file. Pipe the results into a different file that is better labeled and give it the .bed extension
+- **HINT:** By default bedtools results go to stdout, which within a slurm job will go to your .out file.
+- Pipe the results into a different file that is better labeled and give it the .bed extension
 
 :yellow_circle: Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. 
 - *Hint*: It is a flag further down the list. 
-- Every command should pipe results into a different new file with a descriptive filename. Run the script again.
+- :triangular_flag_on_post: **IMPORTANT!** :triangular_flag_on_post:  Every command should pipe results into a different new file with a descriptive filename. Run the script again.
   
 :yellow_circle: Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
 
