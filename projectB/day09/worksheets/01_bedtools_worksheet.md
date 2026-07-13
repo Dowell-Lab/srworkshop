@@ -133,14 +133,14 @@ What if we want to find out **how many of the p53 peaks that overlap with genes 
 :triangular_flag_on_post: **Define Promoter Region:** :triangular_flag_on_post: Right now, we’ll define a promoter as everything ***between 1kb upstream of the annotated transcription start site (TSS) and 100 bp downstream of the TSS***. To make this promoter file, we first need a file that contains just the TSS of genes.
 
 - Think about how you’d make this from the gene annotation bedfile.
-- *What columns need to change?
-- Does that column differ depending on
-  what gene it is?
-- How does strand affect your strategy?*
+- What columns need to change?
+- **Does that column differ depending on what gene it is?**
+- How does **strand** affect your strategy?
 
-In order to define only a TSS, we need a 1-base region that is at the start of each gene. 
-
+#### In order to define only a TSS, we need a 1-base region that is at the start of each gene. 
 **So what is the starting coordinate of each gene?**
+
+
 *Would you treat these two genes the same?* 
 <img src="images/gene_fwd_rev.png" alt="Genes on alternate strands" width=400>
 
