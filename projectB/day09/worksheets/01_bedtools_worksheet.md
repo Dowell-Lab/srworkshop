@@ -119,7 +119,7 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 
 :yellow_circle: Pull the annotation file, you MACS bedfile, and your four intersection results bedfiles to your home computer
 
-:yellow_circle: Import them into IGV or the IGV Web App. 
+:yellow_circle: Import them into the IGV Web App. 
 - Where are the intergenic p53 peaks?
 - Where are the ones that completely overlapped genes?
  <!-- - HINT: In the desktop version of IGV, highlight a track and use Ctrl-F/Ctrl-B to skip to the next/previous feature. -->
