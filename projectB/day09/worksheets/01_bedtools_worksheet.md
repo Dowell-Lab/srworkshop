@@ -202,8 +202,8 @@ NOTE: Instead of using both bedtools slop and bedtools intersect, you could inst
 
 **More practice:** In this experiment, we have p53 ChIP data from
 control and experimental conditions. Now that we’ve done these
-calculations with the control (DMSO-treated) samples, create the same
-files for the experimental (Nutlin-treated) samples.
+calculations with the control experimental (Nutlin-treated) samples, create the same
+files for the (DMSO-treated) samples.
 
 ### Enrichment and expectation
 
