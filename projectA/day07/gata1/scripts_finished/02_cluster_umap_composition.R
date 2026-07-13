@@ -27,6 +27,9 @@ library(Seurat)
 library(dplyr)
 library(ggplot2)
 
+# If you just finished script 01 in this same R session, `combined` is already
+# in your environment -- you do NOT need to reload it, so comment out the next
+# line. Only run it on a fresh session (or if you cleared your workspace).
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
 
 #If you didn't make this yet, use mine!
@@ -61,7 +64,8 @@ combined <- CellCycleScoring(
 )
 
 # Scale + regress out technical drivers so they don't dominate the PCA.
-
+# HEADS UP: with the regression this is the SLOW step -- it can take a while
+# (up to ~20 minutes). verbose = TRUE lets you watch its progress.
 combined <- ScaleData(
   combined,
   features = VariableFeatures(combined),
@@ -77,13 +81,16 @@ combined <- ScaleData(
 #)
 
 # ---- 2. PCA + how many PCs to keep ------------------------------------------
+# HEADS UP: PCA also takes a while on this many cells. verbose = TRUE prints the
+# top genes for each PC as it goes, so you can see it working.
 combined <- RunPCA(combined, features = VariableFeatures(combined),
-                   npcs = 50, verbose = FALSE)
+                   npcs = 50, verbose = TRUE)
 
 print(combined[["pca"]], dims = 1:5, nfeatures = 10)
 
-ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
-       plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
+# We just VIEW the elbow below; uncomment the ggsave to write gata1_elbow.png.
+# ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
+#        plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
 
 p_elbow <- ElbowPlot(combined, ndims = 50)
 p_elbow
@@ -107,8 +114,12 @@ combined <- FindClusters(combined, resolution = 0.4)
 #reduction can be set to pca or umap
 colnames(combined@meta.data)
 
+# For the workshop we just VIEW each plot (the bare `p` line above every
+# save_dim() call prints it), so the ggsave is disabled -- save_dim() is a no-op
+# here. Uncomment the ggsave line to write the PNGs to OUT_DIR instead.
 save_dim <- function(p, file, w = 7, h = 5) {
-  ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
+  # ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
+  invisible(p)
 }
 
 p<- DimPlot(combined, reduction = "umap", group.by = "seurat_clusters", label = TRUE)

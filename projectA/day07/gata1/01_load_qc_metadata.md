@@ -89,6 +89,10 @@ do not download anything.** Each sample is three gzipped files in 10x layout:
 once as a **worked example** on a single sample (**Step 1a** — already written),
 then loops over `GATA1_SAMPLES` so the sample names live in exactly one place.
 
+> Heads up: that loop reads every sample and builds a Seurat object for each
+> one, so it can take a little while to finish. Start it and be patient — it is
+> done when your prompt returns.
+
 **Build one object per sample.** Inside the loop, wrap each matrix in a Seurat
 object and — critically — stamp the sample name onto every cell:
 
@@ -142,10 +146,12 @@ The script saves one violin plot per sample showing three QC metrics:
 - `nCount_RNA` — total UMIs (transcripts) per cell
 - `percent.mt` — mitochondrial fraction
 
-Look at the spread *per sample* before choosing thresholds. The plots go to
-`OUT_DIR/gata1_qc_violin_plots/`. This whole block is written for you — but
-**read the plots**, because Step 4 depends on what you see. Two samples look off;
-part of the exercise is spotting which and why.
+Look at the spread *per sample* before choosing thresholds. For the workshop the
+violins simply print to the **Plots pane** (the `ggsave` lines are commented out;
+uncomment them if you want PNG files in `OUT_DIR/gata1_qc_violin_plots/`). This
+whole block is written for you — but **read the plots**, because Step 4 depends
+on what you see. Two samples look off; part of the exercise is spotting which
+and why.
 
 ---
 
@@ -163,8 +169,10 @@ subset(obj, subset = nFeature_RNA > 200 & nFeature_RNA < 6000 & percent.mt < 15)
 These are reasonable starting values, **not laws of nature** — you chose them by
 looking at the violins in Step 3. The template wraps this in an `lapply`; you
 write the `subset(...)` call inside. Everything after it (re-merging the filtered
-objects and writing `gata1_qc_summary.csv`, which reports how many cells each
-sample kept) is written for you.
+objects and printing a QC summary table that reports how many cells each sample
+kept) is written for you. The summary is printed to the console; the
+`write.csv` line that would save it to `gata1_qc_summary.csv` is commented out —
+uncomment it if you want the file.
 
 **Your task:** Complete **Step 4a** in the template.
 

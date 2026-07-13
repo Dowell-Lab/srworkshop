@@ -49,6 +49,10 @@ combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
 DefaultAssay(combined) <- "RNA"
 ```
 
+> If you just finished Lesson 01 in the same R session, `combined` is already in
+> your environment — you don't need to reload it, so comment out the `readRDS`
+> line. Only run it on a fresh session (or after clearing your workspace).
+
 > Do not edit paths in the script. All paths live in `00_paths_and_setup.R`, and
 > everything you create is written to `OUT_DIR`, not the read-only share.
 
@@ -131,6 +135,10 @@ combined <- ScaleData(
 )
 ```
 
+> Heads up: with the regression, this is the **slow step** — it can take a while
+> (up to ~20 minutes). Keep `verbose = TRUE` so you can watch its progress
+> rather than staring at a frozen prompt.
+
 **Your task:** Complete **Step 1d** in the template.
 
 > Optional experiment: the template includes a commented-out `ScaleData` that
@@ -146,16 +154,20 @@ combined <- ScaleData(
 
 ```r
 combined <- RunPCA(combined, features = VariableFeatures(combined),
-                   npcs = 50, verbose = FALSE)
+                   npcs = 50, verbose = TRUE)
 ```
+
+> PCA also takes a while on this many cells. Set `verbose = TRUE` so you can see
+> it working (it prints the top genes for each PC as it runs).
 
 **Your task:** Complete **Step 2a** in the template.
 
-The `ElbowPlot` (saved as `gata1_elbow.png`, written for you) shows how much
-variance each PC explains; where the curve flattens is approximately where
-additional PCs become noise. For this dataset the elbow is early, so we keep 10
-PCs (20 also works). Too few PCs merge distinct states; too many add noise. The
-aim is for your conclusions to hold regardless of the exact choice.
+The `ElbowPlot` (written for you; it prints to the Plots pane — the `ggsave`
+that would save `gata1_elbow.png` is commented out) shows how much variance each
+PC explains; where the curve flattens is approximately where additional PCs
+become noise. For this dataset the elbow is early, so we keep 10 PCs (20 also
+works). Too few PCs merge distinct states; too many add noise. The aim is for
+your conclusions to hold regardless of the exact choice.
 
 ```r
 n_pcs <- 10
@@ -200,10 +212,15 @@ p
 save_dim(p, "some_name.png")
 ```
 
+The bare `p` line prints the plot to the Plots pane. For the workshop, the
+`save_dim()` helper is a **no-op** — its `ggsave` is commented out, so it just
+views the plot. The filenames in the table below are what each call *would* save
+if you re-enable the `ggsave` inside `save_dim`.
+
 The first plot is provided as a worked example (colored by `seurat_clusters`).
 You then repeat the pattern, changing only `group.by`:
 
-| Template step | `group.by =` | Saves to |
+| Template step | `group.by =` | Would save to |
 |---|---|---|
 | 3e | `"day"` | `gata1_umap_day.png` |
 | 3f | `"construct"` | `gata1_umap_construct.png` |
@@ -304,8 +321,9 @@ frac_df$cluster <- factor(frac_df$cluster, levels = sort(unique(frac_df$cluster)
 
 **Your task:** Complete **Step 4d** (by-cluster) and the two `factor(...)` lines
 of **Step 4f** (by-sample, using `row_order` for cluster and `col_order` for
-sample). Two heatmaps are saved: `gata1_composition_by_cluster.png` and
-`gata1_composition_by_sample.png`.
+sample). Both heatmaps print to the Plots pane (via `save_dim`, whose `ggsave` is
+disabled); re-enable that `ggsave` to write `gata1_composition_by_cluster.png`
+and `gata1_composition_by_sample.png`.
 
 ---
 

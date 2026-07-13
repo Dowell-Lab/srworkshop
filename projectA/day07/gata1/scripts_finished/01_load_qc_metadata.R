@@ -58,6 +58,9 @@ obj <- CreateSeuratObject(counts = mat, project = "EuploidGATA1sD7")
 
 GATA1_SAMPLES
 
+# HEADS UP: this loop reads every sample and builds a Seurat object for each one,
+# so it can take a little while to finish (it is creating multiple Seurat
+# objects). Kick it off and be patient -- it is done when your prompt returns.
 seurat_list <- lapply(GATA1_SAMPLES, function(smpl) {
   mtx_file  <- file.path(GATA1_DIR, paste0("GSE271399_", smpl, "_matrix.mtx.gz"))
   bc_file   <- file.path(GATA1_DIR, paste0("GSE271399_", smpl, "_barcodes.tsv.gz"))
@@ -99,9 +102,12 @@ seurat_list <- lapply(seurat_list, function(obj) {
   obj
 })
 
-# ---- 3. QC violin plots (one PNG per sample) --------------------------------
-qc_dir <- file.path(OUT_DIR, "gata1_qc_violin_plots")
-dir.create(qc_dir, showWarnings = FALSE, recursive = TRUE)
+# ---- 3. QC violin plots (one per sample) ------------------------------------
+# For the workshop we just VIEW the plots in the Plots pane instead of saving
+# them. To write PNG files instead, uncomment the qc_dir / dir.create / ggsave
+# lines below.
+# qc_dir <- file.path(OUT_DIR, "gata1_qc_violin_plots")
+# dir.create(qc_dir, showWarnings = FALSE, recursive = TRUE)
 
 #before you run this section you should make sure you can see plots
 for (nm in names(seurat_list)) {
@@ -111,8 +117,8 @@ for (nm in names(seurat_list)) {
     ncol = 3, assay = "RNA", layer = "counts"
   ) + patchwork::plot_annotation(title = nm)
 
-  ggsave(file.path(qc_dir, paste0("QC_violin_", nm, ".png")),
-         plot = p, width = 8, height = 4, dpi = 150)
+  # ggsave(file.path(qc_dir, paste0("QC_violin_", nm, ".png")),
+  #        plot = p, width = 8, height = 4, dpi = 150)
   print(p)
 }
 
@@ -163,7 +169,9 @@ after  <- as.data.frame(table(combined$sample));    colnames(after)  <- c("sampl
 qc_summary <- merge(before, after, by = "sample")
 qc_summary$kept_pct <- round(100 * qc_summary$n_after / qc_summary$n_before, 1)
 print(qc_summary)
-write.csv(qc_summary, file.path(OUT_DIR, "gata1_qc_summary.csv"), row.names = FALSE)
+# We just PRINT the summary above for the workshop. To save it as a CSV instead,
+# uncomment the next line.
+# write.csv(qc_summary, file.path(OUT_DIR, "gata1_qc_summary.csv"), row.names = FALSE)
 
 # ---- 5. Metadata FROM the sample names (the clean way) ----------------------
 # The sample name already encodes the full design, e.g. "T21wtGATA1D11".
@@ -216,8 +224,10 @@ combined <- AddModuleScore(combined, features = list(apoptosis_genes), name = "A
 p_stress <- VlnPlot(combined, features = c("StressScore1", "ApopScore1", "percent.mt"),
                     group.by = "sample", pt.size = 0) +
   patchwork::plot_annotation(title = "Stress / apoptosis / mito by sample")
-ggsave(file.path(OUT_DIR, "gata1_module_scores_by_sample.png"),
-       plot = p_stress, width = 12, height = 5, dpi = 150)
+p_stress
+# We just VIEW the plot above. To save it as a PNG instead, uncomment below.
+# ggsave(file.path(OUT_DIR, "gata1_module_scores_by_sample.png"),
+#        plot = p_stress, width = 12, height = 5, dpi = 150)
 
 
 

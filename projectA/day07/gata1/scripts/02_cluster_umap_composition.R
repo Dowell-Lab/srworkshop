@@ -36,6 +36,9 @@ library(Seurat)
 library(dplyr)
 library(ggplot2)
 
+# If you just finished script 01 in this same R session, `combined` is already
+# in your environment -- you do NOT need to reload it, so comment out the next
+# line. Only run it on a fresh session (or if you cleared your workspace).
 combined <- readRDS(file.path(OUT_DIR, "gata1_combined_qc.rds"))
 DefaultAssay(combined) <- "RNA"
 
@@ -50,14 +53,16 @@ combined <- JoinLayers(combined)
 # ---- Step 1a: normalize (LogNormalize, scale factor 1e4) --------------------
 # Cells differ in total counts for technical reasons; normalizing makes
 # "expression" comparable across cells.
-# Hint: NormalizeData(); args normalization.method = "LogNormalize", scale.factor = 1e4
+# Hint: NormalizeData(); args normalization.method = "LogNormalize",
+#       scale.factor = 1e4, verbose = TRUE
 # YOUR CODE HERE:
 combined <-
 
 # ---- Step 1b: highly variable genes (vst, 3000) -----------------------------
 # Most genes are uninformative housekeepers; we model the 3000 most variable,
 # where the biology lives.
-# Hint: FindVariableFeatures(); args selection.method = "vst", nfeatures = 3000
+# Hint: FindVariableFeatures(); args selection.method = "vst", nfeatures = 3000,
+#       verbose = TRUE
 # YOUR CODE HERE:
 combined <-
 
@@ -80,8 +85,10 @@ combined <-
 # Center/scale each gene to mean 0, variance 1, and regress out sequencing
 # depth and mitochondrial fraction so those technical drivers don't masquerade
 # as biological structure in the PCA.
+# HEADS UP: with the regression this is the SLOW step -- it can take a while
+# (up to ~20 minutes). Keep verbose = TRUE so you can watch its progress.
 # Hint: ScaleData(); args features = VariableFeatures(combined),
-#       vars.to.regress = c("nCount_RNA", "percent.mt")
+#       vars.to.regress = c("nCount_RNA", "percent.mt"), verbose = TRUE
 # YOUR CODE HERE:
 combined <-
 
@@ -97,7 +104,9 @@ combined <-
 # ---- 2. PCA + how many PCs to keep ------------------------------------------
 # ---- Step 2a: run PCA on the variable genes ---------------------------------
 # Compress 3000 genes into a few dozen principal components.
-# Hint: RunPCA(); args features = VariableFeatures(combined), npcs = 50, verbose = FALSE
+# HEADS UP: PCA also takes a while on this many cells. Keep verbose = TRUE so
+# you can see it working (it prints the top genes for each PC as it goes).
+# Hint: RunPCA(); args features = VariableFeatures(combined), npcs = 50, verbose = TRUE
 # YOUR CODE HERE:
 combined <-
 
@@ -105,8 +114,9 @@ print(combined[["pca"]], dims = 1:5, nfeatures = 10)
 
 # Elbow plot: how much variance each PC explains. Where the curve flattens is
 # roughly where added PCs become noise. (This diagnostic is written for you.)
-ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
-       plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
+# We just VIEW it below; uncomment the ggsave to write gata1_elbow.png instead.
+# ggsave(file.path(OUT_DIR, "gata1_elbow.png"),
+#        plot = ElbowPlot(combined, ndims = 50), width = 6, height = 4, dpi = 150)
 
 p_elbow <- ElbowPlot(combined, ndims = 50)
 p_elbow
@@ -146,9 +156,13 @@ combined <-
 #reduction can be set to pca or umap
 colnames(combined@meta.data)
 
-# Small helper (written for you): saves a plot to OUT_DIR at a fixed size.
+# Small helper (written for you). For the workshop we just VIEW each plot (the
+# bare `p` line above every save_dim() call prints it), so the ggsave is
+# disabled -- save_dim() is a no-op here. Uncomment the ggsave line to write the
+# PNGs to OUT_DIR instead.
 save_dim <- function(p, file, w = 7, h = 5) {
-  ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
+  # ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
+  invisible(p)
 }
 
 # ---- Step 3d: UMAP colored by cluster (WORKED EXAMPLE) ----------------------
