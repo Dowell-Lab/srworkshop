@@ -52,8 +52,6 @@ bedtools intersect <put_flag_here> -a <file_1> -b <file_2>
 # --- Which p53 peaks are intergenic 
 
 
-# --- Which genes overlap with p53 peaks? 
-
 
 # --- Which genes have p53 ChIP sites in their promoters
 
