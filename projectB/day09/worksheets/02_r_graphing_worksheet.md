@@ -82,7 +82,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 all_p53_bound <- 
 ```
 
-**Second:** Look at the intersection of this list with all genes.
+**Second:** How many of these genes were analyzed using DESeq2, regardless of whether they were significantly differentially expressed.
 
 ``` r
 ### --- Use either of the functions above to get the set of genes with p53 bound that are present at all in the DESeq2 results. 
