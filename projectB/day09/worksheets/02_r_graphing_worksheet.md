@@ -98,17 +98,17 @@ bound_genes <-
 bound_de_genes <- 
 ```
 
-Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
+Print out the number of genes that are differentially expressed and have a p53 ChIP peak (irrespective of whether the ChIP peak appears in the control or experimental condition). 
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes wtih a ChIP peak that are differentially expressed.
+**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes ith a ChIP peak that are differentially expressed.
 
 To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
-* Look at the Quick Start section of the documentation. Do you see that the function expects a lists of lists? 
+* Look at the Quick Start section of the documentation. Do you see that the function expects a list of lists? 
 * Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes with p53 peaks under Nutlin treatment, and genes with a p53 ChIP peak that are differentially expressed.
 
 ```r
