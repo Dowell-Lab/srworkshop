@@ -45,6 +45,5 @@ Project B : Multi-omics (RNA-seq & ChIP-seq)
 
 More details in **Project B Day07 Worksheets** folder 
 
-- [rsubread](https://bioconductor.org/packages/release/bioc/html/Rsubread.html) : Install on AWS R
 - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) : Install on personal computer R
 
