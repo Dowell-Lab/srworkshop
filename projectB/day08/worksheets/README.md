@@ -70,7 +70,7 @@ git pull
 
 After you Log into the AWS, you will make a directory for day 8 in your scratch directory. Make the subdirectories including one stdout/stderr and scripts. 
 
-Create a working directory for day8 in scratch using the *mkdir* command.
+Create a working directory for day8 in scratch using the `mkdir` command.
 
 ```
 cd /scratch/Users/<Your_Username>
@@ -101,21 +101,19 @@ Copy the following scripts from the github repository folder into your scripts d
 
 4. Edit and run the preprocessing scripts
 
-Edit the sbatch script by using *vim <script>* to open a text editor on your sbatch script. Type *i* to toggle into edit/insert mode. 
+Edit the sbatch script by using `vim <script>` to open a text editor on your sbatch script.
 
 Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. 
 
-Change the *–job-name=<JOB ID>* to a name related to the job you will be running, for example, ‘01_fastqc_and_trimming’. 
+Change the `–job-name=<JOB ID>` to a name related to the job you will be running, for example, '01_fastqc_and_trimming'. 
 
-Additionally, you will want to change the *mail-user=<YOUR_EMAIL>* to your email, as well as the path to your eofiles directory for the standard output (*--output*) and error log (*--error*). 
+Additionally, you will want to change the `mail-user=<YOUR_EMAIL>` to your email, as well as the path to your eofiles directory for the standard output (`--output`) and error log (`--error`). 
 
-The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
-
-![Editing script header example](images/header_example.png)
+The `%x` will be replaced by your `--job-name` and the `%j` will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
 
 ### Step 1: QC and preprocess samples
 
-1. *cd* into your scripts directory. 
+1. `cd` into your scripts directory. 
 
 2. Edit and run `01_fastqc_and_trimming.sbatch` script. 
 
@@ -127,18 +125,18 @@ The *%x* will be replaced by your *-job-name* and the *%j* will be replaced by t
 
 1 Edit and run the `02_map_with_hisat2.sbatch` script.
 
-- In this script we will align reads to the reference genome using *HISAT2*. The main difference between mapping ChIP-seq reads to the genome is that we do not have to use the splice alignment. This feature is turned off using *--no-spliced-alignment* flag. The alignment output is bam files and alignment summary (reported if *--new-summary* flag is used). 
+- In this script we will align reads to the reference genome using *HISAT2*. The main difference between mapping ChIP-seq reads to the genome is that we do not have to use the spliced alignment since these reads originated from the genome, not from cDNA. This feature is turned off using `--no-spliced-alignment` flag. The alignment outputs are bam files and alignment summary (reported if `--new-summary` flag is used). 
 
-- Note: The map statistics are being outputted into the QC folder (*${QC}/hisat_mapstats*), while the bam files go into the BAM folder.
+- Note: The map statistics are being output into the QC folder (`${qc}/hisat_mapstats`), while the bam files go into the BAM folder.
 
 
 ### Step 3: Map quality and summary of QC
 
 1. Edit and run the `03_mapqc_and_multiqc.sbatch` script.
    
-2. Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read count.
+2. Once the alignment is complete, we can assess mapped read distribution on the genome using *preseq*. Preseq estimates a library's complexity and how many additional unique reads are sequenced with an increasing total read depth.
 
-- Note: The output is going into the QC folder as well (*${QC}/preseq*).
+- Note: The output is going into the QC folder as well (`${qc}/preseq`).
 
 3. Lastly, we can summarize all the QC output using *multiqc*. This tool summarizes all the QC metrics within a specified folder and shows all the samples summarized side by side.
 
@@ -154,7 +152,7 @@ For whole genome:
 `/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_data`
 `/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/multiqc_report.html`
   
-  - You will need to move both the folder *multiqc_data* and the html file *multiqc_report.html* to your local computer. 
+  - You will need to move both the folder `multiqc_data` and the html file `multiqc_report.html` to your local computer. 
 
   - You can open the html file in a web browser to interact with the page.
 
@@ -175,19 +173,17 @@ We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in cla
 
 1. Edit and run the MACS2 script. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
 
-![MACS header](images/script4_edit_header.png)
-
 - To run MACS, we will need to load *python* since *MACS* is dependent on it. In addition we will want to load *bedtools* which we will use later to remove *Blacklist regions*. The *Blacklist regions* are peak calls that show up in many ENCODE ChIP-seq experiments regardless of treatment.
 
 ![Load python](images/script4_load_modules.png)
 
 2. Set variable. Assigning variables will make your scripts easier to read. In addition, this makes it easier to reference to a given path and utilize it in your scripts.
 
-- For the *INDIR* change the path to the bam files directory. We will be using bam file from ChIP-seq data that used a specific transcription factor (TP53). For the *OUTDIR*, point to the appropriate output file directories for our *MACS* output files. You can use the command *mkdir -p* just in case for my output directories if you want to ensure that the output directory exist. 
+- For the `INDIR` change the path to the bam files directory. We will be using bam file from ChIP-seq data that used a specific transcription factor (TP53). For the `OUTDIR`, point to the appropriate output file directories for our *MACS* output files. You can use the command `mkdir -p` just in case for my output directories if you want to ensure that the output directory exist. 
 
-- In addition, I have a path to the *BLACKLIST* directory. These are regions that have been identified as having unstructured or high signals in Nextgen sequencing experiments independent of the cell line or experiment. Removing these will clean up our genomic data for improved quality measurement. ENCODE has a defined list. The list we are using comes from the following reference: Amemiya HM, Kundaje A, Boyle AP. The ENCODE blacklist: identification of problematic regions of the genome. Sci Rep. 2019 Dec; 9(1) 9354 DOI: 10.1038/s41598-019-45839-z
+- In addition, I have a path to the `BLACKLIST` directory. These are regions that have been identified as having unstructured or high signals in Nextgen sequencing experiments independent of the cell line or experiment. Removing these will clean up our genomic data for improved quality measurement. ENCODE has a defined list. The list we are using comes from the following reference: Amemiya HM, Kundaje A, Boyle AP. The ENCODE blacklist: identification of problematic regions of the genome. Sci Rep. 2019 Dec; 9(1) 9354 DOI: 10.1038/s41598-019-45839-z
 
-- Lastly, we are using the variables *CELL*, *FILENAME_DMSO*, *FILENAME_NUTLIN*, *INPUT*, *DMSO*, and *NUTLIN* so that I can quickly interchange different files for analysis and only have to change the variable rather than go through the script to change instances of the file.
+- Lastly, we are using the variables `CELL`, `FILENAME_DMSO`, `FILENAME_NUTLIN`, `INPUT`, `DMSO`, and `NUTLIN` so that I can quickly interchange different files for analysis and only have to change the variable rather than go through the script to change instances of the file.
 
 ![Set variables for MACS](images/script4_set_variables.png)
 
@@ -222,21 +218,19 @@ MACS parameters depending on the data types:
 | ChIP-seq for histone marks (and Pol II) |  <0.0001   | `--broad`, `--control`, `<INPUT>` | Histonw marks are often broadly dispersed without very well defined edges so a broad peak tag is useful but a very low p-value helps differentiate between background and data. |
 | ATAC-seq                                |  <0.0001   | `--control`, `<INPUT>`            | ATAC-seq should show peaks at open chromatin across the genome similarly to histone ChIP-seq data, but with more abrupt peaks, so no broad peak tag is needed. |
 
-4. Removing Blacklist regions via *bedtools intersect*. After we call our peaks, to clean up the data we will remove the BLACKLIST regions that can be problematic. These regions contain repetitive regions across the genome and almost always are enriched in ChIP-seq data.
+4. Removing Blacklist regions via `bedtools intersect`. After we call our peaks, to clean up the data we will remove the BLACKLIST regions that can be problematic. These regions contain repetitive regions across the genome and almost always are enriched in ChIP-seq data.
+
+To run `bedtools intersect`, specify `-a` as the file to be filtered which is your broadpeak output file. The `-a` file will be compared against `-b` file which are the blacklist regions. The `-v` parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in `-b`. `>` is to specify the output directory and output file name.
 
 ![Remove blacklist](images/script4_remove_blacklist.png)
 
-5. To run *bedtools intersect*, specify *-a* as the file to be filtered which is your broadpeak output file. The *-a* file will be compared against *-b* file which are the blacklist regions. The *-v* parameter will throw out the regions in your peak files that have an overlap with the blacklist regions in *-b*. *>* is to specify the output directory and output file name.
+5. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (`.bdg`) and the bed files (`clean.narrowPeak` and `summit.bed`) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
-![Bedtools Remove blacklist](images/bedtools_intersect_v.png)
+You can run IGV on either the web server or locally on your machine.
 
-6. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (*.bdg*) and the bed files (*clean.narrowPeak* and *summit.bed*) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
+- If you want to install IGV on you local machine, follow instructions on the IGV worksheet here: [Instructions to install IGV locally](https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Downloading_starting_IGV.pdf). Also, if you are running IGV on your local computer, you can use the hotkeys `f` to move forward or `b` for backwards on a selected track. 
 
-You can run IGV on either the web server or locally on your machine. 
-
-- If you want to install IGV on you local machine, follow instructions on the IGV worksheet here: [Instructions to install IGV locally](https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Downloading_starting_IGV.pdf). Also, is you are running IGV on your local computer, you can use the hotkeys `f` to move forward or `b` for backwards on a selected track. 
-
-- If you load the files on the web server change the bedgraph file extension from *.bdg* to *.bedgraph*. The web server IGV is more picky about the file extension.
+- If you load the files on the web server change the bedgraph file extension from `.bdg` to `.bedgraph`. The web server IGV is more picky about the file extension.
 
 ![IGV example](images/peak13_igv_snapshot.png)
 
@@ -259,19 +253,17 @@ You can run IGV on either the web server or locally on your machine.
 
 ![Load modules MEME](images/script5_load_modules.png)
 
-2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use bedtool getfasta and a reference genome .fa file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
+2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use `bedtools getfasta` and a reference genome `.fa` file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
 
-3. Set your in and out directory as we have in the previous exercise. Here your INDIR is the path to your MACS peak output files. The OUTDIR will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as hg38.fa (Note, for this workshop, we are working with a smaller chromosome 21 fasta file). 
+3. Set your in and out directory as we have in the previous exercise. Here your `INDIR` is the path to your MACS peak output files. The `OUTDIR` will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as `hg38.fa` (Note, for this workshop, we are working with a smaller chromosome 21 fasta file). 
 
 ![Variables MEME](images/script5_set_variables.png)
 
-4. We will use bedtools getfasta to convert the peaks to a fasta file to feed into MEME. The command is *bedtools getfasta [OPTIONS] -fi <input FASTA> -bed <BED/GFF/VCF>*   
-
-![Bedtools getfasta](images/bedtools_getfasta.png)
+4. We will use bedtools getfasta to convert the peaks to a fasta file to feed into MEME. The command is `bedtools getfasta [OPTIONS] -fi <input FASTA> -bed <BED/GFF/VCF>`   
 
 ![Get fasta](images/script5_get_fasta_file.png)
 
-5. Copy the *fasta* file to your computer
+5. Copy the `fasta` file to your computer
 
 6. Upload your fasta file to MEME (https://meme-suite.org/meme/tools/meme) and submit. 
 
@@ -297,4 +289,4 @@ You can run IGV on either the web server or locally on your machine.
 
 # Example files for chromosome 21 runs
 
-You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread2025/cookingShow/day8b/chr21/`.
+You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread/cookingShow/day8b/chr21/`.
