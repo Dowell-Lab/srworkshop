@@ -7,9 +7,9 @@ Georgia Barone (2025)
 
 The goal of this section is to become familiar with working with dataframes in R, using R functions to answer biological questions, and making figures.
 
-One common question people have when running multimodal experiments (for example with RNA-seq and ChIP-seq) is:  
+Examples of common questions that arise when running multimodal experiments are:  
 
-* What genes are differentially expressed and have a p53 ChIP peak?
+* What genes are differentially expressed **and** have a p53 ChIP peak?
 * Do these genes fall into one functional classification, molecular pathway, or biological function?
 
 We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
