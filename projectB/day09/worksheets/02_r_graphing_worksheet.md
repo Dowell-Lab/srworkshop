@@ -38,7 +38,7 @@ At the top of your script, set your working directory and the results directory.
 * Since we’re working with a bed file, it doesn’t have column names. In the `read.table()` function, make sure to set header=FALSE.
 * Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
 * Load the differential expression data for HCT116 cells, which you downloaded above into "<*your/path*>/day9/data/deseq_res". Note that this file DOES have a header with the column names.
-* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
+* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
 
 ``` r
 ### --- READ IN CHIP DATA 
@@ -72,7 +72,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 2.  **intersection()** ~ This returns only elements that are common to
     both lists. <br> <br>
 
-**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we’re comparing lists, not dataframes.*
 
 ``` r
 ### --- Use either of the functions above to get the set of genes bound in either condition.
@@ -115,12 +115,6 @@ To make figures in R, we can call a specific package or function that makes the 
 library() # don't forget to load your new library on this line 
 venn_list <- list() # add everything that you want to compare into this list of lists 
 #create venn diagram on this line!
-```
-**Finally**, report the percentage of any ChIP peaks that overlap with a differentially expressed gene.
-
-```r
-# Just use R to do basic math!
-# You can get the numbers you need from the venn diagram you made. 
 ```
 
 ### Export our work for GO analysis
