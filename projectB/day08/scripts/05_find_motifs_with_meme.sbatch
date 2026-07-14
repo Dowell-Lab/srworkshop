@@ -68,7 +68,7 @@ meme \
  -oc ${OUTDIR}/${FILENAME} \
  -nostatus \
  -time 18000 \
- -mod zoops \
+ -mod oops \
  -nmotifs 5 \
  -minw 6 \
  -maxw 50 \
