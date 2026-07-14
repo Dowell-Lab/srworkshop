@@ -172,11 +172,10 @@ You may have already installed this package during Day 7. If not, click on the l
 **What do we want the heatmap to display?**
 
 - There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
-- If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since the large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
+- What set of genes will you include in the heatmap?
 
-1.  Filter your lists of genes for those that are differentially expressed with the cutoffs of your choice. Print out the dimensions of each filtered data frame at the end. 
-2.  If you’re happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria.
-3.  For the next step, you dataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
+
+**To make heatmaps** ataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
 
 ```r
 ### --- FILTER 
