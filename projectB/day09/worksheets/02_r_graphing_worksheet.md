@@ -198,7 +198,7 @@ colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Choose which of the four functions to use.
 
 **Pheatmap needs a dataframe that looks like this**
-![data frame for Pheatmap](images/df_or_heatmap.png)
+![data frame for Pheatmap](images/df_for_heatmap.png)
 
 
 ```r
