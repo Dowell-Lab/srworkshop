@@ -13,7 +13,7 @@ Since counting is compute-intensive, this is done on the server (AWS). Usually, 
 
 After you generate these test counts, we will use the pre-generated full counts data for DESeq2. 
  
-> Note: If you have not installed Rsubread on the AWS `R`, do so now
+> Note: If you have not installed Rsubread on the AWS `R`, do so now. Open R on AWS and use these commands:
 > 
 ```r
 # Install BiocManager if needed
