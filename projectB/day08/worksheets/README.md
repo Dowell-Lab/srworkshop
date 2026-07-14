@@ -156,9 +156,8 @@ We will only be using HCT116 samples (SRR4090089, SRR4090090, SRR4090091) in cla
 
 1. Edit and run the MACS2 script. Same as before, edit the header section of `04_peak_call_with_macs2.sbatch`.
 
-- To run MACS, we will need to load *python* since *MACS* is dependent on it. In addition we will want to load *bedtools* which we will use later to remove *Blacklist regions*. The *Blacklist regions* are peak calls that show up in many ENCODE ChIP-seq experiments regardless of treatment.
+    >In addition to MACS, we will want to load *bedtools* which we will use later to remove *Blacklist regions*. The *Blacklist regions* are peak calls that show up in many ENCODE ChIP-seq experiments regardless of treatment.
 
-![Load python](images/script4_load_modules.png)
 
 2. Set variable. Assigning variables will make your scripts easier to read. In addition, this makes it easier to reference to a given path and utilize it in your scripts.
 
@@ -188,9 +187,7 @@ For today’s worksheet, we will be showing an example where we utilized an inpu
 
 `-q / --qvalue <VALUE>` is the cutoff to call significant regions. The default is 0.05. If you want to use a p-value cutoff, you can specify -p instead of -q.
 
-
-Note that there are many other options than the ones that we are implementing here. 
-
+>Note that there are many other options than the ones that we are implementing here. 
 If you wanted to run to get Broad peaks you will want to use the flag `--broad`
 
 MACS parameters depending on the data types:
@@ -209,32 +206,25 @@ To run `bedtools intersect`, specify `-a` as the file to be filtered which is yo
 
 5. Move the output files from *MACS* on the server to your local computer and open the bedgraph files (`.bdg`) and the bed files (`clean.narrowPeak` and `summit.bed`) in IGV. We can now explore the peak calls in IGV and compare them to coverage data.
 
-You can run IGV on either the web server or locally on your machine.
+You can run IGV on either the web server (preferred) or locally on your machine.
 
 - If you want to install IGV on you local machine, follow instructions on the IGV worksheet here: [Instructions to install IGV locally](https://github.com/Dowell-Lab/srworkshop/blob/main/resources/Downloading_starting_IGV.pdf). Also, if you are running IGV on your local computer, you can use the hotkeys `f` to move forward or `b` for backwards on a selected track. 
 
-- If you load the files on the web server change the bedgraph file extension from `.bdg` to `.bedgraph`. The web server IGV is more picky about the file extension.
+- If you load the files on the web server, you may need to change the bedgraph file extension from `.bdg` to `.bedgraph`. The web server IGV is more picky about the file extension.
 
 ![IGV example](images/peak13_igv_snapshot.png)
 
-> **Challenge:** 
->
-> How many p53 peaks did you find in the DMSO vs NUTLIN samples? (Hint: you can count the lines using `wc`)
->
-> Is there consistancy between the *DMSO* and the *Nutlin* samples?
-> 
-> Check out a few genes (e.g. RUNX1)! How many peaks are near start of the gene and in the gene annotations? 
+>### Challenge!
+>1. How many p53 peaks did you find in the DMSO vs NUTLIN samples? (Hint: you can count the lines using `wc -l`)
+>2. Is there consistancy between the *DMSO* and the *Nutlin* samples?
+>3. Check out a few genes (e.g. RUNX1)! How many peaks are near start of the gene and in the gene annotations? 
 
 
 ## Section C: Motif discovery and comparing motifs to database of TF motifs
 
 1. Edit and run the `05_find_motifs_with_meme.sbatch` script.
-
-> **Challenge:** 
-> 
-> You will notice that this script is running one sample at a time (i.e. _HCT116_NUTLIN_). Edit the script to run as a loop so that both _HCT116_NUTLIN_ and _HCT116_DMSO_ are processed!
-
-![Load modules MEME](images/script5_load_modules.png)
+>### Challenge!
+>You will notice that this script can only run one sample at a time (i.e. _HCT116_NUTLIN_). Edit the script to run as a loop so that both _HCT116_NUTLIN_ and _HCT116_DMSO_ are processed!
 
 2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use `bedtools getfasta` and a reference genome `.fa` file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
 
@@ -246,7 +236,7 @@ You can run IGV on either the web server or locally on your machine.
 
 ![Get fasta](images/script5_get_fasta_file.png)
 
-5. Copy the `fasta` file to your computer
+5. Copy the `fasta` file to your computer.
 
 6. Upload your fasta file to MEME (https://meme-suite.org/meme/tools/meme) and submit. 
 
@@ -266,8 +256,7 @@ You can run IGV on either the web server or locally on your machine.
 
 ![Tomtom results2](images/tomtom_html_2.png)
 
-> **Challenge:** 
->
+> ### Challenge:
 > This data is a ChIP-seq experiment for TP53, why are we also seeing the TP73 motif in the TOMTOM output? (Hint: Check the motif logos sequence on the right of the output)
 
 # Example files for chromosome 21 runs
