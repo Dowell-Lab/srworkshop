@@ -19,8 +19,17 @@ workdir <- '/PATH/TO/WORKING/DIRECTORY'
 setwd(workdir)
 getwd()
 
-# Load Rsubread package
-library("Rsubread")
+# install Rsubread if needed and load
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager",
+                     repos = "https://cloud.r-project.org")
+}
+
+if (!requireNamespace("Rsubread", quietly = TRUE)) {
+    BiocManager::install("Rsubread", ask = FALSE, update = FALSE)
+}
+
+library(Rsubread)
 
 #' The following commands call for help pages of a package. This is useful if you have no idea where to start.
 
