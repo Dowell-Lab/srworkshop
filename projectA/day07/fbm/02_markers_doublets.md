@@ -8,6 +8,17 @@ Once you have clusters, two questions follow immediately: *what are these cluste
 
 ---
 
+> **Memory tip — `gc()`.** R doesn't hand memory back to your computer the moment
+> you delete or overwrite a large object; calling `gc()` (R's *garbage
+> collector*) forces that cleanup and prints how much memory is now in use.
+> Single-cell objects are big, so call `gc()` at the **heavy transitions** —
+> right after `rm()`-ing an object you're done with, after a `merge()` /
+> integration, or just before a memory-hungry step (SingleR, CellChat, monocle3).
+> It never changes your results and is safe to run anytime; you just don't need it
+> after every line.
+
+---
+
 ## Part A — Differential expression / marker genes
 
 ### Why `JoinLayers` first?
