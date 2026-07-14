@@ -13,8 +13,26 @@ Since counting is compute-intensive, this is done on the server (AWS). Usually, 
 
 After you generate these test counts, we will use the pre-generated full counts data for DESeq2. 
  
-> Note: If you have not installed Rsubread on the AWS `R`, do so now ([Rsubread](https://bioconductor.org/packages/release/bioc/html/Rsubread.html)). Installation can be done in the R console. See the `Day7_installing_Rsubread` worksheet for more help.
+> Note: If you have not installed Rsubread on the AWS `R`, do so now
+> 
+```r
+# Install BiocManager if needed
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages(
+        "BiocManager",
+        repos = "https://cloud.r-project.org"
+    )
+}
 
+# Install Rsubread if needed
+if (!requireNamespace("Rsubread", quietly = TRUE)) {
+    BiocManager::install(
+        "Rsubread",
+        ask = FALSE,
+        update = FALSE
+    )
+}
+```
 ## Worksheet
 
 ### Setting up working space:
