@@ -14,7 +14,7 @@
 # Companion lesson: lessons/04_cellchat.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives T21_LABELED, CELLCHAT_T21_RDS, load_one()
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(CellChat)
 library(Seurat)

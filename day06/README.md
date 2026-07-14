@@ -45,6 +45,18 @@ Project B : Multi-omics (RNA-seq & ChIP-seq)
 
 More details in **Project B Day07 Worksheets** folder 
 
-- [rsubread](https://bioconductor.org/packages/release/bioc/html/Rsubread.html) : Install on AWS R
 - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) : Install on personal computer R
+- Install *DESeq2* on your personal computer in R if you have not already done so. *DESeq2* is distributed through *Bioconductor* rather than CRAN. If you do not already have *BiocManager* installed, use the code below to install it first and then install *DESeq2*.
+  
+```r
+# Install BiocManager (only if it isn't already installed)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# Install DESeq2
+BiocManager::install("DESeq2")
+
+# Load the package
+library(DESeq2)
+```
 

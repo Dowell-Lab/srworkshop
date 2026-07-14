@@ -16,7 +16,8 @@
 # Companion lesson: lessons/05_pseudotime.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives T21_LABELED, load_one()
+source("~/srworkshop/projectA/00_paths_and_setup.R")
+
 
 library(monocle3)
 library(R.utils)

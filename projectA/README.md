@@ -12,6 +12,10 @@ every block of code does and *why*.
 
 ---
 
+## Mapping and counting
+
+In single cell mapping and counting are done in a single step on the super computer. Our mapping example is not on the data we use for the rest of the single cell project. The data for this project is big and expensive so we are not going to map it. We are just showing you how to map using cellranger. 
+
 ## Two tracks, two datasets
 
 The course is organized into **two parallel tracks**. You run the GATA1 track
@@ -29,6 +33,8 @@ Down-syndrome-associated leukemia.
 - Biology: Takasaki et al., *Single-cell transcriptomics reveal individual and
   cooperative effects of trisomy 21 and GATA1s on hematopoiesis*,
   [*Stem Cell Reports* 2025](https://pubmed.ncbi.nlm.nih.gov/40680731/) ·
+- If you want to download the data yourself you can do that here:
+
   [GEO GSE271399](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE271399)
 - Why primary: clean, well-designed, and a real **time course**, so pseudotime
   can be validated against sampling day and metadata can be derived cleanly from
@@ -49,7 +55,15 @@ Biology source: [fetal bone marrow cell atlas](https://developmental.cellatlas.i
 
 ---
 
-## Data lives read-only on the cluster — no downloads
+## You can run this local or on a super computer. 
+
+If you run it local make sure you have installed the packages in Local_installs.R.
+You also need to download the data for the anaysis. You can do this by clicking here. 
+Finnaly, you need to change the paths to your data paths. That infomration is in 00_paths_and_setup.R Every single script is going to get the data paths for writing and reading from 00_paths_and_setup.R. So make sure it works before starting. 
+
+## If you work on the super computer. 
+We are sharing--- so it might be slow and it might crash. 
+Data lives read-only on the cluster — no downloads.
 
 All data is **read-only on the shared AWS/Fiji cluster**. Nobody downloads
 anything. Paths are centralized in `scripts/00_paths_and_setup.R`; if the

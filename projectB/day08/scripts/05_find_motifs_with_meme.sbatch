@@ -14,7 +14,7 @@ echo "BEGIN: Preprocessing................."
 ################### LOAD MODULES ###################################
 
 module load bedtools/2.31.1
-module load meme/5.1.1
+module load meme/5.5.0
 
 ################## SET VARIABLES ###################################
 
@@ -44,7 +44,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 ####################################################################
 #### Get fasta of peak files
 ####################################################################
-echo convert peaks call to fasta format
+echo "convert peaks call to fasta format"
 date 
 
 
@@ -53,7 +53,7 @@ bedtools getfasta \
  -bed ${INDIR}/${FILENAME}_peaks_clean.narrowPeak \
  -fo ${OUTDIR}/${FILENAME}_peaks_clean.fasta
 
-echo fasta file done 
+echo "fasta file done"
 date
 
 ####################################################################

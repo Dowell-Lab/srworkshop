@@ -7,9 +7,9 @@ Georgia Barone (2025)
 
 The goal of this section is to become familiar with working with dataframes in R, using R functions to answer biological questions, and making figures.
 
-One common question people have when running multimodal experiments (for example with RNA-seq and ChIP-seq) is:  
+Examples of common questions that arise when running multimodal experiments are:  
 
-* What genes are differentially expressed and have a p53 ChIP peak?
+* What genes are differentially expressed **and** have a p53 ChIP peak?
 * Do these genes fall into one functional classification, molecular pathway, or biological function?
 
 We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
@@ -24,20 +24,21 @@ All that’s left is to do some basic set manipulation here in R and create some
 ## Download the necessary data from the AWS
 1. On your **local computer**, pick a location that's convenient for you and make a "day9" folder.
 2. Inside your "day9" folder, make a "data" folder and a "results" folder.
-3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
-4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2025/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+3. Inside the "data" folder, make two more folders named "deseq_res" and "bedtools_res".
+4. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data/bedtools_res" folder on your local computer
+5. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread/cookingShow/day9b/deseq_output* to your "day9/data/deseq_res" folder.
 
-## Now work in the *01_day9_graphing.R* script
+## Now work in the *02_day9_graphing.R* script
 ### First, set up the environment.
 
 At the top of your script, set your working directory and the results directory. 
 
 ### Read in the data
 
-* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
+* Load in bed files you created that contain p53 peaks that **overlap genes**, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in "<*your/path*>/day9/data/bedtools_res".  
 * Since we’re working with a bed file, it doesn’t have column names. In the `read.table()` function, make sure to set header=FALSE.
-* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
-* Load the differential expression data for HCT116 cells, which you downloaded above into something like "*your/path*/day9/data/deseq_output". Note that this file DOES have a header with the column names.
+* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
+* Load the differential expression data for HCT116 cells, which you downloaded above into "<*your/path*>/day9/data/deseq_res". Note that this file DOES have a header with the column names.
 * There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
 
 ``` r
@@ -81,7 +82,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 all_p53_bound <- 
 ```
 
-**Second:** Look at the intersection of this list with all genes.
+**Second:** How many of these genes were analyzed using DESeq2, regardless of whether they were significantly differentially expressed.
 
 ``` r
 ### --- Use either of the functions above to get the set of genes with p53 bound that are present at all in the DESeq2 results. 
@@ -97,17 +98,17 @@ bound_genes <-
 bound_de_genes <- 
 ```
 
-Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
+Print out the number of genes that are differentially expressed and have a p53 ChIP peak (irrespective of whether the ChIP peak appears in the control or experimental condition). 
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes wtih a ChIP peak that are differentially expressed.
+**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes ith a ChIP peak that are differentially expressed.
 
 To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
-* Look at the Quick Start section of the documentation. Do you see that the function expects a lists of lists? 
+* Look at the Quick Start section of the documentation. Do you see that the function expects a list of lists? 
 * Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes with p53 peaks under Nutlin treatment, and genes with a p53 ChIP peak that are differentially expressed.
 
 ```r

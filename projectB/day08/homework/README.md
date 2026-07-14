@@ -6,7 +6,7 @@
 
 2. Process the MCF7 samples through the ChIP-seq worksheet.
 
-The fastq files for the other cell lines are located on AWS here `/scratch/Shares/public/sread2024/homework_data_files/day8b/fastq`
+The fastq files for the other cell lines are located on AWS here `/scratch/Shares/public/sread/homework_data_files/day8b/fastq`
 
 | Run (SRR)         | Cell line  | Sample Type     |
 | :---------------- | :-------:  | :-------------: |

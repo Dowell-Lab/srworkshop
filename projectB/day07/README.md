@@ -9,13 +9,25 @@ Today, you will learn to count reads using *featureCounts*. Then, you will learn
   - <a href="https://www.youtube.com/watch?v=JfYo1eXSbtg" target="_blank">B7.3 | DESeq2</a>
   - <a href="https://www.youtube.com/watch?v=X6p3E-QTcUc" target="_blank">B7.4 | Multifactor Designs in DESeq2 (Optional)</a>
 
-- Install *DESeq2* on your personal computer if you have not done so.
+- Install *DESeq2* on your personal computer in R if you have not already done so. *DESeq2* is distributed through *Bioconductor* rather than CRAN. If you do not already have *BiocManager* installed, use the code below to install it first and then install *DESeq2*.
+  
+```r
+# Install BiocManager (only if it isn't already installed)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# Install DESeq2
+BiocManager::install("DESeq2")
+
+# Load the package
+library(DESeq2)
+```
 
 ## BEFORE WE START
 
 We will go over an M and M example. 
 
-Please count your M and Ms and put them here: https://tinyurl.com/MnMstats
+Please count your M and Ms and put them here: https://tinyurl.com/DNAMandM
 
 ## In-class Worksheets
 

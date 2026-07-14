@@ -73,15 +73,17 @@ Now we’ll use a series of tools packaged in the Bedtools suite. Bedtools is in
 
 Today, we'll use bedtools on the AWS. It's also fairly easy to install on your personal computer, and usually annotation files are tractable to work with there (though not always).
 
-:yellow_circle: Go to your github folder. Pull to make sure you have the most up-to-date versions of today's materials.
+:yellow_circle: Go to your github folder. <code>git pull</code> to make sure you have the most up-to-date versions of today's materials.
 
-:yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your /scratch/Users/\<username\>/day9/scripts/ directory.
+:yellow_circle: Transfer the 01_day9_bedtools.sbatch script from the github repo to your **/scratch/Users/\<username\>/day9/scripts/** directory.
 
 :yellow_circle: Make sure your SBATCH headers are correct.
 
 :yellow_circle: Edit the **USER INPUT**. This includes paths to the gene annotation file and your MACS peak file. What else do you need to edit? 
 
-### We will now fill the script section with bedtools commands.
+
+
+### Writing the bedtools script.
 
 **NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at *\<github_repo\>/day08/scripts/.06_day8_bedtools_answers.sbatch*
 
@@ -94,21 +96,22 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 <img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
 
 
-:yellow_circle: Edit the script to find which p53 peaks overlap with genes using bedtools intersect. Write out just information about the p53 peaks. 
+:yellow_circle: Edit the script to find which p53 peaks overlap with genes using bedtools intersect. Write out just information about **BOTH** the p53 ChIP peaks **AND** the genes. 
 - There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
 - Consider these flag options: -wa, -wb, -wo, -woa
 
 :yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
 
-- **HINT:** By default bedtools results go to stdout, which within a slurm job will go to your .out file. Pipe the results into a different file that is better labeled and give it the .bed extension
+- :triangular_flag_on_post: **IMPORTANT!** :triangular_flag_on_post: By default bedtools results go to stdout, which within a slurm job will go to your .out file.
+-  **HINT:** Pipe the results into a different file that is better labeled and give it the .bed extension
 
 :yellow_circle: Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. 
 - *Hint*: It is a flag further down the list. 
-- Every command should pipe results into a different new file with a descriptive filename. Run the script again.
+- Every command should pipe results into a **different new file with a descriptive filename**. Run the script again.
   
 :yellow_circle: Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
 
-:yellow_circle: Write a command for finding the genes that have any overlap with a p53 peak and run the script again.
+<!-- :yellow_circle: Write a command for finding the genes that have any overlap with a p53 peak and run the script again.-->
 
 :yellow_circle: How many peaks/genes were in each of these outputs compared to the original files?
 
@@ -116,7 +119,7 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 
 :yellow_circle: Pull the annotation file, you MACS bedfile, and your four intersection results bedfiles to your home computer
 
-:yellow_circle: Import them into IGV or the IGV Web App. 
+:yellow_circle: Import them into the IGV Web App. 
 - Where are the intergenic p53 peaks?
 - Where are the ones that completely overlapped genes?
  <!-- - HINT: In the desktop version of IGV, highlight a track and use Ctrl-F/Ctrl-B to skip to the next/previous feature. -->
@@ -130,14 +133,14 @@ What if we want to find out **how many of the p53 peaks that overlap with genes 
 :triangular_flag_on_post: **Define Promoter Region:** :triangular_flag_on_post: Right now, we’ll define a promoter as everything ***between 1kb upstream of the annotated transcription start site (TSS) and 100 bp downstream of the TSS***. To make this promoter file, we first need a file that contains just the TSS of genes.
 
 - Think about how you’d make this from the gene annotation bedfile.
-- *What columns need to change?
-- Does that column differ depending on
-  what gene it is?
-- How does strand affect your strategy?*
+- What columns need to change?
+- **Does that column differ depending on what gene it is?**
+- How does **strand** affect your strategy?
 
-In order to define only a TSS, we need a 1-base region that is at the start of each gene. 
-
+#### In order to define only a TSS, we need a 1-base region that is at the start of each gene. 
 **So what is the starting coordinate of each gene?**
+
+
 *Would you treat these two genes the same?* 
 <img src="images/gene_fwd_rev.png" alt="Genes on alternate strands" width=400>
 
@@ -199,8 +202,8 @@ NOTE: Instead of using both bedtools slop and bedtools intersect, you could inst
 
 **More practice:** In this experiment, we have p53 ChIP data from
 control and experimental conditions. Now that we’ve done these
-calculations with the control (DMSO-treated) samples, create the same
-files for the experimental (Nutlin-treated) samples.
+calculations with the control experimental (Nutlin-treated) samples, create the same
+files for the (DMSO-treated) samples.
 
 ### Enrichment and expectation
 
