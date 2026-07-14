@@ -8,65 +8,64 @@ As we discussed last week, ensuring your data's quality is an important step bef
 
 This worksheet goes over how to preprocess ChIP-seq data prior to peak calling. ChIP-seq is an assay genome-wide binding of protein to DNA, so the coverage profile is different from RNA-seq,
 and as such the data needs to be preprocessed differently. 
-We will go over assessing the quality of ChIP-seq data and mapping the reads to the genome. The tools we will use are the same for other genome sequencing data (RNA-seq, ATAC-seq), BUT the flags used will be different. 
+We will go over assessing the quality of ChIP-seq data and mapping the reads to the genome. The tools we will use are the same for other genome sequencing data (RNA-seq, ATAC-seq), BUT the flags used will be different.
 
 ### QC tools
-[fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) : Assess the read quality in samples.
+- [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) : Assess the read quality in samples.
 
-[trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) : Trim fastq files (similar to what was covered in week one).
+- [trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) : Trim fastq files (similar to what was covered in week one).
 
-[preseq](https://preseq.readthedocs.io/en/latest/) : Get read complexity (asses how reads are distributed in the genome after mapping). This is run after mapping with HISAT2.
+- [preseq](https://preseq.readthedocs.io/en/latest/) : Get read complexity (asses how reads are distributed in the genome after mapping). This is run after mapping with HISAT2.
 
-[multiqc](https://multiqc.info/) : Summarizing all the QC metrics in a single document.
+- [multiqc](https://multiqc.info/) : Summarizing all the QC metrics in a single document.
 
 ### Mapping reads:
-[HISAT2](https://daehwankimlab.github.io/hisat2/) : Mapping reads to the genome with ChIP-seq friendly commands. 
+- [HISAT2](https://daehwankimlab.github.io/hisat2/) : Mapping reads to the genome with ChIP-seq friendly commands. 
 
 
 ### ChIP-seq tools
+- [MEME](https://meme-suite.org/meme/index.html) : TF Motif discovery tool. 
 
-[MEME](https://meme-suite.org/meme/index.html) : TF Motif discovery tool. 
-
-[TOMTOM](https://meme-suite.org/meme/tools/tomtom) : Compared TF motif against TF databases. It is part of the MEME Suite
+- [TOMTOM](https://meme-suite.org/meme/tools/tomtom) : Compared TF motif against TF databases. It is part of the MEME Suite
 
 ### Other tools
+- [BEDTools](https://bedtools.readthedocs.io/en/latest/index.html) : Powerful genome arithmetic tool kit (e.g. find region overlaps). You will go more indepth with bedtools on day9.
 
-[BEDTools](https://bedtools.readthedocs.io/en/latest/index.html) : Powerful genome arithmetic tool kit (e.g. find region overlaps). You will go more indepth with bedtools on day9.
 
-NB: The directory and username used in the screenshot will be for my working directory and username and will be different than yours. Here we will be working on the server and editing the script in *vim*.
 
-## Expected outputs 
+## Expected Outputs 
 
 **Section A** - This will be run in the server
 
-a. Fastq QC summary for ChIP-seq data (as an html) and trimmed fastq files (as bam files).
+- Fastq QC summary for ChIP-seq data (as an html) and trimmed fastq files (as bam files).
 
-b. Mapped files in bam format (as bam files).
+- Mapped files in bam format (as bam files).
 
-c. Mapping QC summary (as an html plus folder with intermediate files).
+- Mapping QC summary (as an html plus folder with intermediate files).
 
-d. Peak calls in a text files (in bed file format) highlighting the narrow peaks as well as the summit peaks.
+- Peak calls in a text files (in bed file format) highlighting the narrow peaks as well as the summit peaks.
 
-e. Text file with TF motif locations.
+- Text file with TF motif locations.
 
 **Section B** - The first part will be run on the server, while the second will be submitted to the MEME webserver.
 
-a. Get sequences for peak regions (as a fasta file)
+- Get sequences for peak regions (as a fasta file)
 
-b. MEME results outputted on their website. (see exampls in Section B from steps 6-8)
+- MEME results outputted on their website. (see exampls in Section B from steps 6-8)
 This step is run on the webserver since it is computationally greedy.
 
 
 ## Section A: Preprocessing of ChIP-seq data
 
-1. Navigate to your github repo clone and git pull to _"pull"_ any updates that someone had _"pushed"_ to the repository to your own work environment on the AWS.
+### 1. Update your AWS github repository
+Navigate to your github repo (in `/Users/<username>/srworkshop`) and git pull to _"pull"_ any updates that someone had _"pushed"_ to the repository to your own work environment on the AWS.
 
 ```
 cd /Users/<username>/srworkshop
 git pull
 ```
 
-2. Make working directories
+### 2. Make working directories
 
 After you Log into the AWS, you will make a directory for day 8 in your scratch directory. Make the subdirectories including one stdout/stderr and scripts. 
 
@@ -76,40 +75,24 @@ Create a working directory for day8 in scratch using the `mkdir` command.
 cd /scratch/Users/<Your_Username>
 mkdir day8
 cd day8
- mkdir scripts eofiles 
+mkdir scripts eofiles 
 ```
 
-3. Copy scripts to your scratch folder
+### 3. Copy scripts to your scratch folder
+
+Copy all of the scripts (01-05) from the github repository (`~/srworkshop/projectB/day08/scripts`) into your scratch scripts directory using `rsync`.
 
 ```
 rsync -a /path/to/srworkshop/projectB/day08/scripts/<thescriptswewant /scratch/Users/<Your_Username>/day8/scripts
 ```
 
-Copy the following scripts from the github repository folder into your scripts directory
 
-   a. 01_fastqc_and_trimming.sbatch
-
-   b. 02_map_with_hisat2.sbatch
-
-   c. 03_mapqc_and_multiqc.sbatch
-
-   d. 04_peak_call_with_macs2.sbatch
-
-   e. 05_find_motifs_with_meme.sbatch
-
-![Copying scripts example](images/copy_scripts_to_scratch.png)
-
-4. Edit and run the preprocessing scripts
+### 4. Edit and run the preprocessing scripts
 
 Edit the sbatch script by using `vim <script>` to open a text editor on your sbatch script.
 
 Similar to the previous exercises you will need to change the job name, user email, and the standard output and error log directories. 
 
-Change the `–job-name=<JOB ID>` to a name related to the job you will be running, for example, '01_fastqc_and_trimming'. 
-
-Additionally, you will want to change the `mail-user=<YOUR_EMAIL>` to your email, as well as the path to your eofiles directory for the standard output (`--output`) and error log (`--error`). 
-
-The `%x` will be replaced by your `--job-name` and the `%j` will be replaced by the job id that will be assigned by the job manager when you run your sbatch script.
 
 ### Step 1: QC and preprocess samples
 
@@ -255,7 +238,7 @@ You can run IGV on either the web server or locally on your machine.
 
 2. *MEME* suite takes in a fasta file as input. Our MACS peak output is in a bed file format. We will use `bedtools getfasta` and a reference genome `.fa` file to convert our peaks coordinate into a fasta format. The first thing we will do in our script is to load the appropriate modules. 
 
-3. Set your in and out directory as we have in the previous exercise. Here your `INDIR` is the path to your MACS peak output files. The `OUTDIR` will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file denoted below as `hg38.fa` (Note, for this workshop, we are working with a smaller chromosome 21 fasta file). 
+3. Set your in and out directory as we have in the previous exercise. Here your `INDIR` is the path to your MACS peak output files. The `OUTDIR` will be for the output of the fasta file and the MEME and TOMTOM output files. Additionally, we will want a reference fasta file. For this workshop, we are working with a smaller chromosome 21 fasta file: `chr21.fa`.
 
 ![Variables MEME](images/script5_set_variables.png)
 
