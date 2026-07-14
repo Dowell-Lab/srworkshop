@@ -34,6 +34,9 @@ remotes::install_github("bnprks/BPCells/r")
 devtools::install_github('cole-trapnell-lab/monocle3')
 devtools::install_github('immunogenomics/presto')
 
+#another option if devtools does not work is pak::pak('your_package')
+
+
 ## SeuratWrappers (GitHub)
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
