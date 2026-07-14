@@ -64,6 +64,7 @@ Finnaly, you need to change the paths to your data paths. That infomration is in
 ## If you work on the super computer. 
 We are sharing--- so it might be slow and it might crash. 
 Data lives read-only on the cluster — no downloads.
+https://ec2-13-56-196-160.us-west-1.compute.amazonaws.com/s/57ea13c286bd33c286bd3/workspaces/
 
 All data is **read-only on the shared AWS/Fiji cluster**. Nobody downloads
 anything. Paths are centralized in `scripts/00_paths_and_setup.R`; if the
