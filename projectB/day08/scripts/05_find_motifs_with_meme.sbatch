@@ -14,7 +14,7 @@ echo "BEGIN: Preprocessing................."
 ################### LOAD MODULES ###################################
 
 module load bedtools/2.31.1
-module load meme/5.1.1
+module load meme/5.5.1
 
 ################## SET VARIABLES ###################################
 
