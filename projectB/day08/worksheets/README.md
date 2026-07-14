@@ -236,29 +236,12 @@ You can run IGV on either the web server (preferred) or locally on your machine.
 
 ![Get fasta](images/script5_get_fasta_file.png)
 
-5. Copy the `fasta` file to your computer.
+5. We also run MEME in script 05, which will return an HTML file output located in `/scratch/Users/<username>/day8/meme/HCT116_NUTLIN`. Rsync this to your local computer to view. The output will give you information on the motifs that were discovered along with other information such as the E-value.
 
-6. Upload your fasta file to MEME (https://meme-suite.org/meme/tools/meme) and submit. 
-
-![Run MEME](images/running_meme.png)
-
-7. MEME will return an output file for you. Click on MEME HTML output. The output will give you information on the motifs that were discovered along with other information such as the E-value.
-
-![MEME HTML](images/meme_html_output.png)
-
-8. Push your MEME output to TOMTOM by clicking on the button  under Submit/Download which will open up a new window with available programs. You just have to “Start Search” button to run TOMTOM. 
-
-![Tomtom submission](images/tomtom_submission.png)
-
-- TOMTOM will return an HTML summary of predicted TFs.
-
-![Tomtom results1](images/tomtom_html_1.png)
-
-![Tomtom results2](images/tomtom_html_2.png)
+6. Finally, we run TOMTOM (which is included with MEME), which compares the motifs we found to an existing database. In this case, we are comparing motfis to the HOCOMOCOv11 database. Rsync the output HTML file located at `/scratch/Users/<username>/day8/tomtom/HCT116_NUTLIN` to your local computer to look at it.
 
 > ### Challenge:
 > This data is a ChIP-seq experiment for TP53, why are we also seeing the TP73 motif in the TOMTOM output? (Hint: Check the motif logos sequence on the right of the output)
 
 # Example files for chromosome 21 runs
-
-You can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread/cookingShow/day8b/chr21/`.
+If you cannot run a script and would like to move on, you can find example outputs from each step in the cooking show folder `/scratch/Shares/public/sread/cookingShow/day8b/chr21/`.
