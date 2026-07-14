@@ -154,7 +154,9 @@ de_mcf7 <- #
 de_sjsa <- #
 ```
 
-**Second**, make a venn digram like we did above with all analyzed genes. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram?
+**Second**, make a venn digram like we did above, including genes significantly differentially expressed in each cell line. 
+
+🟡 Is this a helpful visualization? 
 
 ``` r
 # First venn 
