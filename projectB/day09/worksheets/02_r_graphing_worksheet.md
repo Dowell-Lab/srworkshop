@@ -72,7 +72,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 2.  **intersection()** ~ This returns only elements that are common to
     both lists. <br> <br>
 
-**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we’re comparing lists, not dataframes.*
 
 ``` r
 ### --- Use either of the functions above to get the set of genes bound in either condition.
