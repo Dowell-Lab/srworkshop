@@ -195,8 +195,12 @@ colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
 colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 ```
 
-These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Today, we want to keep all of the entries in all of the dataframes. Choose which of the four functions to use.
-> NOTE: We only really need the first three columns 
+These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Choose which of the four functions to use.
+
+**Pheatmap needs a dataframe that looks like this**
+![data frame for Pheatmap](images/df_or_heatmap.png)
+
+
 ```r
   # Use one of the following functions 
   #     ~ full_join, inner_join, left_join, right_join   
