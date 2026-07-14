@@ -163,8 +163,6 @@ de_sjsa <- #
 venn_list_de <- list()
 ggvenn()
 
-# Do you think you can make a more helpful version of this?
-# If so, put your code below 
 ```
 
 **Third**, we’ll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We’ll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
