@@ -22,10 +22,17 @@ BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
                        'SummarizedExperiment', 'batchelor', 'HDF5Array',
                        'ggrastr'))
 install.packages("devtools")
+
+
 remotes::install_github("bnprks/BPCells/r")
 
-devtools::install_github('cole-trapnell-lab/monocle3')
+#If that doesn't work, you might have to install hdf5 on your computer, then go back and install the above. 
+#CONDA_SUBDIR=osx-arm64 conda create -n osx-arm hdf5
+#conda activate osx-arm
+#/usr/local/bin/R
 
+devtools::install_github('cole-trapnell-lab/monocle3')
+devtools::install_github('immunogenomics/presto')
 
 ## SeuratWrappers (GitHub)
 if (!requireNamespace("remotes", quietly = TRUE)) {
