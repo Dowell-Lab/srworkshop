@@ -14,7 +14,7 @@
 # Companion lesson: lessons/01_qc_filtering_integration.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives RAW10X_DIR, T21_SAMPLE, D21_SAMPLE, OUT_DIR
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(SoupX)       # ambient RNA estimation (demonstrated below)

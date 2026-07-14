@@ -17,8 +17,15 @@ BiocManager::install(c(
   "celldex"
 ))
 
-## monocle3 (from Bioconductor)
-BiocManager::install("monocle3")
+BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats',
+                       'limma', 'lme4', 'S4Vectors', 'SingleCellExperiment',
+                       'SummarizedExperiment', 'batchelor', 'HDF5Array',
+                       'ggrastr'))
+install.packages("devtools")
+remotes::install_github("bnprks/BPCells/r")
+
+devtools::install_github('cole-trapnell-lab/monocle3')
+
 
 ## SeuratWrappers (GitHub)
 if (!requireNamespace("remotes", quietly = TRUE)) {

@@ -9,7 +9,7 @@
 # Companion lesson: lessons/02_markers_doublets.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives OUT_DIR
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(tidyverse)
