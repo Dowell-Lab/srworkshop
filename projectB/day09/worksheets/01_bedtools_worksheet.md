@@ -96,17 +96,15 @@ We have a list of genes (the annotation file), and we have a list of peaks calle
 <img src="images/bedtools_intersect.png" alt="Bedtools Intersect" width="500">
 
 
-:yellow_circle: Edit the script to find which p53 peaks overlap with genes using bedtools intersect. Write out information about **BOTH** the p53 ChIP peaks **AND** the genes. 
+:yellow_circle: Edit the script to find which p53 peaks overlap have any overlap with genes using bedtools intersect. Write out information about **BOTH** the p53 ChIP peaks **AND** the genes. 
 - There are many flags that can define exactly how you want to define “overlap.” What makes the most sense for overlapping ChIP peaks with genes? 
 - Consider these flag options: -wa, -wb, -wo, -woa
-
-:yellow_circle: Write a command in the 01_day9_bedtools.sbatch script for doing a basic intersection to figure out which peaks have any overlap with genes, then run your script. It should run basically instantaneously.
-
 - :triangular_flag_on_post: **IMPORTANT!** :triangular_flag_on_post: By default bedtools results go to stdout, which within a slurm job will go to your .out file.
 -  **HINT:** Pipe the results into a different file that is better labeled and give it the .bed extension
+-  It should run basically instantaneously.
 
 :yellow_circle: Write a command for finding the peaks that are *completely* within a gene. Write this new one underneath the previous one so that you have a list of all of these commands at the end to reference later. 
-- *Hint*: It is a flag further down the list. 
+- *Hint*: It is a flag further down the list. Find it!!!
 - Every command should pipe results into a **different new file with a descriptive filename**. Run the script again.
   
 :yellow_circle: Write a command for finding the peaks that are in intergenic regions (i.e. have no overlap with genes). Run it again.
