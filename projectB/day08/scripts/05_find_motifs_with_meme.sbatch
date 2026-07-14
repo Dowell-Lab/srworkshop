@@ -47,7 +47,6 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 echo "convert peaks call to fasta format"
 date 
 
-
 bedtools getfasta \
  -fi ${HG38_FASTA} \
  -bed ${INDIR}/${FILENAME}_peaks_clean.narrowPeak \
@@ -62,19 +61,20 @@ date
 
 #### Run MEME command line
 ## URL https://meme-suite.org/meme/tools/meme
-#/opt/meme/5.1.1/bin/meme \
-# ${OUTDIR}/${FILENAME}_peaks_clean.fasta \
-# -dna \
-# -oc ${OUTDIR}/${FILENAME} \
-# -nostatus \
-# -time 18000 \
-# -mod zoops \
-# -nmotifs 5 \
-# -minw 6 \
-# -maxw 50 \
-# -objfun classic \
-# -revcomp \
-# -markov_order 0
+
+meme \
+ ${OUTDIR}/${FILENAME}_peaks_clean.fasta \
+ -dna \
+ -oc ${OUTDIR}/${FILENAME} \
+ -nostatus \
+ -time 18000 \
+ -mod zoops \
+ -nmotifs 5 \
+ -minw 6 \
+ -maxw 50 \
+ -objfun classic \
+ -revcomp \
+ -markov_order 0
 
 ####################################################################
 #### Run TOMTOM to identify the motifs 
@@ -83,21 +83,23 @@ date
 ### Run TOMTOM command line
 ## URL https://meme-suite.org/meme/tools/tomtom
 
-#mkdir -p ${WD}/tomtom
+motif_ref=/scratch/Shares/public/sread/motifs/HOCOMOCOv11_core_HUMAN_mono_meme_format.meme
 
-#/opt/meme/5.1.1/bin/tomtom \
-# ${OUTDIR}/${FILENAME}/meme.html \
-# -no-ssc \
-# -oc ${WD}/tomtom/${FILENAME} \
-# -verbosity 1 \
-# -min-overlap 5 \
-# -dist pearson \
-# -evalue \
-# -thresh 10.0 \
-# /scratch/Shares/dowell/motifs/HOCOMOCODatabaseFIMO/HOCOMOCOv11_core_HUMAN_mono_meme_format.meme
+mkdir -p ${WD}/tomtom
 
-#echo MEME and TOMTOM done 
-#date
+tomtom \
+ ${OUTDIR}/${FILENAME}/meme.html \
+ -no-ssc \
+ -oc ${WD}/tomtom/${FILENAME} \
+ -verbosity 1 \
+ -min-overlap 5 \
+ -dist pearson \
+ -evalue \
+ -thresh 10.0 \
+ ${motif_ref}
+
+echo MEME and TOMTOM done 
+date
 
 echo "DONE: Preprocessing................."
 echo Job finished at `date +"%T %a %d %b %Y"`
