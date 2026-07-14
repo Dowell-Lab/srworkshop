@@ -116,12 +116,6 @@ library() # don't forget to load your new library on this line
 venn_list <- list() # add everything that you want to compare into this list of lists 
 #create venn diagram on this line!
 ```
-**Finally**, report the percentage of any ChIP peaks that overlap with a differentially expressed gene.
-
-```r
-# Just use R to do basic math!
-# You can get the numbers you need from the venn diagram you made. 
-```
 
 ### Export our work for GO analysis
 
