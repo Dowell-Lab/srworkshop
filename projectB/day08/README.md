@@ -7,11 +7,9 @@ We will be analyzing TP53 ChIP-seq data done in HCT116 cells from Andrysik et al
 Please watch the following videos:
 - <a href="https://youtu.be/PBaC2qG4f4k?si=h4q3juCwfvhiUXYB">B8.1 | Intro to ChIP-seq</a>
 - <a href="https://youtu.be/Cs-4nfrj7Tc?si=uw2BbTsfiExRLCyP" target="_blank">B8.2 | MACS2 for ChIP-seq Data</a>
-
-(Motif calling vido with Meme is long if you are going to skip one this is it - Chris)
-- <a href="https://www.youtube.com/watch?v=ZOjbiHIOQm0" target="_blank">B8.3 | Motif Calling with MEME</a>
+- <a href="https://www.youtube.com/watch?v=ZOjbiHIOQm0" target="_blank">B8.3 | Motif Calling with MEME</a> (Recommended)
 - <a href="https://www.youtube.com/watch?v=0JqCexUujZM" target="_blank">B8.4 | ATAC-seq Analysis</a> (Optional)
-- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools (Recommended)</a>
+- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools</a> (Recommended - also can watch for Day9 instead)
 
 ## Sample metadata
 

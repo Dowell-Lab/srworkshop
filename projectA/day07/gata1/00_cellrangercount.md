@@ -301,7 +301,7 @@ done | sort -rn | head
 
 ## For your own data
 
-10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128**, with negligible return past 32 cores or 256 GB. A real run (~10,000 cells at ~30,000 reads/cell) takes hours, not the ~30 minutes you saw here.
+10x recommend **at least 8 CPUs and 64 GB, preferably 16 and 128**, with negligible return past 32 cores or 256 GB. A real run (~10,000 cells at ~30,000 reads/cell) takes many hours, not the ~1 hr you saw here.
 
 Do not copy our numbers. Copy the method: **find out what the cluster has → measure what your job needs → divide by how many people are competing → then verify against a real run.**
 

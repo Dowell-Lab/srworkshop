@@ -38,6 +38,9 @@ devtools::install_github('immunogenomics/presto')
 #pak::pak('cole-trapnell-lab/monocle3')
 
 
+#another option if devtools does not work is pak::pak('your_package')
+
+
 ## SeuratWrappers (GitHub)
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")

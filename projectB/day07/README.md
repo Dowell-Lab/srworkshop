@@ -27,7 +27,7 @@ library(DESeq2)
 
 We will go over an M and M example. 
 
-Please count your M and Ms and put them here: https://tinyurl.com/MnMstats
+Please count your M and Ms and put them here: https://tinyurl.com/DNAMandM
 
 ## In-class Worksheets
 
