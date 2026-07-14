@@ -69,6 +69,13 @@ gc()       # garbage collector: trims the script's memory footprint
 > If you never made the Lesson 03 object, use the pre-baked copy in `COOKING` —
 > the commented `readRDS` line right below the first one.
 
+> **Working locally?** `source(...)` resets `OUT_DIR` to the cluster path, so add
+> your Lesson 01 override between the `source(...)` and `readRDS(...)` lines above
+> (otherwise `readRDS` won't find the object you saved locally):
+> ```r
+> OUT_DIR <- paste(getwd(), "outdir", sep = "/")
+> ```
+
 ---
 
 ## Step 1 — Choose the grouping label

@@ -64,6 +64,22 @@ combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered.rds"))
 > your environment. Otherwise reload it as above (or, if you never made it, use
 > the pre-baked copy in `COOKING` — the commented `readRDS` line right below).
 
+> **Working locally?** `source(...)` resets `OUT_DIR` to the cluster path, so add
+> your Lesson 01 override between the `source(...)` and `readRDS(...)` lines above
+> (otherwise `readRDS` won't find the object you saved locally):
+> ```r
+> OUT_DIR <- paste(getwd(), "outdir", sep = "/")
+> ```
+
+> **Memory tip — `gc()`.** R doesn't hand memory back to your computer the moment
+> you delete or overwrite a large object; calling `gc()` (R's *garbage
+> collector*) forces that cleanup and prints how much memory is now in use.
+> Single-cell objects are big, so call `gc()` at the **heavy transitions** —
+> right after `rm()`-ing an object you're done with, after a `merge()` /
+> integration, or just before a memory-hungry step (SingleR, CellChat, monocle3).
+> It never changes your results and is safe to run anytime; you just don't need it
+> after every line.
+
 ---
 
 ## Step 1 — One matrix for SingleR (`JoinLayers`)

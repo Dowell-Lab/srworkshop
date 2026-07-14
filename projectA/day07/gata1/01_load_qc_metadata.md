@@ -74,6 +74,40 @@ library(ggplot2)
 library(patchwork)
 ```
 
+> **On the AWS/Fiji cluster?** The `source(...)` line above is all you need — it
+> already points `GATA1_DIR`, `OUT_DIR`, and `GATA1_SAMPLES` at the shared
+> read-only data and a writable output folder. Skip the block below.
+>
+> **Working locally on your own machine?** Still run the `source(...)` line above
+> (it defines the helpers), then **override the three directory variables** so
+> they point at your local data and output folders. Run this right after
+> `source(...)`:
+
+```r
+# Assumes your R working directory is the
+# folder that contains data/ (set it with an RStudio Project or setwd()).
+GATA1_DIR <- paste(getwd(), "data", sep = "/")     # your local 10x matrices
+
+GATA1_SAMPLES <- c(
+  "EuploidGATA1sD7",  "EuploidGATA1sD9",  "EuploidGATA1sD11",
+  "EuploidwtGATA1D7", "EuploidwtGATA1D9", "EuploidwtGATA1D11",
+  "T21GATA1sD7",      "T21GATA1sD9",      "T21GATA1sD11",
+  "T21wtGATA1D7",     "T21wtGATA1D9",     "T21wtGATA1D11"
+)
+
+OUT_DIR <- paste(getwd(), "outdir", sep = "/")     # where your results go
+dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)  # make it if missing
+```
+
+> **Memory tip — `gc()`.** R doesn't hand memory back to your computer the moment
+> you delete or overwrite a large object; calling `gc()` (R's *garbage
+> collector*) forces that cleanup and prints how much memory is now in use.
+> Single-cell objects are big, so call `gc()` at the **heavy transitions** —
+> right after `rm()`-ing an object you're done with, after a `merge()` /
+> integration, or just before a memory-hungry step (SingleR, CellChat, monocle3).
+> It never changes your results and is safe to run anytime; you just don't need it
+> after every line.
+
 ---
 
 ## Step 1 — Read each sample and merge
