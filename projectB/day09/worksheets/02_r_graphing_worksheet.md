@@ -132,17 +132,11 @@ venn_list <- list() # add everything that you want to compare into this list of 
 We will do GO analysis on genes with a p53 ChIP peak that are also differentially expressed. For this, we want to have a list of our genes of interest and a list of background. **Background** means the set of genes we actually measured in this experiment. For us, this is the list of genes that are measured in our DESeq data that have any ChIP peak. Our **genes of interest** are those genes with a ChIP peak that are differentially expressed in the DESeq data. 
 
 - Save each list in a place that is descriptive and convenient for you.
-
-*How to use `write.table()`*:\
-`write.table()` has a lot of options. These are the ones you need to set: 
-
-* `col.names=FALSE`
-* `row.names=FALSE`
-* `quote = FALSE`
+- Use `write_tsv()`
 
 ```r
-write.table(  , file =  paste0(outdir, 'genes_p53peak.txt'),  )
-write.table(  , file = paste0(outdir, 'genes_sig_p53peak.txt'),  )
+write_tsv(  , file =  paste0(outdir, 'genes_p53peak.txt'),  )
+write_tsv(  , file = paste0(outdir, 'genes_sig_p53peak.txt'),  )
 
 ```
 > NOTE: the `paste0` command concatenates two strings.
@@ -151,10 +145,13 @@ write.table(  , file = paste0(outdir, 'genes_sig_p53peak.txt'),  )
 
 This study looked at p53 responses across 4 cell lines: SJSA, MCF7, HCT116, and HCT116 with p53 KO. Let's see how consistent the p53 response is across these cells lines. We'll do this by making two types of graphs.
 
-1.  A venn diagram, as we did above.
+
+
 2.  A heatmap of differential expression.
 
-**First**, load in the data from `day9/data/deseq_output/` folder.
+**First**, we'll make a venn diagram, as we did above.
+
+Load in the data from the `day9/data/deseq_output/` folder.
 
 ``` r
 # ---- READ IN DATA
@@ -164,9 +161,7 @@ de_mcf7 <- #
 de_sjsa <- #
 ```
 
-**Second**, make a venn digram like we did above, including genes significantly differentially expressed in each cell line. 
-
-🟡 Is this a helpful visualization? 
+**Now**, make a venn digram like we did above, including genes significantly differentially expressed in each cell line. 
 
 ``` r
 # First venn 
@@ -175,7 +170,11 @@ ggvenn()
 
 ```
 
-**Third**, we'll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We'll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
+🟡 Is this a helpful visualization? 
+🟡 Is there anything you think would be *more* helpful?
+
+
+**Lastly**, we'll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We'll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
 
 You may have already installed this package during Day 7. If not, click on the link above, and skim the tutorial. The first lines tell you how to install pheatmap. Install it below. Then comment out the install line and load the package on the line below.
 
@@ -186,6 +185,9 @@ You may have already installed this package during Day 7. If not, click on the l
 
 
 **To make heatmaps**, dataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named "GeneID". We'll leave that, but tag all the other column names with their cell type. I've provided that code, you just have to run it.
+
+**GOAL:** Pheatmap needs a dataframe that looks like this
+![data frame for Pheatmap](images/df_for_heatmap.png)
 
 ```r
 ### --- FILTER 
@@ -207,8 +209,7 @@ colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 
 These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being `full_join()`, `inner_join()`, `left_join()`, and `right_join()`. Choose which of the four functions to use.
 
-**Pheatmap needs a dataframe that looks like this**\
-![data frame for Pheatmap](images/df_for_heatmap.png)
+
 
 
 ```r
