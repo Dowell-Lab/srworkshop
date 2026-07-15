@@ -63,7 +63,7 @@ You can do annotation file manipulations with text editors (not recommended – 
   
 :yellow_circle: Within this directory, make folders named "scripts", "eofiles", and "bedtools_results".
 
-:yellow_circle: How many genes are in the annotation file? (Hint, look up the `wc` command. How does the flag `-l` modify the `wc` command.)
+:yellow_circle: How many genes are in the annotation file? (Hint, look up the `wc` command. How does the flag `-l` modify the `wc` command?)
 
 :yellow_circle: How many peaks are in your MACS peak file?
 
