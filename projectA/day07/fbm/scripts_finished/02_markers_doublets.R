@@ -9,7 +9,7 @@
 # Companion lesson: lessons/02_markers_doublets.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives OUT_DIR
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(tidyverse)
@@ -59,6 +59,7 @@ joint.layers.obj <- SetIdent(joint.layers.obj, value = "seurat_clusters")
 cluster1.subset   <- subset(joint.layers.obj, idents = "1")
 cluster1.subset   <- SetIdent(cluster1.subset, value = "T21.status")
 diff.genes.cluster1.status <- FindAllMarkers(cluster1.subset)
+diff.genes.cluster1.status
 
 # -----------------------------------------------------------------------------
 # 4. Visualize where a marker gene is expressed

@@ -16,11 +16,11 @@
 
 source("~/srworkshop/projectA/00_paths_and_setup.R")
 
-#library(future)
-#plan("multisession", workers = 4)
+library(future)
+plan("multisession", workers = 4)
 # Also ensure BLAS sees the cores:
-#Sys.setenv(OMP_NUM_THREADS = 4, OPENBLAS_NUM_THREADS = 4, MKL_NUM_THREADS = 4)
-#options(future.globals.maxSize = 50 * 1024^3)  # 50 GB
+Sys.setenv(OMP_NUM_THREADS = 4, OPENBLAS_NUM_THREADS = 4, MKL_NUM_THREADS = 4)
+options(future.globals.maxSize = 50 * 1024^3)  # 50 GB
 
 
 library(Seurat)

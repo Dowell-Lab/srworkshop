@@ -14,11 +14,15 @@
 # Companion lesson: lessons/01_qc_filtering_integration.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives RAW10X_DIR, T21_SAMPLE, D21_SAMPLE, OUT_DIR
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(SoupX)       # ambient RNA estimation (demonstrated below)
 library(tidyverse)   # dplyr + tidyr + ggplot2, etc.
+library(future)
+
+options(future.globals.maxSize = 2 * 1024^3)   # 2 GiB
+
 
 # -----------------------------------------------------------------------------
 # 1. Read the two 10x matrices and make Seurat objects
@@ -41,10 +45,10 @@ d21.obj <- CreateSeuratObject(counts = d21.mat, project = "D21_male35")
 # straight from the CellRanger outs/ folder. Shown here so you know where it
 # fits; left commented so this script runs on the filtered matrices above.
 #
-# sc  <- load10X(file.path(RAW10X_DIR, T21_SAMPLE, "outs"))  # raw + filtered + clusters
-# sc  <- autoEstCont(sc)                                      # estimate contamination
-# out <- adjustCounts(sc)                                     # corrected counts
-# t21.obj <- CreateSeuratObject(counts = out, project = "T21BM_male04")
+ sc  <- load10X(file.path(RAW10X_DIR, T21_SAMPLE, "outs"))  # raw + filtered + clusters
+ sc  <- autoEstCont(sc)                                      # estimate contamination
+ out <- adjustCounts(sc)                                     # corrected counts
+ t21.obj <- CreateSeuratObject(counts = out, project = "T21BM_male04")
 
 # -----------------------------------------------------------------------------
 # 3. Add experimental metadata

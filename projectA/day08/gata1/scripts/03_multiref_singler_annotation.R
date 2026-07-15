@@ -144,6 +144,10 @@ combined_joined$SingleR_labels_other <- pred_df$labels_other
 # combined$SingleR_label_blood <- pred_blood$labels
 # print(table(broad = combined$SingleR_label, blood = combined$SingleR_label_blood))
 
+
+
+
+
 # ---- 5. Visualize the automated annotation ----------------------------------
 save_dim <- function(p, file, w = 8, h = 6) {
   ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
@@ -229,4 +233,14 @@ save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 #saveRDS(combined_joined, file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 #message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 
-rm(combined_joined)
+# ---- 8. (Optional) What if I don't like what they called? --------------------------
+
+#for each cluster, genes up in that cluster vs all others.
+# uses function FindAllMarkers
+
+# Filter to the Top 10 markers per cluster by fold change (the genes that DEFINE each cluster).
+#uses a group_by and top_n
+
+
+# Identify Differentially expressed genes BETWEEN two specific clusters
+#uses function FindMarkers

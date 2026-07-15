@@ -29,7 +29,11 @@ combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered.rds"))
 # so JoinLayers stitches them into a unified "data" layer first.
 Layers(combined[["RNA"]])           # inspect the per-sample layers
 combined_joined <- JoinLayers(combined)
-sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
+
+
+sce_counts <- LayerData(combined_subsampled, assay = "RNA", layer = "data")  # log-normalized
+
+#sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
 
 # ---- 2. Choose reference atlases --------------------------------------------
 # celldex ships several curated references. Which one fits depends on the
@@ -101,16 +105,46 @@ combined_joined$SingleR_labels_other <- pred_df$labels_other
 # combined$SingleR_label_blood <- pred_blood$labels
 # print(table(broad = combined$SingleR_label, blood = combined$SingleR_label_blood))
 
+
+
+
+#Differentially expressed genes BETWEEN two specific clusters
+
+# ident.1 vs ident.2: a direct pairwise comparison (positive log2FC = up in ident.1).
+#cluster1.cluster2.diff.genes <- FindMarkers(joint.layers.obj, ident.1 = "1", ident.2 = "2")
+#head(cluster1.cluster2.diff.genes)
+
+# -----------------------------------------------------------------------------
+# 3. Differentially expressed genes BY METADATA (condition), not cluster
+# -----------------------------------------------------------------------------
+# Switch the "identity" of each cell to its T21 status, then test T21 vs D21.
+#joint.layers.obj <- SetIdent(joint.layers.obj, value = "T21.status")
+#diff.genes.by.status <- FindAllMarkers(joint.layers.obj)
+
+# Condition comparison WITHIN a single cluster: subset to cluster 1, then test
+# T21 vs D21 inside it (controls for cell-type composition differences).
+#joint.layers.obj <- SetIdent(joint.layers.obj, value = "seurat_clusters")
+#cluster1.subset   <- subset(joint.layers.obj, idents = "1")
+#cluster1.subset   <- SetIdent(cluster1.subset, value = "T21.status")
+#diff.genes.cluster1.status <- FindAllMarkers(cluster1.subset)
+#diff.genes.cluster1.status
+
+
+
 # ---- 5. Visualize the automated annotation ----------------------------------
 save_dim <- function(p, file, w = 8, h = 6) {
   ggsave(file.path(OUT_DIR, file), plot = p, width = w, height = h, dpi = 150)
 }
 
-p<- DimPlot(combined, reduction = "umap", group.by = "SingleR_label", label = TRUE)
+p<- DimPlot(combined, reduction = "umap", group.by ="SingleR_label", label = TRUE)
 p
+
 fn = paste0(whichlabelref, "gata1_umap_singler_label.png")
 save_dim(p,
          fn)
+
+
+
 p<- DimPlot(combined, reduction = "umap", group.by = "SingleR_pruned", label = TRUE)
 p
 fn <- paste0(whichlabelref, "gata1_umap_singler_pruned.png")
@@ -163,4 +197,86 @@ save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 #saveRDS(combined_joined, file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 #message("Saved: ", file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 
-rm(combined_joined)
+# ---- 8. (Optional) What if I don't like what they called? --------------------------
+
+# FindAllMarkers: for each cluster, genes up in that cluster vs all others.
+#plan(sequential)
+combined_joined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+
+p <- DimPlot(
+  combined_joined,
+  reduction = "umap",
+  group.by = c("SingleR_labels_other", "seurat_clusters"),
+  label = TRUE
+)
+p
+
+Idents(combined_joined)
+
+#or just find some markers
+
+clusters_of_interest <- c(5, 7)  # or character, depending on Idents()
+
+
+markers_list <- lapply(
+  clusters_of_interest,
+  function(cl) {
+    res <- FindMarkers(
+      combined_joined,
+      ident.1 = cl,
+      assay   = "RNA",
+      logfc.threshold = 0.5,
+      min.pct        = 0.1
+    )
+    res$cluster <- cl
+    res$gene    <- rownames(res)
+    res
+  }
+)
+
+selected_markers <- do.call(rbind, markers_list)
+
+head(selected_markers)
+
+markers <- c("HBZ", "AHSP", "HBA1", "ALAS2", "CELF2", "FLI1")
+
+p_markers <- FeaturePlot(combined_joined, features = markers, reduction = "umap",
+                         pt.size = 0.3, ncol = 3)
+p_markers
+
+combined_joined$SingleR_labels_extended <- combined_joined$SingleR_labels_other
+
+# overwrite for cluster 7
+combined_joined$SingleR_labels_extended[Idents(combined_joined) == 7] <- "blood_progenitor_cell"
+
+# plot using the new column
+DimPlot(
+  combined_joined,
+  reduction = "umap",
+  group.by  = "SingleR_labels_extended",
+  label     = TRUE
+)
+
+
+p <- DimPlot(
+  combined_joined,
+  reduction = "umap",
+  group.by = c("SingleR_labels_extended", "seurat_clusters"),
+  label = TRUE
+)
+p
+
+
+#all.clusters.diff.genes <- FindAllMarkers(combined_joined, assay = "RNA", future.seed = FALSE)
+
+
+# Top 10 markers per cluster by fold change (the genes that DEFINE each cluster).
+#all.clusters.diff.genes %>%
+#  group_by(cluster) %>%
+#  top_n(wt = avg_log2FC, n = 10)
+
+# Top 10 by pct.1 = fraction of cells in the cluster expressing the gene
+# (useful for finding clean, highly-detected markers).
+#all.clusters.diff.genes %>%
+#  group_by(cluster) %>%
+#  top_n(wt = pct.1, n = 10)
