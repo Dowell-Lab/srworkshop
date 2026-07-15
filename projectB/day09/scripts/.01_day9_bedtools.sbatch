@@ -65,14 +65,16 @@ cat ${results}hct116_nutlin_p53_intergenic.bed | wc -l
 # --- Get TSS location 
 
 cat "$annot" \
-| awk '{FS=OFS="\t"}; {if ($6 == "+") print $1,$2,($2+1),$4,".",$6}' \
-> "$results"/hg38_refseq_tss_pos.bed
+  | awk '{FS=OFS="\t"}; {if ($6 == "+") print $1,$2,($2+1),$4,".",$6}' \
+  > "$results"/hg38_refseq_tss_pos.bed
+
 cat "$annot" \
-| awk '{FS=OFS="\t"}; {if ($6 == "-") print $1,($3-1),$3,$4,".",$6}' \
-> "$results"/hg38_refseq_tss_neg.bed
+  | awk '{FS=OFS="\t"}; {if ($6 == "-") print $1,($3-1),$3,$4,".",$6}' \
+  > "$results"/hg38_refseq_tss_neg.bed
+
 cat "$results"/hg38_refseq_tss_pos.bed \
-"$results"/hg38_refseq_tss_neg.bed \
-> "$results"/hg38_refseq_tss.bed
+  "$results"/hg38_refseq_tss_neg.bed \
+  > "$results"/hg38_refseq_tss.bed
 
 # --- Create promoter annotation file 
 

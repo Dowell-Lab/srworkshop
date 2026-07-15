@@ -1,6 +1,6 @@
 # Day9: Making Figures in R
 
-Meaghan Courvan (2024)
+Meaghan Courvan (2024)\
 Georgia Barone (2025)
 
 ## Learning objectives:
@@ -12,33 +12,33 @@ Examples of common questions that arise when running multimodal experiments are:
 * What genes are differentially expressed **and** have a p53 ChIP peak?
 * Do these genes fall into one functional classification, molecular pathway, or biological function?
 
-We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
+We've gotten almost to answering this question throughout this project, and we'll finish here. First, let's recap what we've done.
 
 1.  We calculated differential gene expression on Day 7.
 2.  We called p53 ChIP peaks on Day 8.
 3.  We used bedtools to get a list of p53 ChIP peaks overlapping genes in control (DSMO) conditions.
 4.  We got an equivalent list of p53 ChIP peaks overlapping genes in experimental (Nutlin) conditions.
 
-All that’s left is to do some basic set manipulation here in R and create some figures.
+All that's left is to do some basic set manipulation here in R and create some figures.
 
 ## Download the necessary data from the AWS
-1. On your **local computer**, pick a location that's convenient for you and make a "day9" folder.
-2. Inside your "day9" folder, make a "data" folder and a "results" folder.
-4. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
-5. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+1. On your **local computer**, pick a location that's convenient for you and make a `day9` folder.
+2. Inside your `day9` folder, make a `data` folder and a `results` folder.
+4. From the AWS, you'll transfer the whole directory containing your bedtools results: `/scratch/Users/<username>/day9/bedtools_results` to the `day9/data` folder on your local computer
+5. From the AWS, transfer the whole directory containing DESeq2 results I am providing for you: `/scratch/Shares/public/sread/cookingShow/day9b/deseq_output` to your `day9/data` folder.
 
-## Now work in the *02_day9_graphing.R* script
+## Now work in the `02_day9_graphing.R` script
 ### First, set up the environment.
 
 At the top of your script, set your working directory and the results directory. 
 
 ### Read in the data
 
-* Load in bed files you created that contain p53 peaks that **overlap genes**, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in "<*your/path*>/day9/data/bedtools_res".  
-* Since we’re working with a bed file, it doesn’t have column names. In the `read.table()` function, make sure to set header=FALSE.
-* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
-* Load the differential expression data for HCT116 cells, which you downloaded above into "<*your/path*>/day9/data/deseq_res". Note that this file DOES have a header with the column names.
-* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
+* Load in bed files you created that contain p53 peaks that **overlap genes**, in both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
+* Since we're working with a bed file, it doesn't have column names. In the `read.table()` function, make sure to set `header=FALSE`.
+* Now that you've loaded the bed files, give them usable column names. I've provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
+* Load the differential expression data for HCT116 cells, which you downloaded above into `*your_path*/day9/data/deseq_res`. Note that this file DOES have a header with the column names.
+* There are a lot of genes in this data frame, so we're going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
 
 ``` r
 ### --- READ IN CHIP DATA 
@@ -59,24 +59,25 @@ At the top of your script, set your working directory and the results directory.
 ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
 ```
 
-<br>
+\
 
 ### Examine lists for overlap
 
 #### Working with lists of genes
 
-These functions will do most of the work when we’re comparing lists of genes.
+These functions will do most of the work when we're comparing lists of genes.
 
-1.  **union()** ~ This function combines two lists and returns the
+1.  `union()` ~ This function combines two lists and returns the
     unique elements.
-2.  **intersection()** ~ This returns only elements that are common to
-    both lists. <br> <br>
+2.  `intersection()` ~ This returns only elements that are common to
+    both lists. \
+\
 
-**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we’re comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we're comparing lists, not dataframes.*
 
 ``` r
 ### --- Use either of the functions above to get the set of genes bound in either condition.
-    # Hint: we’re comparing lists, not dataframes.
+    # Hint: we're comparing lists, not dataframes.
 
 all_p53_bound <- 
 ```
@@ -101,9 +102,9 @@ Print out the number of genes that are differentially expressed and have a p53 C
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes ith a ChIP peak that are differentially expressed.
+**Next** we'll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes ith a ChIP peak that are differentially expressed.
 
-To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
+To make figures in R, we can call a specific package or function that makes the type of graph we're looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
@@ -123,12 +124,12 @@ We will do GO analysis on genes with a p53 ChIP peak that are also differentiall
 
 - Save each list in a place that is descriptive and convenient for you.
 
-*How to use write.table()*:\
+*How to use `write.table()`*:\
 `write.table()` has a lot of options. These are the ones you need to set: 
 
-* col.names=FALSE
-* row.names=FALSE
-* quote = FALSE
+* `col.names=FALSE`
+* `row.names=FALSE`
+* `quote = FALSE`
 
 ```r
 write.table(  , file =  paste0(outdir, 'genes_p53peak.txt'),  )
@@ -139,12 +140,12 @@ write.table(  , file = paste0(outdir, 'genes_sig_p53peak.txt'),  )
 
 ### Comparing DE genes between cell lines.
 
-This study looked at p53 responses across 4 cell lines: SJSA, MCF7, HCT116, and HCT116 with p53 KO. Let’s see how consistent the p53 response is across these cells lines. We’ll do this by making two types of graphs.
+This study looked at p53 responses across 4 cell lines: SJSA, MCF7, HCT116, and HCT116 with p53 KO. Let's see how consistent the p53 response is across these cells lines. We'll do this by making two types of graphs.
 
 1.  A venn diagram, as we did above.
 2.  A heatmap of differential expression.
 
-**First**, load in the data from *"day9/data/deseq_output/"* folder.
+**First**, load in the data from `day9/data/deseq_output/` folder.
 
 ``` r
 # ---- READ IN DATA
@@ -165,7 +166,7 @@ ggvenn()
 
 ```
 
-**Third**, we’ll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We’ll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
+**Third**, we'll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We'll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
 
 You may have already installed this package during Day 7. If not, click on the link above, and skim the tutorial. The first lines tell you how to install pheatmap. Install it below. Then comment out the install line and load the package on the line below.
 
@@ -175,7 +176,7 @@ You may have already installed this package during Day 7. If not, click on the l
 - What set of genes will you include in the heatmap?
 
 
-**To make heatmaps** ataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
+**To make heatmaps**, dataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named "GeneID". We'll leave that, but tag all the other column names with their cell type. I've provided that code, you just have to run it.
 
 ```r
 ### --- FILTER 
@@ -195,9 +196,9 @@ colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
 colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 ```
 
-These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Choose which of the four functions to use.
+These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being `full_join()`, `inner_join()`, `left_join()`, and `right_join()`. Choose which of the four functions to use.
 
-**Pheatmap needs a dataframe that looks like this**
+**Pheatmap needs a dataframe that looks like this**\
 ![data frame for Pheatmap](images/df_for_heatmap.png)
 
 
@@ -209,27 +210,27 @@ These need to be combined into a common data frame that can be used to create a 
 
   # Move GeneID to be the row names of the df and remove the GeneID column
 ```
-We want to graph genes that are differentially expressed in at least two out of three cell lines. Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This is helpful for us because it’s easy to count the number of NAs per row using the **rowSums()** function and the **is.na()** function.
+We want to graph genes that are differentially expressed in at least two out of three cell lines. Right now, if a gene was measured in one sample but not the others, when it was combined during full_join, NA was filled in for that gene. This is helpful for us because it's easy to count the number of NAs per row using the `rowSums()` function and the `is.na()` function.
 
-- Count the number of NA’s per row and save it as a new column titled “zero_count”.
+- Count the number of NA's per row and save it as a new column titled "zero_count".
 - Filter the data frame so that you only keep genes with values in at least 2 cell lines.
 - Print out the dimensions of this data frame.
 
 There are two last things to adjust the data before we can make a heatmap.
 
-* We’ve added an extra column that is unrelated to our data, the “zero_count” column. Remove this column.
-* Pheatmap() will only take in numerical values, so change all your NA values to 0. *Hint* use the
-**is.na()** function.
+* We've added an extra column that is unrelated to our data, the "zero_count" column. Remove this column.
+* `pheatmap()` will only take in numerical values, so change all your NA values to 0. *Hint* use the
+`is.na()` function.
 
-Lastly, graph your data using **pheatmap()**!
+Lastly, graph your data using `pheatmap()`!
 
-I am a picky and opinionated person. I dislike the default pheatmap esthetics. I think the middle of the range should be white, and that the highest values should be red and the lowest values be blue. I also don’t like that each box is outlined in gray, I find it distracting. 
+I am a picky and opinionated person. I dislike the default pheatmap aesthetics. I think the middle of the range should be white, and that the highest values should be red and the lowest values be blue. I also don't like that each box is outlined in gray, I find it distracting. 
 
-In the Console, type “?pheatmap” and look at the documentation. 
+In the Console, type `?pheatmap` and look at the documentation. 
 
 * Find how to specify color scale and outline of the box.
 * Rewrite the pheatmap line of code below making the esthetic changes.
-* Add any other changes you’d like to see (i.e. text color, row labels, or font sizes).
+* Add any other changes you'd like to see (i.e. text color, row labels, or font sizes).
 * I've made plenty of asthetic demands, so I'll just leave a question/hint here for you to ignore if you want to. Is everything in this graph useful? Are there aspects of it that don't add to our understanding of the data?
 
 
@@ -239,12 +240,12 @@ In the Console, type “?pheatmap” and look at the documentation.
 There are more ChIP peaks in the Nutlin samples than the DMSO. Are there other differences between the samples? Let's look at the width of the ChIP peak calls in both samples. This is an opportunity for you to practice doing some more dataframe manipulation and try new types of graphs. I will walk you through how to do compare the distributions of ChIP peak sizes.
 
 These following 3 directions you need to do twice, once for nutlin_peaks, and once for dmso_peaks. 
-* Make a new data frame that has only the columns you need for plotting. From the {sample}_peaks data frame, select the columns contain where the peak starts, peak stops, the peak ID, and the gene.
+* Make a new data frame that has only the columns you need for plotting. From the `{sample}_peaks` data frame, select the columns contain where the peak starts, peak stops, the peak ID, and the gene.
 * Look at the dataframe. We can't use it as is. Why is that? Fix that problem using the function duplicated(), which identifies duplicated rows.
 * Create a new column in this dataframe that contains the width of the ChIP peak. 
 
 Now that you have these two new dataframes, we can create 1 dataframe and get it into a format that's good for plotting. 
-* Combine nutlin_peaks_unique and dmso_peaks_unique into one dataframe using the rbind() function. This function pastes one dataframe on top of the other. It requires that the columns have the same names. This should already be the case (unless you changed anything).
+* Combine `nutlin_peaks_unique` and `dmso_peaks_unique` into one dataframe using the `rbind()` function. This function pastes one dataframe on top of the other. It requires that the columns have the same names. This should already be the case (unless you changed anything).
 * This dataframe is in LONG format. Read this webpage on the [difference between long and wide formats](https://www.statology.org/long-vs-wide-data/).
 * Make sure to read the sections on <u>when</u> to use wide or long format.
 * Since this is long format, we need a column that specifies which row is "Nutlin" and which is "DMSO". This is a bit of an odd command to write, so I've written it for you. You can just run it. If you want to understand it, ask me or ChatGPT to explain it to you.
