@@ -82,7 +82,7 @@ bedtools slop -l 1000 -r 100 -s -i "$results"/hg38_refseq_tss.bed -g ${chrom_siz
 
 # --- Which genes have p53 ChIP sites in their promoters
 
-bedtools intersect -wo ${HCT116_nutlin_peaks} -b ${TSS_annot} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
+bedtools intersect -wo -a ${HCT116_nutlin_peaks} -b ${TSS_annot} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
 
 
 ###------------------------------------------------###
