@@ -1,25 +1,25 @@
 #!/bin/bash
 #SBATCH --job-name=d9_bedtools                          # Job name
 #SBATCH --mail-type=ALL                                 # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=meco9877@colorado.edu        # Where to send mail
+#SBATCH --mail-user=<EMAIL>        # Where to send mail
 #SBATCH --nodes=1                                       # Numbers of nodes
 #SBATCH --ntasks=1                                      # Number of CPU (tasks)
 #SBATCH --time=00:10:00                                 # Time limit hrs:min:sec
 #SBATCH --mem=2gb                                       # Memory limit
 #SBATCH -p short
-#SBATCH --output=/scratch/Users/meaghansullivan/day9/eofiles/%x_%j.out
-#SBATCH --error=/scratch/Users/meaghansullivan/day9/eofiles/%x_%j.err
+#SBATCH --output=/scratch/Users/<username>/day9/eofiles/%x_%j.out
+#SBATCH --error=/scratch/Users/<username>/day9/eofiles/%x_%j.err
 
 
 ################## USER INPUT ######################################
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
-ANNOT='/scratch/Shares/public/sread/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed'
-CHIP_DIR='/scratch/Shares/public/sread/cookingShow/day8b/whole_genome/macs/'
-HCT116_DMSO_PEAKS=${CHIP_DIR}/HCT116_DMSO_peaks_clean.narrowPeak
-HCT116_NUTLIN_PEAKS=${CHIP_DIR}/HCT116_NUTLIN_peaks_clean.narrowPeak
-results='/scratch/Users/meaghansullivan/day9/bedtools_results/'
-TSS_ANNOT=${results}/hg38_refseq_tssregion.bed
+annot='/scratch/Shares/public/sread/cookingShow/day9b/annotation/hg38_refseq_cleaned.sorted.bed'
+chip_dir='/scratch/Shares/public/sread/cookingShow/day8b/whole_genome/macs/'
+HCT116_dmso_peaks=${chip_dir}/HCT116_DMSO_peaks_clean.narrowPeak
+HCT116_nutlin_peaks=${chip_dir}/HCT116_NUTLIN_peaks_clean.narrowPeak
+results='/scratch/Users/<username>/day9/bedtools_results/'
+TSS_annot=${results}/hg38_refseq_tssregion.bed
 
 mkdir -p ${results}
 ################## JOB INFO ########################################
@@ -45,15 +45,15 @@ echo "Starting bedtools commands"
 
 # --- Which p53 peaks are associated with genes (not intergenic)
 
-bedtools intersect -wo -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_overlap_genes.bed
+bedtools intersect -wo -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}/hct116_nutlin_p53_overlap_genes.bed
 
 # --- Which p53 peeks are entirely within genes 
 
-bedtools intersect -wo -f 1 -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/hct116_nutlin_p53_in_genes.bed
+bedtools intersect -wo -f 1 -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}/hct116_nutlin_p53_in_genes.bed
 
 # --- Which p53 peaks are intergenic 
 
-bedtools intersect -wo -v -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}hct116_nutlin_p53_intergenic.bed
+bedtools intersect -wo -v -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}hct116_nutlin_p53_intergenic.bed
 
 
 # --- How many peaks or genes are in each of these files? 
@@ -64,10 +64,10 @@ cat ${results}hct116_nutlin_p53_intergenic.bed | wc -l
 
 # --- Get TSS location 
 
-cat "$ANNOT" \
+cat "$annot" \
 | awk '{FS=OFS="\t"}; {if ($6 == "+") print $1,$2,($2+1),$4,".",$6}' \
 > "$results"/hg38_refseq_tss_pos.bed
-cat "$ANNOT" \
+cat "$annot" \
 | awk '{FS=OFS="\t"}; {if ($6 == "-") print $1,($3-1),$3,$4,".",$6}' \
 > "$results"/hg38_refseq_tss_neg.bed
 cat "$results"/hg38_refseq_tss_pos.bed \
@@ -80,7 +80,7 @@ bedtools slop -l 1000 -r 100 -s -i "$results"/hg38_refseq_tss.bed -g ${chrom_siz
 
 # --- Which genes have p53 ChIP sites in their promoters
 
-bedtools intersect -wo ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
+bedtools intersect -wo ${HCT116_nutlin_peaks} -b ${TSS_annot} > ${results}/hct116_nutlin_p53_overlap_promoters.bed
 
 
 ###------------------------------------------------###
@@ -90,15 +90,15 @@ bedtools intersect -wo ${HCT116_NUTLIN_PEAKS} -b ${TSS_ANNOT} > ${results}/hct11
 
 # --- Which p53 peaks are associated with genes (not intergenic)
 
-bedtools intersect -wo -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_overlap_genes.bed
+bedtools intersect -wo -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_overlap_genes.bed
 
 # --- Which p53 peeks are entirely within genes
 
-bedtools intersect -wo -f 1 -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_in_genes.bed
+bedtools intersect -wo -f 1 -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_in_genes.bed
 
 # --- Which p53 peaks are intergenic
 
-bedtools intersect -wo -v -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct116_dmso_p53_intergenic.bed
+bedtools intersect -wo -v -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_intergenic.bed
 
 
 
@@ -107,17 +107,17 @@ bedtools intersect -wo -v -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/hct11
 ###---- Jacquard Calculations ----###
 
 # --- Jaccard used to calculate similarity between p53 peaks in DMSO and genes
-bedtools jaccard -a ${HCT116_DMSO_PEAKS} -b ${ANNOT} > ${results}/jaccard_p53_peaks_in_genes_hct_dmso.txt
+bedtools jaccard -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/jaccard_p53_peaks_in_genes_hct_dmso.txt
 
 # --- Jaccard used to calculate similarity between p53 peaks in Nutlin and genes
-bedtools jaccard -a ${HCT116_NUTLIN_PEAKS} -b ${ANNOT} > ${results}/jaccard_p53_peaks_in_genes_hct_nutlin.txt
+bedtools jaccard -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}/jaccard_p53_peaks_in_genes_hct_nutlin.txt
 
 # --- Shuffle p53 locations in the nutlin samples, then sort
-bedtools shuffle -chrom -i ${HCT116_NUTLIN_PEAKS} -g ${chrom_sizes} > ${results}/hct116_nutlin_p53peaks_shuffled.bed
+bedtools shuffle -chrom -i ${HCT116_nutlin_peaks} -g ${chrom_sizes} > ${results}/hct116_nutlin_p53peaks_shuffled.bed
 bedtools sort -i ${results}/hct116_nutlin_p53peaks_shuffled.bed > ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed
 
 # --- Similarity between shuffled p53 peaks in Nutlin and genes
-bedtools jaccard -a ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed -b ${ANNOT} > ${results}/p53_nutlin_shuff_genes_jaccard.txt
+bedtools jaccard -a ${results}/hct116_nutlin_p53peaks_shuffled.sorted.bed -b ${annot} > ${results}/p53_nutlin_shuff_genes_jaccard.txt
 
 
 
