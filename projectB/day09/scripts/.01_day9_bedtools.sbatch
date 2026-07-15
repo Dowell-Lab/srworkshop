@@ -53,7 +53,7 @@ bedtools intersect -wo -f 1 -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}/h
 
 # --- Which p53 peaks are intergenic 
 
-bedtools intersect -wo -v -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}hct116_nutlin_p53_intergenic.bed
+bedtools intersect -wo -v -a ${HCT116_nutlin_peaks} -b ${annot} > ${results}/hct116_nutlin_p53_intergenic.bed
 
 
 # --- How many peaks or genes are in each of these files? 
