@@ -3,7 +3,7 @@
 
 # Set environment ---------------------------------------------------------
 
-  library(ggplot2) # load ggplot2 
+  library(tidyverse) # load ggplot2 
   setwd('your/path/to/<your short read dir>/day9/') # set your local working directory 
   outdir <- 'results/'
   
@@ -11,9 +11,8 @@
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks <- read_tsv('data/bedtools_results/hct116_dmso_p53_overlap_genes.bed') 
-  nutlin_peaks <- read_tsv('data/bedtools_results/hct116_nutlin_p53_overlap_genes.bed', 
-                             header = FALSE)
+  dmso_peaks <- read_tsv('data/bedtools_results/hct116_dmso_p53_overlap_genes.bed', col_names = FALSE) 
+  nutlin_peaks <- read_tsv('data/bedtools_results/hct116_nutlin_p53_overlap_genes.bed', col_names = FALSE)
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
@@ -24,7 +23,7 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de_import <- read.table('data/deseq_output/hct116_deres.txt', header=TRUE)# read in data here 
+  de_import <- read_tsv('data/deseq_output/hct116_deres.txt')# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
   de <- de_import[de_import$padj < 0.05, ]
@@ -35,20 +34,26 @@
   # Examining ChIP Peaks ----------------------------------------------------
   
   ### --- Peaks in EITHER DMSO or Nutlin
-  all_p53_bound <- union(dmso_peaks$gene, nutlin_peaks$gene)# get a list of gene names 
-  print(length(all_p53_bound)) # print the number of genes in all_peaks
+  all_p53_bound <- union(dmso_peaks$gene, nutlin_peaks$gene)# get a list of gene names
+  all_p53_bound_num <- length(all_p53_bound) 
+  print(all_p53_bound_num)
+ 
   
   ### --- Peaks that are in genes that were measured
   bound_genes <- intersect(all_p53_bound, de_import$GeneID) # get a list of gene names 
+  bound_genes_num <- length(bound_genes)
+  print(bound_genes_num)
+
   print(length(bound_genes)) # print the number of genes in bound_de_genes
   print(bound_genes)
   
   ### --- Peaks that are in DE genes 
   bound_de_genes <- intersect(all_p53_bound, de$GeneID) # get a list of gene names 
-  print(length(bound_de_genes)) # print the number of genes in bound_de_genes
-  print(bound_de_genes)
+  bound_de_genes_num <- length(bound_de_genes) # print the number of genes in bound_de_genes
+  print(bound_de_genes_num)
 
-  ### --- Create a venn diagram
+
+### --- Create a venn diagram
   #install.packages("ggvenn") #install on this line. Once you install, comment this line out 
   library(ggvenn) # don't forget to load your new library on this line 
   venn_list <- list(
@@ -62,11 +67,11 @@
 
   
   ### --- Export results for GO analysis   
-  write_tsv(bound_de_genes, 
+  write.table(bound_de_genes, 
               paste0(outdir, 'genes_sig_p53peak.txt'), 
               col.names=FALSE, row.names=FALSE, 
               quote = FALSE)
-  write_tsv(bound_genes, 
+  write.table(bound_genes, 
               paste0(outdir, 'genes_p53peak.txt'), 
               col.names=FALSE, row.names=FALSE, 
               quote = FALSE)
@@ -77,10 +82,10 @@
   
   ### --- Load differential expression analysis results
   
-  hct_de <- read.table('data/deseq_output/hct116_deres.txt', header = TRUE)
-  hct_p53ko_de <- read.table('data/deseq_output/hct116p53ko_deres.txt', header = TRUE)
-  sjsa_de <- read.table('data/deseq_output/sjsa_deres.txt', header = TRUE)
-  mcf7-de <- read.table('data/deseq_output/mcf7_deres.txt', header = TRUE)
+  hct_de <- read_tsv('data/deseq_output/hct116_deres.txt')
+  hct_p53ko_de <- read_tsv('data/deseq_output/hct116p53ko_deres.txt')
+  sjsa_de <- read_tsv('data/deseq_output/sjsa_deres.txt')
+  mcf7_de <- read_tsv('data/deseq_output/mcf7_deres.txt')
   
 
 # Make a venn diagram of just what is differential in each cell line?  
@@ -91,7 +96,7 @@
   
   de_venn <- list(
     HCT116 = hct_filt$GeneID, 
-    #`HCT116 p53-KO` = hct_p53ko.de$GeneID, 
+    `HCT116 p53-KO` = hct_p53ko_de$GeneID, 
     SJSA = sjsa_filt$GeneID, 
     MCF7 = mcf7_filt$GeneID
   )
@@ -106,25 +111,25 @@
   
   ### --- FILTER datasets so that they are a reasonable size for a heatmap
   hct_filt <- hct_de[hct_de$padj <= 0.05, ]
-  hct_p53ko_filt <- hct_p53ko_de[hct_p53ko.de$padj <= 0.05, ]
+  hct_p53ko_filt <- hct_p53ko_de[hct_p53ko_de$padj <= 0.05, ]
   sjsa_filt <- sjsa_de[sjsa_de$padj <= 0.05, ]
   mcf7_filt <- mcf7_de[mcf7_de$padj <= 0.05, ]
     
   ### --- Print dimensions below
   print('hct116')
-  dim(hct.filt)
+  dim(hct_filt)
   print('hct116 p53ko')
-  dim(hct_p53ko.filt)
+  dim(hct_p53ko_filt)
   print('sjsa')
-  dim(sjsa.filt)
+  dim(sjsa_filt)
   print('mcf7')
-  dim(mcf7.filt)
+  dim(mcf7_filt)
     
   ### --- Rename columns so that the dataframes can be combined.
-  colnames(hct.filt)[-1] <- paste('hct', colnames(hct.filt)[-1], sep = '_')
-  colnames(hct_p53ko.filt)[-1] <- paste('hct_p53ko', colnames(hct_p53ko.filt)[-1], sep = '_')
-  colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
-  colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
+  colnames(hct_filt)[-1] <- paste('hct', colnames(hct_filt)[-1], sep = '_')
+  colnames(hct_p53ko_filt)[-1] <- paste('hct_p53ko', colnames(hct_p53ko_filt)[-1], sep = '_')
+  colnames(sjsa_filt)[-1] <- paste('sjsa', colnames(sjsa_filt)[-1], sep = '_')
+  colnames(mcf7_filt)[-1] <- paste('mcf7', colnames(mcf7_filt)[-1], sep = '_')
   
   
 
@@ -133,9 +138,9 @@
   # Use one of the following functions 
   #     ~ full_join, inner_join, left_join, right_join   
   
-  df <- full_join(hct.filt[, c(1,3)], hct_p53ko.filt[, c(1,3)])
-  df <- full_join(df, sjsa.filt[, c(1,3)])
-  df <- full_join(df, mcf7.filt[, c(1,3)])
+  df <- full_join(hct_filt[, c(1,3)], hct_p53ko_filt[, c(1,3)])
+  df <- full_join(df, sjsa_filt[, c(1,3)])
+  df <- full_join(df, mcf7_filt[, c(1,3)])
 
   # Move GeneID to be the row names of the df and remove the GeneID column
   rownames(df) <- df$GeneID
