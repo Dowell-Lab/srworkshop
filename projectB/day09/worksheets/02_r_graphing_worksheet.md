@@ -184,6 +184,19 @@ You may have already installed this package during Day 7. If not, click on the l
 - There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
 - What set of genes will you include in the heatmap?
 
+```{r}
+
+### --- FILTER 
+hct_filt <- 
+hct_p53ko_filt <- 
+sjsa_filt <- 
+mcf7_filt <- 
+
+### --- Print dimensions below
+dim()
+
+```
+
 
 **To make heatmaps**, dataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named "GeneID". We'll leave that, but tag all the other column names with their cell type. I've provided that code, you just have to run it.
 
@@ -191,14 +204,6 @@ You may have already installed this package during Day 7. If not, click on the l
 ![data frame for Pheatmap](images/df_for_heatmap.png)
 
 ```r
-### --- FILTER 
-hct.filt <- 
-hct_p53ko.filt <- 
-sjsa.filt <- 
-mcf7.filt <- 
-
-### --- Print dimensions below
-
 
 ### --- Rename 
 
