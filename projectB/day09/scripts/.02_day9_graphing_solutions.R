@@ -4,16 +4,15 @@
 # Set environment ---------------------------------------------------------
 
   library(ggplot2) # load ggplot2 
-  setwd('your/path/to/2025_shortread/day9/') # set your local working directory 
+  setwd('your/path/to/<your short read dir>/day9/') # set your local working directory 
   outdir <- 'results/'
   
 
 # Read in data ------------------------------------------------------------
 
   ### --- READ IN CHIP DATA 
-  dmso_peaks <- read.table('bedtools_results/p53_peaks_in_genes_hct_dmso.bed', 
-                           header = FALSE) 
-  nutlin_peaks <- read.table('bedtools_results/p53_peaks_in_genes_hct_nutlin.bed', 
+  dmso_peaks <- read_tsv('data/bedtools_results/hct116_dmso_p53_overlap_genes.bed') 
+  nutlin_peaks <- read_tsv('data/bedtools_results/hct116_nutlin_p53_overlap_genes.bed', 
                              header = FALSE)
   
   ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
@@ -25,10 +24,10 @@
   colnames(nutlin_peaks) <- set_colnames
   
   ### --- READ IN DE DATA 
-  de.import <- read.table('data/deseq_output/hct116_deres.txt', header=TRUE)# read in data here 
+  de_import <- read.table('data/deseq_output/hct116_deres.txt', header=TRUE)# read in data here 
   
   ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
-  de <- de.import[abs(de.import$log2FoldChange) > 1.25 & de.import$padj < 0.05, ]
+  de <- de_import[de_import$padj < 0.05, ]
 
   
   
@@ -40,7 +39,7 @@
   print(length(all_p53_bound)) # print the number of genes in all_peaks
   
   ### --- Peaks that are in genes that were measured
-  bound_genes <- intersect(all_p53_bound, de.import$GeneID) # get a list of gene names 
+  bound_genes <- intersect(all_p53_bound, de_import$GeneID) # get a list of gene names 
   print(length(bound_genes)) # print the number of genes in bound_de_genes
   print(bound_genes)
   
@@ -61,17 +60,13 @@
   ggvenn(venn_list) #create venn diagram on this line!
 
 
-  ### --- Calculate Percentage
-  percent <- (31 + 166)/length(all_p53_bound) * 100
-  print(percent)
-  
   
   ### --- Export results for GO analysis   
-  write.table(bound_de_genes, 
+  write_tsv(bound_de_genes, 
               paste0(outdir, 'genes_sig_p53peak.txt'), 
               col.names=FALSE, row.names=FALSE, 
               quote = FALSE)
-  write.table(bound_genes, 
+  write_tsv(bound_genes, 
               paste0(outdir, 'genes_p53peak.txt'), 
               col.names=FALSE, row.names=FALSE, 
               quote = FALSE)
@@ -82,34 +77,23 @@
   
   ### --- Load differential expression analysis results
   
-  hct.de <- read.table('data/deseq_output/hct116_deres.txt', header = TRUE)
-  hct_p53ko.de <- read.table('data/deseq_output/hct116p53ko_deres.txt', header = TRUE)
-  sjsa.de <- read.table('data/deseq_output/sjsa_deres.txt', header = TRUE)
-  mcf7.de <- read.table('data/deseq_output/mcf7_deres.txt', header = TRUE)
+  hct_de <- read.table('data/deseq_output/hct116_deres.txt', header = TRUE)
+  hct_p53ko_de <- read.table('data/deseq_output/hct116p53ko_deres.txt', header = TRUE)
+  sjsa_de <- read.table('data/deseq_output/sjsa_deres.txt', header = TRUE)
+  mcf7-de <- read.table('data/deseq_output/mcf7_deres.txt', header = TRUE)
   
-  ### --- Create a venn diagram of the cell lines 
-  
-  de_venn <- list(
-    HCT116 = hct.de$GeneID, 
-    `HCT116 p53-KO` = hct_p53ko.de$GeneID, 
-    SJSA = sjsa.de$GeneID, 
-    MCF7 = mcf7.de$GeneID
-  )
-  
-  ggvenn(de_venn)
-  
-  # consider modifying the venn diagram below 
-  # more helpful version of the venn diagram 
-  hct.filt <- hct.de[(hct.de$padj <= 0.05), ] #abs(hct.de$log2FoldChange) > 3 & 
-  hct_p53ko.de.filt <- hct_p53ko.de[(hct_p53ko.de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
-  sjsa.filt <- sjsa.de[(sjsa.de$padj <= 0.05), ] #abs(sjsa.de$log2FoldChange) > 3 & 
-  mcf7.filt <- mcf7.de[(mcf7.de$padj <= 0.05), ] #abs(mcf7.de$log2FoldChange) > 3 & 
+
+# Make a venn diagram of just what is differential in each cell line?  
+  hct_filt <- hct_de[(hct_de$padj <= 0.05), ] #abs(hct.de$log2FoldChange) > 3 & 
+  hct_p53ko_de_filt <- hct_p53ko_de[(hct_p53ko_de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
+  sjsa_filt <- sjsa_de[(sjsa_de$padj <= 0.05), ] #abs(sjsa.de$log2FoldChange) > 3 & 
+  mcf7_filt <- mcf7_de[(mcf7_de$padj <= 0.05), ] #abs(mcf7.de$log2FoldChange) > 3 & 
   
   de_venn <- list(
-    HCT116 = hct.filt$GeneID, 
+    HCT116 = hct_filt$GeneID, 
     #`HCT116 p53-KO` = hct_p53ko.de$GeneID, 
-    SJSA = sjsa.filt$GeneID, 
-    MCF7 = mcf7.filt$GeneID
+    SJSA = sjsa_filt$GeneID, 
+    MCF7 = mcf7_filt$GeneID
   )
   
   ggvenn(de_venn)
@@ -121,10 +105,10 @@
   library(pheatmap) # load pheatmap on this line 
   
   ### --- FILTER datasets so that they are a reasonable size for a heatmap
-  hct.filt <- hct.de[(abs(hct.de$log2FoldChange) > 3 & hct.de$padj <= 0.05), ]
-  hct_p53ko.filt <- hct_p53ko.de[(abs(hct_p53ko.de$log2FoldChange) > 3 & hct_p53ko.de$padj <= 0.05), ]
-  sjsa.filt <- sjsa.de[(abs(sjsa.de$log2FoldChange) > 3 & sjsa.de$padj <= 0.05), ]
-  mcf7.filt <- mcf7.de[(abs(mcf7.de$log2FoldChange) > 3 & mcf7.de$padj <= 0.05), ]
+  hct_filt <- hct_de[hct_de$padj <= 0.05, ]
+  hct_p53ko_filt <- hct_p53ko_de[hct_p53ko.de$padj <= 0.05, ]
+  sjsa_filt <- sjsa_de[sjsa_de$padj <= 0.05, ]
+  mcf7_filt <- mcf7_de[mcf7_de$padj <= 0.05, ]
     
   ### --- Print dimensions below
   print('hct116')
