@@ -30,7 +30,7 @@ All that's left is to do some basic set manipulation here in R and create some f
 ## Now work in the `02_day9_graphing.R` script
 ### First, set up the environment.
 
-At the top of your script, set your working directory and the results directory. 
+At the top of your script, load any libraries you want to you. Then set your working directory and specify the results directory. 
 
 ### Read in the data
 
