@@ -85,7 +85,7 @@ Today, we'll use bedtools on the AWS. It's also fairly easy to install on your p
 
 ### Writing the bedtools script.
 
-<-- **NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at `\<github_repo\>/projectB/day09/scripts/.01_day9_bedtools.sbatch` /-->
+<!--**NOTE:** *Please try to write the commands by yourself.* But if you need help there is an example of a final script at `\<github_repo\>/projectB/day09/scripts/.01_day9_bedtools.sbatch`-->
 
 We have a list of genes (the annotation file), and we have a list of peaks called from a p53 ChIP experiment, identifying putative p53 binding locations in experimental (**Nutlin treated**) HCT116 cells. What if we want to find out how many of those p53 binding sites overlap with genes?
 
