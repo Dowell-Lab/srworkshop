@@ -34,16 +34,15 @@ At the top of your script, load any libraries you want to you. Then set your wor
 
 ### Read in the data
 
-* Load in bed files you created that contain p53 peaks that **overlap genes**, in both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
+* Load in bed files that contain p53 peaks **overlap genes** anywhere within the gene annotation. Do this for both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read_tsv()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
 * Since we're working with a bed file, it doesn't have column names. In the `read.table()` function, make sure to set `header=FALSE`.
 * Now that you've loaded the bed files, give them usable column names. I've provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
-* Load the differential expression data for HCT116 cells, which you downloaded above into `*your_path*/day9/data/deseq_res`. Note that this file DOES have a header with the column names.
-* There are a lot of genes in this data frame, so we're going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
 
-``` r
+```{r}
+
 ### --- READ IN CHIP DATA 
-  dmso_peaks # read in data here     
-  nutlin_peaks # read in data here 
+  dmso_peaks # read in data here, use read_tsv()
+  nutlin_peaks # read in data here, use read_tsv()
   
 ### --- GIVE CHIP DATA USEFUL COLUMN NAMES
   set_colnames <- c('chip_chr', 'chip_start', 'chip_end', 'peak_id', 'score', 
@@ -52,6 +51,12 @@ At the top of your script, load any libraries you want to you. Then set your wor
                     'gene', '.', 'gene_strand', 'overlap') 
   colnames(dmso_peaks) <- set_colnames
   colnames(nutlin_peaks) <- set_colnames
+
+```
+* Load the differential expression data for HCT116 cells, which you downloaded above into `*your_path*/day9/data/deseq_res`. Note that this file DOES have a header with the column names.
+* There are a lot of genes in this data frame, so we're going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
+
+``` r
   
 ### --- READ IN DE DATA 
   de.import # read in data here 
