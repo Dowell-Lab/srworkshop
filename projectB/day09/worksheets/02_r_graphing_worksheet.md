@@ -34,7 +34,7 @@ At the top of your script, load any libraries you want to you. Then set your wor
 
 ### Read in the data
 
-* Load in bed files that contain p53 peaks **overlap genes** anywhere within the gene annotation. Do this for both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read_tsv()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
+* Load in bed files that contain p53 peaks **overlap genes anywhere** within the gene annotation. Do this for both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read_tsv()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
 * Since we're working with a bed file, it doesn't have column names. What option do you need to add to `read_tsv()` to account for missing column names? 
 * Now that you've loaded the bed files, give them usable column names. I've provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
 
@@ -82,21 +82,21 @@ These functions will do most of the work when we're comparing lists of genes.
     both lists. \
 \
 
-**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we're comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: does intersection() take data frames?*
 
 ``` r
 ### --- Use either of the functions above to get the set of genes bound in either condition.
-    # Hint: we're comparing lists, not dataframes.
 
 all_p53_bound <- 
 ```
 
-**Second:** How many of these genes were analyzed using DESeq2, regardless of whether they were significantly differentially expressed.
+**Second:** How many of these genes were analyzed using DESeq2, regardless of whether they were significantly differentially expressed. This is like asking "how many genes that are bound by p53 are also expressed?"
 
 ``` r
 ### --- Use either of the functions above to get the set of genes with p53 bound that are present at all in the DESeq2 results. 
 
-bound_genes <- 
+bound_genes <-
+
 ```
 
 **Third:** Look at the intersection of this list with <u>differentially expressed</u> genes.
