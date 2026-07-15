@@ -19,7 +19,7 @@ chip_dir='/scratch/Shares/public/sread/cookingShow/day8b/whole_genome/macs/'
 HCT116_dmso_peaks=${chip_dir}/HCT116_DMSO_peaks_clean.narrowPeak
 HCT116_nutlin_peaks=${chip_dir}/HCT116_NUTLIN_peaks_clean.narrowPeak
 results='/scratch/Users/<username>/day9/bedtools_results/'
-tss_annot=${results}/hg38_refseq_tssregion.bed
+TSS_annot=${results}/hg38_refseq_tssregion.bed
 
 mkdir -p ${results}
 ################## JOB INFO ########################################
