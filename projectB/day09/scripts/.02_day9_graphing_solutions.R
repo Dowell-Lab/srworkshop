@@ -89,10 +89,13 @@
   
 
 # Make a venn diagram of just what is differential in each cell line?  
-  hct_filt <- hct_de[(hct_de$padj <= 0.05), ] #abs(hct.de$log2FoldChange) > 3 & 
-  hct_p53ko_de_filt <- hct_p53ko_de[(hct_p53ko_de$padj <= 0.05), ] #abs(hctko.de$log2FoldChange) > 3 & 
-  sjsa_filt <- sjsa_de[(sjsa_de$padj <= 0.05), ] #abs(sjsa.de$log2FoldChange) > 3 & 
-  mcf7_filt <- mcf7_de[(mcf7_de$padj <= 0.05), ] #abs(mcf7.de$log2FoldChange) > 3 & 
+
+  hct_filt <- hct_de[(abs(hct_de$log2FoldChange) > 3 & hct_de$padj <= 0.05), ] 
+  hct_p53ko_filt <- hct_p53ko_de[(abs(hct_p53ko_de$log2FoldChange) > 3 & hct_p53ko_de$padj <= 0.05), ] 
+  sjsa_filt <- sjsa_de[(abs(sjsa_de$log2FoldChange) > 3 & sjsa_de$padj <= 0.05), ] 
+  mcf7_filt <- mcf7_de[(abs(mcf7_de$log2FoldChange) > 3 & mcf7_de$padj <= 0.05), ] 
+
+
   
   de_venn <- list(
     HCT116 = hct_filt$GeneID, 
