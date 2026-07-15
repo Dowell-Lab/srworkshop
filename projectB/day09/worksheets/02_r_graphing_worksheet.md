@@ -79,7 +79,7 @@ These functions will do most of the work when we're comparing lists of genes.
 1.  `union()` ~ This function combines two lists and returns the
     unique elements.
 2.  `intersection()` ~ This returns only elements that are common to
-    both lists. \
+    both lists. 
 
 
 **First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: does intersection() take data frames?*
