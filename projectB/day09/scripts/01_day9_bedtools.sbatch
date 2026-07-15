@@ -33,7 +33,7 @@ printf "\nYou've requested $SLURM_CPUS_ON_NODE core(s).\n"
 
 ################### LOAD MODULES ###################################
 
-module load bedtools/2.28.0
+module load bedtools/2.31.1
 
 
 ################## SCRIPT ##########################################
