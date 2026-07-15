@@ -34,7 +34,7 @@ At the top of your script, load any libraries you want to you. Then set your wor
 
 ### Read in the data
 
-* Load in bed files that contain p53 peaks **overlap genes anywhere** within the gene annotation. Do this for both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read_tsv()`. We just downloaded these above, and they should be in `*your_path*/day9/data/bedtools_results`.  
+* Load in bed files containing p53 peaks that **overlap genes anywhere** within the gene annotation. Do this for both DMSO and Nutlin treated conditions. In case you've forgotten, the function you need is `read_tsv()`. We just downloaded these above, and they should be in `<your_path>/day9/data/bedtools_results/`.  
 * Since we're working with a bed file, it doesn't have column names. What option do you need to add to `read_tsv()` to account for missing column names? 
 * Now that you've loaded the bed files, give them usable column names. I've provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
 
