@@ -59,7 +59,7 @@ recognize this as a bed file based on those six columns and ignore the rest.
 You can do annotation file manipulations with text editors (not recommended – most are quite large), command line commands, or other software such as Bedtools.  
 
 :yellow_circle: Make a directory for this worksheet at
-  `/scratch/Users/\<username\>/day9/`
+  `/scratch/Users/<username>/day9/`
   
 :yellow_circle: Within this directory, make folders named `scripts`, `eofiles`, and `bedtools_results`.
 
