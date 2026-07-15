@@ -3,6 +3,9 @@
 Today we process ChIP-seq data. We will start with preprocessing the raw data and proceed to peak calling, motif identification and annotation.
 We will be analyzing TP53 ChIP-seq data done in HCT116 cells from Andrysik et al. 2017 (doi:10.1101/gr.220533.117).
 
+## Google Form - ChIP
+Please fill out [this google form](https://docs.google.com/forms/d/e/1FAIpQLSeev5lkJFEI6WoUG6D4g6EzfQGlfv5UDEZ3QN2na9bwoVeygg/viewform) at the begining of class! It is anonymous and not graded.
+
 ## Before Day 8
 Please watch the following videos:
 - <a href="https://youtu.be/PBaC2qG4f4k?si=h4q3juCwfvhiUXYB">B8.1 | Intro to ChIP-seq</a>
