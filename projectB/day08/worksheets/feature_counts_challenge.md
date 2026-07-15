@@ -10,7 +10,7 @@ Calculate FRiP scores from your day 8 MACS output (peaks) and BAM files using fe
     - Here is the Feature Counts [documentation](https://subread.sourceforge.net/featureCounts.html) and [User Manual](https://subread.sourceforge.net/SubreadUsersGuide.pdf) for reference.
     - Also refer to day07 scripts for how you ran feature counts previously.
 
-2. Use the counts to calculate a FRiP score per peak.
+2. Use the counts to calculate a FRiP score per experiment (DMSO and Nutlin).
     - See the [ChIP Video](https://www.youtube.com/watch?v=PBaC2qG4f4k) for information about what a FRiP score is.
     - Below is the equation for calculating a FRiP score:
 
