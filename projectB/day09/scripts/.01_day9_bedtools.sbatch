@@ -90,20 +90,21 @@ bedtools intersect -wo -a ${HCT116_nutlin_peaks} -b ${TSS_annot} > ${results}/hc
 ###------------------------------------------------###
 
 
-# --- Which p53 peaks are associated with genes (not intergenic)
+# --- Which p53 peaks from DMSO are associated with genes (not intergenic)
 
 bedtools intersect -wo -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_overlap_genes.bed
 
-# --- Which p53 peeks are entirely within genes
+# --- Which p53 peaks from DMSO are entirely within genes
 
 bedtools intersect -wo -f 1 -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_in_genes.bed
 
-# --- Which p53 peaks are intergenic
+# --- Which p53 peaks from DMSO are intergenic
 
 bedtools intersect -wo -v -a ${HCT116_dmso_peaks} -b ${annot} > ${results}/hct116_dmso_p53_intergenic.bed
 
 
-
+# --- Which p53 DMSO peaks are in promoters
+bedtools intersect -wo -a ${HCT116_dmso_peaks} -b ${TSS_annot} > ${results}/hct116_dmso_p53_overlap_promoters.bed
 
 
 ###---- Jacquard Calculations ----###
