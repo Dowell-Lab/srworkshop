@@ -15,7 +15,7 @@
 
 chrom_sizes='/scratch/Shares/public/genomes/hisatfiles/hg38/hg38.chrom.sizes'
 annot='</path/to/annotation/file.bed>'
-chip_dir='/scratch/Shares/public/sread2025/cookingShow/day8b/whole_genome/macs/'
+chip_dir='/scratch/Shares/public/sread/cookingShow/day8b/whole_genome/macs/'
 HCT116_dmso_peaks=${chip_dir}/HCT116_DMSO_peaks_clean.narrowPeak
 HCT116_nutlin_peaks=${chip_dir}/HCT116_NUTLIN_peaks_clean.narrowPeak
 results='/scratch/Users/<username>/day9/bedtools_results/'
