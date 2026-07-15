@@ -13,7 +13,7 @@
 # Companion lesson: lessons/03_cell_type_annotation.md
 # =============================================================================
 
-source("../00_paths_and_setup.R")   # gives T21_LABELED, load_one()
+source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(Seurat)
 library(ggplot2)

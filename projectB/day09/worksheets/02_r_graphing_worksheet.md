@@ -7,9 +7,9 @@ Georgia Barone (2025)
 
 The goal of this section is to become familiar with working with dataframes in R, using R functions to answer biological questions, and making figures.
 
-One common question people have when running multimodal experiments (for example with RNA-seq and ChIP-seq) is:  
+Examples of common questions that arise when running multimodal experiments are:  
 
-* What genes are differentially expressed and have a p53 ChIP peak?
+* What genes are differentially expressed **and** have a p53 ChIP peak?
 * Do these genes fall into one functional classification, molecular pathway, or biological function?
 
 We’ve gotten almost to answering this question throughout this project, and we’ll finish here. First, let’s recap what we’ve done.
@@ -24,21 +24,21 @@ All that’s left is to do some basic set manipulation here in R and create some
 ## Download the necessary data from the AWS
 1. On your **local computer**, pick a location that's convenient for you and make a "day9" folder.
 2. Inside your "day9" folder, make a "data" folder and a "results" folder.
-3. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
-4. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread2025/cookingShow/day9b/deseq_output* to your "day9/data" folder.
+4. From the AWS, you'll transfer your bedtools results: *</scratch/Users/YOUR_USERNAME/day9/bedtools_results>* to the "day9/data" folder on your local computer
+5. From the AWS, transfer the DESeq2 results I am providing for you: */scratch/Shares/public/sread/cookingShow/day9b/deseq_output* to your "day9/data" folder.
 
-## Now work in the *01_day9_graphing.R* script
+## Now work in the *02_day9_graphing.R* script
 ### First, set up the environment.
 
 At the top of your script, set your working directory and the results directory. 
 
 ### Read in the data
 
-* Load in bed files you created that contain p53 peaks that overlap genes, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in something like "*your/path*/day9/data/bedtools_results" folder.  
+* Load in bed files you created that contain p53 peaks that **overlap genes**, in both DMSO and Nutlin treated conditions. In case you’ve forgotten, the function you need is `read.table()`. We just downloaded these above, and they should be in "<*your/path*>/day9/data/bedtools_res".  
 * Since we’re working with a bed file, it doesn’t have column names. In the `read.table()` function, make sure to set header=FALSE.
-* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dfs.
-* Load the differential expression data for HCT116 cells, which you downloaded above into something like "*your/path*/day9/data/deseq_output". Note that this file DOES have a header with the column names.
-* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05 and an absolute value log<sub>2</sub>(Fold Change) \> 1.25.
+* Now that you’ve loaded the bed files, give them usable column names. I’ve provided those for you in the block of code below, you just need to assign them to the dataframes you just imported.
+* Load the differential expression data for HCT116 cells, which you downloaded above into "<*your/path*>/day9/data/deseq_res". Note that this file DOES have a header with the column names.
+* There are a lot of genes in this data frame, so we’re going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
 
 ``` r
 ### --- READ IN CHIP DATA 
@@ -72,7 +72,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 2.  **intersection()** ~ This returns only elements that are common to
     both lists. <br> <br>
 
-**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? *Hint: we’re comparing lists, not dataframes.*
+**First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: we’re comparing lists, not dataframes.*
 
 ``` r
 ### --- Use either of the functions above to get the set of genes bound in either condition.
@@ -81,7 +81,7 @@ These functions will do most of the work when we’re comparing lists of genes.
 all_p53_bound <- 
 ```
 
-**Second:** Look at the intersection of this list with all genes.
+**Second:** How many of these genes were analyzed using DESeq2, regardless of whether they were significantly differentially expressed.
 
 ``` r
 ### --- Use either of the functions above to get the set of genes with p53 bound that are present at all in the DESeq2 results. 
@@ -97,17 +97,17 @@ bound_genes <-
 bound_de_genes <- 
 ```
 
-Print out the number of genes that are differentially expressed and have a p53 ChIP peak in any condition. Also, print out the list of genes.
+Print out the number of genes that are differentially expressed and have a p53 ChIP peak (irrespective of whether the ChIP peak appears in the control or experimental condition). 
 
 ### Creating figures in R.
 
-**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes wtih a ChIP peak that are differentially expressed.
+**Next** we’ll make a Venn diagram showing the overlap of genes with ChIP peaks from the Nutlin samples, genes with ChIP peaks from the DSMO samples, and genes ith a ChIP peak that are differentially expressed.
 
 To make figures in R, we can call a specific package or function that makes the type of graph we’re looking for. In this case, we will install a package to make venn diagrams, [ggvenn](https://github.com/yanlinlin82/ggvenn). 
 
 * Visit that website and follow the installation instructions. 
 * Load the library at the top of this next code block. 
-* Look at the Quick Start section of the documentation. Do you see that the function expects a lists of lists? 
+* Look at the Quick Start section of the documentation. Do you see that the function expects a list of lists? 
 * Make a list of lists that contains genes with p53 peaks under DMSO treatment, genes with p53 peaks under Nutlin treatment, and genes with a p53 ChIP peak that are differentially expressed.
 
 ```r
@@ -115,12 +115,6 @@ To make figures in R, we can call a specific package or function that makes the 
 library() # don't forget to load your new library on this line 
 venn_list <- list() # add everything that you want to compare into this list of lists 
 #create venn diagram on this line!
-```
-**Finally**, report the percentage of any ChIP peaks that overlap with a differentially expressed gene.
-
-```r
-# Just use R to do basic math!
-# You can get the numbers you need from the venn diagram you made. 
 ```
 
 ### Export our work for GO analysis
@@ -160,15 +154,15 @@ de_mcf7 <- #
 de_sjsa <- #
 ```
 
-**Second**, make a venn digram like we did above with all analyzed genes. Is this a helpful visualization? What do you like about it? What are the limitations of the venn diagram? Can you change the input data to create a more helpful version of this same venn diagram?
+**Second**, make a venn digram like we did above, including genes significantly differentially expressed in each cell line. 
+
+🟡 Is this a helpful visualization? 
 
 ``` r
 # First venn 
 venn_list_de <- list()
 ggvenn()
 
-# Do you think you can make a more helpful version of this?
-# If so, put your code below 
 ```
 
 **Third**, we’ll experiment with heatmaps as an alternative to venn diagrams. I like heatmaps for a couple reasons. They make it easier to visualize many samples, and also they show more of the quantitative data. We’ll use the package [pheatmap](https://davetang.org/muse/2018/05/15/making-a-heatmap-in-r-with-the-pheatmap-package/) (aka pretty heatmap).
@@ -178,11 +172,10 @@ You may have already installed this package during Day 7. If not, click on the l
 **What do we want the heatmap to display?**
 
 - There are two quantitative variables you get out of DESeq2, the log<sub>2</sub>(Fold Change) and the adjusted p-value. Which do you want to plot?
-- If we were to plot the data frames we imported, we’d be plotting tens of thousands of genes. That’s far too many to look at! Especially since the large majority of them aren’t significantly changing and therefore aren’t interesting. You need to pick a subset of genes to plot. What criteria do you use to select a smaller list of genes? How many genes do you want in your final list?
+- What set of genes will you include in the heatmap?
 
-1.  Filter your lists of genes for those that are differentially expressed with the cutoffs of your choice. Print out the dimensions of each filtered data frame at the end. 
-2.  If you’re happy with your filtering results, great! If you think you need more or fewer genes, adjust your filtering criteria.
-3.  For the next step, you dataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
+
+**To make heatmaps** ataframes will need unique column names for values calculated by DESeq2, and they all need to have their gene column named the same. Right now they have the gene column named “GeneID”. We’ll leave that, but tag all the other column names with their cell type. I’ve provided that code, you just have to run it.
 
 ```r
 ### --- FILTER 
@@ -202,8 +195,12 @@ colnames(sjsa.filt)[-1] <- paste('sjsa', colnames(sjsa.filt)[-1], sep = '_')
 colnames(mcf7.filt)[-1] <- paste('mcf7', colnames(mcf7.filt)[-1], sep = '_')
 ```
 
-These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Today, we want to keep all of the entries in all of the dataframes. Choose which of the four functions to use.
-> NOTE: We only really need the first three columns 
+These need to be combined into a common data frame that can be used to create a heatmap. There are several options for creating merged dataframes, the most popular being **full_join()**, **inner_join()**, **left_join()**, and **right_join()**. Choose which of the four functions to use.
+
+**Pheatmap needs a dataframe that looks like this**
+![data frame for Pheatmap](images/df_for_heatmap.png)
+
+
 ```r
   # Use one of the following functions 
   #     ~ full_join, inner_join, left_join, right_join   

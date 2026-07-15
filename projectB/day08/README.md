@@ -3,14 +3,16 @@
 Today we process ChIP-seq data. We will start with preprocessing the raw data and proceed to peak calling, motif identification and annotation.
 We will be analyzing TP53 ChIP-seq data done in HCT116 cells from Andrysik et al. 2017 (doi:10.1101/gr.220533.117).
 
+## Google Form - ChIP
+Please fill out [this google form](https://docs.google.com/forms/d/e/1FAIpQLSeev5lkJFEI6WoUG6D4g6EzfQGlfv5UDEZ3QN2na9bwoVeygg/viewform) at the begining of class! It is anonymous and not graded.
+
 ## Before Day 8
 Please watch the following videos:
-- <a href="https://www.youtube.com/watch?v=WPY6xjR7hgc" target="_blank">B8.1 | Intro to ChIP-seq</a>
-- <a href="https://www.youtube.com/watch?v=k1XoyJKVAOw" target="_blank">B8.2 | Evaluating ChIP-seq Data Quality</a>
-- <a href="https://www.youtube.com/watch?v=B6SiIp2Cess" target="_blank">B8.3 | MACS2 for ChIP-seq Data</a>
-- <a href="https://www.youtube.com/watch?v=ZOjbiHIOQm0" target="_blank">B8.4 | Motif Calling with MEME</a>
-- <a href="https://www.youtube.com/watch?v=0JqCexUujZM" target="_blank">B8.5 | ATAC-seq Analysis</a> (Optional)
-- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools (Recommended)</a>
+- <a href="https://youtu.be/PBaC2qG4f4k?si=h4q3juCwfvhiUXYB">B8.1 | Intro to ChIP-seq</a>
+- <a href="https://youtu.be/Cs-4nfrj7Tc?si=uw2BbTsfiExRLCyP" target="_blank">B8.2 | MACS2 for ChIP-seq Data</a>
+- <a href="https://www.youtube.com/watch?v=ZOjbiHIOQm0" target="_blank">B8.3 | Motif Calling with MEME</a> (Recommended)
+- <a href="https://www.youtube.com/watch?v=0JqCexUujZM" target="_blank">B8.4 | ATAC-seq Analysis</a> (Optional)
+- <a href="https://www.youtube.com/watch?v=OCESUxaUxJE" target="_blank">B9.1 | Introduction to BEDTools</a> (Recommended - also can watch for Day9 instead)
 
 ## Sample metadata
 

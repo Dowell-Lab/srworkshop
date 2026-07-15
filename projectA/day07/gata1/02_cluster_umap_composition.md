@@ -56,6 +56,22 @@ DefaultAssay(combined) <- "RNA"
 > Do not edit paths in the script. All paths live in `00_paths_and_setup.R`, and
 > everything you create is written to `OUT_DIR`, not the read-only share.
 
+> **Working locally?** `source(...)` resets `OUT_DIR` to the cluster path, so add
+> your Lesson 01 override between the `source(...)` and `readRDS(...)` lines above
+> (otherwise `readRDS` won't find the object you saved locally):
+> ```r
+> OUT_DIR <- paste(getwd(), "outdir", sep = "/")
+> ```
+
+> **Memory tip — `gc()`.** R doesn't hand memory back to your computer the moment
+> you delete or overwrite a large object; calling `gc()` (R's *garbage
+> collector*) forces that cleanup and prints how much memory is now in use.
+> Single-cell objects are big, so call `gc()` at the **heavy transitions** —
+> right after `rm()`-ing an object you're done with, after a `merge()` /
+> integration, or just before a memory-hungry step (SingleR, CellChat, monocle3).
+> It never changes your results and is safe to run anytime; you just don't need it
+> after every line.
+
 ---
 
 ## Step 1 — Normalize and select variable genes
