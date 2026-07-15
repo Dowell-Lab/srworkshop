@@ -57,7 +57,7 @@ At the top of your script, load any libraries you want to you. Then set your wor
 Now load the differential expression data. 
 
 * We just downloaded this into `*your_path*/day9/data/deseq_res`.
-* How does this file differen from the bed file you just loaded? How do you need to change the read_tsv() function?
+* How does this file different from the bed file you just loaded? How do you need to change the read_tsv() function?
 * There are a lot of genes in this data frame, so we're going to filter down to a smaller number to create the venn diagram. Make another list that has only genes with an adjusted p-value \< 0.05.
 
 ``` r
@@ -68,7 +68,6 @@ Now load the differential expression data.
 ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
 ```
 
-\
 
 ### Examine lists for overlap
 
@@ -80,7 +79,7 @@ These functions will do most of the work when we're comparing lists of genes.
     unique elements.
 2.  `intersection()` ~ This returns only elements that are common to
     both lists. \
-\
+
 
 **First:** What is the set of genes bound by p53 in either DMSO or Nutlin treated samples? How many genes are there? *Hint: does intersection() take data frames?*
 
