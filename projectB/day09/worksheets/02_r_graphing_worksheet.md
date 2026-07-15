@@ -66,7 +66,7 @@ Now load the differential expression data.
   de_import # read in data here 
   
 ### --- EXTRACT SIGNIFICANTLY CHANGING GENES
-  de <- de_import[(<put condition here), ]
+  de <- de_import[(<put condition here>), ]
 ```
 
 
