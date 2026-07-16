@@ -17,9 +17,10 @@
 source("~/srworkshop/projectA/00_paths_and_setup.R")
 
 library(future)
-plan("multisession", workers = 4)
+plan(sequential)
+#plan("multisession", workers = 4)
 # Also ensure BLAS sees the cores:
-Sys.setenv(OMP_NUM_THREADS = 4, OPENBLAS_NUM_THREADS = 4, MKL_NUM_THREADS = 4)
+#Sys.setenv(OMP_NUM_THREADS = 4, OPENBLAS_NUM_THREADS = 4, MKL_NUM_THREADS = 4)
 options(future.globals.maxSize = 50 * 1024^3)  # 50 GB
 
 
@@ -219,3 +220,7 @@ save_dim(p_sample, "gata1_composition_by_sample.png", w = 9, h = 6)
 # ---- 5. Save for the annotation script --------------------------------------
 saveRDS(combined, file.path(OUT_DIR, "gata1_combined_clustered.rds"))
 message("Saved: ", file.path(OUT_DIR, "gata1_combined_clustered.rds"))
+
+
+
+

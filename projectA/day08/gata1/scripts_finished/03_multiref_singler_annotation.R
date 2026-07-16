@@ -18,9 +18,9 @@ library(dplyr)
 library(ggplot2)
 library(patchwork)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered.rds"))
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_clustered.rds"))
+#combined <- readRDS(file.path(COOKING, "gata1_combined_clustered_subsampled.rds"))
 
 
 # ---- 1. Prepare a single expression matrix for SingleR ----------------------
@@ -31,7 +31,7 @@ Layers(combined[["RNA"]])           # inspect the per-sample layers
 combined_joined <- JoinLayers(combined)
 
 
-sce_counts <- LayerData(combined_subsampled, assay = "RNA", layer = "data")  # log-normalized
+sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
 
 #sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
 
@@ -201,7 +201,6 @@ save_dim(p_combo, "gata1_labels_vs_HBG1.png", w = 13, h = 6)
 
 # FindAllMarkers: for each cluster, genes up in that cluster vs all others.
 #plan(sequential)
-combined_joined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
 
 p <- DimPlot(
   combined_joined,
@@ -267,16 +266,17 @@ p <- DimPlot(
 p
 
 
-#all.clusters.diff.genes <- FindAllMarkers(combined_joined, assay = "RNA", future.seed = FALSE)
+all.clusters.diff.genes <- FindAllMarkers(combined_joined, assay = "RNA", future.seed = FALSE)
 
 
 # Top 10 markers per cluster by fold change (the genes that DEFINE each cluster).
-#all.clusters.diff.genes %>%
-#  group_by(cluster) %>%
-#  top_n(wt = avg_log2FC, n = 10)
+all.clusters.diff.genes %>%
+  group_by(cluster) %>%
+  top_n(wt = avg_log2FC, n = 10)
 
 # Top 10 by pct.1 = fraction of cells in the cluster expressing the gene
 # (useful for finding clean, highly-detected markers).
-#all.clusters.diff.genes %>%
-#  group_by(cluster) %>%
-#  top_n(wt = pct.1, n = 10)
+all.clusters.diff.genes %>%
+  group_by(cluster) %>%
+  top_n(wt = pct.1, n = 10)
+
