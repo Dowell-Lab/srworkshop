@@ -27,9 +27,9 @@ library(SeuratWrappers)
 library(dplyr)
 library(ggplot2)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined.rds"))
+#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
 
 
 # ---- 1. Inspect the lineage labels (already written) ------------------------
@@ -51,7 +51,7 @@ cds@rowRanges@elementMetadata@listData[["gene_short_name"]] <- rownames(combined
 # BASIC pseudotime - required setup + ordering
 # =============================================================================
 # Required order: preprocess -> reduce_dimension -> cluster -> learn_graph
-cds <- monocle3::preprocess_cds(cds, method = "PCA", num_dim = 10)
+cds <- monocle3::preprocess_cds(cds, method = "PCA", num_dim = 6)
 
 plot = monocle3::plot_pc_variance_explained(cds)
 # you can ignore this warning, monocole has not updated. 
@@ -117,10 +117,29 @@ if (!is.null(root_node)) {
   cds <- monocle3::order_cells(cds)
 }
 
-save_graph(monocle3::plot_cells(cds, color_cells_by = "pseudotime",
-                                label_cell_groups = FALSE, label_leaves = FALSE,
-                                label_branch_points = FALSE, graph_label_size = 1.5),
+
+
+p<- monocle3::plot_cells(cds, color_cells_by = "pseudotime",
+                         label_cell_groups = FALSE, label_leaves = FALSE,
+                         label_branch_points = FALSE, graph_label_size = 1.5)
+p
+
+save_graph(p,
            "gata1_pt_pseudotime.png")
+
+#cds <- monocle3::order_cells(cds)
+cds_sub1 <- choose_graph_segments(cds, clear_cds = FALSE)
+cds_sub2 <- choose_graph_segments(cds, clear_cds = FALSE)
+
+p<- monocle3::plot_cells(cds_sub1, color_cells_by = "pseudotime",
+                         label_cell_groups = FALSE, label_leaves = FALSE,
+                         label_branch_points = FALSE, graph_label_size = 1.5)
+p
+
+save_graph(p,
+           "gata1_pt_pseudotime_branch1.png")
+
+p<- monocle3::plot_cells(cds_sub1, color_cells_by = "pseudotime")
 
 # VALIDATE: does pseudotime track the experimental day? It should, broadly.
 pt <- monocle3::pseudotime(cds, reduction_method = "UMAP")
@@ -129,6 +148,7 @@ val <- val[is.finite(val$pseudotime), ]
 p_val <- ggplot(val, aes(x = day, y = pseudotime, fill = day)) +
   geom_violin() + geom_boxplot(width = 0.1, outlier.size = 0.3) +
   labs(title = "Pseudotime vs. experimental day (sanity check)") + theme_bw()
+p_val
 save_graph(p_val, "gata1_pt_vs_day_violin.png")
 
 

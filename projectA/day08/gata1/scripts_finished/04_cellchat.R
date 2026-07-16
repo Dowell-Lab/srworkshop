@@ -20,9 +20,9 @@ library(Seurat)
 library(patchwork)
 library(dplyr)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined.rds"))
+combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined.rds"))
+#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
 
 
 combined #look at how many cells you have now
@@ -78,8 +78,8 @@ cellChat <- filterCommunication(cellChat, min.cells = 10)  # drop tiny groups
 cellChat <- computeCommunProbPathway(cellChat)             # roll up to pathways
 cellChat <- aggregateNet(cellChat)                         # count edges
 
-saveRDS(cellChat, file.path(OUT_DIR, "gata1_cellchat.rds"))
-message("Saved: ", file.path(OUT_DIR, "gata1_cellchat.rds"))
+saveRDS(cellChat, file.path(OUT_DIR, "gata1_cellchat_subsampled.rds"))
+message("Saved: ", file.path(OUT_DIR, "gata1_cellchat_subsampled.rds"))
 
 
 # ---- 5. Whole-dataset overview ----------------------------------------------

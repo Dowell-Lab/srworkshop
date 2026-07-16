@@ -86,21 +86,21 @@ its intermediates to a per-user, writable `OUT_DIR` (defaults to
 
 | # | Lesson | Script | What you learn |
 |---|---|---|---|
-| 1 | [Load, QC & metadata-from-names](lessons/gata1/01_load_qc_metadata.md) | `scripts/gata1/01_load_qc_metadata.R` | ReadMtx per sample, merge, QC metrics & filtering, **parsing metadata from sample names**, stress/apoptosis module scores |
-| 2 | [Clustering, UMAP & composition](lessons/gata1/02_cluster_umap_composition.md) | `scripts/gata1/02_cluster_umap_composition.R` | Normalize/scale/PCA, clustering, UMAP, **composition heatmaps with hierarchical clustering** |
-| 3 | [Multi-reference annotation](lessons/gata1/03_multiref_singler_annotation.md) | `scripts/gata1/03_multiref_singler_annotation.R` | JoinLayers, **SingleR across several celldex atlases**, confidence pruning, marker validation |
-| 4 | [Cell-cell communication](lessons/gata1/04_cellchat.md) | `scripts/gata1/04_cellchat.R` | CellChat built **from scratch**: object, network inference, pathway analysis |
-| 5 | [Pseudotime / trajectories](lessons/gata1/05_pseudotime.md) | `scripts/gata1/05_pseudotime.R` | monocle3: lineage subset, learn_graph, headless root picking, **validating pseudotime against sampling day** |
+| 1 | [Load, QC & metadata-from-names](projectA/day07/gata1/01_load_qc_metadata.md) | `projectA/day07/gata1/scripts/01_load_qc_metadata.R` | ReadMtx per sample, merge, QC metrics & filtering, **parsing metadata from sample names**, stress/apoptosis module scores |
+| 2 | [Clustering, UMAP & composition](projectA/day07/gata1/02_cluster_umap_composition.md) | `projectA/day07/gata1/scripts/02_cluster_umap_composition.R` | Normalize/scale/PCA, clustering, UMAP, **composition heatmaps with hierarchical clustering** |
+| 3 | [Multi-reference annotation](projectA/day08/gata1//03_multiref_singler_annotation.md) | `projectA/day08/gata1/scripts/03_multiref_singler_annotation.R` | JoinLayers, **SingleR across several celldex atlases**, confidence pruning, marker validation |
+| 4 | [Cell-cell communication](projectA/day08/gata1/04_cellchat.md) | `projectA/day08/gata1/scripts/04_cellchat.R` | CellChat built **from scratch**: object, network inference, pathway analysis |
+| 5 | [Pseudotime / trajectories](projectA/day09/gata1/05_pseudotime.md) | `/projectA/day09/gata1/scripts/05_pseudotime.R` | monocle3: lineage subset, learn_graph, headless root picking, **validating pseudotime against sampling day** |
 
 ### Track B — Fetal bone marrow (reference)
 
 | # | Lesson | Script | What you learn |
 |---|---|---|---|
-| 1 | [QC, Filtering & Integration](lessons/fbm/01_qc_filtering_integration.md) | `scripts/fbm/01_qc_filtering_integration.R` | Read10X, QC, SoupX, RPCA integration, clustering, UMAP |
-| 2 | [Marker Genes & Doublets](lessons/fbm/02_markers_doublets.md) | `scripts/fbm/02_markers_doublets.R` | FindAllMarkers/FindMarkers, condition DE, DoubletFinder |
-| 3 | [Cell Type Annotation](lessons/fbm/03_cell_type_annotation.md) | `scripts/fbm/03_cell_type_annotation.R` | Seurat reference mapping, SingleR + celldex, SC-Type marker scoring |
-| 4 | [Cell-Cell Communication](lessons/fbm/04_cellchat.md) | `scripts/fbm/04_cellchat.R` | CellChat from **pre-made** objects, pathway analysis, condition comparison |
-| 5 | [Pseudotime / Trajectories](lessons/fbm/05_pseudotime.md) | `scripts/fbm/05_pseudotime.R` | monocle3: cds setup, learn_graph, order_cells, trajectory-variable genes |
+| 1 | [QC, Filtering & Integration](projectA/day07/fbm/01_qc_filtering_integration.md) | `scripts/fbm/01_qc_filtering_integration.R` | Read10X, QC, SoupX, RPCA integration, clustering, UMAP |
+| 2 | [Marker Genes & Doublets](projectA/day07/fbm/02_markers_doublets.md) | `scripts/fbm/02_markers_doublets.R` | FindAllMarkers/FindMarkers, condition DE, DoubletFinder |
+| 3 | [Cell Type Annotation](projectA/day08/fbm/03_cell_type_annotation.md) | `scripts/fbm/03_cell_type_annotation.R` | Seurat reference mapping, SingleR + celldex, SC-Type marker scoring |
+| 4 | [Cell-Cell Communication](projectA/day08/fbm/04_cellchat.md) | `scripts/fbm/04_cellchat.R` | CellChat from **pre-made** objects, pathway analysis, condition comparison |
+| 5 | [Pseudotime / Trajectories](projectA/day09/fbm/05_pseudotime.md) | `scripts/fbm/05_pseudotime.R` | monocle3: cds setup, learn_graph, order_cells, trajectory-variable genes |
 
 ### Cross-cutting teaching note
 

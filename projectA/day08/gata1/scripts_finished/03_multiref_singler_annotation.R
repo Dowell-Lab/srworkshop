@@ -33,7 +33,6 @@ combined_joined <- JoinLayers(combined)
 
 sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
 
-#sce_counts <- LayerData(combined_joined, assay = "RNA", layer = "data")  # log-normalized
 
 # ---- 2. Choose reference atlases --------------------------------------------
 # celldex ships several curated references. Which one fits depends on the
@@ -70,12 +69,25 @@ ref_broad <- NovershternHematopoieticData()
 
 
 
+#If you have many CPU
+#run_singler <- function(ref, test_mat) {
+#  SingleR(
+#    test   = test_mat,
+#    ref    = assay(ref, "logcounts"),
+#    labels = ref$label.main
+#  )
+#}
+
+#If you don't have many CPU
 
 run_singler <- function(ref, test_mat) {
   SingleR(
-    test   = test_mat,
-    ref    = assay(ref, "logcounts"),
-    labels = ref$label.main
+    test            = test_mat,
+    ref             = ref,
+    labels          = ref$label.main,
+    assay.type.test = "logcounts",
+    assay.type.ref  = "logcounts",
+    BPPARAM         = BiocParallel::SerialParam()
   )
 }
 
