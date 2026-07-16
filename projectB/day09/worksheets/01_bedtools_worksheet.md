@@ -152,11 +152,11 @@ There's a few ways that you can do this. You can read the annotation file into R
   below everything else in the script area.
 
 ```
-cat "$ANNOT" \
+cat "$annot" \
   | awk '{FS=OFS="\t"}; {if ($6 == "+") print $1,$2,($2+1),$4,".",$6}' \
   > "$results"/hg38_refseq_tss_pos.bed
 
-cat "$ANNOT" \
+cat "$annot" \
   | awk '{FS=OFS="\t"}; {if ($6 == "-") print $1,($3-1),$3,$4,".",$6}' \
   > "$results"/hg38_refseq_tss_neg.bed
 
