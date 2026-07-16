@@ -18,9 +18,9 @@ library(dplyr)
 library(ggplot2)
 library(patchwork)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered_subsampled.rds"))
+#combined <- readRDS(file.path(OUT_DIR, "gata1_combined_clustered_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_clustered_subsampled.rds"))
+combined <- readRDS(file.path(COOKING, "gata1_combined_clustered_subsampled.rds"))
 
 
 # ---- 1. Prepare a single expression matrix for SingleR ----------------------

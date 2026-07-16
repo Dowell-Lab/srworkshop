@@ -27,9 +27,9 @@ library(SeuratWrappers)
 library(dplyr)
 library(ggplot2)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
+#combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
+combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
 
 
 # ---- 1. Inspect the lineage labels (already written) ------------------------
@@ -37,7 +37,10 @@ combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampl
 # is the DOMINANT axis in this dataset, so we run monocle3 on all the cells here.
 # Print the SingleR labels first so you can see what your run produced (and, if
 # you wanted to, which pattern you would subset on).
+#base R version
 print(sort(table(combined$SingleR_labels_other), decreasing = TRUE))
+#dplyr version
+#as.data.frame(combined@meta.data) %>% group_by(SingleR_labels_other) %>% tally() %>% arrange(desc(n))
 
 
 # ---- 2. Convert Seurat -> monocle3 cell_data_set ----------------------------
@@ -64,6 +67,27 @@ cds <- monocle3::reduce_dimension(cds, reduction_method = "UMAP", preprocess_met
 cds <- monocle3::cluster_cells(cds)
 cds <- monocle3::learn_graph(cds)
 #ignore the warning
+
+
+#alternative to 2 keeping the umap and pca from seurat
+#in the code with seurat (02 lesson)
+#seurat_umap <- Embeddings(seurat_obj, reduction = "umap")    # matrix, cells × dims [web:51]
+#seurat_pca <- Embeddings(seurat_obj, reduction = "pca")
+#
+#saveRDS(seurat_umap, file = "seurat_umap_coords.rds")
+#saveRDS(seurat_pca,  file = "seurat_pca_coords.rds")
+
+# Later, in monocole run
+
+# Create cds_new from counts/metadata, then inject:
+#seurat_umap  <- readRDS("seurat_umap_coords.rds")
+#seurat_pca   <- readRDS("seurat_pca_coords.rds")
+#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
+#cds_new <- SeuratWrappers::as.cell_data_set(combined)
+#cds_new@rowRanges@elementMetadata@listData[["gene_short_name"]] <- rownames(combined[["RNA"]])
+#reducedDims(cds_new)$UMAP <- seurat_umap
+#reducedDims(cds_new)$PCA  <- seurat_pca
+
 
 p<- plot_cells(
   cds,

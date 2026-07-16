@@ -20,9 +20,9 @@ library(Seurat)
 library(patchwork)
 library(dplyr)
 
-combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
+#combined <- readRDS(file.path(OUT_DIR, "gata1_combined_annotated_joined_subsampled.rds"))
 #If you didn't make this yet, use mine!
-#combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
+combined <- readRDS(file.path(COOKING, "gata1_combined_annotated_joined_subsampled.rds"))
 
 
 combined #look at how many cells you have now
@@ -133,3 +133,6 @@ if (length(available_pathways) > 0) {for (i in seq(length(available_pathways))){
 # To compare, say, GATA1s vs wtGATA1: subset the annotated object by construct,
 # build a CellChat object for each (steps 2-4), then use CellChat's
 # mergeCellChat() + comparison plots. This is a optional exersize. 
+#example of a subset command
+#combined_WT <- subset(x = combined,subset = genotype == "WT")
+
