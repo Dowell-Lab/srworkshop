@@ -10,9 +10,9 @@ You are going to collect metadata about your project from a website and then you
 https://www.ebi.ac.uk/ena/browser/
 
 
-1) To start make a directory for the project (called PRJEB32618 in this case) in your scratch directory on the AWS.  Inside the PRJEB32618 directory make 5 sub folders; fastqs, scripts, output, metadata, qc.
+1) To start make a directory for the project (called PRJEB32618 for our example) in your scratch directory on the AWS.  Inside the PRJEB32618 directory make 5 sub folders; fastqs, scripts, output, metadata, qc.
 
-2) Go to the European website with raw data and gather both the metadata file and the download scripts. Go to the ENA website and find your favorite project, a.k.a. PRJEB32618 (I chose this example because its small)
+2) Go to the European website with raw data and gather both the metadata file and the download scripts. Go to the ENA website and find your favorite project. FOr the example please use PRJEB32618 (I chose this example because its small)
 
 
 ![ENA screen shot](download_data_images/gotoENA.png)
