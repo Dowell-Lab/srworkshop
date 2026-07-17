@@ -12,7 +12,7 @@ https://www.ebi.ac.uk/ena/browser/
 
 1) To start make a directory for the project (called PRJEB32618 in this case) in your scratch directory on the AWS.  Inside the PRJEB32618 directory make 5 sub folders; fastqs, scripts, output, metadata, qc.
 
-2) 1. Go to the European website with raw data and gather both the metadata file and the download scripts. Go to the ENA website and find your favorite project, a.k.a. PRJEB32618 (I chose this example because its small)
+2) Go to the European website with raw data and gather both the metadata file and the download scripts. Go to the ENA website and find your favorite project, a.k.a. PRJEB32618 (I chose this example because its small)
 
 
 ![ENA screen shot](download_data_images/gotoENA.png)
@@ -20,7 +20,7 @@ https://www.ebi.ac.uk/ena/browser/
 ![ENA screen shot](download_data_images/whatyouseeonadataset.png)
 
 
-3) turn on all the options you want under "Show column selection" (you should always select fastq_md5)
+3) Turn on all the options you want under "Show column selection" (you should always select fastq_md5!!!!!)
 
 ![ENA screen shot](download_data_images/makesureyoutur_on_fastq_md5.png)
 ![ENA screen shot](download_data_images/fastq_md5_is_on.png)
