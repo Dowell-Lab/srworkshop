@@ -33,7 +33,7 @@ The first time you log in it will ask you:\
 `Are you sure you want to continue?`\
 Type `yes`
  
-Super computers will either use a ssh key or a password (or both). If you type a password, you will see nothing. That’s normal! It's a privacy feature, not a bug.
+Super computers will either use a ssh key or a password (or both). If you type a password, you will see NOTHING. That’s normal! It's a privacy feature, not a bug.
 
 This is me logging onto fiji: 
 
