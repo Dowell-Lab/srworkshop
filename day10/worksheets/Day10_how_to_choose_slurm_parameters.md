@@ -34,7 +34,7 @@ If I have a program without parallelization, based on what I learned above, I st
 
 ![Single core test sbatch](md_images/single_core_test_sbatch.png)
  
-So if I have a program with parallelization, I generally use half of the CPUs on a node and the number of gigabytes of memory each CPU would get if it was fairly shared.
+If I have a program with parallelization, I generally use half of the CPUs on a node and the number of gigabytes of memory each CPU would get if it was fairly shared.
     - Why half? Then people using 1 CPU can hop on the same node as me. I could set it to all the CPUs - then I would get the node to myself, but I often wait in the queue a long time for that.
 
 ![Multicore test sbatch](md_images/multicore_test_sbatch.png)
@@ -51,7 +51,7 @@ You can check how much time/memory/CPU you are really using:
     - `scontrol show jobid -dd <job id>`
 - For completed jobs 
     - `sacct --format="Elapsed,CPUTime,MaxRSS,AveCPU,AvePages,AveRSS,AveVMSize,JobID, MaxVMSize" -j <job id>.batch`
-    - `seff <job id>`
+    - `seff <job id>` (if your super computer has this installed)
 
 ![Test job header](md_images/test_header.png)
 

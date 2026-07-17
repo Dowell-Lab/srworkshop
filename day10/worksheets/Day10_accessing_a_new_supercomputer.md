@@ -9,25 +9,22 @@ AWS supercomputers aren't cheap, so it's nice if your campus has a cluster, supe
 
 | Super computer name | Run by | Who can get on | Security system |
 | ------------------- | ------ | -------------- | --------------- |
-| fiji | BioFrontiers IT (bit-help@colorado.edu) | Boulder BioFrontiers faculty and their labs | You must be on campus or use vpn before login when off campus. Use your identikey and password as login information. |
+| fiji | BioFrontiers IT (bit-help@colorado.edu) | Boulder BioFrontiers faculty and their labs | You must be on campus or use VPN before login when off campus. Use your identikey and password as login information. |
 | Summit | RC (Resource Computing) | Boulder campus - Anyone | Duo 2-factor Authentication |
-| Rosalind | TICR High Performance Computing | CU Anschutz: Authorized faculty, students, and staff | Must be on campus or use vpn when off campus. Requires a password. |
+| Rosalind | TICR High Performance Computing | CU Anschutz: Authorized faculty, students, and staff | Must be on campus or use VPN when off campus. Requires a password. |
 | Bodhi | Dept of Biochemistry and Molecular Genetics, School of Medicine (david.farrell@cuanschutz.edu) | CU Anschutz  Authorized faculty, students, and staff | Must be on campus or use VPN, and Duo 2-factor authentication using university credentials |
 
-## How do I find out of my campus has a super computer?
-
+## How do I find out if my campus has a super computer?
 Google the name of your campus and one of the following: high performance computing, HPC, compute cluster, super computer, nodes.
-
- 1) you will need an account to use it
- 2) They may charge you for storage
- 3) THe may charge you a yearly fee
-
-Alternatively, your country may have a super computer that they share. https://access-ci.org/ is a NSF wide super computer for the USA.
+  - You will need an account to use it
+  - They may charge you for storage
+  - They may charge you a yearly fee
+  - Alternatively, your country may have a super computer that they share. (https://access-ci.org/) is a NSF wide super computer for the USA.
 
 ## Working on supercomputers
 
 ### Log in
-Open a terminal on a mac or Ubuntu on a PC. You will then login to the computer using your username (on fiji this is your identikey) and the machine name (example: fiji.colorado.edu).  
+Open a terminal on a mac or Ubuntu on a PC. You will then login to the computer using your username (on Fiji/Baffin this is your identikey) and the machine name (example: `fiji.colorado.edu`).  
 
 `ssh <username>@<computername>`
 
@@ -55,7 +52,7 @@ This is my personal computer:
 Type `logout`.
 
 ### I’m on a new supercomputer. What do I need to know?
-This section assumes the super computer uses Slurm as a queue system. There are other possibilities including Torque and Moab. Ask the admin of the computer how jobs are scheduled/managed.
+This section assumes the super computer uses Slurm as a queue system. There are other possibilities, including Torque and Moab. Ask the admin of the computer how jobs are scheduled/managed.
 
 #### What are the partition names?
 If the supercomputer has distinct resources (is heterogenous) then likely there will be different partitions available (i.e. what you input for the `-p` flag in a sbatch script). For a supercomputer that uses Slurm, you can find these partition options with `sinfo`.
@@ -80,7 +77,7 @@ Generally, you should use about half a node to run `hisat2` and `samtools sort`.
 ### Where should I be putting data I’m working on vs. data I’m storing?
 **ASK!**
 
-Generally there is “local disk storage” (fast) and “network disk storage” (slower). The speed of the disk influences how fast your jobs can run. For example, on Fiji the `/scratch` directories are the fastest. 
+Generally there is "local disk storage" (fast) and "network disk storage" (slower). The speed of the disk influences how fast your jobs can run. For example, on Fiji the `/scratch` directories are the fastest. 
 
 Ask what storage is backed up. Not all directories can be backed up. Back-ups are expensive (more disks, disks have to be set up and maintained, ideally are physically distant). On Fiji, home directories (`/Users/<username>/`) are backed up but anything on `/scratch` is not. 
 

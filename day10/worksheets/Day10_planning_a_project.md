@@ -4,57 +4,41 @@ Author: Mary Allen
 
 ## Starting with planning a project
 
-You will need
-Paper (or a napkin)
-Pen/pencil (preferably two colors)
-           
+You will need:
+  - Paper (or a napkin)
+  - Pens/pencils (preferably two colors)
  
 1. Start with a piece of paper.  At the bottom write your hypothesis.
 
-2. Then draw at least 2 graphs. What you will see if your hypothesis is true. What you will see if it is not true.
+2. Draw at least 2 graphs. What you will see if your hypothesis is true? What you will see if it is not true?
  
-3. Then write the type of file you will need to draw that graph. (Since this is almost always a csv/tsv file, I like to put the row and column types and names I expect.)
+3. Write the type of file you will need to draw that graph. (Since this is almost always a `csv`/`tsv` file, I like to put the row and column types and names I expect.)
 
-4. Then write a program you think can generate that file. (Sometimes this is a custom program you wrote in R or python)
+4. Write a program you think can generate that file. (Sometimes this is a custom program you wrote in R or python)
      
-5. Then write the inputs and the outputs to that file. 
+5. Write the inputs and the outputs to that file. 
 
-Repeat steps 4-5 until you get back to a fastq file. If you don’t know what tool to use at this stage that’s ok. Sometimes you try a couple. 
+6. Repeat steps 4-5 until you get back to a fastq file. If you don’t know what tool to use at this stage that’s ok. Sometimes you try a couple. 
 
-> **Side note:**
->
-> To find tools you might want consider
->
->    Reading a paper that does something similar to what you want to do
->
->    Reading a paper that compares tools
->
->    **Remember,** there is no such thing as the right tool for every job. Only the best tool for your job.	
+> **Side note** - To find tools you might want consider:
+>  - Read a paper that does something similar to what you want to do
+>  - Read a paper that compares tools
+> **Remember,** there is no such thing as the right tool for every job. Only the best tool for your job.	
 
 7. You probably need genome files. Where are you going to get them? (don’t get them yet!)
-
-a. [https://support.illumina.com/sequencing/sequencing_software/igenome.html](https://support.illumina.com/sequencing/sequencing_software/igenome.html)
-
-b. [https://www.ncbi.nlm.nih.gov/genome/](https://www.ncbi.nlm.nih.gov/genome/)
-
-c. [https://genome.ucsc.edu/cgi-bin/hgTables](https://genome.ucsc.edu/cgi-bin/hgTables)
-
-d. [https://zoonomiaproject.org/the-mammal-tree-list-view/](https://zoonomiaproject.org/the-mammal-tree-list-view/)
-
-- make sure the fasta file and the gtf/bed match each other!!!
-- match== The gtf/fasta are on the same genome version, have the same number of chromosomes, have the same chromosome names!!!
-
-e. When picking a genome file think about
-- Would I chase every gene on this list if it matters? If you don’t follow up on a non-coding RNA, don’t pick a list with a non-coding RNA. You have to perform multiple hypothesis corrections for it. 
+  - [https://support.illumina.com/sequencing/sequencing_software/igenome.html](https://support.illumina.com/sequencing/sequencing_software/igenome.html)
+  - [https://www.ncbi.nlm.nih.gov/genome/](https://www.ncbi.nlm.nih.gov/genome/)
+  - [https://genome.ucsc.edu/cgi-bin/hgTables](https://genome.ucsc.edu/cgi-bin/hgTables)
+  - [https://zoonomiaproject.org/the-mammal-tree-list-view/](https://zoonomiaproject.org/the-mammal-tree-list-view/)
+  - Make sure the `fasta` file and the `gtf`/`bed` match each other!!!
+    - The `gtf`/`fasta` are using the same genome version, have the same number of chromosomes, have the same chromosome names!!!
+  - When picking a genome file think about if you would chase every gene on this list if it matters. If you don’t follow up on a non-coding RNA, don’t pick a list with a non-coding RNA. You have to perform multiple hypothesis corrections for it. 
 
 8. Figure out if data already exists, so you don’t have to make it. Or alternatively, make the data. 
 
 9. Figure out the file structure you are going to use for your project. 
-
-a. Back up raw data and lock the files!!! (`chmod`)
-
-b. Back up scripts to GitHub
-
+  - Back up raw data and lock the files!!! (`chmod`)
+  - Back up scripts to GitHub
 
 10. Estimate the size of the data and the size of compute you need. 
 - Figure out which computer you are going to use for your analysis. 
@@ -65,17 +49,12 @@ b. Back up scripts to GitHub
 
 12. Share your plan and ask another person to look for issues. 
 
-
 ## Starting analysis
 
-Now, and only now start analysis. 
-
+Now, and only now, start your analysis. 
 - When you download the data, md5 check it!
-
 - When you download the data back it up!
-
   - If you don’t have money for backups check the following websites
-
   [https://www.synapse.org/](https://www.synapse.org/)
 
   [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/)
@@ -108,9 +87,9 @@ Now, and only now start analysis.
 
 ### Can I find my favorite sequence in some other public data set?
 
-[Magic-BLAST](https://www.google.com/url?q=https://ncbi.github.io/magicblast/&sa=D&source=editors&ust=1721339169016141&usg=AOvVaw1tzuS5aOAlY6M1BMaaCNYE)[.](https://www.google.com/url?q=https://ncbi.github.io/magicblast/&sa=D&source=editors&ust=1721339169016246&usg=AOvVaw3o_rrTNS2DqMmCG2GMZ8kc) Blasts a fastq file… but don’t use it for the big stuff. Its slow!
+[Magic-BLAST](https://www.google.com/url?q=https://ncbi.github.io/magicblast/&sa=D&source=editors&ust=1721339169016141&usg=AOvVaw1tzuS5aOAlY6M1BMaaCNYE)[.](https://www.google.com/url?q=https://ncbi.github.io/magicblast/&sa=D&source=editors&ust=1721339169016246&usg=AOvVaw3o_rrTNS2DqMmCG2GMZ8kc) Blasts a fastq file... but don't use it for the big stuff. It's slow!
 
-[SearchSRA.](https://www.google.com/url?q=https://www.searchsra.org/&sa=D&source=editors&ust=1721339169016411&usg=AOvVaw1vUqqpdkt0zWcjycQfgooc) You input a fasta file of a seq you care about (like a circular RNA) and then you input a list of SRRs (samples from GEO) and it can give you back the reads that map against that fasta file from lots of geo samples.
+[SearchSRA.](https://www.google.com/url?q=https://www.searchsra.org/&sa=D&source=editors&ust=1721339169016411&usg=AOvVaw1vUqqpdkt0zWcjycQfgooc) You input a fasta file of a seq you care about (like a circular RNA) and then you input a list of SRRs (samples from GEO) and it can give you back the reads that map against that fasta file from lots of GEO samples.
 
 ### Where can I learn more about my favorite gene?
 
