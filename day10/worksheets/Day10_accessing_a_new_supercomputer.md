@@ -22,6 +22,8 @@ Google the name of your campus and one of the following: high performance comput
  2) They may charge you for storage
  3) THe may charge you a yearly fee
 
+Alternatively, your country may have a super computer that they share. https://access-ci.org/ is a NSF wide super computer for the USA.
+
 ## Working on supercomputers
 
 ### Log in
