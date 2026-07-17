@@ -16,6 +16,12 @@ AWS supercomputers aren't cheap, so it's nice if your campus has a cluster, supe
 
 ## How do I find out of my campus has a super computer?
 
+Google the name of your campus and one of the following: high performance computing, HPC, compute cluster, super computer, nodes.
+
+ 1) you will need an account to use it
+ 2) They may charge you for storage
+ 3) THe may charge you a yearly fee
+
 ## Working on supercomputers
 
 ### Log in
