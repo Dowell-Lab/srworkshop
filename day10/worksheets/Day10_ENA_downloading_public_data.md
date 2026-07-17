@@ -5,7 +5,7 @@ Authors: Mary Allen (2023, update 2026)
 
 ## FASTQ downloads
 
-You are going to collect metadata about your project from two websites. 
+You are going to collect metadata about your project from a website and then you are going to use scripts to download that data. 
 
 https://www.ebi.ac.uk/ena/browser/
 
