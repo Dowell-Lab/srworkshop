@@ -41,7 +41,10 @@ You will then get a homepage for the repository.
 
 ## Clone the repository (pick SSH!)
 
+MAKE SURE YOU ARE ON A COMPUTER WITH A GITHUB KEY. If not, go back to day 1 and use the worksheet SSH_AWS.md to make a key and put it on github!
+
 ![](images/cloneit.png)
+
 
 
 ### General rule of thumb, pick HTTP to clone something you will only pull from, SSH if you want to pull and push
