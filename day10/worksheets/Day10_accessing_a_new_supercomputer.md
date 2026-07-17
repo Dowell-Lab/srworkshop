@@ -14,6 +14,8 @@ AWS supercomputers aren't cheap, so it's nice if your campus has a cluster, supe
 | Rosalind | TICR High Performance Computing | CU Anschutz: Authorized faculty, students, and staff | Must be on campus or use vpn when off campus. Requires a password. |
 | Bodhi | Dept of Biochemistry and Molecular Genetics, School of Medicine (david.farrell@cuanschutz.edu) | CU Anschutz  Authorized faculty, students, and staff | Must be on campus or use VPN, and Duo 2-factor authentication using university credentials |
 
+## How do I find out of my campus has a super computer?
+
 ## Working on supercomputers
 
 ### Log in
