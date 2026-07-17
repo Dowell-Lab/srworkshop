@@ -2,24 +2,6 @@
 
 Authors: Mary Allen (2023, update 2026)
 
-## Pre-processed ChIP-seq from CistromeDB 
-
-1. Go to http://cistrome.org/db/#/
-
-2. Pick an organism, cell line and TF
-
-3. You can do a lot on this site
-
-   a. download the bed file
-
-   b. look at the quality of each chip
-
-   c. See what motif was most enriched in this chip
-
-   d. Find genes that may be regulated by this TF
-
-   e. They also have a site you can search a gene to see what TFs bind it
-http://dbtoolkit.cistrome.org/
 
 ## FASTQ downloads
 
@@ -74,4 +56,23 @@ This is what that file ("the download script") looks like
 9. Once all the fastq files look like they have been downloaded run the checkmd5totxt.sh by typing `bash checkmd5totxt.sh`
 
 that will output a file full of md5scores for your fastq. You need to compare those md5 scores to the md5 scores in the tsv you put in metadata to make sure the fastq downloaded without error. 
-   
+
+
+## Pre-processed ChIP-seq from CistromeDB 
+
+1. Go to http://cistrome.org/db/#/
+
+2. Pick an organism, cell line and TF
+
+3. You can do a lot on this site
+
+   a. download the bed file
+
+   b. look at the quality of each chip
+
+   c. See what motif was most enriched in this chip
+
+   d. Find genes that may be regulated by this TF
+
+   e. They also have a site you can search a gene to see what TFs bind it
+http://dbtoolkit.cistrome.org/
