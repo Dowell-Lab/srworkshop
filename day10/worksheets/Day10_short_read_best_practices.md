@@ -18,7 +18,7 @@ By Mary Allen and Robin Dowell
 ## Run your analysis
 - Set up your storage system optimally
     -`/scratch/` vs `/Users/` - fast vs backed up
-    - Make a directory on `/scratch` for each of your projects (`/scratch/Shares/<labname>/` or `/scratch/Users/<username>/`)
+    - Make a directory for each of your projects
     - Make an input and output directory in your project directory
         - Rsync your raw data to your input directory on scratch
             - Scratch is not backed up!
@@ -53,8 +53,8 @@ By Mary Allen and Robin Dowell
     - Uploading to GEO should automatically upload to the SRA
     - Again, it's not a bad idea to upload soon after receiving data from the sequencer
 - You must report all manipulations of data (manual or through analysis tools)
-- All versions of all programs used must be noted and the paper associated with the program should be cited in the methods section. Example: “We used Tfit (Azofeifa 2017) v 1.1 to identify eRNAs.”
+- All versions of all programs used must be noted and the paper associated with the program should be cited in the methods section. Example: "We used Tfit (Azofeifa 2017) v 1.1 to identify eRNAs."
     - For reproducibility, you MUST note all the flags/options you used if not standard (i.e. defaults are assumed)
-        - You can do this in your scripts on GitHub and provide the “source” code for version information (must provide GitHub link in methods and intend to maintain the repository).
+        - You can do this in your scripts on GitHub and provide the "source" code for version information (must provide GitHub link in methods and intend to maintain the repository).
         - You can also use Jupyter notebooks to document analysis, plotting, manipulations and versions. Provide the Jupyter notebook in the methods.
         - Or you can simply note all the flags in the methods section - this works well if there are few of them, but gets a bit unwieldy if you used a lot of software and unique options.
