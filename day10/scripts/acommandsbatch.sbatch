@@ -4,7 +4,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --time=24:00:00
-#SBATCH --partition=short
 #SBATCH --mem=50mb
 #SBATCH --output=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.out
 #SBATCH --error=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.err
