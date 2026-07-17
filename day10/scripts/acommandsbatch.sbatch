@@ -8,7 +8,7 @@
 #SBATCH --output=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.out
 #SBATCH --error=/scratch/Users/ispe1418/disease_datasets/ptsd/eando/%x_%A_%a.err
 #SBATCH --mail-type=FAIL
-#SBATCH --mail-user=ispe1418@colorado.edu
+#SBATCH --mail-user=<youremail>
 
 # This script is meant to be run as a job array.
 # Each array task handles one line (one wget) from $infile.
