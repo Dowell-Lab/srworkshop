@@ -6,7 +6,7 @@ Answer: Make simulated data.
 Go to this link and download the three files into a directory on your computer. 
 https://drive.google.com/drive/u/2/folders/1Y30ygVpg-XF3iZAYIIAET23b9jb0vpcw
 
-Then open `Day10/scripts/simuateT21.R` in Rstudio. 
+Then open `Day10/scripts/simulatedata.R` in Rstudio. 
 
 I have already set it up to read in three files
 1. `expression.csv`
